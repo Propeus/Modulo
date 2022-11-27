@@ -1,0 +1,719 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Propeus.Modulo.IL</name>
+    </assembly>
+    <members>
+        <member name="T:Propeus.Modulo.IL.Enums.AcessadorEnum">
+            <summary>
+            Acessadores de objetos
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.AcessadorEnum.Privado">
+            <summary>
+            private
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.AcessadorEnum.Publico">
+            <summary>
+            public
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.AcessadorEnum.Protegido">
+            <summary>
+            protected
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.AcessadorEnum.Interno">
+            <summary>
+            internal
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.AcessadorEnum.OcutarAssinatura">
+            <summary>
+            hidebysig
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Enums.TokenEnum">
+            <summary>
+            Enumerador para identificar o tipo de acessador de uma classe, metodo, propriedade etc.
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Privado">
+            <summary>
+            private
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Publico">
+            <summary>
+            public
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Protegido">
+            <summary>
+            protected
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Interno">
+            <summary>
+            internal
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Virtual">
+            <summary>
+            virtual
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Final">
+            <summary>
+            final
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.NovoSlot">
+            <summary>
+            newslot
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.NomeEspecial">
+            <summary>
+            specialname
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.OcutarAssinatura">
+            <summary>
+            hidebysig
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Abstrato">
+            <summary>
+            abstract
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.Classe">
+            <summary>
+            class
+            </summary>
+        </member>
+        <member name="F:Propeus.Modulo.IL.Enums.TokenEnum.RotuloNomeEspecial">
+            <summary>
+            rtspecialname
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Geradores.ILCampo">
+            <summary>
+            Cria um campo
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Geradores.ILClasse">
+            <summary>
+            Gera uma classe em IL
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.#ctor(Propeus.Modulo.IL.ILGerador,System.String,System.String,System.Type,System.Type[],Propeus.Modulo.IL.Enums.TokenEnum[])">
+            <summary>
+            Instancia para criar uma classe
+            </summary>
+            <param name="iLGerador">Gerador de IL atual</param>
+            <param name="nome">Nome da classe</param>
+            <param name="namespace">Namespace da classe</param>
+            <param name="base">Objeto a ser extendido para classse</param>
+            <param name="interfaces">Interface a ser implementado na classe</param>
+            <param name="acessadores">Acessadores da classe</param>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILClasse.Nome">
+            <summary>
+            Nome da classe
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILClasse.Namespace">
+            <summary>
+            Namespace da classe
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILClasse.Base">
+            <summary>
+            Tipo extendido da classe
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.GetInterfaces">
+            <summary>
+            Interfaces implementadas na classe
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.GetAcessadores">
+            <summary>
+            Acessadores da classe
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILClasse.TipoGerado">
+            <summary>
+            Tipo gerado da classe
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.Executar">
+            <summary>
+            Executa a montagem da classe
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.ToString">
+            <summary>
+            Obtem a construção da classe em IL
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Geradores.ILMetodo">
+            <summary>
+            Gerador de metodos
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.#ctor(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum[],System.Type,System.Type[])">
+            <summary>
+            Cria um novo metodo
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessadores"></param>
+            <param name="retorno"></param>
+            <param name="parametros"></param>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Nome">
+            <summary>
+            Nome do metodo
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Retorno">
+            <summary>
+            Retorno do metodo
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.Executar">
+            <summary>
+            Executa a construção do IL
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.ToString">
+            <summary>
+            Exibe o metodo em IL
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILPropriedade.Nome">
+            <summary>
+            Nome do metodo
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILPropriedade.Retorno">
+            <summary>
+            Retorno do metodo
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Helpers.Helper">
+            <summary>
+            Classe de ajuda para montagem de classes
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.AtribuirValor(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILCampo,System.Int32)">
+            <summary>
+            Armazena o valor no campo especificado
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLCampo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarClasse(Propeus.Modulo.IL.ILGerador)">
+            <summary>
+            Gera uma classe basica
+            </summary>
+            <param name="iLGerador"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse)">
+            <summary>
+            Cria um metodo auto gerado
+            <para>
+            Por padrão o metodo é publico sem retorno e sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,System.Type)">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo com retorno e sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="retorno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,System.Type,System.Type[])">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo com parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="retorno"></param>
+            <param name="parametros"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum)">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem retorno e sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessador"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum,System.Type)">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessador"></param>
+            <param name="retorno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum,System.Type,System.Type[])">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessador"></param>
+            <param name="retorno"></param>
+            <param name="parametros"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum[])">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem retorno e sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessadores"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum[],System.Type)">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessadores"></param>
+            <param name="retorno"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarMetodo(Propeus.Modulo.IL.Geradores.ILClasse,System.String,Propeus.Modulo.IL.Enums.TokenEnum[],System.Type,System.Type[])">
+            <summary>
+            Cria um metodo
+            <para>
+            Por padrão o metodo sem parametro
+            </para>
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="nome"></param>
+            <param name="acessadores"></param>
+            <param name="retorno"></param>
+            <param name="parametros"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarConstrutor(Propeus.Modulo.IL.Geradores.ILClasse)">
+            <summary>
+            Cria um construtor padrão
+            </summary>
+            <param name="iLClasse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CarregarArgumento(Propeus.Modulo.IL.Geradores.ILMetodo,System.Int32)">
+            <summary>
+            Carrega um argumento para a pilha de execução
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="indice"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CarregarArgumento(Propeus.Modulo.IL.Geradores.ILMetodo,System.String)">
+            <summary>
+            Carrega um argumento para a pilha de execução
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CarregarCampo(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILCampo)">
+            <summary>
+            Carrega um campo para a pilha de execução
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLCampo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CarregarVariavel(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILVariavel)">
+            <summary>
+            Carrega um campo para a pilha de execução
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLVariavel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ArmazenarVariavel(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILVariavel)">
+            <summary>
+            Armazena o valor na variavel
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLVariavel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ArmazenarCampo(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILCampo)">
+            <summary>
+            Armazena o valor na variavel
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLCampo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ChamarFuncao(Propeus.Modulo.IL.Geradores.ILMetodo,System.Reflection.ConstructorInfo)">
+            <summary>
+            Chama uma função de um objeto
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="constructorInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ChamarFuncao(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILVariavel)">
+            <summary>
+            Chama uma função de um objeto
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="iLVariavel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ChamarFuncaoVirtual(Propeus.Modulo.IL.Geradores.ILMetodo,System.Reflection.MethodInfo)">
+            <summary>
+            Chama uma função de um objeto
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="methodInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Int32)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Int64)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Single)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Double)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Int16)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarRetorno(Propeus.Modulo.IL.Geradores.ILMetodo,System.Decimal)">
+            <summary>
+            Cria o 'return'
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.Converter(Propeus.Modulo.IL.Geradores.ILMetodo,System.Type)">
+            <summary>
+            Converte o valor da pilha de execução no tipo especificado
+            </summary>
+            <param name="iLMetodo"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Helpers.Helper.CriarArray(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILVariavel,System.Int32)">
+            <summary>
+            Cria um array com o tamanho especificado
+            </summary>
+            <param name="iLVariavel"></param>
+            <param name="iLMetodo"></param>
+            <param name="tamanho"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Propeus.Modulo.IL.ILGerador">
+            <summary>
+            Classe para montagem inicial do Assembly
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.ILGerador.Proxy">
+            <summary>
+            Obtem um clone do <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/>
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.ILGerador.#ctor(System.String,System.String)">
+            <summary>
+            Construtor do gerador de IL
+            </summary>
+            <param name="nomeAssembly">Nome do assembly</param>
+            <param name="nomeModulo">Nome do modulo</param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.ILGerador.ObterInstancia(Propeus.Modulo.IL.Geradores.ILClasse,System.Object[])">
+            <summary>
+            Obtem a instancia da classe
+            </summary>
+            <param name="iLClasse"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Interfaces.IILExecutor">
+            <summary>
+            Interface para execução de função
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Interfaces.IILExecutor.Executar">
+            <summary>
+            Executa a montagem do código IL
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILCall">
+            <summary>
+            Chama uma função
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILFloat32">
+            <summary>
+            <see cref="T:System.Single"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILFloat64">
+            <summary>
+            <see cref="T:System.Double"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILInt16">
+            <summary>
+            <see cref="T:System.Int16"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILInt32">
+            <summary>
+            <see cref="T:System.Int32"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILInt64">
+            <summary>
+            <see cref="T:System.Int64"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILInt8">
+            <summary>
+            <see cref="T:System.SByte"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILLdarg">
+            <summary>
+            Carrega o agumento no indice desejado
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILLdfld">
+            <summary>
+            Carrega o campo no indice desejado
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILLdstr">
+            <summary>
+            Carrega uma <see cref="T:System.String"/> para a pilha de execução
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILNewObj">
+            <summary>
+            operador 'new'
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILRetornar">
+            <summary>
+            Cria uma instrução IL de retorno
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILStfld">
+            <summary>
+            Armazena o valor no campo indicado
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILValueType">
+            <summary>
+            <see cref="T:System.Decimal"/>
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Properties.Resources">
+            <summary>
+              Uma classe de recurso de tipo de alta segurança, para pesquisar cadeias de caracteres localizadas etc.
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.ResourceManager">
+            <summary>
+              Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.Culture">
+            <summary>
+              Substitui a propriedade CurrentUICulture do thread atual para todas as
+              pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.ANALISADOR_PILHA_ERRO">
+            <summary>
+              Consulta uma cadeia de caracteres localizada semelhante a Falha na analise da pilha..
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.ANALISADOR_SEM_PILHA_EXECUCAO">
+            <summary>
+              Consulta uma cadeia de caracteres localizada semelhante a Este compilador não possui uma pilha de execução..
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.CLASSE_SEM_PROXY">
+            <summary>
+              Consulta uma cadeia de caracteres localizada semelhante a Esta classe não possui proxy.
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.METODO_NAO_IMPLEMENTADO">
+            <summary>
+              Consulta uma cadeia de caracteres localizada semelhante a Metodo não implementado.
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Properties.Resources.TIPO_NAO_MAPEADO">
+            <summary>
+              Consulta uma cadeia de caracteres localizada semelhante a Tipo nao mapeado.
+            </summary>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy">
+            <summary>
+            Abstração de <see cref="T:System.Reflection.Emit.PropertyBuilder"/>, <see cref="T:System.Reflection.Emit.MethodBuilder"/>, <see cref="T:System.Reflection.Emit.FieldBuilder"/>, <see cref="T:System.Reflection.Emit.EventBuilder"/> em um unico objeto
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor">
+            <summary>
+            Construtor simples
+            </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.PropertyBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.PropertyBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.MethodBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.MethodBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.FieldBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.FieldBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.EventBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.EventBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.ConstructorBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.ConstructorBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.TypeBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.TypeBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.#ctor(System.Reflection.Emit.AssemblyBuilder)">
+            <summary>
+            Instncia a <see cref="T:Propeus.Modulo.IL.Proxy.ILBuilderProxy"/> adicionando o <see cref="T:System.Reflection.Emit.AssemblyBuilder"/>
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.ObterBuilder``1">
+            <summary>
+            Obtem a builder passado no parametro do construtor
+            </summary>
+            <typeparam name="TBuilder"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.AdicionarBuilders(System.Object[])">
+            <summary>
+            Adiciona um novo builder no proxy
+            </summary>
+            <param name="builders"></param>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.Clone(System.Boolean)">
+            <summary>
+            Cria uma nova instancia da classe passando somente o <see cref="T:System.Reflection.Emit.AssemblyBuilder"/> e <see cref="T:System.Reflection.Emit.ModuleBuilder"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Proxy.ILBuilderProxy.ToString">
+            <summary>
+            Exibe a pilha de execução do IL
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
