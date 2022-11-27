@@ -1,0 +1,5 @@
+/workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.csproj.AssemblyReference.cache
+/workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.AssemblyInfoInputs.cache
+/workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.AssemblyInfo.cs
+/workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.csproj.CoreCompileInputs.cache
