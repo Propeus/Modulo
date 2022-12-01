@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
 
 using static Propeus.Modulo.Abstrato.Constante;
 
@@ -29,11 +30,14 @@ namespace Propeus.Modulo.Abstrato.Util
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
             }
 
-            MemoryStream memorystream = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(memorystream, obj);
-            byte[] objBytes = memorystream.ToArray();
-            return objBytes;
+           var size = Marshal.SizeOf(obj);
+           var bytes = new byte[size];
+           var ptr = Marshal.AllocHGlobal(size);
+           Marshal.StructureToPtr(obj, ptr, false);
+           Marshal.Copy(ptr, bytes, 0, size);
+           Marshal.FreeHGlobal(ptr);
+
+           return bytes;
         }
 
         /// <summary>

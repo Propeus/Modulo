@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -42,10 +43,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="SerializationException">Objeto não serializavel</exception>
         public static object Deserializar(this byte[] obj, Type type)
         {
-            MemoryStream memorystreamd = new MemoryStream(obj);
-            +
-             bfd = new BinaryFormatter();
-            object objeto = Convert.ChangeType(bfd.Deserialize(memorystreamd), type);
+            var size = Marshal.SizeOf(obj);
+            var ptr = Marshal.AllocHGlobal(size);
+            Marshal.Copy(obj, 0, ptr, size);
+            var objeto = Marshal.PtrToStructure(ptr, type);
+            Marshal.FreeHGlobal(ptr);
             return objeto;
         }
 
@@ -78,6 +80,6 @@ namespace Propeus.Modulo.Abstrato.Util
             return System.Text.Encoding.Default.GetBytes(obj);
         }
 
-      
+
     }
 }
