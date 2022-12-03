@@ -1,4 +1,5 @@
 ﻿using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.Abstrato;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace Propeus.Modulo.Core
         /// <summary>
         /// Informa se o modulo foi eliminado da aplicação
         /// </summary>
-        public bool Elimindado => (Coletado || (WeakReference.Target as IModulo)?.Estado == EstadoEnums.Desligado || Modulo.Disposed);
+        public bool Elimindado => (Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado || Modulo.Disposed);
         /// <summary>
         /// Informações sobre o modulo na visão do <see cref="GC"/>
         /// </summary>

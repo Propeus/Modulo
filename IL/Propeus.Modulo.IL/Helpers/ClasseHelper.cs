@@ -23,5 +23,7 @@ namespace Propeus.Modulo.IL.Helpers
             iLGerador.Classes.Add(cls);
             return cls;
         }
+
+        
     }
 }

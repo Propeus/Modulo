@@ -18,7 +18,7 @@ namespace Propeus.Modulo.Core
         public BaseModelo()
         {
             Nome = GetType().Name;
-            Estado = EstadoEnums.Inicializado;
+            Estado = Estado.Inicializado;
             Id = Guid.NewGuid().ToString();
         }
 
@@ -29,7 +29,7 @@ namespace Propeus.Modulo.Core
         public BaseModelo(string nome)
         {
             Nome = nome;
-            Estado = EstadoEnums.Inicializado;
+            Estado = Estado.Inicializado;
             Id = Guid.NewGuid().ToString();
         }
 
@@ -93,7 +93,7 @@ namespace Propeus.Modulo.Core
             {
                 if (disposing)
                 {
-                    Estado = EstadoEnums.Desligado;
+                    Estado = Abstrato.Estado.Desligado;
                 }
 
                 disposedValue = true;

@@ -1,10 +1,11 @@
-﻿using Propeus.Modulo.Util.Objetos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Modulo.Abstrato.Util;
 
 namespace Propeus.Modulo.IL.Proxy
 {

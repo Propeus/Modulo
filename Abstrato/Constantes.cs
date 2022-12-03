@@ -41,5 +41,29 @@ namespace Propeus.Modulo.Abstrato
         public const string MetodoConfiguracao = "CriarConfiguracao";
         //Metodo que o gerenciado deverá realizar a injeção de dependencias.
         public const string MetodoConfiguMetodoInstanciaracao = "CriarInstancia";
+
+
+        public const string ERRO_ARGUMENTO_NULO_OU_VAZIO = "O parametro '{0}' é nulo ou vazio";
+        public const string ERRO_ARGUMENTO_TIPO_ESPERADO = "O argumento '{0}' requer o tipo '{1}', o tipo passado foi '{2}'";
+        public const string ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO = "O modulo requer um contrutor com o parametro do tipo IGerenciador";
+        public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO = "Não foi possivel encontrar um construtor";
+        public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO_PARAMETROS = "Não foi possivel encontrar um construtor com {0} parametros.\nO contrutor {1} requer {2} parametros";
+        public const string ERRO_CONSTRUTOR_PADRAO_NAO_ENCONTRADO = "Não foi encontrado o contrutor padrão {0}({1} gerenciador){{2}}";
+        public const string ERRO_GERENCIADOR_DESATIVADO = "O gerenciador já foi desaativado";
+        public const string ERRO_MODULO_CONTRATO_NAO_ENCONTRADO = "Não foi possivel encontrar o atributo de contrato";
+        public const string ERRO_MODULO_ID_DESCARTADO = "Modulo '{0}' foi descartado.";
+        public const string ERRO_MODULO_INSTANCIA_UNICA = "Não é possivel criar uma nova instancia de um modulo de instancia unica";
+        public const string ERRO_MODULO_NAO_ENCONTRADO = "Modulo '{0}' não encontrado.\nVerifique se o nome esta correto na interface de contrato";
+        public const string ERRO_MODULO_NEW_REINICIAR = "Não é possivel reiniciar modulos criados fora do gerenciador";
+        public const string ERRO_MODULO_REGISTRADO = "O modulo '{0}::{1}' já foi registrado";
+        public const string ERRO_MODULO_REGISTRADO_CACHE = "O modulo '{0}::{1}' já foi registrado no cache.";
+        public const string ERRO_NOME_MODULO_NAO_ENCONTRADO = "Modulo '{0}' não encontrado";
+        public const string ERRO_TIPO_AMBIGUO = "Foi encontrado mais de um tipo do modulo '{0}'.";
+        public const string ERRO_TIPO_INVALIDO = "O tipo deve ser uma classe ou interface.";
+        public const string ERRO_TIPO_NAO_HERDADO = "O tipo não é herdado de IModulo";
+        public const string ERRO_TIPO_NAO_MARCADO = "O tipo não esta marcado como modulo";
+        public const string ERRO_TIPO_VOID = "O tipo não pode ser void";
+        public const string ERRO_MODULO_ID_NAO_ENCONTRADO = "Modulo nao encontrado pelo id '{0}'";
+
     }
 }

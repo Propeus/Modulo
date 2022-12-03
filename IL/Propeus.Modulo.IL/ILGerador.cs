@@ -50,5 +50,11 @@ namespace Propeus.Modulo.IL
 
             return Activator.CreateInstance(iLClasse.TipoGerado, args);
         }
+
+        public static dynamic ClonarClasse<TClasse>(){
+
+
+
+        }
     }
 }

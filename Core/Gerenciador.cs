@@ -1,5 +1,8 @@
 ﻿using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
+
+using Propeus.Modulo.Abstrato.Util;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -74,12 +77,12 @@ namespace Propeus.Modulo.Core
             IEnumerable<Type> result = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName == nomeModulo ^ t.Name == nomeModulo);
             if (!result.Any())
             {
-                throw new Exception(string.Format(Resources.Culture, Resources.ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo));
+                throw new Exception(string.Format(ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo));
             }
 
             if (result.Count() > 1)
             {
-                throw new IndexOutOfRangeException(string.Format(Resources.Culture, Resources.ERRO_TIPO_AMBIGUO, nomeModulo));
+                throw new IndexOutOfRangeException(string.Format(ERRO_TIPO_AMBIGUO, nomeModulo));
             }
 
             return Criar(result.First(), argumentos);
@@ -94,30 +97,30 @@ namespace Propeus.Modulo.Core
         public IModulo Criar(Type modulo, params object[] argumentos)
         {
 
-            if (modulo.IsNull())
+            if (modulo is null)
             {
                 throw new ArgumentNullException(nameof(modulo));
             }
 
             if (modulo.IsVoid())
             {
-                throw new InvalidCastException(Resources.ERRO_TIPO_VOID);
+                throw new InvalidCastException(ERRO_TIPO_VOID);
             }
 
 
             if (modulo.IsInterface)
             {
-                Modelos.Atributos.ModuloContratoAttribute attr = modulo.ObterModuloContratoAtributo();
+                ModuloContratoAttribute attr = modulo.ObterModuloContratoAtributo();
 
                 if (attr is null)
                 {
-                    throw new InvalidOperationException(Resources.ERRO_TIPO_NAO_MARCADO);
+                    throw new InvalidOperationException(ERRO_TIPO_NAO_MARCADO);
                 }
 
                 modulo = modulo.ObterTipoPorModuloContratoAtributo();
-                if (modulo.IsNull())
+                if (modulo is null)
                 {
-                    throw new DllNotFoundException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
+                    throw new DllNotFoundException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
                 }
 
             }
@@ -126,23 +129,23 @@ namespace Propeus.Modulo.Core
             {
                 if (modulo.Is<IModulo>().Not())
                 {
-                    throw new InvalidCastException(Resources.ERRO_TIPO_NAO_HERDADO);
+                    throw new InvalidCastException(ERRO_TIPO_NAO_HERDADO);
                 }
 
                 if (modulo.ObterModuloAtributo().IsNull())
                 {
-                    throw new ArgumentException(Resources.ERRO_TIPO_NAO_MARCADO);
+                    throw new ArgumentException(ERRO_TIPO_NAO_MARCADO);
                 }
             }
             else
             {
-                throw new InvalidOperationException(Resources.ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
+                throw new InvalidOperationException(ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
             }
 
 
             if (Cache.ContainsKey(modulo.FullName))
             {
-                throw new ArgumentException(Resources.ERRO_MODULO_INSTANCIA_UNICA);
+                throw new ArgumentException(ERRO_MODULO_INSTANCIA_UNICA);
             }
 
             ConstructorInfo ctor = null;
@@ -151,7 +154,7 @@ namespace Propeus.Modulo.Core
                 ctor = modulo.GetConstructors().OrderByDescending(x => x.GetParameters().Length == argumentos.Length).FirstOrDefault();
                 if (ctor is null)
                 {
-                    throw new InvalidOperationException(Resources.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
+                    throw new InvalidOperationException(ERRO_CONSTRUTOR_NAO_ENCONTRADO);
                 }
                 ParameterInfo[] paramst = ctor.GetParameters();
                 object[] arr = new object[paramst.Length];
@@ -162,7 +165,7 @@ namespace Propeus.Modulo.Core
                     {
                         if (!argumentos[i].Herdado<IGerenciador>())
                         {
-                            throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name));
+                            throw new ArgumentException(string.Format(ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name));
                         }
                         else
                         {
@@ -195,14 +198,14 @@ namespace Propeus.Modulo.Core
                 ctor = modulo.GetConstructors().OrderBy(x => x.GetParameters()).FirstOrDefault();
                 if (ctor is null)
                 {
-                    throw new InvalidOperationException(Resources.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
+                    throw new InvalidOperationException(ERRO_CONSTRUTOR_NAO_ENCONTRADO);
                 }
 
                 ParameterInfo[] paramst = ctor.GetParameters();
 
                 if (paramst.Length == 0)
                 {
-                    throw new InvalidOperationException(Resources.ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO);
+                    throw new InvalidOperationException(ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO);
                 }
 
                 object[] arr = new object[paramst.Length];
@@ -236,7 +239,7 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), string.Format(Util.Properties.Resources.Culture, Util.Properties.Resources.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), string.Format(ARGUMENTO_NULO, nameof(modulo)));
             }
 
             Type t = modulo.GetType();
@@ -285,25 +288,25 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), string.Format(Util.Properties.Resources.Culture, Util.Properties.Resources.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), string.Format(ARGUMENTO_NULO, nameof(modulo)));
             }
 
             if (modulo.IsVoid())
             {
-                throw new InvalidCastException(Resources.ERRO_TIPO_VOID);
+                throw new InvalidCastException(ERRO_TIPO_VOID);
             }
 
             IEnumerable<IModuloTipo> info = null;
             if (modulo.IsInterface)
             {
-                Modelos.Atributos.ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
+                ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
                 modulo = modulo.ObterTipoPorModuloContratoAtributo();
             }
 
 
             if (modulo is null)
             {
-                throw new NullReferenceException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, modulo.FullName));
+                throw new NullReferenceException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, modulo.FullName));
             }
 
 
@@ -329,18 +332,18 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new InvalidOperationException(Resources.ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
+                throw new InvalidOperationException(ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
             }
 
             if (info is null || !info.Any())
             {
-                throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
+                throw new ArgumentException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
             }
 
             IModuloTipo result = info.First(m => !m.Elimindado);
             if (result.Elimindado)
             {
-                throw new InvalidProgramException(string.Format(Resources.Culture, Resources.ERRO_MODULO_ID_DESCARTADO, result.Nome));
+                throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, result.Nome));
             }
 
             return result.Modulo;
@@ -350,12 +353,12 @@ namespace Propeus.Modulo.Core
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id), string.Format(Util.Properties.Resources.Culture, Resources.ERRO_ARGUMENTO_NULO_OU_VAZIO, nameof(id)));
+                throw new ArgumentNullException(nameof(id), string.Format(ERRO_ARGUMENTO_NULO_OU_VAZIO, nameof(id)));
             }
 
             if (!Existe(id))
             {
-                throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_MODULO_ID_NAO_ENCONTRAADO, id), nameof(id));
+                throw new ArgumentException(string.Format(ERRO_MODULO_ID_NAO_ENCONTRADO, id), nameof(id));
             }
 
             IModuloTipo info = Modulos[id];
@@ -363,7 +366,7 @@ namespace Propeus.Modulo.Core
 
             if (info.Elimindado)
             {
-                throw new InvalidProgramException(string.Format(Resources.Culture, Resources.ERRO_MODULO_ID_DESCARTADO, id));
+                throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, id));
             }
 
             return info.Modulo;
@@ -382,10 +385,10 @@ namespace Propeus.Modulo.Core
             if (type.IsInterface)
             {
 
-                Modelos.Atributos.ModuloContratoAttribute contrato = type.ObterModuloContratoAtributo();
+                ModuloContratoAttribute contrato = type.ObterModuloContratoAtributo();
                 if (contrato is null)
                 {
-                    throw new InvalidProgramException(Resources.ERRO_MODULO_CONTRATO_NAO_ENCONTRADO);
+                    throw new InvalidProgramException(ERRO_MODULO_CONTRATO_NAO_ENCONTRADO);
                 }
 
                 if (Cache.TryGetValue(contrato.Nome, out string idOuter))
@@ -406,7 +409,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new InvalidOperationException(Resources.ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
+                throw new InvalidOperationException(ERRO_TIPO_INVALIDO); //Um modulo deve ser uma interface ou classe
             }
 
             return result;
@@ -414,7 +417,7 @@ namespace Propeus.Modulo.Core
 
         public bool Existe(IModulo modulo)
         {
-            if (modulo.IsNull())
+            if (modulo is null)
             {
                 throw new ArgumentNullException(nameof(modulo));
             }
@@ -424,7 +427,7 @@ namespace Propeus.Modulo.Core
 
         public bool Existe(string id)
         {
-            if (id.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -442,7 +445,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new InvalidOperationException(Resources.ERRO_MODULO_NEW_REINICIAR);
+                throw new InvalidOperationException(ERRO_MODULO_NEW_REINICIAR);
             }
 
         }
@@ -459,7 +462,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new InvalidOperationException(Resources.ERRO_MODULO_NEW_REINICIAR);
+                throw new InvalidOperationException(ERRO_MODULO_NEW_REINICIAR);
             }
         }
 
@@ -476,14 +479,14 @@ namespace Propeus.Modulo.Core
             {
                 if (Cache.ContainsKey(t.FullName))
                 {
-                    throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_MODULO_REGISTRADO_CACHE, modulo.Nome, modulo.Id));
+                    throw new ArgumentException(string.Format(ERRO_MODULO_REGISTRADO_CACHE, modulo.Nome, modulo.Id));
                 }
                 Cache.TryAdd(t.FullName, modulo.Id);
             }
 
             if (Modulos.ContainsKey(modulo.Id))
             {
-                throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_MODULO_REGISTRADO, modulo.Nome, modulo.Id));
+                throw new ArgumentException(string.Format(ERRO_MODULO_REGISTRADO, modulo.Nome, modulo.Id));
             }
 
             IModuloTipo info = new ModuloTipo(modulo);

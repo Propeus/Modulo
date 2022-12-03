@@ -4,7 +4,7 @@ using System.Linq;
 
 using static Propeus.Modulo.Abstrato.Constante;
 
-namespace PPropeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Abstrato.Util
 {
     /// <summary>
     /// Classe de ajuda para <see cref="Enum"/>
@@ -34,6 +34,32 @@ namespace PPropeus.Modulo.Abstrato.Util
             else
             {
                 throw new ArgumentException(string.Format(ARGUMENTO_NAO_E_DO_TIPO, @enum.First().GetType().Name), nameof(@enum));
+            }
+        }
+
+/// <summary>
+        /// Obtém a descrição do enum
+        /// </summary>
+        /// <typeparam name="TEnum"><see cref="Enum"/> a ser obtido a descrição</typeparam>
+        /// <param name="enum">Valor do <see cref="Enum"/> que será obtido a descrição </param>
+        /// <returns></returns>
+        /// <exception cref="InvalidEnumArgumentException"><see cref="Enum"/> sem descrição</exception>
+        /// <exception cref="ArgumentException">Argumento <paramref name="enum"/> nulo</exception>
+        public static string ObterDescricaoEnum(this Enum @enum)
+        {
+            if (@enum is null)
+            {
+                throw new ArgumentNullException(nameof(@enum), ARGUMENTO_NULO_OU_VAZIO);
+            }
+
+            if (@enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true).Any())
+            {
+                string data = (@enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true).First() as DescriptionAttribute)?.Description;
+                return data;
+            }
+            else
+            {
+                throw new InvalidEnumArgumentException(ENUM_SEM_DESCRICAO);
             }
         }
 

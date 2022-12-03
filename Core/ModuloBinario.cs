@@ -1,4 +1,5 @@
 ﻿using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.Abstrato;
 using System;
 using System.Collections.Generic;

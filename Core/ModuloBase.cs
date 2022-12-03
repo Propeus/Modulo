@@ -3,6 +3,8 @@ using Propeus.Modulo.Abstrato;
 using System;
 using System.Text;
 
+using static Propeus.Modulo.Abstrato.Constante;
+
 namespace Propeus.Modulo.Core
 {
     /// <summary>
@@ -25,7 +27,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new ArgumentException(string.Format(MensagensErro.Culture, MensagensErro.GerenciadorInvalido, nameof(gerenciador)), nameof(gerenciador));
+                throw new ArgumentException(string.Format(GerenciadorInvalido, nameof(gerenciador)), nameof(gerenciador));
             }
 
             Nome = GetType().Name;

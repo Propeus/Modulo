@@ -1,7 +1,9 @@
 ﻿using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Pilhas;
-using Propeus.Modulo.Util.Objetos;
+
+using Propeus.Modulo.Abstrato.Util;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,9 @@ namespace Propeus.Modulo.IL.Helpers
 {
     public static partial class Helper
     {
+
+       
+
         public static ILCampo CriarCampo(this ILClasse iLClasse)
         {
             if (iLClasse is null)

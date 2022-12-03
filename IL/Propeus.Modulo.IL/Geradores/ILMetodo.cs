@@ -1,7 +1,9 @@
 ﻿using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
-using Propeus.Modulo.Util.Enumerados;
+
+using Propeus.Modulo.Abstrato.Util;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;

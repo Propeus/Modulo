@@ -1,6 +1,8 @@
 ﻿using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Pilhas;
-using Propeus.Modulo.Util.Objetos;
+
+using Propeus.Modulo.Abstrato.Util;
+
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
