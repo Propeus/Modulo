@@ -27,32 +27,34 @@
     ]
   },
   "packageFolders": {
-    "/home/codespace/.nuget/packages/": {}
+    "C:\\Users\\hillg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/workspaces/Modulo/Core/Core.csproj",
+      "projectUniqueName": "C:\\Users\\hillg\\Source\\Repos\\Propeus\\Modulo\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "/workspaces/Modulo/Core/Core.csproj",
-      "packagesPath": "/home/codespace/.nuget/packages/",
-      "outputPath": "/workspaces/Modulo/Core/obj/",
+      "projectPath": "C:\\Users\\hillg\\Source\\Repos\\Propeus\\Modulo\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\hillg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hillg\\source\\repos\\Propeus\\Modulo\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/codespace/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\hillg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/workspaces/Modulo/Abstrato/Abstrato.csproj": {
-              "projectPath": "/workspaces/Modulo/Abstrato/Abstrato.csproj"
+            "C:\\Users\\hillg\\Source\\Repos\\Propeus\\Modulo\\Abstrato\\Abstrato.csproj": {
+              "projectPath": "C:\\Users\\hillg\\Source\\Repos\\Propeus\\Modulo\\Abstrato\\Abstrato.csproj"
             }
           }
         }
@@ -82,7 +84,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/dotnet/7.0.100/sdk/7.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

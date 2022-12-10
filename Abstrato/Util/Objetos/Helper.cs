@@ -30,14 +30,19 @@ namespace Propeus.Modulo.Abstrato.Util
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
             }
 
-           var size = Marshal.SizeOf(obj);
-           var bytes = new byte[size];
-           var ptr = Marshal.AllocHGlobal(size);
-           Marshal.StructureToPtr(obj, ptr, false);
-           Marshal.Copy(ptr, bytes, 0, size);
-           Marshal.FreeHGlobal(ptr);
+            if (obj.Is<string>())
+            {
+                return obj.ToString().ToArrayByte();
+            }
 
-           return bytes;
+            var size = Marshal.SizeOf(obj);
+            var bytes = new byte[size];
+            var ptr = Marshal.AllocHGlobal(size);
+            Marshal.StructureToPtr(obj, ptr, false);
+            Marshal.Copy(ptr, bytes, 0, size);
+            Marshal.FreeHGlobal(ptr);
+
+            return bytes;
         }
 
         /// <summary>
@@ -238,6 +243,8 @@ namespace Propeus.Modulo.Abstrato.Util
             {
                 return Convert.ChangeType(obj, para);
             }
+
+
 
             throw new InvalidCastException(string.Format(TIPO_NAO_CONVERTIDO, obj.GetType().Name, para.Name));
         }

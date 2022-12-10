@@ -63,11 +63,10 @@ namespace Propeus.Modulo.Abstrato.Util
             {
                 throw new ArgumentNullException(nameof(bytes), ARGUMENTO_NULO_OU_VAZIO);
             }
+            var md5Hash = MD5.HashData(bytes);
+            var md5String = md5Hash.Select(c => c.ToString("x2"));
 
-            using MD5 md5 = new MD5CryptoServiceProvider();
-            StringBuilder stringBuilder = new StringBuilder();
-            md5.ComputeHash(bytes).Select(c => stringBuilder.Append(c.ToString("x2")));
-            return stringBuilder.ToString();
+            return string.Concat(md5String);
         }
 
         /// <summary>

@@ -28,7 +28,7 @@ namespace Propeus.Modulo.Abstrato.Util
 
             if (direita.IsNull())
             {
-                throw new ArgumentNullException(nameof(direita), ARGUMENTO_NULO);
+                return esquerda;
             }
 
             ICollection<T> join = new LinkedList<T>();
@@ -45,6 +45,30 @@ namespace Propeus.Modulo.Abstrato.Util
             }
             return join;
         }
+
+        /// <summary>
+        /// Obtém os itens em comum entre duas listas.
+        /// </summary>
+        /// <typeparam name="T">Tipo da lista</typeparam>
+        /// <param name="esquerda">Lista da esquerda</param>
+        /// <param name="direita">Lista da direita</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
+        public static IEnumerable<T> ConcatDistinct<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
+        {
+            if (esquerda.IsNull())
+            {
+                throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
+            }
+
+            if (direita.IsNull())
+            {
+                return esquerda;
+            }
+
+            return esquerda.Concat(direita).Distinct();
+        }
+
 
         /// <summary>
         /// Verifica se uma lista contem os parâmetros passados ou se são herdados.

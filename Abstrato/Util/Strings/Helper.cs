@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+
+using Propeus.Modulo.Abstrato.Util.Tabelas;
 
 using static Propeus.Modulo.Abstrato.Constante;
 
@@ -118,5 +121,45 @@ namespace Propeus.Modulo.Abstrato.Util
             }
             return typeof(T).GetMethods().Where(x => x.Name == nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
         }
+
+        public static string WriteTable(this object[] data)
+        {
+            if (data.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (data[0] ==null)
+            {
+                return string.Empty;
+            }
+
+            var propriedades = data[0].ObterPropriedadeInfoType().Select(t => t.Key).ToArray();
+
+            ConsoleTable consoleTable = new ConsoleTable(new ConsoleTableOptions
+            {
+                Columns = propriedades.Select(p => p.Name),
+                EnableCount = false,
+                NumberAlignment = Alignment.Right
+            });
+
+            foreach (var dataItem in data)
+            {
+                if (dataItem == null)
+                    continue;
+
+                var dataValor = new object[propriedades.Length];
+                for (int i = 0; i < propriedades.Length; i++)
+                {
+                    dataValor[i] = dataItem.ObterValorPropriedade(propriedades[i]);
+                }
+                consoleTable.AddRow(dataValor);
+            }
+
+            return consoleTable.ToString();
+
+        }
+
+
     }
 }

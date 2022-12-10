@@ -10,3 +10,15 @@
 /workspaces/Modulo/Abstrato/obj/Debug/net7.0/refint/Abstrato.dll
 /workspaces/Modulo/Abstrato/obj/Debug/net7.0/Abstrato.pdb
 /workspaces/Modulo/Abstrato/obj/Debug/net7.0/ref/Abstrato.dll
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\bin\Debug\net7.0\Abstrato.deps.json
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\bin\Debug\net7.0\Abstrato.dll
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\bin\Debug\net7.0\Abstrato.pdb
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.csproj.AssemblyReference.cache
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.AssemblyInfoInputs.cache
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.AssemblyInfo.cs
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.csproj.CoreCompileInputs.cache
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.dll
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\refint\Abstrato.dll
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\Abstrato.pdb
+C:\Users\hillg\Source\Repos\Propeus\Modulo\Abstrato\obj\Debug\net7.0\ref\Abstrato.dll
