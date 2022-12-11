@@ -122,7 +122,10 @@ namespace Propeus.Modulo.IL.Proxy
         /// <returns></returns>
         public TBuilder ObterBuilder<TBuilder>()
         {
-            return (TBuilder)Builders[typeof(TBuilder)];
+            if (Builders.ContainsKey(typeof(TBuilder)))
+                return (TBuilder)Builders[typeof(TBuilder)];
+
+            return default;
         }
 
         /// <summary>
@@ -138,6 +141,10 @@ namespace Propeus.Modulo.IL.Proxy
 
             foreach (object builder in builders)
             {
+
+                if (builder is null)
+                    continue;
+
                 Builders.Add(builder.GetType(), builder);
 
                 if (builder is MethodBuilder)
@@ -276,7 +283,7 @@ namespace Propeus.Modulo.IL.Proxy
         public ILBuilderProxy Clone(bool stack = false)
         {
             ILBuilderProxy proxy = new ILBuilderProxy();
-            proxy.RegistrarBuilders(ObterBuilder<AssemblyBuilder>(), ObterBuilder<ModuleBuilder>());
+            proxy.RegistrarBuilders(ObterBuilder<AssemblyBuilder>(), ObterBuilder<ModuleBuilder>(), ObterBuilder<TypeBuilder>());
             if (stack)
                 proxy.Stack = Stack;
 
@@ -359,7 +366,25 @@ namespace Propeus.Modulo.IL.Proxy
         }
 
 
+        public static implicit operator ILBuilderProxy(MethodBuilder methodBuilder)
+        {
+            return new ILBuilderProxy(methodBuilder);
+        }
+
+        public static implicit operator ILBuilderProxy(ConstructorBuilder constructorBuilder)
+        {
+            return new ILBuilderProxy(constructorBuilder);
+        }
 
 
+        public ILBuilderProxy ToILBuilderProxy(ConstructorBuilder methodBuilder)
+        {
+            return methodBuilder;
+        }
+
+        public ILBuilderProxy ToILBuilderProxy(MethodBuilder methodBuilder)
+        {
+            return methodBuilder;
+        }
     }
 }

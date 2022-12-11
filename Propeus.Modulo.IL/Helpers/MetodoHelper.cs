@@ -41,7 +41,7 @@ namespace Propeus.Modulo.IL.Helpers
 
             foreach (var mth in metodos)
             {
-                if (!iLClasse.Atual.Metodos.Any(m => m.Assinatura == mth.Name && m.Parametros == mth.ObterTipoParametros().ToArray()))
+                if (!iLClasse.Atual.Metodos.Any(m => m.Nome == mth.Name && m.Parametros == mth.ObterTipoParametros().ToArray()))
                 {
                     yield return iLClasse.CriarMetodo(mth.Name, mth.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), mth.ReturnType, mth.ObterTipoParametros().ToArray());
                 }
@@ -123,7 +123,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo.Proxy, indice));
+            iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo._metodoBuilder, indice));
             return iLMetodo;
         }
 
@@ -142,7 +142,7 @@ namespace Propeus.Modulo.IL.Helpers
 
             for (int indice = indiceInicial; indice <= indiceFinal; indice++)
             {
-                iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo.Proxy, indice));
+                iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo._metodoBuilder, indice));
             }
             return iLMetodo;
         }
@@ -165,7 +165,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(valor));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILLdstr(iLMetodo.Proxy, valor));
+            iLMetodo.PilhaExecucao.Add(new ILLdstr(iLMetodo._metodoBuilder, valor));
             return iLMetodo;
         }
 
@@ -187,7 +187,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLCampo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILLdfld(iLMetodo.Proxy, iLCampo.Proxy.ObterBuilder<FieldBuilder>()));
+            iLMetodo.PilhaExecucao.Add(new ILLdfld(iLMetodo._metodoBuilder, iLCampo._campoBuilder));
             return iLMetodo;
         }
 
@@ -209,7 +209,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLVariavel));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILLdLoc(iLMetodo.Proxy, iLVariavel.Indice));
+            iLMetodo.PilhaExecucao.Add(new ILLdLoc(iLMetodo._metodoBuilder, iLVariavel.Indice));
             return iLMetodo;
         }
 
@@ -231,7 +231,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLVariavel));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILStLoc(iLMetodo.Proxy, iLVariavel.Indice));
+            iLMetodo.PilhaExecucao.Add(new ILStLoc(iLMetodo._metodoBuilder, iLVariavel.Indice));
             return iLMetodo;
         }
 
@@ -253,7 +253,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLCampo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILStfld(iLMetodo.Proxy, iLCampo.Proxy.ObterBuilder<FieldBuilder>()));
+            iLMetodo.PilhaExecucao.Add(new ILStfld(iLMetodo._metodoBuilder, iLCampo._campoBuilder));
             return iLMetodo;
         }
 
@@ -275,33 +275,12 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(constructorInfo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo.Proxy, constructorInfo));
+            iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo._metodoBuilder, constructorInfo));
 
             return iLMetodo;
         }
 
-        /// <summary>
-        /// Chama uma função de um objeto
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="iLVariavel"></param>
-        /// <returns></returns>
-        public static ILMetodo ChamarFuncao(this ILMetodo iLMetodo, ILVariavel iLVariavel)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
 
-            if (iLVariavel is null)
-            {
-                throw new ArgumentNullException(nameof(iLVariavel));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo.Proxy, iLVariavel.Proxy.ObterBuilder<FieldBuilder>()));
-
-            return iLMetodo;
-        }
 
         /// <summary>
         /// Chama uma função de um objeto
@@ -321,7 +300,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(methodInfo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILCallVirt(iLMetodo.Proxy, methodInfo));
+            iLMetodo.PilhaExecucao.Add(new ILCallVirt(iLMetodo._metodoBuilder, methodInfo));
 
             return iLMetodo;
         }
@@ -338,7 +317,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
 
             return iLMetodo;
         }
@@ -356,8 +335,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -374,8 +353,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILInt64(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILInt64(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -392,8 +371,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILFloat32(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILFloat32(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -410,8 +389,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILFloat64(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILFloat64(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -428,8 +407,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILInt16(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILInt16(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -446,8 +425,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLMetodo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILValueType(iLMetodo.Proxy, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRetornar(iLMetodo.Proxy));
+            iLMetodo.PilhaExecucao.Add(new ILValueType(iLMetodo._metodoBuilder, valor));
+            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
             return iLMetodo;
         }
 
@@ -469,7 +448,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(type));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILBox(iLMetodo.Proxy, type));
+            iLMetodo.PilhaExecucao.Add(new ILBox(iLMetodo._metodoBuilder, type));
             return iLMetodo;
         }
 
@@ -491,7 +470,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(type));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILNewObj(iLMetodo.Proxy, type.ObterConstrutor(parametros)));
+            iLMetodo.PilhaExecucao.Add(new ILNewObj(iLMetodo._metodoBuilder, type.ObterConstrutor(parametros)));
             return iLMetodo;
         }
 

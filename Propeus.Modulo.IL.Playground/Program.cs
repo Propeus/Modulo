@@ -108,7 +108,7 @@ namespace Propeus.Modulo.IL.Playground
                 t.teste2 = 10;
 
             }
-            //Console.WriteLine(modulo.ToString());
+            
 
 
             using (ILGerador iLGerador = new ILGerador())
@@ -119,7 +119,10 @@ namespace Propeus.Modulo.IL.Playground
 
 
                 iLClasse.CriarMetodo().CriarRetorno();
+              
+
                 iLClasse.CriarMetodo("teste", new Token[] { Enums.Token.Publico }).CriarRetorno();
+                
                 iLClasse.CriarMetodo("teste1", new Token[] { Enums.Token.Protegido }).CriarRetorno();
                 iLClasse.CriarMetodo("teste2", new Token[] { Enums.Token.Privado }).CriarRetorno();
                 iLClasse.CriarMetodo("teste3", new Token[] { Enums.Token.Interno }).CriarRetorno();
@@ -136,7 +139,7 @@ namespace Propeus.Modulo.IL.Playground
                 iLClasse.CriarMetodo("teste9", new Token[] { Enums.Token.Publico }, typeof(decimal)).CriarRetorno(.79228162514264337593543950335M);
                 iLClasse.CriarMetodo("teste10", new Token[] { Enums.Token.Publico }, typeof(decimal)).CriarRetorno(-.79228162514264337593543950335M);
 
-
+              
 
                 //iLClasse.CriarCampo(new Token[] { Enums.Token.Publico });
                 iLClasse.CriarCampo(new Token[] { Enums.Token.Publico }, typeof(int));
@@ -211,7 +214,7 @@ namespace Propeus.Modulo.IL.Playground
                 var prop = iLClasse.CriarPropriedade(Token.Publico, typeof(int), "PropTeste_int");
 
                 iLClasse.CriarPropriedade(Token.Publico, typeof(string), "PropTeste_string");
-                iLClasse.CriarPropriedade(Token.Publico,typeof(float), "PropTeste_float");
+                iLClasse.CriarPropriedade(Token.Publico, typeof(float), "PropTeste_float");
                 iLClasse.CriarPropriedade(Token.Publico, typeof(double), "PropTeste_double");
                 iLClasse.CriarPropriedade(Token.Publico, typeof(decimal), "PropTeste_decimal");
 
@@ -220,6 +223,7 @@ namespace Propeus.Modulo.IL.Playground
                 iLClasse.Executar();
                 Exibir(iLClasse);
                 dynamic cls = iLClasse.ObterInstancia();
+
                 cls.PropTeste_int = int.MaxValue;
                 cls.PropTeste_string = "teswte";
                 cls.PropTeste_float = float.MaxValue;
@@ -231,6 +235,10 @@ namespace Propeus.Modulo.IL.Playground
                 Console.WriteLine(cls.PropTeste_float);
                 Console.WriteLine(cls.PropTeste_double);
                 Console.WriteLine(cls.PropTeste_decimal);
+
+                Console.WriteLine(cls.teste11());
+                Console.WriteLine(cls.teste12());
+                Console.WriteLine(cls.teste13());
             }
         }
 

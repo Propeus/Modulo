@@ -26,7 +26,7 @@ namespace Propeus.Modulo.IL.Helpers
 
           
 
-            var v = new ILVariavel(iLMetodo.Proxy,iLMetodo.Nome, tipo, nome);
+            var v = new ILVariavel(iLMetodo._metodoBuilder,iLMetodo.Nome, tipo, nome);
             iLMetodo.Variaveis.Add(v);
             return v;
         }
@@ -50,8 +50,8 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLVariavel));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo.Proxy, tamanho));
-            iLMetodo.PilhaExecucao.Add(new ILNewArr(iLMetodo.Proxy, iLVariavel.Retorno));
+            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo._metodoBuilder, tamanho));
+            iLMetodo.PilhaExecucao.Add(new ILNewArr(iLMetodo._metodoBuilder, iLVariavel.Retorno));
 
             return iLMetodo;
         }

@@ -1,16 +1,14 @@
-﻿using Propeus.Modulo.IL.Enums;
-using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Enums;
+using Propeus.Modulo.IL.Interfaces;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -29,8 +27,27 @@ namespace Propeus.Modulo.IL.Geradores
     /// <summary>
     /// Gerador de metodos
     /// </summary>
-    public class ILMetodo : IILExecutor ,IDisposable
+    public class ILMetodo : IILExecutor, IDisposable
     {
+
+        /// <summary>
+        /// Nome do metodo
+        /// </summary>
+        public string Nome { get; private set; }
+
+        /// <summary>
+        /// Retorno do metodo
+        /// </summary>
+        public Type Retorno { get; private set; }
+
+        private bool _executado;
+        internal MethodBuilder _metodoBuilder;
+
+        public Type[] Parametros { get; private set; }
+        public Token[] Acessadores { get; private set; }
+        
+        internal List<IILPilha> PilhaExecucao { get; private set; }
+        internal List<ILVariavel> Variaveis { get; private set; }
 
         /// <summary>
         /// Cria um novo metodo
@@ -58,84 +75,51 @@ namespace Propeus.Modulo.IL.Geradores
                 throw new ArgumentException($"'{nameof(nomeMetodo)}' não pode ser nulo nem vazio.", nameof(nomeMetodo));
             }
 
-            Proxy = builderProxy.Clone();
-            Proxy.RegistrarBuilders(builderProxy.ObterBuilder<TypeBuilder>());
-
             if (nomeMetodo == Constantes.CONST_NME_METODO)
             {
                 nomeMetodo = Constantes.GerarNomeMetodo(nomeCLasse);
             }
 
-            if (acessadores is null)
-            {
-                acessadores = new Token[] { Token.Publico, Token.OcutarAssinatura };
-            }
+            acessadores ??= new Token[] { Token.Publico, Token.OcutarAssinatura };
 
-            if (retorno is null)
-            {
-                retorno = typeof(void);
-            }
+            retorno ??= typeof(void);
 
-            if (parametros is null)
-            {
-                parametros = Array.Empty<Type>();
-            }
+            parametros ??= Array.Empty<Type>();
 
             Nome = nomeMetodo;
             Retorno = retorno;
             Acessadores = acessadores;
             Parametros = parametros;
-            Executado = false;
+            _executado = false;
 
-            List<MethodAttributes> typeAttributes = new List<MethodAttributes>();
-            foreach (var item in acessadores)
+            List<MethodAttributes> typeAttributes = new();
+            foreach (Token item in acessadores)
             {
                 typeAttributes.Add((MethodAttributes)Enum.Parse(typeof(MethodAttributes), item.ObterDescricaoEnum()));
             }
 
-            MethodBuilder mth = Proxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros);
-
-            Proxy.RegistrarBuilders(mth);
+            _metodoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros);
 
             PilhaExecucao = new List<IILPilha>();
-
-            Assinatura = string.Join(' ', Acessadores.Select(a => a.ToString().ToLower(CultureInfo.CurrentCulture))) + " " + nomeMetodo + string.Join(',', parametros.Select(p => p.FullName));
-
             Variaveis = new List<ILVariavel>();
         }
 
-        /// <summary>
-        /// Nome do metodo
-        /// </summary>
-        public string Nome { get; private set; }
 
-        /// <summary>
-        /// Retorno do metodo
-        /// </summary>
-        public Type Retorno { get; private set;  }
 
-        public bool Executado { get; private set; }
-        public Type[] Parametros { get; private set; }
-        internal ILBuilderProxy Proxy { get; private set; }
-        internal List<IILPilha> PilhaExecucao { get; private set; }
-        internal List<ILVariavel> Variaveis { get; private set; }
-        internal string Assinatura { get; private set; }
-        public Token[] Acessadores { get; private set; }
-
-        /// <summary>
-        /// Executa a construção do IL
-        /// </summary>
+        ///<inheritdoc/>
         public void Executar()
         {
-            if (Executado)
+            if (_executado)
+            {
                 return;
+            }
 
-            foreach (var pilha in PilhaExecucao)
+            foreach (IILPilha pilha in PilhaExecucao)
             {
                 pilha.Executar();
             }
 
-            Executado = true;
+            _executado = true;
         }
 
         /// <summary>
@@ -144,18 +128,18 @@ namespace Propeus.Modulo.IL.Geradores
         /// <returns></returns>
         public override string ToString()
         {
-            
-            StringBuilder sb = new StringBuilder();
 
-            sb.Append('\t')
+            StringBuilder sb = new();
+
+            _ = sb.Append('\t')
                 .Append($".method ");
 
-            foreach (var item in Acessadores)
+            foreach (Token item in Acessadores)
             {
-                sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(' ');
+                _ = sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(' ');
             };
 
-            sb.Append("instance ")
+            _ = sb.Append("instance ")
              .Append(Retorno.Name.ToLower(CultureInfo.CurrentCulture))
              .Append(' ')
              .Append(Nome)
@@ -163,24 +147,24 @@ namespace Propeus.Modulo.IL.Geradores
 
             if (Parametros.Length > 0)
             {
-                sb.Append('(')
+                _ = sb.Append('(')
                     .AppendLine();
 
-                foreach (var parametro in Parametros)
+                foreach (Type parametro in Parametros)
                 {
-                    sb.Append(parametro.Name.ToLower())
+                    _ = sb.Append(parametro.Name.ToLower())
                         .Append(' ')
-                        .Append(Guid.NewGuid().ToString().Replace('-','_').ToLower())
+                        .Append(Guid.NewGuid().ToString().Replace('-', '_').ToLower())
                         .AppendLine();
                 }
-                sb.Append(") ");
+                _ = sb.Append(") ");
             }
             else
             {
-                sb.Append("() ");
+                _ = sb.Append("() ");
             }
 
-            sb.Append("cil")
+            _ = sb.Append("cil")
             .Append(' ')
             .Append("managed")
             .Append(' ')
@@ -192,27 +176,34 @@ namespace Propeus.Modulo.IL.Geradores
 
             if (Variaveis.Count != 0)
             {
-                sb.Append("\t\t")
+                _ = sb.Append("\t\t")
                     .Append($".locals init ( ")
                     .AppendLine();
 
                 for (int i = 0; i < Variaveis.Count; i++)
                 {
-                    sb.Append("\t\t\t").Append(Variaveis[i].ToString());
+                    _ = sb.Append("\t\t\t").Append(Variaveis[i].ToString());
 
                     if (i + 1 != Variaveis.Count)
-                        sb.AppendLine();
+                    {
+                        _ = sb.AppendLine();
+                    }
                 }
 
-                sb.Append("\t\t")
+                _ = sb.Append("\t\t")
                     .Append(" )")
                     .AppendLine()
                     .AppendLine();
             }
 
-            sb.Append(Proxy.ToString());
+            foreach (var pilha in PilhaExecucao)
+            {
+                sb.AppendLine(pilha.ToString());
+            }
 
-            sb.Append('\t')
+            //sb.Append(Proxy.ToString());
+
+            _ = sb.Append('\t')
                 .AppendLine("}");
 
             return sb.ToString();
@@ -226,7 +217,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
-                    Proxy.Dispose();
+                    //Proxy.Dispose();
 
                     foreach (IILPilha item in PilhaExecucao)
                     {
@@ -235,7 +226,7 @@ namespace Propeus.Modulo.IL.Geradores
 
                     PilhaExecucao.Clear();
                     PilhaExecucao = null;
-                    foreach (var item in Variaveis)
+                    foreach (ILVariavel item in Variaveis)
                     {
                         item.Dispose();
                     }
@@ -243,6 +234,7 @@ namespace Propeus.Modulo.IL.Geradores
                     Variaveis = null;
                     Retorno = null;
                     Parametros = null;
+                    _metodoBuilder = null;
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer

@@ -1,7 +1,10 @@
 ﻿using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
+
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -10,35 +13,29 @@ namespace Propeus.Modulo.IL.Pilhas
     /// <summary>
     /// <see cref="float"/>
     /// </summary>
-    internal struct ILFloat32 : IILPilha,IDisposable
+    internal class ILFloat32 : ILPilha
     {
-        public ILFloat32(ILBuilderProxy proxy, float valor = 0)
+        public ILFloat32(ILBuilderProxy proxy, float valor = 0) : base(proxy,OpCodes.Ldc_R4)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Ldc_R4;
             Valor = valor;
         }
 
-        public OpCode Code { get; }
         public float Valor { get; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        public override string ToString()
         {
-            Proxy.Dispose();
-            Proxy = null;
+            return $"\t\t{_offset} {Code} {Valor}";
         }
     }
 }

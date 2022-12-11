@@ -1,31 +1,29 @@
-﻿using Propeus.Modulo.IL.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
-    internal struct ILCallVirt : IILPilha,IDisposable
+    internal class ILCallVirt : ILPilha
     {
-        public ILCallVirt(ILBuilderProxy proxy, MethodInfo metodo)
+        public ILCallVirt(ILBuilderProxy proxy, MethodInfo metodo) : base(proxy,OpCodes.Callvirt)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Callvirt;
             Valor = metodo ?? throw new ArgumentNullException(nameof(metodo));
         }
 
-        public OpCode Code { get; }
         public MemberInfo Valor { get; private set; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             if (Valor is MethodInfo)
@@ -35,14 +33,24 @@ namespace Propeus.Modulo.IL.Pilhas
             else
                 throw new InvalidCastException("Não foi possivel determinar o tipo de membro o valor pertence");
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+
+        protected override void Dispose(bool disposing)
         {
-            Proxy.Dispose();
-            Proxy = null;
+            base.Dispose(disposing);
             Valor = null;
+        }
+
+        public override string ToString()
+        {
+
+            if (Valor is MethodInfo)
+                return $"\t\t{_offset} {Code} {(Valor as MethodInfo).ReturnType.Name.ToLower(CultureInfo.CurrentCulture)} {Valor.DeclaringType.FullName}::{Valor.Name}";
+            else
+                return $"\t\t{_offset} {Code} {Valor.DeclaringType.FullName}::{Valor.Name}({string.Join(",", (Valor as ConstructorInfo).ObterTipoParametros().Select(x => x.Name))})";
+
         }
     }
 }

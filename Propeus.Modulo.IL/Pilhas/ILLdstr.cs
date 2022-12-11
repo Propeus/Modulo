@@ -2,6 +2,7 @@
 using Propeus.Modulo.IL.Proxy;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -10,36 +11,35 @@ namespace Propeus.Modulo.IL.Pilhas
     /// <summary>
     /// Carrega uma <see cref="string"/> para a pilha de execução
     /// </summary>
-    internal struct ILLdstr : IILPilha, IDisposable
+    internal class ILLdstr : ILPilha
     {
-        public ILLdstr(ILBuilderProxy proxy, string valor = "")
+        public ILLdstr(ILBuilderProxy proxy, string valor = "") : base(proxy, OpCodes.Ldstr)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Ldstr;
             Valor = valor;
         }
 
-        public OpCode Code { get; }
         public string Valor { get; private set; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            Proxy.Dispose();
-            Proxy = null;
+            base.Dispose(disposing);
             Valor = null;
+        }
+
+        public override string ToString()
+        {
+            return $"\t\t{_offset} {Code} {Valor}";
         }
     }
 }

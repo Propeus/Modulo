@@ -3,6 +3,7 @@ using Propeus.Modulo.IL.Proxy;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -11,35 +12,29 @@ namespace Propeus.Modulo.IL.Pilhas
     /// <summary>
     /// Carrega o agumento no indice desejado
     /// </summary>
-    internal struct ILLdarg : IILPilha, IDisposable
+    internal class ILLdarg : ILPilha
     {
-        public ILLdarg(ILBuilderProxy proxy, int indice = 0)
+        public ILLdarg(ILBuilderProxy proxy, int indice = 0) : base(proxy, OpCodes.Ldarg)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Ldarg;
             Valor = indice;
         }
 
-        public OpCode Code { get; }
         public int Valor { get; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override  void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        public override string ToString()
         {
-            Proxy.Dispose();
-            Proxy = null;
+            return $"\t\t{_offset} {Code} {Valor}";
         }
     }
 }

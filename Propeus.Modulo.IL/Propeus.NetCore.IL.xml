@@ -89,6 +89,9 @@
             Cria um campo
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILCampo.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Geradores.ILClasse">
             <summary>
             Gera uma classe em IL
@@ -136,9 +139,7 @@
             </summary>
         </member>
         <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.Executar">
-            <summary>
-            Executa a montagem da classe
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:Propeus.Modulo.IL.Geradores.ILClasse.ToString">
             <summary>
@@ -175,6 +176,16 @@
             Gerador de metodos
             </summary>
         </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Nome">
+            <summary>
+            Nome do metodo
+            </summary>
+        </member>
+        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Retorno">
+            <summary>
+            Retorno do metodo
+            </summary>
+        </member>
         <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.#ctor(Propeus.Modulo.IL.Proxy.ILBuilderProxy,System.String,System.String,Propeus.Modulo.IL.Enums.Token[],System.Type,System.Type[])">
             <summary>
             Cria um novo metodo
@@ -186,20 +197,8 @@
             <param name="retorno"></param>
             <param name="parametros"></param>
         </member>
-        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Nome">
-            <summary>
-            Nome do metodo
-            </summary>
-        </member>
-        <member name="P:Propeus.Modulo.IL.Geradores.ILMetodo.Retorno">
-            <summary>
-            Retorno do metodo
-            </summary>
-        </member>
         <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.Executar">
-            <summary>
-            Executa a construção do IL
-            </summary>
+            <inheritdoc/>
         </member>
         <member name="M:Propeus.Modulo.IL.Geradores.ILMetodo.ToString">
             <summary>
@@ -236,6 +235,11 @@
             <param name="nomePropriedade"></param>
             <param name="retorno"></param>
             <param name="parametros"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Geradores.ILPropriedade.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Helpers.Helper">
             <summary>
@@ -358,14 +362,6 @@
             <param name="constructorInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:Propeus.Modulo.IL.Helpers.Helper.ChamarFuncao(Propeus.Modulo.IL.Geradores.ILMetodo,Propeus.Modulo.IL.Geradores.ILVariavel)">
-            <summary>
-            Chama uma função de um objeto
-            </summary>
-            <param name="iLMetodo"></param>
-            <param name="iLVariavel"></param>
-            <returns></returns>
-        </member>
         <member name="M:Propeus.Modulo.IL.Helpers.Helper.ChamarFuncaoVirtual(Propeus.Modulo.IL.Geradores.ILMetodo,System.Reflection.MethodInfo)">
             <summary>
             Chama uma função de um objeto
@@ -464,75 +460,121 @@
             Executa a montagem do código IL
             </summary>
         </member>
-        <member name="P:Propeus.Modulo.IL.Interfaces.IILExecutor.Executado">
-            <summary>
-            Inidica se o objeto ja foi executado
-            </summary>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILBox.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILCall">
             <summary>
             Chama uma função
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILCall.Executar">
+            <inheritdoc/>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILCallVirt.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILFloat32">
             <summary>
             <see cref="T:System.Single"/>
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILFloat32.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILFloat64">
             <summary>
             <see cref="T:System.Double"/>
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILFloat64.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILInt16">
             <summary>
             <see cref="T:System.Int16"/>
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILInt16.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILInt32">
             <summary>
             <see cref="T:System.Int32"/>
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILInt32.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILInt64">
             <summary>
             <see cref="T:System.Int64"/>
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILInt64.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILInt8">
             <summary>
             <see cref="T:System.SByte"/>
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILInt8.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILLdarg">
             <summary>
             Carrega o agumento no indice desejado
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILLdarg.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILLdfld">
             <summary>
             Carrega o campo no indice desejado
             </summary>
         </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILLdfld.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILLdLoc.Executar">
+            <inheritdoc/>
+        </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILLdstr">
             <summary>
             Carrega uma <see cref="T:System.String"/> para a pilha de execução
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILLdstr.Executar">
+            <inheritdoc/>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILNewArr.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILNewObj">
             <summary>
             operador 'new'
             </summary>
         </member>
-        <member name="T:Propeus.Modulo.IL.Pilhas.ILRetornar">
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILNewObj.Executar">
+            <inheritdoc/>
+        </member>
+        <member name="T:Propeus.Modulo.IL.Pilhas.ILRet">
             <summary>
             Cria uma instrução IL de retorno
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILRet.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILStfld">
             <summary>
             Armazena o valor no campo indicado
             </summary>
+        </member>
+        <member name="M:Propeus.Modulo.IL.Pilhas.ILStfld.Executar">
+            <inheritdoc/>
         </member>
         <member name="T:Propeus.Modulo.IL.Pilhas.ILValueType">
             <summary>

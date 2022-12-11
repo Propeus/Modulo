@@ -14,9 +14,5 @@ namespace Propeus.Modulo.IL.Interfaces
         /// </summary>
         public void Executar();
 
-        /// <summary>
-        /// Inidica se o objeto ja foi executado
-        /// </summary>
-        public bool Executado { get; }
     }
 }

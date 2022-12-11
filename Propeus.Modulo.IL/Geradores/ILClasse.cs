@@ -50,22 +50,9 @@ namespace Propeus.Modulo.IL.Geradores
 
             Proxy = IlProxy.Clone();
 
-
-
-            if (@base is null)
-            {
-                @base = typeof(object);
-            }
-
-            if (interfaces is null)
-            {
-                interfaces = Array.Empty<Type>();
-            }
-
-            if (acessadores is null)
-            {
-                acessadores = new Token[] { Token.Classe, Token.Publico };
-            }
+            @base ??= typeof(object);
+            interfaces ??= Array.Empty<Type>();
+            acessadores ??= new Token[] { Token.Classe, Token.Publico };
 
             Nome = nome;
             Namespace = @namespace;
@@ -134,19 +121,17 @@ namespace Propeus.Modulo.IL.Geradores
         internal List<ILCampo> Campos { get; private set; }
         internal List<Type> Interfaces { get; set; }
 
-        public bool Executado { get; private set; }
+        bool _executado;
 
 
-        /// <summary>
-        /// Executa a montagem da classe
-        /// </summary>
+        ///<inheritdoc/>
         public void Executar()
         {
 
             if (disposedValue)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            if (Executado)
+            if (_executado)
                 return;
 
             if (TipoGerado is not null)
@@ -175,7 +160,7 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
             TipoGerado = Proxy.ObterBuilder<TypeBuilder>().CreateType();
-            Executado = true;
+            _executado = true;
         }
 
         /// <summary>

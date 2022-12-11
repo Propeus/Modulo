@@ -2,40 +2,34 @@
 using Propeus.Modulo.IL.Proxy;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
-    internal struct ILStLoc : IILPilha,IDisposable
+    internal class ILStLoc : ILPilha
     {
-        public ILStLoc(ILBuilderProxy proxy, int valor = 0)
+        public ILStLoc(ILBuilderProxy proxy, int valor = 0) : base(proxy, OpCodes.Stloc)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Stloc;
             Valor = valor;
         }
 
-        public OpCode Code { get; }
         public int Valor { get; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        public override string ToString()
         {
-            Proxy.Dispose();
-            Proxy = null;
+            return $"\t\t{_offset} {Code} {Valor}";
         }
     }
 }

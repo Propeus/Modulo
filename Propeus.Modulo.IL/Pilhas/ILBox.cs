@@ -3,39 +3,42 @@ using Propeus.Modulo.IL.Proxy;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
-    internal struct ILBox : IILPilha, IDisposable
+    internal class ILBox : ILPilha
     {
-        public ILBox(ILBuilderProxy proxy, Type valor)
+        public ILBox(ILBuilderProxy proxy, Type valor) : base(proxy, OpCodes.Box)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Box;
             Valor = valor;
         }
 
-        public OpCode Code { get; }
         public Type Valor { get; private set; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
+         
+            base.Executar();
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            Proxy.Dispose();
-            Proxy = null;
+            base.Dispose(disposing);
             Valor = null;
+        }
+
+        public override string ToString()
+        {
+           return $"\t\t{_offset} {Code} [{Valor.Namespace}]{Valor.Name.ToLower(CultureInfo.CurrentCulture)}";
+            
         }
     }
 }

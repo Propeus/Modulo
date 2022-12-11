@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 
@@ -10,7 +9,7 @@ using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {
-    
+
 
     public class ILClasseProvider : IILExecutor, IDisposable
     {
@@ -23,15 +22,12 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (atual == null)
                 {
-                    _=NovaVersao();
+                    _ = NovaVersao();
                     return atual;
                 }
                 return atual;
             }
-            private set
-            {
-                atual = value;
-            }
+            private set => atual = value;
         }
         public int Versao { get; private set; }
         public string Nome { get; }
@@ -69,11 +65,13 @@ namespace Propeus.Modulo.IL.Geradores
             _versoes = new ILClasse[10];
         }
 
-        
+
         public ILClasseProvider NovaVersao(string @namespace = null, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
         {
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             Versao++;
 
@@ -96,7 +94,7 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
 
-            var classe = new ILClasse(Proxy, Nome, Namespace + "V" + Versao, Base, Interfaces, Acessadores);
+            ILClasse classe = new(Proxy, Nome, Namespace + "V" + Versao, Base, Interfaces, Acessadores);
             InserirNovaVersaoArray(classe, Versao);
             Atual = classe;
 
@@ -106,7 +104,9 @@ namespace Propeus.Modulo.IL.Geradores
         public void Executar()
         {
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (!Executado && Atual.TipoGerado is null)
             {
@@ -120,11 +120,13 @@ namespace Propeus.Modulo.IL.Geradores
         private void InserirNovaVersaoArray(ILClasse iLClasse, int versao)
         {
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (versao - 1 >= _versoes.Length)
             {
-                var nome = _versoes[0].Namespace + "." + _versoes[0].Nome;
+                string nome = _versoes[0].Namespace + "." + _versoes[0].Nome;
                 Proxy.ObterBuilder<ModuleBuilder>().Dispose(nome);
                 _versoes[0].Dispose();
                 _versoes[0] = null;
@@ -133,7 +135,7 @@ namespace Propeus.Modulo.IL.Geradores
                 {
                     _versoes[i] = _versoes[i + 1];
                 }
-                _versoes[_versoes.Length - 1] = iLClasse;
+                _versoes[^1] = iLClasse;
 
             }
             else
@@ -148,10 +150,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         public override string ToString()
         {
-            if (disposedValue)
-                return string.Empty;
-
-            return atual.ToString();
+            return disposedValue ? string.Empty : atual.ToString();
             return _versoes.WriteTable();
         }
 

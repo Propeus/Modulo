@@ -1,19 +1,14 @@
-﻿using Propeus.Modulo.IL.Enums;
-using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-using Microsoft.VisualBasic;
 
-using Propeus.Modulo.IL;
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Enums;
+using Propeus.Modulo.IL.Interfaces;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -33,6 +28,15 @@ namespace Propeus.Modulo.IL.Geradores
     /// </summary>
     public class ILCampo : IILExecutor, IDisposable
     {
+
+        internal FieldBuilder _campoBuilder;
+        private bool _executado;
+
+        public string Nome { get; private set; }
+        public Type Retorno { get; private set; }
+
+        public Token[] Acessadores { get; private set; }
+
         public ILCampo(ILBuilderProxy builderProxy, string nomeClasse, Token[] acessadores = null, Type retorno = null, string nome = Constantes.CONST_NME_CAMPO)
         {
             if (builderProxy is null)
@@ -50,98 +54,71 @@ namespace Propeus.Modulo.IL.Geradores
                 throw new ArgumentException($"'{nameof(nome)}' não pode ser nulo nem vazio.", nameof(nome));
             }
 
-            Proxy = builderProxy.Clone(true);
-            Proxy.RegistrarBuilders(builderProxy.ObterBuilder<TypeBuilder>());
+
 
             if (nome == Constantes.CONST_NME_CAMPO)
             {
                 nome = Constantes.GerarNomeCampo(nomeClasse);
             }
 
-            if (acessadores is null)
-            {
-                acessadores = new Token[] { Token.Publico, Token.OcutarAssinatura };
-            }
+            acessadores ??= new Token[] { Token.Publico, Token.OcutarAssinatura };
 
-            if (retorno is null)
-            {
-                retorno = typeof(object);
-            }
+            retorno ??= typeof(object);
 
             Nome = nome;
             Retorno = retorno;
             Acessadores = acessadores;
 
-            List<FieldAttributes> typeAttributes = new List<FieldAttributes>();
-            foreach (var item in acessadores)
+            List<FieldAttributes> typeAttributes = new();
+            foreach (Token item in acessadores)
             {
                 typeAttributes.Add((FieldAttributes)Enum.Parse(typeof(FieldAttributes), item.ObterDescricaoEnum()));
             }
-            var fld = Proxy.ObterBuilder<TypeBuilder>().DefineField(nome, retorno, typeAttributes.ToArray().ConcatenarEnum());
-            Proxy.RegistrarBuilders(fld);
-
-            Assinatura = string.Join(' ', Acessadores.Select(a => a.ToString().ToLower(CultureInfo.CurrentCulture))) + " " + nome;
+            _campoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineField(nome, retorno, typeAttributes.ToArray().ConcatenarEnum());
         }
 
-        public ILBuilderProxy Proxy { get; private set; }
-        public string Nome { get; private set; }
-        public Type Retorno { get; private set; }
-        public string Assinatura { get; private set; }
-        public Token[] Acessadores { get; private set; }
-        public bool Executado { get; private set; }
 
+        ///<inheritdoc/>
         public void Executar()
         {
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
-            Executado = true;
+            _executado = true;
         }
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            sb.Append("\t")
+            _ = sb.Append("\t")
                 .Append($".field ");
 
-            foreach (var item in Acessadores)
+            foreach (Token item in Acessadores)
             {
-                sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(" ");
+                _ = sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(" ");
             };
 
             if (Retorno != typeof(object) && Retorno != typeof(string) && Retorno.IsClass && !Retorno.IsPrimitive)
             {
-                sb.Append("class ");
+                _ = sb.Append("class ");
             }
 
-            sb.Append(Retorno.Name.ToLower(CultureInfo.CurrentCulture));
-            sb.Append(" ");
-            sb.Append(Nome);
-            sb.AppendLine();
+            _ = sb.Append(Retorno.Name.ToLower(CultureInfo.CurrentCulture));
+            _ = sb.Append(" ");
+            _ = sb.Append(Nome);
+            _ = sb.AppendLine();
 
             return sb.ToString();
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is ILCampo && Assinatura == ((ILCampo)obj).Assinatura;
-        }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
 
-        public static bool operator ==(ILCampo left, ILCampo right)
-        {
-            return left.Equals(right);
-        }
 
-        public static bool operator !=(ILCampo left, ILCampo right)
-        {
-            return !(left == right);
-        }
+
+
 
 
         private bool disposedValue;
@@ -152,11 +129,9 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
-                    Proxy.Dispose();
-                    Proxy = null;
+                    _campoBuilder = null;
                     Acessadores = null;
                     Retorno = null;
-                    Assinatura = null;
                     Nome = null;
                 }
 

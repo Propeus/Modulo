@@ -2,6 +2,7 @@
 using Propeus.Modulo.IL.Proxy;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -10,34 +11,29 @@ namespace Propeus.Modulo.IL.Pilhas
     /// <summary>
     /// <see cref="sbyte"/>
     /// </summary>
-    internal struct ILInt8 : IILPilha,IDisposable
+    internal class ILInt8 : ILPilha
     {
-        public ILInt8(ILBuilderProxy proxy, sbyte valor = 0)
+        public ILInt8(ILBuilderProxy proxy, sbyte valor = 0) : base(proxy, OpCodes.Ldc_I4_S)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-            Code = OpCodes.Ldc_I4_S;
             Valor = valor;
         }
 
-        public OpCode Code { get; }
         public sbyte Valor { get; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
-        public void Executar()
+        ///<inheritdoc/>
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Proxy.Emit(Code, Valor);
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        public override string ToString()
         {
-            Proxy.Dispose();
-            Proxy = null;
+            return $"\t\t{_offset} {Code} {Valor}";
         }
     }
 }

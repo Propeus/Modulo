@@ -11,13 +11,10 @@ namespace Propeus.Modulo.IL.Pilhas
     /// <summary>
     /// <see cref="decimal"/>
     /// </summary>
-    internal struct ILValueType : IILPilha,IDisposable
+    internal class ILValueType : ILPilha
     {
-        public ILValueType(ILBuilderProxy proxy, decimal valor = 0)
+        public ILValueType(ILBuilderProxy proxy, decimal valor = 0) : base(proxy, OpCodes.Newobj)
         {
-            Proxy = proxy ?? throw new ArgumentNullException(nameof(proxy));
-
-            Code = OpCodes.Newobj;
             Valor = valor;
 
             int[] slot = Decimal.GetBits(valor);
@@ -35,10 +32,7 @@ namespace Propeus.Modulo.IL.Pilhas
             Constutor = new ILNewObj(proxy, typeof(decimal).GetConstructors().First(c => c.GetParameters().Length == 5));
         }
 
-        public OpCode Code { get; }
         public decimal Valor { get; }
-        public ILBuilderProxy Proxy { get; private set; }
-        public bool Executado { get; private set; }
 
         public ILInt32 Slot1 { get; }
         public ILInt32 Slot2 { get;  }
@@ -47,9 +41,9 @@ namespace Propeus.Modulo.IL.Pilhas
         public ILInt8 QuantidadePontoFlutuante { get; }
         public ILNewObj Constutor { get; }
 
-        public void Executar()
+        public override void Executar()
         {
-            if (Executado)
+            if (_executado)
                 return;
 
             Slot1.Executar();
@@ -59,12 +53,13 @@ namespace Propeus.Modulo.IL.Pilhas
             QuantidadePontoFlutuante.Executar();
             Constutor.Executar();
 
-            Executado = true;
+            base.Executar();
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            Proxy.Dispose();
+            base.Dispose(disposing);
+      
             Slot1.Dispose();
             Slot2.Dispose();
             Slot3.Dispose();
@@ -72,8 +67,8 @@ namespace Propeus.Modulo.IL.Pilhas
             QuantidadePontoFlutuante.Dispose();
             Constutor.Dispose();
 
-            Proxy = null;
-
         }
+
+       
     }
 }

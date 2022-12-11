@@ -2,37 +2,36 @@
 using Propeus.Modulo.IL.Proxy;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
-    internal class ILLdLoc : ILPilha
+    /// <summary>
+    /// Cria uma instrução IL de retorno
+    /// </summary>
+    internal class ILRet : ILPilha
     {
-        public ILLdLoc(ILBuilderProxy proxy, int indice = 0) : base(proxy, OpCodes.Ldloc)
+        public ILRet(ILBuilderProxy proxy) : base(proxy, OpCodes.Ret)
         {
-            Valor = indice;
         }
 
-        public int Valor { get; }
-
         ///<inheritdoc/>
-        public override  void Executar()
+        public override void Executar()
         {
-
             if (_executado)
                 return;
 
-            Proxy.Emit(Code, Valor);
+            Proxy.Emit(Code);
 
             base.Executar();
         }
-
-
+        
         public override string ToString()
         {
-            return $"\t\t{_offset} {Code} {Valor}";
+            return $"\t\t{_offset} {Code}";
         }
     }
 }

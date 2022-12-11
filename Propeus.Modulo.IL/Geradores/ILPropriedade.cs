@@ -1,16 +1,10 @@
-﻿using Propeus.Modulo.IL.Enums;
-using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Modulo.IL.Interfaces;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -31,18 +25,25 @@ namespace Propeus.Modulo.IL.Geradores
 
     public class ILPropriedade : IILExecutor, IDisposable
     {
+        private bool _executado;
+        private PropertyBuilder _propriedadeBuilder;
 
         /// <summary>
         /// Nome do metodo
         /// </summary>
-        public string Nome { get; private set; }
+        public string Nome { get; }
         /// <summary>
         /// Retorno do metodo
         /// </summary>
         public Type Retorno { get; private set; }
-        public bool Executado { get; private set; }
-        internal bool IsProxy { get; set; }
 
+        internal bool IsProxy { get; set; }
+        internal ILCampo Campo { get; set; }
+        internal ILMetodo Getter { get; set; }
+        internal ILMetodo Setter { get; set; }
+
+        public Type[] Parametros { get; private set; }
+      
         /// <summary>
         /// 
         /// </summary>
@@ -51,6 +52,8 @@ namespace Propeus.Modulo.IL.Geradores
         /// <param name="nomePropriedade"></param>
         /// <param name="retorno"></param>
         /// <param name="parametros"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public ILPropriedade(ILBuilderProxy builderProxy, string nomeClasse, string nomePropriedade = Constantes.CONST_NME_PROPRIEDADE, Type retorno = null, Type[] parametros = null)
         {
             if (builderProxy is null)
@@ -81,11 +84,8 @@ namespace Propeus.Modulo.IL.Geradores
             Retorno = retorno ?? throw new ArgumentNullException(nameof(retorno));
             Parametros = parametros ?? Array.Empty<Type>();
 
-            PilhaExecucao = new List<IILPilha>();
 
-            Proxy = builderProxy.Clone();
-            Proxy.RegistrarBuilders(builderProxy.ObterBuilder<TypeBuilder>());
-            Proxy.RegistrarBuilders(Proxy.ObterBuilder<TypeBuilder>().DefineProperty(Nome, PropertyAttributes.HasDefault, retorno, parametros));
+            _propriedadeBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineProperty(Nome, PropertyAttributes.HasDefault, retorno, parametros);
 
             Campo = default;
             Getter = default;
@@ -93,28 +93,23 @@ namespace Propeus.Modulo.IL.Geradores
 
         }
 
-        internal ILBuilderProxy Proxy { get; private set; }
-        internal List<IILPilha> PilhaExecucao { get; private set; }
-
-
-        internal ILCampo Campo { get; set; }
-        internal ILMetodo Getter { get; set; }
-        internal ILMetodo Setter { get; set; }
-
-        public Type[] Parametros { get; private set; }
-
+        ///<inheritdoc/>
         public void Executar()
         {
-            if (Executado)
+            if (_executado)
+            {
                 return;
+            }
 
             if (!IsProxy)
+            {
                 Campo.Executar();
+            }
 
             if (Getter != null)
             {
                 Getter.Executar();
-                Proxy.ObterBuilder<PropertyBuilder>().SetGetMethod(Getter.Proxy.ObterBuilder<MethodBuilder>());
+                _propriedadeBuilder.SetGetMethod(Getter._metodoBuilder);
             }
             else
             {
@@ -124,28 +119,24 @@ namespace Propeus.Modulo.IL.Geradores
             if (Setter != null)
             {
                 Setter.Executar();
-                Proxy.ObterBuilder<PropertyBuilder>().SetSetMethod(Setter.Proxy.ObterBuilder<MethodBuilder>());
+                _propriedadeBuilder.SetSetMethod(Setter._metodoBuilder);
             }
 
 
-            foreach (var executor in PilhaExecucao)
-            {
-                executor.Executar();
-            }
 
-            Executado = true;
+            _executado = true;
         }
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            sb.Append(".property ");
+            _ = sb.Append(".property ");
 
-            sb.Append($"instance {Retorno.Name} {Nome}");
+            _ = sb.Append($"instance {Retorno.Name} {Nome}");
 
 
-            sb.Append("(");
+            _ = sb.Append("(");
 
 
             for (int i = 0; i < Parametros.Length; i++)
@@ -156,46 +147,46 @@ namespace Propeus.Modulo.IL.Geradores
                     spl = string.Empty;
                 }
 
-                sb.Append($"{Parametros[i].Name} {spl}");
+                _ = sb.Append($"{Parametros[i].Name} {spl}");
             }
 
 
-            sb.Append(")");
+            _ = sb.Append(")");
 
 
-            sb.AppendLine("{");
+            _ = sb.AppendLine("{");
 
             if (Getter != null)
             {
-                sb.Append($".get instance {Getter.Retorno.Name} {Getter.Nome}(");
+                _ = sb.Append($".get instance {Getter.Retorno.Name} {Getter.Nome}(");
 
                 if (Getter.Parametros != Array.Empty<Type>())
                 {
                     foreach (Type parametro in Getter.Parametros)
                     {
-                        sb.Append($"{parametro}");
+                        _ = sb.Append($"{parametro}");
                     }
                 }
 
-                sb.AppendLine(")");
+                _ = sb.AppendLine(")");
             }
 
             if (Setter != null)
             {
-                sb.Append($".set instance {Setter.Retorno.Name} {Setter.Nome}(");
+                _ = sb.Append($".set instance {Setter.Retorno.Name} {Setter.Nome}(");
 
                 if (Setter.Parametros != Array.Empty<Type>())
                 {
                     foreach (Type parametro in Setter.Parametros)
                     {
-                        sb.Append($"{parametro}");
+                        _ = sb.Append($"{parametro}");
                     }
                 }
 
-                sb.AppendLine(")");
+                _ = sb.AppendLine(")");
             }
 
-            sb.AppendLine("}");
+            _ = sb.AppendLine("}");
 
             return sb.ToString();
         }
@@ -208,19 +199,15 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
-                    Proxy.Dispose();
-                    Proxy = null;
+
                     Getter?.Dispose();
                     Setter?.Dispose();
                     Campo?.Dispose();
-                    foreach (var item in PilhaExecucao)
-                    {
-                        item.Dispose();
-                    }
-                    PilhaExecucao.Clear();
-                    PilhaExecucao = null;
+
                     Parametros = null;
                     Retorno = null;
+
+                    _propriedadeBuilder = null;
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer

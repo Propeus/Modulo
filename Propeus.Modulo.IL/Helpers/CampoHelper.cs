@@ -52,7 +52,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLCampo));
             }
 
-            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo.Proxy, valor));
+            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo._metodoBuilder, valor));
 
             return iLMetodo;
         }
