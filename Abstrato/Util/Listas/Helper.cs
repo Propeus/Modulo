@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -157,6 +158,14 @@ namespace Propeus.Modulo.Abstrato.Util
         public static bool IsNotNullOrEmpty<T>(this IEnumerable<T> obj)
         {
             return !obj.IsNullOrEmpty();
+        }
+
+        public static IEnumerable<TSaida> Converter<TSaida>(this IEnumerable obj)
+        {
+            foreach(var entrada in obj)
+            {
+                yield return entrada.To<TSaida>();
+            }
         }
     }
 }

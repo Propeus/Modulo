@@ -14,7 +14,7 @@ namespace Propeus.Modulo.Abstrato.Util
     {
 
 
-
+        
         public static TNovoEnum[] ParseEnum<TAntigoEnum, TNovoEnum>(this TAntigoEnum[] @enum) where TNovoEnum : struct, Enum
             where TAntigoEnum : struct, Enum
         {

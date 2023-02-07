@@ -6,19 +6,22 @@ using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
     /// <summary>
-    /// Carrega uma <see cref="string"/> para a pilha de execução
+    /// <see cref="double"/> || float64 || <see cref="OpCodes.Ldc_R8"/>
     /// </summary>
-    internal class ILLdstr : ILPilha
+    internal class ILDouble : ILPilha
     {
-        public ILLdstr(ILBuilderProxy proxy, string valor = "") : base(proxy, OpCodes.Ldstr)
+        /// <summary>
+        /// <see cref="double"/> || float64 || <see cref="OpCodes.Ldc_R8"/>
+        /// </summary>
+        public ILDouble(ILBuilderProxy proxy, double valor = 0) : base(proxy, OpCodes.Ldc_R8,valor)
         {
             Valor = valor;
         }
 
-        public string Valor { get; private set; }
+        public double Valor { get; }
 
         ///<inheritdoc/>
         public override void Executar()
@@ -29,12 +32,6 @@ namespace Propeus.Modulo.IL.Pilhas
             Proxy.Emit(Code, Valor);
 
             base.Executar();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            Valor = null;
         }
 
         public override string ToString()

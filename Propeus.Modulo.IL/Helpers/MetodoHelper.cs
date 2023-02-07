@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos;
 
 namespace Propeus.Modulo.IL.Helpers
 {
@@ -19,6 +20,9 @@ namespace Propeus.Modulo.IL.Helpers
     public static partial class Helper
     {
 
+
+
+
         /// <summary>
         /// Retorna os metodos nao implementados (por outras interfaces ou por proxy)
         /// </summary>
@@ -27,6 +31,11 @@ namespace Propeus.Modulo.IL.Helpers
         /// <returns></returns>
         public static IEnumerable<ILMetodo> ImplementarMetodoInterface<TInterface>(this ILClasseProvider iLClasse)
         {
+            if (iLClasse is null)
+            {
+                throw new ArgumentNullException(nameof(iLClasse));
+            }
+
             var tpInterface = typeof(TInterface);
 
             if (!iLClasse.Atual.Interfaces.Contains(tpInterface))
@@ -36,14 +45,13 @@ namespace Propeus.Modulo.IL.Helpers
 
             var metodos = tpInterface.GetMethods();
 
-            //var hasProxy = clsBuilder.Campos.Any(c => c.Nome == "IL_Gerador_Proxy_" + clsBuilder.Nome);
-
 
             foreach (var mth in metodos)
             {
-                if (!iLClasse.Atual.Metodos.Any(m => m.Nome == mth.Name && m.Parametros == mth.ObterTipoParametros().ToArray()))
+                if (!iLClasse.Atual.Metodos.Any(m => m.Nome == mth.Name && m.Parametros.Cast<Type>().SequenceEqual(mth.ObterTipoParametros())))
                 {
-                    yield return iLClasse.CriarMetodo(mth.Name, mth.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), mth.ReturnType, mth.ObterTipoParametros().ToArray());
+                    API.ClasseAPI.CriarMetodo(iLClasse.Atual, mth.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), mth.ReturnType, mth.Name, mth.ObterTipoParametros().ToArray());
+                    yield return iLClasse.Atual.Metodos.Last();
                 }
 
 
@@ -51,426 +59,35 @@ namespace Propeus.Modulo.IL.Helpers
 
         }
 
-        /// <summary>
-        /// Cria um metodo
-        /// <para>
-        /// Por padrão o metodo sem parametro
-        /// </para>
-        /// </summary>
-        /// <param name="iLClasse"></param>
-        /// <param name="nome"></param>
-        /// <param name="acessadores"></param>
-        /// <param name="retorno"></param>
-        /// <param name="parametros"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarMetodo(this ILClasseProvider iLClasse, string nome = Constantes.CONST_NME_METODO, Token[] acessadores = null, Type retorno = null, Type[] parametros = null)
+        public static ILMetodo CriarMetodo(this ILClasseProvider iLClasseProvider, Token[] acessadores, Type retorno, string nome, Type[] parametros)
         {
-            if (iLClasse is null)
-            {
-                throw new ArgumentNullException(nameof(iLClasse));
-            }
-
-            ILMetodo mth;
-
-
-
-            //if (acessadores is not null)
-            //{
-
-            //mth = new ILMetodo(iLClasse, nome, acessadores.Join(new Token[] { Token.OcutarAssinatura }).ToArray(), retorno, parametros);
-            //}
-            //else
-            //{
-            mth = new ILMetodo(iLClasse.Atual.Proxy, iLClasse.Nome, nome, acessadores, retorno, parametros);
-            //}
-            if (nome.Trim() != ".ctor")
-            {
-                iLClasse.Atual.Metodos.Add(mth);
-            }
-
-            return mth;
+            API.ClasseAPI.CriarMetodo(iLClasseProvider.Atual, acessadores, retorno, nome, parametros);
+            return iLClasseProvider.Atual.Metodos.Last();
+        }
+        public static ILMetodo CriarMetodo(this ILClasseProvider iLClasseProvider, Token[] acessadores, Type retorno, string nome, ILParametro[] parametros)
+        {
+            API.ClasseAPI.CriarMetodo(iLClasseProvider.Atual, acessadores, retorno, nome, parametros.Converter<Type>().ToArray());
+            return iLClasseProvider.Atual.Metodos.Last();
         }
 
-        /// <summary>
-        /// Cria um construtor padrão
-        /// </summary>
-        /// <param name="iLClasse"></param>
-        /// <param name="acessadores"></param>
-        /// <param name="parametros"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarConstrutor(this ILClasseProvider iLClasse, Token[] acessadores = null, Type[] parametros = null)
+        public static ILMetodo Soma(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
         {
-            if (iLClasse is null)
-            {
-                throw new ArgumentNullException(nameof(iLClasse));
-            }
-
-            var mth = iLClasse.CriarMetodo(".ctor", new Token[] { Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial }.ConcatDistinct(acessadores).ToArray(), null, parametros);
-            iLClasse.Atual.Construtores.Add(mth);
-            return mth;
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_2.Indice);
+            API.MetodoAPI.Soma(iLMetodo);
+            return iLMetodo;
         }
-
-        /// <summary>
-        /// Carrega um argumento para a pilha de execução
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="indice"></param>
-        /// <returns></returns>
-        public static ILMetodo CarregarArgumento(this ILMetodo iLMetodo, int indice = 0)
+        public static ILMetodo Soma(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
         {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo._metodoBuilder, indice));
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.Soma(iLMetodo);
             return iLMetodo;
         }
 
-        /// <summary>
-        /// Carrega um conjunto de indice de argumento para a pilha de execução
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="indice"></param>
-        /// <returns></returns>
-        public static ILMetodo CarregarArgumentoAgregado(this ILMetodo iLMetodo, int indiceInicial = 0, int indiceFinal = 0)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            for (int indice = indiceInicial; indice <= indiceFinal; indice++)
-            {
-                iLMetodo.PilhaExecucao.Add(new ILLdarg(iLMetodo._metodoBuilder, indice));
-            }
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Carrega um argumento para a pilha de execução
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CarregarArgumento(this ILMetodo iLMetodo, string valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (valor is null)
-            {
-                throw new ArgumentNullException(nameof(valor));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILLdstr(iLMetodo._metodoBuilder, valor));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Carrega um campo para a pilha de execução
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="iLCampo"></param>
-        /// <returns></returns>
-        public static ILMetodo CarregarCampo(this ILMetodo iLMetodo, ILCampo iLCampo)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (iLCampo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLCampo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILLdfld(iLMetodo._metodoBuilder, iLCampo._campoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Carrega um campo para a pilha de execução
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="iLVariavel"></param>
-        /// <returns></returns>
-        public static ILMetodo CarregarVariavel(this ILMetodo iLMetodo, ILVariavel iLVariavel)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (iLVariavel is null)
-            {
-                throw new ArgumentNullException(nameof(iLVariavel));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILLdLoc(iLMetodo._metodoBuilder, iLVariavel.Indice));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Armazena o valor na variavel
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="iLVariavel"></param>
-        /// <returns></returns>
-        public static ILMetodo ArmazenarVariavel(this ILMetodo iLMetodo, ILVariavel iLVariavel)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (iLVariavel is null)
-            {
-                throw new ArgumentNullException(nameof(iLVariavel));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILStLoc(iLMetodo._metodoBuilder, iLVariavel.Indice));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Armazena o valor na variavel
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="iLCampo"></param>
-        /// <returns></returns>
-        public static ILMetodo ArmazenarCampo(this ILMetodo iLMetodo, ILCampo iLCampo)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (iLCampo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLCampo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILStfld(iLMetodo._metodoBuilder, iLCampo._campoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Chama uma função de um objeto
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="constructorInfo"></param>
-        /// <returns></returns>
-        public static ILMetodo ChamarFuncao(this ILMetodo iLMetodo, ConstructorInfo constructorInfo)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (constructorInfo is null)
-            {
-                throw new ArgumentNullException(nameof(constructorInfo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo._metodoBuilder, constructorInfo));
-
-            return iLMetodo;
-        }
-
-
-
-        /// <summary>
-        /// Chama uma função de um objeto
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="methodInfo"></param>
-        /// <returns></returns>
-        public static ILMetodo ChamarFuncaoVirtual(this ILMetodo iLMetodo, MethodInfo methodInfo)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (methodInfo is null)
-            {
-                throw new ArgumentNullException(nameof(methodInfo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILCallVirt(iLMetodo._metodoBuilder, methodInfo));
-
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <returns></returns>
         public static ILMetodo CriarRetorno(this ILMetodo iLMetodo)
         {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, int valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILInt32(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, long valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILInt64(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, float valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILFloat32(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, double valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILFloat64(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, short valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILInt16(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria o 'return'
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="valor"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarRetorno(this ILMetodo iLMetodo, decimal valor)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILValueType(iLMetodo._metodoBuilder, valor));
-            iLMetodo.PilhaExecucao.Add(new ILRet(iLMetodo._metodoBuilder));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Converte o valor da pilha de execução no tipo especificado
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static ILMetodo Converter(this ILMetodo iLMetodo, Type type)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILBox(iLMetodo._metodoBuilder, type));
-            return iLMetodo;
-        }
-
-        /// <summary>
-        /// Cria a instancia de um objeto
-        /// </summary>
-        /// <param name="iLMetodo"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static ILMetodo CriarInstancia(this ILMetodo iLMetodo, Type type, Type[] parametros = null)
-        {
-            if (iLMetodo.IsDefault())
-            {
-                throw new ArgumentNullException(nameof(iLMetodo));
-            }
-
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            iLMetodo.PilhaExecucao.Add(new ILNewObj(iLMetodo._metodoBuilder, type.ObterConstrutor(parametros)));
+            API.MetodoAPI.CriarRetorno(iLMetodo);
             return iLMetodo;
         }
 

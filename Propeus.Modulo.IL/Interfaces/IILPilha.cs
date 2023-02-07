@@ -1,4 +1,5 @@
 ﻿using Propeus.Modulo.IL.Proxy;
+
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Propeus.Modulo.IL.Interfaces
 {
-    internal interface IILPilha : IILExecutor,IDisposable
+    internal interface IILPilha : IILExecutor, IDisposable
     {
         OpCode Code { get; }
 

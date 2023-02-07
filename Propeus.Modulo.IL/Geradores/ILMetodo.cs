@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -40,14 +41,16 @@ namespace Propeus.Modulo.IL.Geradores
         /// </summary>
         public Type Retorno { get; private set; }
 
-        private bool _executado;
-        internal MethodBuilder _metodoBuilder;
 
-        public Type[] Parametros { get; private set; }
+        public ILParametro[] Parametros { get; private set; }
         public Token[] Acessadores { get; private set; }
         
         internal List<IILPilha> PilhaExecucao { get; private set; }
         internal List<ILVariavel> Variaveis { get; private set; }
+
+        internal MethodBuilder _metodoBuilder;
+        private bool _executado;
+
 
         /// <summary>
         /// Cria um novo metodo
@@ -58,7 +61,7 @@ namespace Propeus.Modulo.IL.Geradores
         /// <param name="acessadores"></param>
         /// <param name="retorno"></param>
         /// <param name="parametros"></param>
-        public ILMetodo(ILBuilderProxy builderProxy, string nomeCLasse, string nomeMetodo = Constantes.CONST_NME_METODO, Token[] acessadores = null, Type retorno = null, Type[] parametros = null)
+        public ILMetodo(ILBuilderProxy builderProxy, string nomeCLasse, string nomeMetodo = Constantes.CONST_NME_METODO, Token[] acessadores = null, Type retorno = null, ILParametro[] parametros = null)
         {
             if (builderProxy is null)
             {
@@ -84,7 +87,7 @@ namespace Propeus.Modulo.IL.Geradores
 
             retorno ??= typeof(void);
 
-            parametros ??= Array.Empty<Type>();
+            parametros ??= Array.Empty<ILParametro>();
 
             Nome = nomeMetodo;
             Retorno = retorno;
@@ -98,8 +101,8 @@ namespace Propeus.Modulo.IL.Geradores
                 typeAttributes.Add((MethodAttributes)Enum.Parse(typeof(MethodAttributes), item.ObterDescricaoEnum()));
             }
 
-            _metodoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros);
-
+            _metodoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros.Converter<Type>().ToArray());
+            
             PilhaExecucao = new List<IILPilha>();
             Variaveis = new List<ILVariavel>();
         }
@@ -150,11 +153,11 @@ namespace Propeus.Modulo.IL.Geradores
                 _ = sb.Append('(')
                     .AppendLine();
 
-                foreach (Type parametro in Parametros)
+                foreach (ILParametro parametro in Parametros)
                 {
-                    _ = sb.Append(parametro.Name.ToLower())
+                    _ = sb.Append(parametro.Tipo.Name.ToLower())
                         .Append(' ')
-                        .Append(Guid.NewGuid().ToString().Replace('-', '_').ToLower())
+                        .Append(parametro.Nome)
                         .AppendLine();
                 }
                 _ = sb.Append(") ");

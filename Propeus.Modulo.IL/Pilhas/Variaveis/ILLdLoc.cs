@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Variaveis
 {
     internal class ILLdLoc : ILPilha
     {
@@ -18,7 +18,7 @@ namespace Propeus.Modulo.IL.Pilhas
         public int Valor { get; }
 
         ///<inheritdoc/>
-        public override  void Executar()
+        public override void Executar()
         {
 
             if (_executado)

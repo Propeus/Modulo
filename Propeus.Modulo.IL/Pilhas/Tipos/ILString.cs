@@ -1,27 +1,25 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Propeus.Modulo.IL.Pilhas
+using Propeus.Modulo.IL.Proxy;
+
+namespace Propeus.Modulo.IL.Pilhas.Tipos
 {
-    /// <summary>
-    /// <see cref="double"/>
-    /// </summary>
-    internal class ILFloat64 : ILPilha
+    internal class ILString : ILPilha
     {
-        public ILFloat64(ILBuilderProxy proxy, double valor = 0) : base(proxy, OpCodes.Ldc_R8)
+        public ILString(ILBuilderProxy iLBuilderProxy, string valor) : base(iLBuilderProxy, OpCodes.Ldstr,valor)
         {
             Valor = valor;
         }
 
-        public double Valor { get; }
+        public string Valor { get; }
 
         ///<inheritdoc/>
-        public override  void Executar()
+        public override void Executar()
         {
             if (_executado)
                 return;

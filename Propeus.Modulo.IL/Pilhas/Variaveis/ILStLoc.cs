@@ -6,21 +6,17 @@ using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Variaveis
 {
-    /// <summary>
-    /// <see cref="long"/>
-    /// </summary>
-    internal class ILInt64 : ILPilha
+    internal class ILStLoc : ILPilha
     {
-        public ILInt64(ILBuilderProxy proxy, long valor = 0) : base(proxy,OpCodes.Ldc_I8)
+        public ILStLoc(ILBuilderProxy proxy, int valor = 0) : base(proxy, OpCodes.Stloc)
         {
             Valor = valor;
         }
 
-        public long Valor { get; }
+        public int Valor { get; }
 
-        ///<inheritdoc/>
         public override void Executar()
         {
             if (_executado)

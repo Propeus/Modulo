@@ -1,26 +1,27 @@
 ﻿using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
     /// <summary>
-    /// <see cref="float"/>
+    /// <see cref="long"/> || int64 || <see cref="OpCodes.Ldc_I8"/>
     /// </summary>
-    internal class ILFloat32 : ILPilha
+    internal class ILLong : ILPilha
     {
-        public ILFloat32(ILBuilderProxy proxy, float valor = 0) : base(proxy,OpCodes.Ldc_R4)
+        /// <summary>
+        /// <see cref="long"/> || int64 || <see cref="OpCodes.Ldc_I8"/>
+        /// </summary>
+        public ILLong(ILBuilderProxy proxy, long valor = 0) : base(proxy, OpCodes.Ldc_I8, valor)
         {
             Valor = valor;
         }
 
-        public float Valor { get; }
+        public long Valor { get; }
 
         ///<inheritdoc/>
         public override void Executar()
@@ -29,6 +30,11 @@ namespace Propeus.Modulo.IL.Pilhas
                 return;
 
             Proxy.Emit(Code, Valor);
+
+            if (Valor <= int.MaxValue)
+            {
+                Proxy.Emit(OpCodes.Conv_I8);
+            }
 
             base.Executar();
         }

@@ -52,7 +52,8 @@ namespace Propeus.Modulo.IL.Geradores
 
         }
 
-        internal ILClasseProvider CriarProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
+
+        internal ILClasseProvider CriarClasseProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
         {
             if (Constantes.CONST_NME_CLASSE == nomeClasse)
             {

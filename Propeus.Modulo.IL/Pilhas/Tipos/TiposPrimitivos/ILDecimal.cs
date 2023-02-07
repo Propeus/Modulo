@@ -6,39 +6,42 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
     /// <summary>
-    /// <see cref="decimal"/>
+    /// <see cref="decimal"/> || <see cref="ValueType"/> || <see cref="OpCodes.Newobj"/>
     /// </summary>
-    internal class ILValueType : ILPilha
+    internal class ILDecimal : ILPilha
     {
-        public ILValueType(ILBuilderProxy proxy, decimal valor = 0) : base(proxy, OpCodes.Newobj)
+        /// <summary>
+        /// <see cref="decimal"/> || <see cref="ValueType"/> || <see cref="OpCodes.Newobj"/>
+        /// </summary>
+        public ILDecimal(ILBuilderProxy proxy, decimal valor = 0) : base(proxy, OpCodes.Newobj,valor)
         {
             Valor = valor;
 
-            int[] slot = Decimal.GetBits(valor);
-            Byte[] flag = BitConverter.GetBytes(slot[3]);
+            int[] slot = decimal.GetBits(valor);
+            byte[] flag = BitConverter.GetBytes(slot[3]);
 
             bool flgNumeroNegativo = flag[3] > 0;
 
-            NumeroNegativo = new ILInt32(Proxy, Convert.ToInt32(flgNumeroNegativo));
-            QuantidadePontoFlutuante = new ILInt8(Proxy, (sbyte)flag[2]);
+            NumeroNegativo = new ILBoolean(Proxy, flgNumeroNegativo);
+            QuantidadePontoFlutuante = new ILSbyte(Proxy, (sbyte)flag[2]);
 
-            Slot1 = new ILInt32(proxy, slot[0]);
-            Slot2 = new ILInt32(proxy, slot[1]);
-            Slot3 = new ILInt32(proxy, slot[2]);
+            Slot1 = new ILInt(proxy, slot[0]);
+            Slot2 = new ILInt(proxy, slot[1]);
+            Slot3 = new ILInt(proxy, slot[2]);
 
             Constutor = new ILNewObj(proxy, typeof(decimal).GetConstructors().First(c => c.GetParameters().Length == 5));
         }
 
         public decimal Valor { get; }
 
-        public ILInt32 Slot1 { get; }
-        public ILInt32 Slot2 { get;  }
-        public ILInt32 Slot3 { get; }
-        public ILInt32 NumeroNegativo { get; }
-        public ILInt8 QuantidadePontoFlutuante { get; }
+        public ILInt Slot1 { get; }
+        public ILInt Slot2 { get; }
+        public ILInt Slot3 { get; }
+        public ILBoolean NumeroNegativo { get; }
+        public ILSbyte QuantidadePontoFlutuante { get; }
         public ILNewObj Constutor { get; }
 
         public override void Executar()
@@ -59,7 +62,7 @@ namespace Propeus.Modulo.IL.Pilhas
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-      
+
             Slot1.Dispose();
             Slot2.Dispose();
             Slot3.Dispose();
@@ -69,6 +72,6 @@ namespace Propeus.Modulo.IL.Pilhas
 
         }
 
-       
+
     }
 }

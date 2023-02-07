@@ -1,26 +1,27 @@
 ﻿using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Campos
 {
     /// <summary>
-    /// Carrega o campo no indice desejado
+    /// Armazena o valor no campo indicado
     /// </summary>
-    internal class ILLdfld : ILPilha
+    internal class ILStfld : ILPilha
     {
-        public ILLdfld(ILBuilderProxy proxy, FieldBuilder fieldBuilder) :base(proxy, OpCodes.Ldfld)
+        public ILStfld(ILBuilderProxy proxy, FieldBuilder valor) : base(proxy, OpCodes.Stfld)
         {
-            Valor = fieldBuilder;
+            Valor = valor;
         }
 
         public FieldBuilder Valor { get; private set; }
 
+        ///<inheritdoc/>
         public override void Executar()
         {
             if (_executado)
@@ -31,7 +32,6 @@ namespace Propeus.Modulo.IL.Pilhas
             base.Executar();
         }
 
-        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

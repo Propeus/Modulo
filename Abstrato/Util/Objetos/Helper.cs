@@ -244,6 +244,14 @@ namespace Propeus.Modulo.Abstrato.Util
                 return Convert.ChangeType(obj, para);
             }
 
+            var box_explicito_implicito = obj.GetType().GetMethod("op_Explicit", new[] { obj.GetType() }) 
+                ?? obj.GetType().GetMethod("op_Implicit", new[] { obj.GetType() });
+
+
+            if (box_explicito_implicito?.ReturnType == para)
+            {
+                return box_explicito_implicito.Invoke(obj, new object[] { obj });
+            }
 
 
             throw new InvalidCastException(string.Format(TIPO_NAO_CONVERTIDO, obj.GetType().Name, para.Name));

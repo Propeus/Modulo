@@ -6,19 +6,22 @@ using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
     /// <summary>
-    /// <see cref="sbyte"/>
+    /// <see cref="int"/> || int32 || <see cref="OpCodes.Ldc_I4"/>
     /// </summary>
-    internal class ILInt8 : ILPilha
+    internal class ILInt : ILPilha
     {
-        public ILInt8(ILBuilderProxy proxy, sbyte valor = 0) : base(proxy, OpCodes.Ldc_I4_S)
+        /// <summary>
+        /// <see cref="int"/> || int32 || <see cref="OpCodes.Ldc_I4"/>
+        /// </summary>
+        public ILInt(ILBuilderProxy proxy, int valor = 0) : base(proxy, OpCodes.Ldc_I4, valor)
         {
             Valor = valor;
         }
 
-        public sbyte Valor { get; }
+        public int Valor { get; }
 
         ///<inheritdoc/>
         public override void Executar()

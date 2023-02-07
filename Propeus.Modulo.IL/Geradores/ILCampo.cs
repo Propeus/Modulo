@@ -37,7 +37,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         public Token[] Acessadores { get; private set; }
 
-        public ILCampo(ILBuilderProxy builderProxy, string nomeClasse, Token[] acessadores = null, Type retorno = null, string nome = Constantes.CONST_NME_CAMPO)
+        public ILCampo(ILBuilderProxy builderProxy, string nomeClasse, Token[] acessadores, Type tipo, string nome)
         {
             if (builderProxy is null)
             {
@@ -54,27 +54,16 @@ namespace Propeus.Modulo.IL.Geradores
                 throw new ArgumentException($"'{nameof(nome)}' não pode ser nulo nem vazio.", nameof(nome));
             }
 
-
-
-            if (nome == Constantes.CONST_NME_CAMPO)
-            {
-                nome = Constantes.GerarNomeCampo(nomeClasse);
-            }
-
-            acessadores ??= new Token[] { Token.Publico, Token.OcutarAssinatura };
-
-            retorno ??= typeof(object);
-
             Nome = nome;
-            Retorno = retorno;
-            Acessadores = acessadores;
+            Retorno = tipo ?? throw new ArgumentNullException(nameof(tipo));
+            Acessadores = acessadores ?? throw new ArgumentNullException(nameof(acessadores));
 
             List<FieldAttributes> typeAttributes = new();
             foreach (Token item in acessadores)
             {
                 typeAttributes.Add((FieldAttributes)Enum.Parse(typeof(FieldAttributes), item.ObterDescricaoEnum()));
             }
-            _campoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineField(nome, retorno, typeAttributes.ToArray().ConcatenarEnum());
+            _campoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineField(nome, tipo, typeAttributes.ToArray().ConcatenarEnum());
         }
 
 

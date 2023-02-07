@@ -6,19 +6,22 @@ using System.Globalization;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Modulo.IL.Pilhas
+namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
     /// <summary>
-    /// <see cref="int"/>
+    /// <see cref="short"/> || int16 || <see cref="OpCodes.Ldc_I4"/>
     /// </summary>
-    internal class ILInt32 : ILPilha
+    internal class ILShort : ILPilha
     {
-        public ILInt32(ILBuilderProxy proxy, int valor = 0) : base(proxy,OpCodes.Ldc_I4)
+        /// <summary>
+        /// <see cref="short"/> || int16 || <see cref="OpCodes.Ldc_I4"/>
+        /// </summary>
+        public ILShort(ILBuilderProxy proxy, short valor = 0) : base(proxy, OpCodes.Ldc_I4, valor)
         {
             Valor = valor;
         }
 
-        public int Valor { get; }
+        public short Valor { get; }
 
         ///<inheritdoc/>
         public override void Executar()
@@ -28,8 +31,9 @@ namespace Propeus.Modulo.IL.Pilhas
 
             Proxy.Emit(Code, Valor);
 
-            base.Executar();    
+            base.Executar();
         }
+
 
         public override string ToString()
         {

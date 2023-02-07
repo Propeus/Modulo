@@ -7,7 +7,7 @@ namespace Propeus.Modulo.IL.Interfaces
     /// <summary>
     /// Interface para execução de função
     /// </summary>
-    internal interface IILExecutor
+    public interface IILExecutor
     {
         /// <summary>
         /// Executa a montagem do código IL

@@ -22,7 +22,7 @@ namespace Propeus.Modulo.IL.Geradores
 
     public class ILVariavel : IILExecutor, IDisposable
     {
-        private LocalBuilder _variavelBuilder;
+        internal LocalBuilder _variavelBuilder;
         private bool _Executado;
 
         public int Indice { get; }

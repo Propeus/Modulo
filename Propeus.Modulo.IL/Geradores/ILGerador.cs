@@ -46,6 +46,8 @@ namespace Propeus.Modulo.IL.Geradores
         public ILGerador(string nomeAssembly = Constantes.CONST_NME_ASSEMBLY)
         {
 
+            
+
             if (nomeAssembly == Constantes.CONST_NME_ASSEMBLY)
                 nomeAssembly = Constantes.GerarNome(Constantes.CONST_NME_ASSEMBLY);
 
@@ -75,6 +77,9 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
         }
+
+        
+
 
         public override string ToString()
         {

@@ -14,7 +14,7 @@ namespace Propeus.Modulo.IL.Pilhas
     /// </summary>
     internal class ILLdarg : ILPilha
     {
-        public ILLdarg(ILBuilderProxy proxy, int indice = 0) : base(proxy, OpCodes.Ldarg)
+        public ILLdarg(ILBuilderProxy proxy, int indice = 0) : base(proxy, OpCodes.Ldarg, indice)
         {
             Valor = indice;
         }
@@ -22,7 +22,7 @@ namespace Propeus.Modulo.IL.Pilhas
         public int Valor { get; }
 
         ///<inheritdoc/>
-        public override  void Executar()
+        public override void Executar()
         {
             if (_executado)
                 return;
@@ -34,7 +34,15 @@ namespace Propeus.Modulo.IL.Pilhas
 
         public override string ToString()
         {
-            return $"\t\t{_offset} {Code} {Valor}";
+            if (Valor >= 0 && 3 >= Valor)
+            {
+                return $"\t\t{_offset} {Code}";
+            }
+            else
+            {
+                return $"\t\t{_offset} {Code} {Valor}";
+            }
+
         }
     }
 }
