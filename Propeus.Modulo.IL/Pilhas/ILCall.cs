@@ -51,6 +51,8 @@ namespace Propeus.Modulo.IL.Pilhas
             if (_executado)
                 return;
 
+            base.Executar();
+
             if (Valor is MethodInfo)
                 Proxy.Emit(Code, Valor as MethodInfo);
             else if (Valor is ConstructorInfo)
@@ -58,7 +60,6 @@ namespace Propeus.Modulo.IL.Pilhas
             else
                 throw new InvalidCastException("Não foi possivel determinar o tipo de membro o valor pertence");
 
-            base.Executar();
         }
 
         protected override void Dispose(bool disposing)

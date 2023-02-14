@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Propeus.Modulo.IL/Propeus.NetCore.IL.xml

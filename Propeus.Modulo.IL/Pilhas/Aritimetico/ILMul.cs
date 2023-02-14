@@ -1,24 +1,20 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
+using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Propeus.Modulo.IL.Pilhas
+using Propeus.Modulo.IL.Proxy;
+
+namespace Propeus.Modulo.IL.Pilhas.Aritimetico
 {
-    /// <summary>
-    /// Cria uma instrução IL de retorno
-    /// </summary>
-    internal class ILRet : ILPilha
+    internal class ILMul : ILPilha
     {
-        public ILRet(ILBuilderProxy proxy) : base(proxy, OpCodes.Ret)
+        public ILMul(ILBuilderProxy iLBuilderProxy) : base(iLBuilderProxy, OpCodes.Mul)
         {
         }
 
-        ///<inheritdoc/>
         public override void Executar()
         {
             if (_executado)
@@ -28,10 +24,13 @@ namespace Propeus.Modulo.IL.Pilhas
             Proxy.Emit(Code);
 
         }
-        
+
         public override string ToString()
         {
             return $"\t\t{_offset} {Code}";
         }
+
     }
+
+
 }

@@ -31,9 +31,9 @@ namespace Propeus.Modulo.IL.Pilhas
             if (_executado)
                 return;
 
+            base.Executar();
             Proxy.Emit(Code, Valor);
 
-            base.Executar();
         }
 
         protected override void Dispose(bool disposing)

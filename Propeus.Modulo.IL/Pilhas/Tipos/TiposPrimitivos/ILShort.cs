@@ -29,9 +29,9 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
             if (_executado)
                 return;
 
+            base.Executar();
             Proxy.Emit(Code, Valor);
 
-            base.Executar();
         }
 
 

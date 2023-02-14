@@ -24,9 +24,9 @@ namespace Propeus.Modulo.IL.Pilhas.Variaveis
             if (_executado)
                 return;
 
+            base.Executar();
             Proxy.Emit(Code, Valor);
 
-            base.Executar();
         }
 
 

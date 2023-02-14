@@ -9,6 +9,7 @@ using System.Text;
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
+using Propeus.Modulo.IL.Pilhas;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
@@ -44,9 +45,10 @@ namespace Propeus.Modulo.IL.Geradores
 
         public ILParametro[] Parametros { get; private set; }
         public Token[] Acessadores { get; private set; }
-        
+
         internal List<IILPilha> PilhaExecucao { get; private set; }
         internal List<ILVariavel> Variaveis { get; private set; }
+        internal Stack<IILPilha> PilhasAuxiliares{ get; private set; }
 
         internal MethodBuilder _metodoBuilder;
         private bool _executado;
@@ -103,8 +105,13 @@ namespace Propeus.Modulo.IL.Geradores
 
             _metodoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros.Converter<Type>().ToArray());
             
+            for (int i = 0; i < parametros.Length; i++)
+            {
+                parametros[i].Indice = i+1;
+            }
             PilhaExecucao = new List<IILPilha>();
             Variaveis = new List<ILVariavel>();
+            PilhasAuxiliares = new Stack<IILPilha>();
         }
 
 

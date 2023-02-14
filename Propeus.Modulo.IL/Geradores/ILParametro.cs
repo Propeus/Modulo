@@ -67,7 +67,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         public Type Tipo { get; private set; }
         public string Nome { get; private set; }
-        public int Indice { get; private set; }
+        public int Indice { get; internal set; }
 
         public void Executar()
         {

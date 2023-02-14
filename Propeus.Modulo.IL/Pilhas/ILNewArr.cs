@@ -20,12 +20,12 @@ namespace Propeus.Modulo.IL.Pilhas
         ///<inheritdoc/>
         public override void Executar()
         {
-            if(_executado)
+            if (_executado)
                 return;
 
+            base.Executar();
             Proxy.Emit(Code, Valor);
 
-            base.Executar();
         }
 
         protected override void Dispose(bool disposing)

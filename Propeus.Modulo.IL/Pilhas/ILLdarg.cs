@@ -16,31 +16,32 @@ namespace Propeus.Modulo.IL.Pilhas
     {
         public ILLdarg(ILBuilderProxy proxy, int indice = 0) : base(proxy, OpCodes.Ldarg, indice)
         {
-            Valor = indice;
+            Indice = indice;
         }
 
-        public int Valor { get; }
+        public int Indice { get; }
 
         ///<inheritdoc/>
         public override void Executar()
         {
+
             if (_executado)
                 return;
 
-            Proxy.Emit(Code, Valor);
-
             base.Executar();
+            Proxy.Emit(Code);
+
         }
 
         public override string ToString()
         {
-            if (Valor >= 0 && 3 >= Valor)
+            if (Indice >= 0 && 3 >= Indice)
             {
                 return $"\t\t{_offset} {Code}";
             }
             else
             {
-                return $"\t\t{_offset} {Code} {Valor}";
+                return $"\t\t{_offset} {Code} {Indice}";
             }
 
         }

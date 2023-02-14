@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Geradores;
+using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Pilhas;
 using Propeus.Modulo.IL.Pilhas.Aritimetico;
 using Propeus.Modulo.IL.Pilhas.Campos;
+using Propeus.Modulo.IL.Pilhas.Logico;
+using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Pilhas.Tipos;
 using Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos;
 using Propeus.Modulo.IL.Pilhas.Variaveis;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.API
 {
@@ -140,6 +145,114 @@ namespace Propeus.Modulo.IL.API
         public static void Soma(ILMetodo iLMetodo)
         {
             iLMetodo.PilhaExecucao.Add(new ILAdd(iLMetodo._metodoBuilder));
+        }
+        public static void Subitrair(ILMetodo iLMetodo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILSub(iLMetodo._metodoBuilder));
+        }
+        public static void Dividir(ILMetodo iLMetodo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILDiv(iLMetodo._metodoBuilder));
+        }
+        public static void Multiplicar(ILMetodo iLMetodo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILMul(iLMetodo._metodoBuilder));
+        }
+        #endregion
+
+        #region Condicional & Logico
+        public static void Se(ILMetodo iLMetodo)
+        {
+            ILLabel labels = new ILLabel(iLMetodo._metodoBuilder);
+            iLMetodo.PilhasAuxiliares.Push(labels);
+        }
+
+        public static void SeFim(ILMetodo iLMetodo)
+        {
+
+            if (iLMetodo.PilhasAuxiliares.TryPop(out IILPilha pilhaPop))
+            {
+                iLMetodo.PilhaExecucao.Add(pilhaPop);
+            }
+            else
+            {
+                throw new InvalidOperationException("O item fornecido na pilha nao e do tipo ILLogico ou o nome da label esta nulo ou vazio");
+            }
+        }
+
+        public static void Diferente(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILNotEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                //Sim, o MSIL faz esse pog
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder));
+                iLMetodo.PilhaExecucao.Add(new ILUshort(iLMetodo._metodoBuilder, 0));
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder));
+            }
+        }
+        public static void Igual(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder));
+            }
+        }
+        public static void MaiorOuIgualQue(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThanOrEquals(iLMetodo._metodoBuilder));
+                iLMetodo.PilhaExecucao.Add(new ILUshort(iLMetodo._metodoBuilder, 0));
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder));
+
+            }
+        }
+        public static void MenorOuIgualQue(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILLessThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                iLMetodo.PilhaExecucao.Add(new ILLessThanOrEquals(iLMetodo._metodoBuilder));
+                iLMetodo.PilhaExecucao.Add(new ILUshort(iLMetodo._metodoBuilder, 0));
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder));
+            }
+        }
+        public static void MaiorQue(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThan(iLMetodo._metodoBuilder));
+            }
+        }
+        public static void MenorQue(ILMetodo iLMetodo)
+        {
+            if (iLMetodo.PilhasAuxiliares.Any())
+            {
+                iLMetodo.PilhaExecucao.Add(new ILLessThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+            }
+            else
+            {
+                iLMetodo.PilhaExecucao.Add(new ILLessThan(iLMetodo._metodoBuilder));
+            }
         }
         #endregion
     }

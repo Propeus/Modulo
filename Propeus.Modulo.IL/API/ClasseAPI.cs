@@ -13,7 +13,7 @@ namespace Propeus.Modulo.IL.API
     internal class ClasseAPI
     {
 
-        public static void CriarMetodo(ILClasse iLClasse, Token[] acessadores, Type tipoRetorno, string nomeMetodo = Constantes.CONST_NME_METODO, Type[] parametros = null)
+        public static void CriarMetodo(ILClasse iLClasse, Token[] acessadores, Type tipoRetorno, string nomeMetodo = Constantes.CONST_NME_METODO, ILParametro[] parametros = null)
         {
             if (iLClasse is null)
             {
@@ -35,7 +35,7 @@ namespace Propeus.Modulo.IL.API
                 throw new ArgumentException($"'{nameof(nomeMetodo)}' não pode ser nulo nem vazio.", nameof(nomeMetodo));
             }
 
-            iLClasse.Metodos.Add(new ILMetodo(iLClasse.Proxy, iLClasse.Nome, nomeMetodo, acessadores, tipoRetorno, parametros?.Select(p => new ILParametro(nomeMetodo,p)).ToArray()));
+            iLClasse.Metodos.Add(new ILMetodo(iLClasse.Proxy, iLClasse.Nome, nomeMetodo, acessadores, tipoRetorno, parametros));
         }
         public static void CriarCampo(ILClasse iLClasse, Token[] acessador, Type tipo, string nome = Constantes.CONST_NME_CAMPO)
         {

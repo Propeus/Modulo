@@ -29,6 +29,8 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
             if (_executado)
                 return;
 
+            base.Executar();
+
             Proxy.Emit(Code, Valor);
 
             if (Valor <= int.MaxValue)
@@ -36,7 +38,6 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
                 Proxy.Emit(OpCodes.Conv_I8);
             }
 
-            base.Executar();
         }
 
         public override string ToString()

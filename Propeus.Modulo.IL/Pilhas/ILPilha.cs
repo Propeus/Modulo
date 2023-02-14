@@ -42,6 +42,9 @@ namespace Propeus.Modulo.IL.Pilhas
                     case 3:
                         Code = OpCodes.Ldarg_3;
                         break;
+                    default:
+                        Code = OpCodes.Ldarga_S; 
+                        break;
                 }
             }
             else if (valor.GetType().IsPrimitive)
@@ -190,8 +193,11 @@ namespace Propeus.Modulo.IL.Pilhas
 
         public virtual void Executar()
         {
+           //Nao adicione o if verificado se ja foi executado
+
             _executado = true;
             _offset = Proxy?.ILGenerator?.ILOffset ?? 0;
+            
         }
 
         private bool disposedValue;

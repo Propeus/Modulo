@@ -15,6 +15,16 @@ namespace Propeus.Modulo.IL.Pilhas.Aritimetico
         {
         }
 
+        public override void Executar()
+        {
+            if (_executado)
+                return;
+
+            base.Executar();
+            Proxy.Emit(Code);
+
+        }
+
         public override string ToString()
         {
             return $"\t\t{_offset} {Code}";

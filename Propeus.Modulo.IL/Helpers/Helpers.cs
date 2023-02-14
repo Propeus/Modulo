@@ -32,7 +32,7 @@ namespace Propeus.Modulo.IL.Helpers
             foreach (var c in tClasse.GetConstructors())
             {
 
-                API.ClasseAPI.CriarMetodo(cls.Atual, c.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), ".ctor", c.ObterTipoParametros().ToArray());
+                API.ClasseAPI.CriarMetodo(cls.Atual, c.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), ".ctor", c.ObterTipoParametros().Select(p=> new ILParametro(".ctor",p)).ToArray());
                 var ctorMth = cls.Atual.Metodos.Last();
 
                 API.MetodoAPI.CarregarArgumento(ctorMth);
@@ -60,7 +60,7 @@ namespace Propeus.Modulo.IL.Helpers
                 }
                 else
                 {
-                    API.ClasseAPI.CriarMetodo(cls.Atual, metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), metodo.ReturnType, metodo.Name, metodo.ObterTipoParametros().ToArray());
+                    API.ClasseAPI.CriarMetodo(cls.Atual, metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), metodo.ReturnType, metodo.Name, metodo.ObterTipoParametros().Select(p => new ILParametro(metodo.Name, p)).ToArray());
                 }
 
                 var mth = cls.Atual.Metodos.Last();
@@ -83,7 +83,7 @@ namespace Propeus.Modulo.IL.Helpers
                 API.ClasseAPI.CriarPropriedade(cls.Atual, propriedade.PropertyType, propriedade.Name, propriedadeParametros);
                 var prop = cls.Atual.Propriedades.Last();
 
-                API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_get.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), prop.Retorno, Constantes.CONST_NME_PROPRIEDADE_METODO_GET + prop.Nome, propriedadeParametros);
+                API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_get.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), prop.Retorno, Constantes.CONST_NME_PROPRIEDADE_METODO_GET + prop.Nome, propriedadeParametros.Select(p => new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_GET + prop.Nome, p)).ToArray());
                 var mth_get = cls.Atual.Metodos.Last();
 
                 API.MetodoAPI.CarregarArgumento(mth_get);
@@ -97,7 +97,7 @@ namespace Propeus.Modulo.IL.Helpers
 
                 if (prop.Setter != null)
                 {
-                    API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_set.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, new Type[] { prop.Retorno });
+                    API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_set.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, new ILParametro[] { new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, prop.Retorno) });
                     var mth_set = cls.Atual.Metodos.Last();
 
                     API.MetodoAPI.CarregarArgumento(mth_set);

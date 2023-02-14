@@ -49,6 +49,8 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
             if (_executado)
                 return;
 
+            base.Executar();
+
             Slot1.Executar();
             Slot2.Executar();
             Slot3.Executar();
@@ -56,7 +58,6 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
             QuantidadePontoFlutuante.Executar();
             Constutor.Executar();
 
-            base.Executar();
         }
 
         protected override void Dispose(bool disposing)
