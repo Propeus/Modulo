@@ -397,3 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Propeus.Modulo.IL/Propeus.NetCore.IL.xml
+/Core/obj/Debug/net7.0/Core.csproj.AssemblyReference.cache
+/Core/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs
