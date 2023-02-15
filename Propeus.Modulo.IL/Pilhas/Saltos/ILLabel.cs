@@ -15,11 +15,10 @@ namespace Propeus.Modulo.IL.Pilhas.Saltos
         public ILLabel(ILBuilderProxy proxy) : base(proxy, OpCodes.Nop)
         {
             Label = proxy.DefineLabel();
-            Nome = Guid.NewGuid().ToString();
         }
 
         public Label? Label { get; private set; }
-        public string Nome { get; }
+        public string Nome => _offset.ToString();
 
         public override void Executar()
         {

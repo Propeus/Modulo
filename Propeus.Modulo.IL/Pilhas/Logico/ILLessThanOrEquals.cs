@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Emit;
 
+using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Logico
@@ -14,7 +15,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
         {
         }
 
-        public ILLessThanOrEquals(ILBuilderProxy iLBuilderProxy, Label label) : base(iLBuilderProxy, OpCodes.Bgt_Un_S, label)
+        public ILLessThanOrEquals(ILBuilderProxy iLBuilderProxy, ILLabel label) : base(iLBuilderProxy, OpCodes.Bgt_Un_S, label)
         {
         }
     }

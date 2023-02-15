@@ -167,6 +167,7 @@ namespace Propeus.Modulo.IL.Helpers
             API.MetodoAPI.MenorOuIgualQue(iLMetodo);
             return iLMetodo;
         }
+      
         public static ILMetodo SeFim(this ILMetodo iLMetodo)
         {
             API.MetodoAPI.SeFim(iLMetodo);

@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
+using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Logico
@@ -15,19 +16,19 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
         {
         }
 
-        public ILLogico(ILBuilderProxy iLBuilderProxy, OpCode opCode, Label label) : base(iLBuilderProxy, opCode)
+        public ILLogico(ILBuilderProxy iLBuilderProxy, OpCode opCode, ILLabel label) : base(iLBuilderProxy, opCode)
         {
             Label = label;
         }
 
-        public Label? Label { get; internal set; }
+        public ILLabel Label { get; internal set; }
 
         public override void Executar()
         {
             base.Executar();
-            if (Label.HasValue)
+            if (Label!= null)
             {
-                Proxy.Emit(Code, Label.Value);
+                Proxy.Emit(Code, Label.Label.Value);
             }
             else
             {
@@ -39,9 +40,9 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
 
         public override string ToString()
         {
-            if (Label.HasValue)
+            if (Label!= null)
             {
-                return $"\t\t{_offset} {Code} {Label.Value}";
+                return $"\t\t{_offset} {Code} {Label.Nome}";
             }
             else
             {

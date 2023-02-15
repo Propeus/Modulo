@@ -48,7 +48,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         internal List<IILPilha> PilhaExecucao { get; private set; }
         internal List<ILVariavel> Variaveis { get; private set; }
-        internal Stack<IILPilha> PilhasAuxiliares{ get; private set; }
+        internal Stack<IILPilha> PilhasAuxiliares { get; private set; }
 
         internal MethodBuilder _metodoBuilder;
         private bool _executado;
@@ -104,10 +104,10 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
             _metodoBuilder = builderProxy.ObterBuilder<TypeBuilder>().DefineMethod(nomeMetodo, typeAttributes.ToArray().ConcatenarEnum(), retorno, parametros.Converter<Type>().ToArray());
-            
+
             for (int i = 0; i < parametros.Length; i++)
             {
-                parametros[i].Indice = i+1;
+                parametros[i].Indice = i + 1;
             }
             PilhaExecucao = new List<IILPilha>();
             Variaveis = new List<ILVariavel>();
@@ -208,7 +208,10 @@ namespace Propeus.Modulo.IL.Geradores
 
             foreach (var pilha in PilhaExecucao)
             {
-                sb.AppendLine(pilha.ToString());
+                if (!string.IsNullOrEmpty(pilha.ToString()))
+                {
+                    sb.AppendLine(pilha.ToString());
+                }
             }
 
             //sb.Append(Proxy.ToString());

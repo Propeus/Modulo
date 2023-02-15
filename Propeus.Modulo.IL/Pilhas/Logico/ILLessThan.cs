@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
+using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Logico
@@ -22,7 +23,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
         {
         }
 
-        public ILLessThan(ILBuilderProxy iLBuilderProxy, Label label) : base(iLBuilderProxy, OpCodes.Bge_Un_S, label)
+        public ILLessThan(ILBuilderProxy iLBuilderProxy, ILLabel label) : base(iLBuilderProxy, OpCodes.Bge_Un_S, label)
         {
         }
     }

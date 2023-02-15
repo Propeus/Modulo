@@ -1,11 +1,12 @@
 ﻿using System.Reflection.Emit;
 
+using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Logico
 {
     /// <summary>
-    /// &gt;= || <see cref="OpCodes.Blt_Un_S"/> || <see cref="OpCodes.Clt_Un"/>
+    /// &gt;= || <see cref="OpCodes.Blt_S"/> || <see cref="OpCodes.Clt_Un"/>
     /// </summary>
     internal class ILGreaterThanOrEquals : ILLogico
     {
@@ -15,7 +16,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
         {
         }
 
-        public ILGreaterThanOrEquals(ILBuilderProxy iLBuilderProxy, Label label) : base(iLBuilderProxy, OpCodes.Bgt_S, label)
+        public ILGreaterThanOrEquals(ILBuilderProxy iLBuilderProxy, ILLabel label) : base(iLBuilderProxy, OpCodes.Blt_S, label)
         {
         }
     }

@@ -184,7 +184,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILNotEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILNotEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
@@ -198,7 +198,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
@@ -209,7 +209,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILGreaterThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
@@ -223,7 +223,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILLessThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILLessThanOrEquals(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
@@ -236,7 +236,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILGreaterThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILGreaterThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
@@ -247,7 +247,7 @@ namespace Propeus.Modulo.IL.API
         {
             if (iLMetodo.PilhasAuxiliares.Any())
             {
-                iLMetodo.PilhaExecucao.Add(new ILLessThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel).Label.Value));
+                iLMetodo.PilhaExecucao.Add(new ILLessThan(iLMetodo._metodoBuilder, (iLMetodo.PilhasAuxiliares.Peek() as ILLabel)));
             }
             else
             {
