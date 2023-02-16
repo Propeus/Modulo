@@ -57,8 +57,8 @@ namespace Propeus.Modulo.IL.Geradores
 
         }
 
-        
-     
+
+
 
 
         public void Executar()

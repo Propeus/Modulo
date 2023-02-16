@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -40,7 +39,7 @@ namespace Propeus.Modulo.IL.Proxy
                 throw new ArgumentNullException(nameof(builders));
             }
 
-            this.RegistrarBuilders(builders);
+            RegistrarBuilders(builders);
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace Propeus.Modulo.IL.Proxy
         }
 
         private readonly Dictionary<Type, object> Builders;
-        private Dictionary<string, string> Stack = new Dictionary<string, string>();
+        private Dictionary<string, string> Stack = new();
         internal ILGenerator ILGenerator { get; private set; }
 
         /// <summary>
@@ -122,10 +121,7 @@ namespace Propeus.Modulo.IL.Proxy
         /// <returns></returns>
         public TBuilder ObterBuilder<TBuilder>()
         {
-            if (Builders.ContainsKey(typeof(TBuilder)))
-                return (TBuilder)Builders[typeof(TBuilder)];
-
-            return default;
+            return Builders.ContainsKey(typeof(TBuilder)) ? (TBuilder)Builders[typeof(TBuilder)] : default;
         }
 
         /// <summary>
@@ -143,7 +139,9 @@ namespace Propeus.Modulo.IL.Proxy
             {
 
                 if (builder is null)
+                {
                     continue;
+                }
 
                 Builders.Add(builder.GetType(), builder);
 
@@ -227,7 +225,7 @@ namespace Propeus.Modulo.IL.Proxy
         {
             ILGenerator.Emit(code, ctor);
 
-            var parametros = ctor.ObterTipoParametros();
+            IEnumerable<Type> parametros = ctor.ObterTipoParametros();
             string strParametros = null;
             if (parametros.Any())
             {
@@ -282,10 +280,12 @@ namespace Propeus.Modulo.IL.Proxy
         /// <returns></returns>
         public ILBuilderProxy Clone(bool stack = false)
         {
-            ILBuilderProxy proxy = new ILBuilderProxy();
+            ILBuilderProxy proxy = new();
             proxy.RegistrarBuilders(ObterBuilder<AssemblyBuilder>(), ObterBuilder<ModuleBuilder>(), ObterBuilder<TypeBuilder>());
             if (stack)
+            {
                 proxy.Stack = Stack;
+            }
 
             return proxy;
         }
@@ -296,10 +296,10 @@ namespace Propeus.Modulo.IL.Proxy
         /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (KeyValuePair<string, string> item in Stack)
             {
-                sb.Append("\t")
+                _ = sb.Append("\t")
                     .Append("\t")
                     .Append(item.Key)
                     .Append(" ")
@@ -317,7 +317,7 @@ namespace Propeus.Modulo.IL.Proxy
             {
                 if (disposing)
                 {
-                    foreach (var builder in Builders)
+                    foreach (KeyValuePair<Type, object> builder in Builders)
                     {
                         if (builder.Key == typeof(TypeBuilder))
                         {
@@ -377,12 +377,12 @@ namespace Propeus.Modulo.IL.Proxy
         }
 
 
-        public ILBuilderProxy ToILBuilderProxy(ConstructorBuilder methodBuilder)
+        public static ILBuilderProxy ToILBuilderProxy(ConstructorBuilder methodBuilder)
         {
             return methodBuilder;
         }
 
-        public ILBuilderProxy ToILBuilderProxy(MethodBuilder methodBuilder)
+        public static ILBuilderProxy ToILBuilderProxy(MethodBuilder methodBuilder)
         {
             return methodBuilder;
         }

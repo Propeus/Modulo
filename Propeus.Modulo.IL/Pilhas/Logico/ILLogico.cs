@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection.Emit;
 
 using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
@@ -26,7 +21,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
         public override void Executar()
         {
             base.Executar();
-            if (Label!= null)
+            if (Label != null)
             {
                 Proxy.Emit(Code, Label.Label.Value);
             }
@@ -40,14 +35,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
 
         public override string ToString()
         {
-            if (Label!= null)
-            {
-                return $"\t\t{_offset} {Code} {Label.Nome}";
-            }
-            else
-            {
-                return $"\t\t{_offset} {Code}";
-            }
+            return Label != null ? $"\t\t{_offset} {Code} {Label.Nome}" : $"\t\t{_offset} {Code}";
         }
     }
 }

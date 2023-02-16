@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 
@@ -61,7 +56,7 @@ namespace Propeus.Modulo.IL.API
 
             iLClasse.Campos.Add(new ILCampo(iLClasse.Proxy, iLClasse.Nome, acessador, tipo, nome));
         }
-        public static void CriarPropriedade(ILClasse iLClasse, Type tipo, string nome = Constantes.CONST_NME_PROPRIEDADE, Type[] parametros= null)
+        public static void CriarPropriedade(ILClasse iLClasse, Type tipo, string nome = Constantes.CONST_NME_PROPRIEDADE, Type[] parametros = null)
         {
             iLClasse.Propriedades.Add(new ILPropriedade(iLClasse.Proxy, iLClasse.Nome, nome, tipo, parametros));
         }

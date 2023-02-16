@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Reflection.Emit;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
 
@@ -28,29 +20,19 @@ namespace Propeus.Modulo.IL.Pilhas
 
             if (opCode == OpCodes.Ldarg)
             {
-                switch (valor)
+                Code = valor switch
                 {
-                    case 0:
-                        Code = OpCodes.Ldarg_0;
-                        break;
-                    case 1:
-                        Code = OpCodes.Ldarg_1;
-                        break;
-                    case 2:
-                        Code = OpCodes.Ldarg_2;
-                        break;
-                    case 3:
-                        Code = OpCodes.Ldarg_3;
-                        break;
-                    default:
-                        Code = OpCodes.Ldarga_S; 
-                        break;
-                }
+                    0 => OpCodes.Ldarg_0,
+                    1 => OpCodes.Ldarg_1,
+                    2 => OpCodes.Ldarg_2,
+                    3 => OpCodes.Ldarg_3,
+                    _ => OpCodes.Ldarga_S,
+                };
             }
             else if (valor.GetType().IsPrimitive)
             {
 
-                if (valor is bool || valor is byte || valor is sbyte || valor is short || valor is int || valor is char)
+                if (valor is bool or byte or sbyte or short or int or char)
                 {
                     int valorC = Convert.ToInt32(valor);
 
@@ -83,10 +65,10 @@ namespace Propeus.Modulo.IL.Pilhas
                         case 8:
                             Code = OpCodes.Ldc_I4_8;
                             break;
-                        case (>= sbyte.MinValue and <= sbyte.MaxValue):
+                        case >= sbyte.MinValue and <= sbyte.MaxValue:
                             Code = OpCodes.Ldc_I4_S;
                             break;
-                        case (>= int.MinValue and <= int.MaxValue):
+                        case >= int.MinValue and <= int.MaxValue:
                             Code = OpCodes.Ldc_I4;
                             break;
                     }
@@ -94,7 +76,7 @@ namespace Propeus.Modulo.IL.Pilhas
 
 
                 }
-                else if (valor is ushort || valor is uint)
+                else if (valor is ushort or uint)
                 {
                     uint valorC = Convert.ToUInt32(valor);
 
@@ -168,13 +150,13 @@ namespace Propeus.Modulo.IL.Pilhas
                         case 8:
                             Code = OpCodes.Ldc_I4_8;
                             break;
-                        case (>= sbyte.MinValue and <= sbyte.MaxValue):
+                        case >= sbyte.MinValue and <= sbyte.MaxValue:
                             Code = OpCodes.Ldc_I4_S;
                             break;
-                        case (>= int.MinValue and <= int.MaxValue):
+                        case >= int.MinValue and <= int.MaxValue:
                             Code = OpCodes.Ldc_I4;
                             break;
-                        case (>= long.MinValue and <= long.MaxValue):
+                        case >= long.MinValue and <= long.MaxValue:
                             Code = OpCodes.Ldc_I8;
                             break;
                     }
@@ -193,11 +175,11 @@ namespace Propeus.Modulo.IL.Pilhas
 
         public virtual void Executar()
         {
-           //Nao adicione o if verificado se ja foi executado
+            //Nao adicione o if verificado se ja foi executado
 
             _executado = true;
             _offset = Proxy?.ILGenerator?.ILOffset ?? 0;
-            
+
         }
 
         private bool disposedValue;

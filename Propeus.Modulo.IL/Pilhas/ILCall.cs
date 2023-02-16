@@ -1,15 +1,11 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 
 using Propeus.Modulo.Abstrato.Util;
-using System.Linq;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
@@ -18,30 +14,30 @@ namespace Propeus.Modulo.IL.Pilhas
     /// </summary>
     internal class ILCall : ILPilha
     {
-        public ILCall(ILBuilderProxy proxy, Type metodo) :base(proxy,OpCodes.Call)
+        public ILCall(ILBuilderProxy proxy, Type metodo) : base(proxy, OpCodes.Call)
         {
             Valor = metodo ?? throw new ArgumentNullException(nameof(metodo));
         }
 
         public ILCall(ILBuilderProxy proxy, MethodInfo metodo) : base(proxy, OpCodes.Call)
         {
-            
+
             Valor = metodo ?? throw new ArgumentNullException(nameof(metodo));
         }
 
         public ILCall(ILBuilderProxy proxy, ConstructorInfo metodo) : base(proxy, OpCodes.Call)
         {
-            
+
             Valor = metodo ?? throw new ArgumentNullException(nameof(metodo));
         }
 
         public ILCall(ILBuilderProxy proxy, FieldInfo metodo) : base(proxy, OpCodes.Call)
         {
-          
+
             Valor = metodo ?? throw new ArgumentNullException(nameof(metodo));
         }
 
-      
+
         public MemberInfo Valor { get; private set; }
 
 
@@ -49,17 +45,24 @@ namespace Propeus.Modulo.IL.Pilhas
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
 
             if (Valor is MethodInfo)
+            {
                 Proxy.Emit(Code, Valor as MethodInfo);
+            }
             else if (Valor is ConstructorInfo)
+            {
                 Proxy.Emit(Code, Valor as ConstructorInfo);
+            }
             else
+            {
                 throw new InvalidCastException("Não foi possivel determinar o tipo de membro o valor pertence");
-
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -73,10 +76,9 @@ namespace Propeus.Modulo.IL.Pilhas
         public override string ToString()
         {
 
-            if (Valor is MethodInfo)
-                return $"\t\t{_offset} {Code} {(Valor as MethodInfo).ReturnType.Name.ToLower(CultureInfo.CurrentCulture)} {Valor.DeclaringType.FullName}::{Valor.Name}";
-            else
-                return $"\t\t{_offset} {Code} {Valor.DeclaringType.FullName}::{Valor.Name}({string.Join(",", (Valor as ConstructorInfo).ObterTipoParametros().Select(x=> x.Name))})";
+            return Valor is MethodInfo
+                ? $"\t\t{_offset} {Code} {(Valor as MethodInfo).ReturnType.Name.ToLower(CultureInfo.CurrentCulture)} {Valor.DeclaringType.FullName}::{Valor.Name}"
+                : $"\t\t{_offset} {Code} {Valor.DeclaringType.FullName}::{Valor.Name}({string.Join(",", (Valor as ConstructorInfo).ObterTipoParametros().Select(x => x.Name))})";
 
         }
 

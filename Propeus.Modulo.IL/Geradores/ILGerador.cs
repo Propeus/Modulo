@@ -1,24 +1,19 @@
-﻿using Propeus.Modulo.IL.Geradores;
-using Propeus.Modulo.IL.Proxy;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Reflection.Emit;
-using System.Text;
 
 namespace Propeus.Modulo.IL.Geradores
 {
 
     public static partial class Constantes
     {
- 
 
-        public const string CONST_NME_ASSEMBLY = "IL_Gerador_Assembly_";
-        public const string CONST_NME_MODULO = "IL_Gerador_Modulo_";
+
+        public const string CONSTNMEASSEMBLY = "IL_Gerador_Assembly_";
+        public const string CONSTNMEMODULO = "IL_Gerador_Modulo_";
 
         public static string GerarNomeModulo()
         {
-            return GerarNome(CONST_NME_MODULO);
+            return GerarNome(CONSTNMEMODULO);
         }
 
         public static string GerarNome(string @const)
@@ -42,32 +37,33 @@ namespace Propeus.Modulo.IL.Geradores
         /// Construtor do gerador de IL
         /// </summary>
         /// <param name="nomeAssembly">Nome do assembly</param>
-        /// <param name="nomeModulo">Nome do modulo</param>
-        public ILGerador(string nomeAssembly = Constantes.CONST_NME_ASSEMBLY)
+        public ILGerador(string nomeAssembly = Constantes.CONSTNMEASSEMBLY)
         {
 
-            
 
-            if (nomeAssembly == Constantes.CONST_NME_ASSEMBLY)
-                nomeAssembly = Constantes.GerarNome(Constantes.CONST_NME_ASSEMBLY);
+
+            if (nomeAssembly == Constantes.CONSTNMEASSEMBLY)
+            {
+                nomeAssembly = Constantes.GerarNome(Constantes.CONSTNMEASSEMBLY);
+            }
 
             this.nomeAssembly = nomeAssembly;
-            
+
             assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new System.Reflection.AssemblyName(nomeAssembly), AssemblyBuilderAccess.RunAndCollect);
         }
 
         internal ILModulo Modulo { get; private set; }
 
-        public ILModulo CriarModulo(string nomeModulo = Constantes.CONST_NME_MODULO)
+        public ILModulo CriarModulo(string nomeModulo = Constantes.CONSTNMEMODULO)
         {
             if (Modulo == null)
             {
-                if(nomeModulo == Constantes.CONST_NME_MODULO)
+                if (nomeModulo == Constantes.CONSTNMEMODULO)
                 {
                     nomeModulo = Constantes.GerarNomeModulo();
                 }
 
-                var modulo = new ILModulo(this, nomeModulo);
+                ILModulo modulo = new(this, nomeModulo);
                 Modulo = modulo;
                 return modulo;
             }
@@ -78,7 +74,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         }
 
-        
+
 
 
         public override string ToString()

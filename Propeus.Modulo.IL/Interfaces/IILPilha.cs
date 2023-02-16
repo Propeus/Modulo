@@ -1,9 +1,7 @@
-﻿using Propeus.Modulo.IL.Proxy;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Reflection.Emit;
-using System.Text;
+
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Interfaces
 {

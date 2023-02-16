@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
@@ -30,7 +24,9 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code, Valor);

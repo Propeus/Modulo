@@ -1,10 +1,8 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Reflection.Emit;
-using System.Text;
+
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
 {
@@ -16,7 +14,7 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
         /// <summary>
         /// <see cref="decimal"/> || <see cref="ValueType"/> || <see cref="OpCodes.Newobj"/>
         /// </summary>
-        public ILDecimal(ILBuilderProxy proxy, decimal valor = 0) : base(proxy, OpCodes.Newobj,valor)
+        public ILDecimal(ILBuilderProxy proxy, decimal valor = 0) : base(proxy, OpCodes.Newobj, valor)
         {
             Valor = valor;
 
@@ -47,7 +45,9 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
 

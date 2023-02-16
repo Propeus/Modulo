@@ -1,16 +1,11 @@
-﻿using Propeus.Modulo.IL.Enums;
-using Propeus.Modulo.IL.Geradores;
-using Propeus.Modulo.IL.Pilhas;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using Propeus.Modulo.IL.Pilhas.Tipos.TiposPrimitivos;
+
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Enums;
+using Propeus.Modulo.IL.Geradores;
 
 namespace Propeus.Modulo.IL.Helpers
 {
@@ -36,21 +31,21 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLClasse));
             }
 
-            var tpInterface = typeof(TInterface);
+            Type tpInterface = typeof(TInterface);
 
             if (!iLClasse.Atual.Interfaces.Contains(tpInterface))
             {
                 _ = iLClasse.NovaVersao(interfaces: new Type[] { tpInterface });
             }
 
-            var metodos = tpInterface.GetMethods();
+            MethodInfo[] metodos = tpInterface.GetMethods();
 
 
-            foreach (var mth in metodos)
+            foreach (MethodInfo mth in metodos)
             {
                 if (!iLClasse.Atual.Metodos.Any(m => m.Nome == mth.Name && m.Parametros.Cast<Type>().SequenceEqual(mth.ObterTipoParametros())))
                 {
-                    var parametros = mth.ObterTipoParametros().Select(p => new ILParametro(mth.Name, p)).ToArray();
+                    ILParametro[] parametros = mth.ObterTipoParametros().Select(p => new ILParametro(mth.Name, p)).ToArray();
                     API.ClasseAPI.CriarMetodo(iLClasse.Atual, mth.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), mth.ReturnType, mth.Name, parametros);
                     yield return iLClasse.Atual.Metodos.Last();
                 }
@@ -66,104 +61,104 @@ namespace Propeus.Modulo.IL.Helpers
             return iLClasseProvider.Atual.Metodos.Last();
         }
 
-        public static ILMetodo Soma(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
+        public static ILMetodo Soma(this ILMetodo iLMetodo, ILVariavel iLVariavel1, ILVariavel iLVariavel2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel2.Indice);
             API.MetodoAPI.Soma(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Soma(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Soma(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Soma(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Subitrair(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
+        public static ILMetodo Subitrair(this ILMetodo iLMetodo, ILVariavel iLVariavel1, ILVariavel iLVariavel2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel2.Indice);
             API.MetodoAPI.Subitrair(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Subitrair(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Subitrair(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Subitrair(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Dividir(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
+        public static ILMetodo Dividir(this ILMetodo iLMetodo, ILVariavel iLVariavel1, ILVariavel iLVariavel2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel2.Indice);
             API.MetodoAPI.Dividir(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Dividir(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Dividir(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Dividir(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Multiplicar(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
+        public static ILMetodo Multiplicar(this ILMetodo iLMetodo, ILVariavel iLVariavel1, ILVariavel iLVariavel2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel2.Indice);
             API.MetodoAPI.Multiplicar(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Multiplicar(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Multiplicar(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Multiplicar(iLMetodo);
             return iLMetodo;
         }
 
 
-        public static ILMetodo Igual(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Igual(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
 
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Igual(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Diferente(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo Diferente(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.Diferente(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo MaiorQue(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo MaiorQue(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.MaiorQue(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo MenorQue(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo MenorQue(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.MenorQue(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo MaiorOuIgualQue(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo MaiorOuIgualQue(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.MaiorOuIgualQue(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo MenorOuIgualQue(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
+        public static ILMetodo MenorOuIgualQue(this ILMetodo iLMetodo, ILParametro iLParametro1, ILParametro iLParametro2)
         {
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro1.Indice);
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro2.Indice);
             API.MetodoAPI.MenorOuIgualQue(iLMetodo);
             return iLMetodo;
         }
@@ -176,27 +171,27 @@ namespace Propeus.Modulo.IL.Helpers
         public static ILMetodo Se(this ILMetodo iLMetodo, ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
         {
             API.MetodoAPI.Se(iLMetodo);
-            operador.Invoke(iLParametro1, iLParametro2);
+            _ = operador.Invoke(iLParametro1, iLParametro2);
             return iLMetodo;
         }
 
         public static ILMetodo E(this ILMetodo iLMetodo, ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
         {
-            operador.Invoke(iLParametro1, iLParametro2);
+            _ = operador.Invoke(iLParametro1, iLParametro2);
             return iLMetodo;
         }
-        public static ILMetodo Ou(this ILMetodo iLMetodo,  ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
+        public static ILMetodo Ou(this ILMetodo iLMetodo, ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
         {
-            iLMetodo.Se(iLParametro1, operador, iLParametro2);
+            _ = iLMetodo.Se(iLParametro1, operador, iLParametro2);
             if (iLMetodo.PilhasAuxiliares.Count == 2)
             {
-                var aux = iLMetodo.PilhasAuxiliares.Pop();
-                var aux2 = iLMetodo.PilhasAuxiliares.Pop();
+                Interfaces.IILPilha aux = iLMetodo.PilhasAuxiliares.Pop();
+                Interfaces.IILPilha aux2 = iLMetodo.PilhasAuxiliares.Pop();
 
                 iLMetodo.PilhasAuxiliares.Push(aux);
                 iLMetodo.PilhasAuxiliares.Push(aux2);
             }
-            iLMetodo.SeFim();
+            _ = iLMetodo.SeFim();
 
             return iLMetodo;
         }

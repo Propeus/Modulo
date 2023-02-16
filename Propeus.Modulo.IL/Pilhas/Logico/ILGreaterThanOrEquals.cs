@@ -10,7 +10,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
     /// </summary>
     internal class ILGreaterThanOrEquals : ILLogico
     {
-      
+
 
         public ILGreaterThanOrEquals(ILBuilderProxy iLBuilderProxy) : base(iLBuilderProxy, OpCodes.Clt_Un)
         {

@@ -1,11 +1,7 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection.Emit;
-using System.Text;
+
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas.Campos
 {
@@ -25,7 +21,9 @@ namespace Propeus.Modulo.IL.Pilhas.Campos
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code, Valor);
@@ -40,7 +38,7 @@ namespace Propeus.Modulo.IL.Pilhas.Campos
 
         public override string ToString()
         {
-            return $"\t\t{_offset} {Code} {(Valor as FieldBuilder).FieldType.Name.ToLower(CultureInfo.CurrentCulture)} {Valor.DeclaringType.FullName}::{Valor.Name}";
+            return $"\t\t{_offset} {Code} {Valor.FieldType.Name.ToLower(CultureInfo.CurrentCulture)} {Valor.DeclaringType.FullName}::{Valor.Name}";
         }
     }
 }

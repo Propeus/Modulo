@@ -1,11 +1,6 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
+﻿using System.Reflection.Emit;
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Reflection.Emit;
-using System.Text;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
@@ -26,7 +21,9 @@ namespace Propeus.Modulo.IL.Pilhas
         {
 
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code);
@@ -35,14 +32,7 @@ namespace Propeus.Modulo.IL.Pilhas
 
         public override string ToString()
         {
-            if (Indice >= 0 && 3 >= Indice)
-            {
-                return $"\t\t{_offset} {Code}";
-            }
-            else
-            {
-                return $"\t\t{_offset} {Code} {Indice}";
-            }
+            return Indice is >= 0 and <= 3 ? $"\t\t{_offset} {Code}" : $"\t\t{_offset} {Code} {Indice}";
 
         }
     }

@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
 
@@ -44,7 +43,7 @@ namespace Propeus.Modulo.IL.Geradores
         internal ILMetodo Setter { get; set; }
 
         public Type[] Parametros { get; private set; }
-      
+
         /// <summary>
         /// 
         /// </summary>
@@ -161,7 +160,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 _ = sb.Append($".get instance {Getter.Retorno.Name} {Getter.Nome}(");
 
-                if (Getter.Parametros.Length==0)
+                if (Getter.Parametros.Length == 0)
                 {
                     foreach (Type parametro in Getter.Parametros)
                     {
@@ -176,7 +175,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 _ = sb.Append($".set instance {Setter.Retorno.Name} {Setter.Nome}(");
 
-                if (Setter.Parametros.Length==0)
+                if (Setter.Parametros.Length == 0)
                 {
                     foreach (Type parametro in Setter.Parametros)
                     {

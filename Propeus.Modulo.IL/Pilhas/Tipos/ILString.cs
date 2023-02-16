@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection.Emit;
 
 using Propeus.Modulo.IL.Proxy;
 
@@ -11,7 +6,7 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos
 {
     internal class ILString : ILPilha
     {
-        public ILString(ILBuilderProxy iLBuilderProxy, string valor) : base(iLBuilderProxy, OpCodes.Ldstr,valor)
+        public ILString(ILBuilderProxy iLBuilderProxy, string valor) : base(iLBuilderProxy, OpCodes.Ldstr, valor)
         {
             Valor = valor;
         }
@@ -22,7 +17,9 @@ namespace Propeus.Modulo.IL.Pilhas.Tipos
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code, Valor);

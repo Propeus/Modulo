@@ -1,15 +1,10 @@
-﻿using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
+
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
@@ -29,7 +24,9 @@ namespace Propeus.Modulo.IL.Pilhas
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code, Valor);

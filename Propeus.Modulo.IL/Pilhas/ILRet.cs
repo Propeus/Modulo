@@ -1,11 +1,6 @@
-﻿using Propeus.Modulo.IL.Interfaces;
+﻿using System.Reflection.Emit;
+
 using Propeus.Modulo.IL.Proxy;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection.Emit;
-using System.Text;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
@@ -22,13 +17,15 @@ namespace Propeus.Modulo.IL.Pilhas
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code);
 
         }
-        
+
         public override string ToString()
         {
             return $"\t\t{_offset} {Code}";

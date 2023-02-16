@@ -1,17 +1,14 @@
-﻿using Propeus.Modulo.IL.Enums;
-using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-using System.Security.Cryptography;
-using System.Linq;
+
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Enums;
+using Propeus.Modulo.IL.Interfaces;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -61,9 +58,9 @@ namespace Propeus.Modulo.IL.Geradores
             _acessadores = acessadores;
             Hash = GerarHashIlClasse(Nome, Namespace, Base, interfaces, acessadores)[..5];
 
-            var builder = Proxy.ObterBuilder<ModuleBuilder>();
-            List<TypeAttributes> typeAttributes = new List<TypeAttributes>();
-            foreach (var item in acessadores)
+            ModuleBuilder builder = Proxy.ObterBuilder<ModuleBuilder>();
+            List<TypeAttributes> typeAttributes = new();
+            foreach (Token item in acessadores)
             {
                 typeAttributes.Add((TypeAttributes)Enum.Parse(typeof(TypeAttributes), item.ObterDescricaoEnum()));
             }
@@ -103,10 +100,7 @@ namespace Propeus.Modulo.IL.Geradores
         /// </summary>
         public Token[] GetAcessadores()
         {
-            if (disposedValue)
-                throw new ObjectDisposedException(GetType().FullName);
-
-            return (Token[])_acessadores.Clone();
+            return disposedValue ? throw new ObjectDisposedException(GetType().FullName) : (Token[])_acessadores.Clone();
         }
 
         /// <summary>
@@ -121,7 +115,7 @@ namespace Propeus.Modulo.IL.Geradores
         internal List<ILCampo> Campos { get; private set; }
         internal List<Type> Interfaces { get; set; }
 
-        bool _executado;
+        private bool _executado;
 
 
         ///<inheritdoc/>
@@ -129,32 +123,36 @@ namespace Propeus.Modulo.IL.Geradores
         {
 
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (_executado)
+            {
                 return;
+            }
 
             if (TipoGerado is not null)
             {
                 return;
             }
 
-            foreach (var campo in Campos)
+            foreach (ILCampo campo in Campos)
             {
                 campo.Executar();
             }
 
-            foreach (var cosntrutor in Construtores)
+            foreach (ILMetodo cosntrutor in Construtores)
             {
                 cosntrutor.Executar();
             }
 
-            foreach (var metodo in Metodos)
+            foreach (ILMetodo metodo in Metodos)
             {
                 metodo.Executar();
             }
 
-            foreach (var propriedade in Propriedades)
+            foreach (ILPropriedade propriedade in Propriedades)
             {
                 propriedade.Executar();
             }
@@ -170,18 +168,20 @@ namespace Propeus.Modulo.IL.Geradores
         public override string ToString()
         {
             if (disposedValue)
-                return string.Empty;
-
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append($".");
-
-            foreach (var item in GetAcessadores())
             {
-                sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(" ");
+                return string.Empty;
+            }
+
+            StringBuilder sb = new();
+
+            _ = sb.Append($".");
+
+            foreach (Token item in GetAcessadores())
+            {
+                _ = sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(" ");
             };
 
-            sb.Append("auto ")
+            _ = sb.Append("auto ")
              .Append("ansi ")
              .Append("beforefieldinit ")
              .Append(Nome)
@@ -193,27 +193,27 @@ namespace Propeus.Modulo.IL.Geradores
              .AppendLine()
              ;
 
-            foreach (var campo in Campos)
+            foreach (ILCampo campo in Campos)
             {
-                sb.AppendLine(campo.ToString());
+                _ = sb.AppendLine(campo.ToString());
             }
 
-            foreach (var construtor in Construtores)
+            foreach (ILMetodo construtor in Construtores)
             {
-                sb.AppendLine(construtor.ToString());
+                _ = sb.AppendLine(construtor.ToString());
             }
 
-            foreach (var metodo in Metodos)
+            foreach (ILMetodo metodo in Metodos)
             {
-                sb.AppendLine(metodo.ToString());
+                _ = sb.AppendLine(metodo.ToString());
             }
 
-            foreach (var propriedade in Propriedades)
+            foreach (ILPropriedade propriedade in Propriedades)
             {
-                sb.AppendLine(propriedade.ToString());
+                _ = sb.AppendLine(propriedade.ToString());
             }
 
-            sb.AppendLine("}");
+            _ = sb.AppendLine("}");
 
             return sb.ToString();
         }
@@ -226,35 +226,34 @@ namespace Propeus.Modulo.IL.Geradores
         /// <param name="base"></param>
         /// <param name="interfaces"></param>
         /// <param name="acessadores"></param>
-        /// <param name="versao"></param>
         /// <returns></returns>
         public static string GerarHashIlClasse(string nome, string @namespace = null, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
         {
-            var sb = new StringBuilder();
-            sb.Append(nome).Append(@namespace);
+            StringBuilder sb = new();
+            _ = sb.Append(nome).Append(@namespace);
 
             if (@base != null)
             {
-                sb.Append(@base.Name).Append(@base.Namespace);
+                _ = sb.Append(@base.Name).Append(@base.Namespace);
             }
 
             if (interfaces != null)
             {
                 foreach (Type @interface in interfaces)
                 {
-                    sb.Append(@interface.Name).Append(@interface.Namespace);
+                    _ = sb.Append(@interface.Name).Append(@interface.Namespace);
                 }
             }
 
             if (acessadores != null)
             {
-                foreach (var acessador in acessadores)
+                foreach (Token acessador in acessadores)
                 {
-                    sb.Append(acessador.ToString());
+                    _ = sb.Append(acessador.ToString());
                 }
             }
 
-            var hash = sb.ToString().Hash();
+            string hash = sb.ToString().Hash();
             return hash;
         }
 
@@ -269,25 +268,25 @@ namespace Propeus.Modulo.IL.Geradores
                     Proxy.ObterBuilder<TypeBuilder>().Dispose();
                     Proxy.Dispose();
 
-                    foreach (var campo in Campos)
+                    foreach (ILCampo campo in Campos)
                     {
                         campo.Dispose();
                     }
                     Campos.Clear();
 
-                    foreach (var cosntrutor in Construtores)
+                    foreach (ILMetodo cosntrutor in Construtores)
                     {
                         cosntrutor.Dispose();
                     }
                     Construtores.Clear();
 
-                    foreach (var metodo in Metodos)
+                    foreach (ILMetodo metodo in Metodos)
                     {
                         metodo.Dispose();
                     }
                     Metodos.Clear();
 
-                    foreach (var propriedade in Propriedades)
+                    foreach (ILPropriedade propriedade in Propriedades)
                     {
                         propriedade.Dispose();
                     }

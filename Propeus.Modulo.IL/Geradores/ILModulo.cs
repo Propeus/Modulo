@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
-
-using Propeus.Modulo.IL;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -46,7 +39,7 @@ namespace Propeus.Modulo.IL.Geradores
         {
             this.iLGerador = iLGerador;
             this.nomeModulo = nomeModulo;
-            this.Classes = new Dictionary<string, ILClasseProvider>();
+            Classes = new Dictionary<string, ILClasseProvider>();
 
             moduleBuilder = iLGerador.assemblyBuilder.DefineDynamicModule(nomeModulo);
 
@@ -62,7 +55,7 @@ namespace Propeus.Modulo.IL.Geradores
 
             if (Constantes.CONST_NME_NAMESPACE == @namespace)
             {
-                @namespace = Constantes.CONST_NME_NAMESPACE + "." + this.nomeModulo;
+                @namespace = Constantes.CONST_NME_NAMESPACE + "." + nomeModulo;
             }
 
             if (Classes.TryGetValue(@namespace + nomeClasse, out ILClasseProvider value))
@@ -71,9 +64,9 @@ namespace Propeus.Modulo.IL.Geradores
             }
             else
             {
-                ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
+                ILBuilderProxy proxy = new(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                var clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
+                ILClasseProvider clsProvider = new(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
                 Classes.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }
@@ -82,12 +75,16 @@ namespace Propeus.Modulo.IL.Geradores
         public void Executar()
         {
             if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (Executado)
+            {
                 return;
+            }
 
-            foreach (var classe in Classes)
+            foreach (KeyValuePair<string, ILClasseProvider> classe in Classes)
             {
                 classe.Value.Executar();
             }
@@ -141,14 +138,16 @@ namespace Propeus.Modulo.IL.Geradores
         {
 
             if (disposedValue)
-                return string.Empty;
-
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var classe in Classes)
             {
-                sb.Append("Classe: ").AppendLine(classe.Key);
-                sb.AppendLine(classe.Value.ToString());
+                return string.Empty;
+            }
+
+            StringBuilder sb = new();
+
+            foreach (KeyValuePair<string, ILClasseProvider> classe in Classes)
+            {
+                _ = sb.Append("Classe: ").AppendLine(classe.Key);
+                _ = sb.AppendLine(classe.Value.ToString());
             }
 
             return sb.ToString();

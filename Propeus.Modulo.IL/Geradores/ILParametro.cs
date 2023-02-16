@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
@@ -11,12 +7,12 @@ namespace Propeus.Modulo.IL.Geradores
 {
     public static partial class Constantes
     {
-        public const string CONST_NME_PARAMETRO = "IL_Gerador_{0}_Parametro_";
+        public const string CONSTNMEPARAMETRO = "IL_Gerador_{0}_Parametro_";
 
 
         public static string GerarNomeParametro(string nomeMetodo)
         {
-            return Constantes.GerarNome(string.Format(CONST_NME_PARAMETRO, nomeMetodo));
+            return Constantes.GerarNome(string.Format(CONSTNMEPARAMETRO, nomeMetodo));
         }
     }
 
@@ -26,7 +22,7 @@ namespace Propeus.Modulo.IL.Geradores
         private bool disposedValue;
         private bool _Executado;
 
-        public ILParametro(string nomeMetodo, Type tipo,string nome = Constantes.CONST_NME_VARIAVEL)
+        public ILParametro(string nomeMetodo, Type tipo, string nome = Constantes.CONST_NME_VARIAVEL)
         {
             if (nome == Constantes.CONST_NME_VARIAVEL)
             {
@@ -130,17 +126,17 @@ namespace Propeus.Modulo.IL.Geradores
 
         public int ToInt32()
         {
-            return this.Indice;
+            return Indice;
         }
 
         public override string ToString()
         {
-            return this.Tipo.ToString() + " " + this.Nome;
+            return Tipo.ToString() + " " + Nome;
         }
 
         public Type ToType()
         {
-            return this.Tipo;
+            return Tipo;
         }
     }
 }

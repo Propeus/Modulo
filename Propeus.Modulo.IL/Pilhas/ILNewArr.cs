@@ -1,16 +1,14 @@
-﻿using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Proxy;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using System.Reflection.Emit;
-using System.Text;
+
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Pilhas
 {
     internal class ILNewArr : ILPilha
     {
-        public ILNewArr(ILBuilderProxy proxy, Type type) : base(proxy,OpCodes.Newarr)
+        public ILNewArr(ILBuilderProxy proxy, Type type) : base(proxy, OpCodes.Newarr)
         {
             Valor = type;
         }
@@ -21,7 +19,9 @@ namespace Propeus.Modulo.IL.Pilhas
         public override void Executar()
         {
             if (_executado)
+            {
                 return;
+            }
 
             base.Executar();
             Proxy.Emit(Code, Valor);

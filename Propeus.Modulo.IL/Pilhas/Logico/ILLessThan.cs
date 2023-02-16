@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection.Emit;
 
 using Propeus.Modulo.IL.Pilhas.Saltos;
 using Propeus.Modulo.IL.Proxy;
@@ -17,7 +12,7 @@ namespace Propeus.Modulo.IL.Pilhas.Logico
     /// </summary>
     internal class ILLessThan : ILLogico
     {
-    
+
 
         public ILLessThan(ILBuilderProxy iLBuilderProxy) : base(iLBuilderProxy, OpCodes.Clt)
         {

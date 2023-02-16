@@ -9,7 +9,6 @@ using System.Text;
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
-using Propeus.Modulo.IL.Pilhas;
 using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
@@ -206,11 +205,11 @@ namespace Propeus.Modulo.IL.Geradores
                     .AppendLine();
             }
 
-            foreach (var pilha in PilhaExecucao)
+            foreach (IILPilha pilha in PilhaExecucao)
             {
                 if (!string.IsNullOrEmpty(pilha.ToString()))
                 {
-                    sb.AppendLine(pilha.ToString());
+                    _ = sb.AppendLine(pilha.ToString());
                 }
             }
 

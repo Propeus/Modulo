@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Propeus.Modulo.IL.Interfaces
+﻿namespace Propeus.Modulo.IL.Interfaces
 {
     /// <summary>
     /// Interface para execução de função
