@@ -17,7 +17,7 @@ namespace Propeus.Modulo.IL.Pilhas.Saltos
             Label = proxy.DefineLabel();
         }
 
-        public Label? Label { get; private set; }
+        public Label? Label { get; internal set; }
         public string Nome => _offset.ToString();
 
         public override void Executar()

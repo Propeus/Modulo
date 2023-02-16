@@ -3,15 +3,7 @@ using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
-using Propeus.Modulo.IL.API;
-
 
 namespace Propeus.Modulo.IL.Playground
 {
@@ -38,8 +30,6 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
-
-
             using (ILGerador iLGerador = new ILGerador())
             {
 
@@ -48,32 +38,55 @@ namespace Propeus.Modulo.IL.Playground
                 Matematica(modulo);
 
             }
+
+        }
+
+
+
+        public static Task testeTask()
+        {
+            Console.WriteLine("ok");
+            return Task.CompletedTask;
         }
 
         private static void Matematica(ILModulo modulo)
         {
             var classe = modulo.CriarClasse("MatematicaBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
 
+            ////Criar metodo de entre valores (teste de multiplos ifs)
+            //var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores", new ILParametro[] {
+            //    new ILParametro("EntreValores",typeof(int),"menor"),
+            //    new ILParametro("EntreValores",typeof(int),"atual"),
+            //    new ILParametro("EntreValores",typeof(int),"maior")
+            //});
+            //mth.Se().MenorOuIgualQue(mth.Parametros[0], mth.Parametros[1]).Ou().MaiorOuIgualQue(mth.Parametros[2], mth.Parametros[1]);
+            //mth.CarregarTrue();
+            //mth.CriarRetorno();
+            //mth.SeFim();
+            //mth.CarregarFalse();
+            //mth.CriarRetorno();
+
             //Criar metodo de entre valores (teste de multiplos ifs)
-            var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores", new ILParametro[] {
-                new ILParametro("EntreValores",typeof(int),"menor"),
-                new ILParametro("EntreValores",typeof(int),"atual"),
-                new ILParametro("EntreValores",typeof(int),"maior")
+            var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores2", new ILParametro[] {
+                new ILParametro("EntreValores2",typeof(int),"menor"),
+                new ILParametro("EntreValores2",typeof(int),"atual"),
+                new ILParametro("EntreValores2",typeof(int),"maior")
             });
-            mth.Se().MenorOuIgualQue(mth.Parametros[0], mth.Parametros[1]);
-            mth.Se().MaiorOuIgualQue(mth.Parametros[2], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.MenorOuIgualQue, mth.Parametros[1]);
+            mth.Ou(mth.Parametros[2], mth.MenorOuIgualQue, mth.Parametros[1]);
+            mth.E(mth.Parametros[2], mth.MaiorQue, mth.Parametros[0]);
             mth.CarregarTrue();
             mth.CriarRetorno();
-            mth.SeFim();
             mth.SeFim();
             mth.CarregarFalse();
             mth.CriarRetorno();
 
             classe.Executar();
+            Console.WriteLine(mth.ToString());
             var calc = classe.ObterInstancia();
 
             Console.WriteLine("Matematica");
-            Console.WriteLine(calc.EntreValores(0, 5, 10));
+            Console.WriteLine(calc.EntreValores2(5, 4, 10));
 
 
         }

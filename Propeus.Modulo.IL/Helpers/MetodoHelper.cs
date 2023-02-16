@@ -65,7 +65,7 @@ namespace Propeus.Modulo.IL.Helpers
             API.ClasseAPI.CriarMetodo(iLClasseProvider.Atual, acessadores, retorno, nome, parametros);
             return iLClasseProvider.Atual.Metodos.Last();
         }
-    
+
         public static ILMetodo Soma(this ILMetodo iLMetodo, ILVariavel iLVariavel_1, ILVariavel iLVariavel_2)
         {
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLVariavel_1.Indice);
@@ -74,7 +74,7 @@ namespace Propeus.Modulo.IL.Helpers
             return iLMetodo;
         }
         public static ILMetodo Soma(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
-            {
+        {
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
             API.MetodoAPI.Soma(iLMetodo);
@@ -124,11 +124,11 @@ namespace Propeus.Modulo.IL.Helpers
         }
 
 
-        public static ILMetodo Igual(this ILMetodo iLMetodo, ILParametro iLParametro_1,ILParametro iLParametro_2)
+        public static ILMetodo Igual(this ILMetodo iLMetodo, ILParametro iLParametro_1, ILParametro iLParametro_2)
         {
 
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_1.Indice);
-            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice); 
+            API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro_2.Indice);
             API.MetodoAPI.Igual(iLMetodo);
             return iLMetodo;
         }
@@ -167,19 +167,40 @@ namespace Propeus.Modulo.IL.Helpers
             API.MetodoAPI.MenorOuIgualQue(iLMetodo);
             return iLMetodo;
         }
-      
+
         public static ILMetodo SeFim(this ILMetodo iLMetodo)
         {
             API.MetodoAPI.SeFim(iLMetodo);
             return iLMetodo;
         }
-        public static ILMetodo Se(this ILMetodo iLMetodo)
+        public static ILMetodo Se(this ILMetodo iLMetodo, ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
         {
             API.MetodoAPI.Se(iLMetodo);
+            operador.Invoke(iLParametro1, iLParametro2);
             return iLMetodo;
         }
 
-    
+        public static ILMetodo E(this ILMetodo iLMetodo, ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
+        {
+            operador.Invoke(iLParametro1, iLParametro2);
+            return iLMetodo;
+        }
+        public static ILMetodo Ou(this ILMetodo iLMetodo,  ILParametro iLParametro1, Func<ILParametro, ILParametro, ILMetodo> operador, ILParametro iLParametro2)
+        {
+            iLMetodo.Se(iLParametro1, operador, iLParametro2);
+            if (iLMetodo.PilhasAuxiliares.Count == 2)
+            {
+                var aux = iLMetodo.PilhasAuxiliares.Pop();
+                var aux2 = iLMetodo.PilhasAuxiliares.Pop();
+
+                iLMetodo.PilhasAuxiliares.Push(aux);
+                iLMetodo.PilhasAuxiliares.Push(aux2);
+            }
+            iLMetodo.SeFim();
+
+            return iLMetodo;
+        }
+
         public static ILMetodo CarregarParametro(this ILMetodo iLMetodo, ILParametro iLParametro)
         {
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro.Indice);
@@ -195,7 +216,7 @@ namespace Propeus.Modulo.IL.Helpers
         {
             API.MetodoAPI.CarregarValorBoolean(iLMetodo, false);
             return iLMetodo;
-        }   
+        }
         public static ILMetodo CriarRetorno(this ILMetodo iLMetodo)
         {
             API.MetodoAPI.CriarRetorno(iLMetodo);
