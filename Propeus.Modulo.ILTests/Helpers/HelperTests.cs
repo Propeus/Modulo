@@ -117,7 +117,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeIgualValor",typeof(int),"p1"),
                 new ILParametro("SeIgualValor",typeof(int),"p2")
             });
-            mth.Se().Igual(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.Igual, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
@@ -145,7 +145,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeDiferenteValor",typeof(int),"p1"),
                 new ILParametro("SeDiferenteValor",typeof(int),"p2")
             });
-            mth.Se().Diferente(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.Diferente, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
@@ -173,7 +173,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeMaiorValor",typeof(int),"p1"),
                 new ILParametro("SeMaiorValor",typeof(int),"p2")
             });
-            mth.Se().MaiorQue(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.MaiorQue, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
@@ -190,7 +190,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
             classe.Executar();
             var calc = classe.ObterInstancia();
             Assert.IsNotNull(calc);
-            Assert.AreEqual(true, calc.MaiorQue(3,2));
+            Assert.AreEqual(true, calc.MaiorQue(3, 2));
             Assert.AreEqual(3, calc.SeMaiorValor(2, 3));
         }
 
@@ -201,7 +201,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeMenorValor",typeof(int),"p1"),
                 new ILParametro("SeMenorValor",typeof(int),"p2")
             });
-            mth.Se().MenorQue(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.MenorQue, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
@@ -218,7 +218,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
             classe.Executar();
             var calc = classe.ObterInstancia();
             Assert.IsNotNull(calc);
-            Assert.AreEqual(true, calc.MenorQue(2,3));
+            Assert.AreEqual(true, calc.MenorQue(2, 3));
             Assert.AreEqual(2, calc.SeMenorValor(2, 3));
         }
 
@@ -229,7 +229,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeMaiorValorOuIgual",typeof(int),"p1"),
                 new ILParametro("SeMaiorValorOuIgual",typeof(int),"p2")
             });
-            mth.Se().MaiorOuIgualQue(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.MaiorOuIgualQue, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
@@ -257,7 +257,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
                 new ILParametro("SeMenorValorOuIgual",typeof(int),"p1"),
                 new ILParametro("SeMenorValorOuIgual",typeof(int),"p2")
             });
-            mth.Se().MenorOuIgualQue(mth.Parametros[0], mth.Parametros[1]);
+            mth.Se(mth.Parametros[0], mth.MenorOuIgualQue, mth.Parametros[1]);
             mth.CarregarParametro(mth.Parametros[0]);
             mth.CriarRetorno();
             mth.SeFim();
