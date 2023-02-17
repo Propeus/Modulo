@@ -9,17 +9,13 @@
 		<Description>Biblioteca simples para manipulação e criação de assembly em tempo de execução</Description>
 		<PackageProjectUrl>https://dev.azure.com/Propeus-Modulo/Propeus.Modulo</PackageProjectUrl>
 		<RepositoryUrl>https://dev.azure.com/Propeus-Modulo/Propeus.Modulo/_git/Propeus.Modulo.IL</RepositoryUrl>
-		<PackageReleaseNotes>Otimização de código fonte
-- Adicionado novas documentações
-- Removido 'using' não utilizados
-- Removido a classe 'ILCompiladorCollection'
-- Criado a classe 'ILInterface'</PackageReleaseNotes>
+		<PackageReleaseNotes></PackageReleaseNotes>
 		<VersionPrefix>3.0.0.0</VersionPrefix>
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>Propeus.Modulo.Assinatura.snk</AssemblyOriginatorKeyFile>
 		<NeutralLanguage>pt-BR</NeutralLanguage>
 		<RepositoryType>Git</RepositoryType>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,10 +30,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
 		<None Include="..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
@@ -68,5 +60,12 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Abstrato\Abstrato.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENCE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 </Project>
