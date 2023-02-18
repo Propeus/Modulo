@@ -156,7 +156,7 @@ namespace Propeus.Modulo.IL.Helpers
                 ? (TInterface)Activator.CreateInstance(iLClasse.Atual.TipoGerado, args)
                 : throw new InvalidCastException();
         }
-
+       
 
 
 

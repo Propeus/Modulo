@@ -69,7 +69,7 @@ namespace Propeus.Modulo.IL.Playground
 
             classe.Executar();
 
-            var tpMeth = mth.MethodInfo;
+            var tpMeth = mth;
             var tpdlg = dlg.ConstructorInfo;
 
             classe.NovaVersao();
@@ -79,12 +79,7 @@ namespace Propeus.Modulo.IL.Playground
                 new ILParametro("Exibir",typeof(int),"p2")
             });
 
-            mth.CarregarArgumentoZero();
-            mth.CriarPonteiro(tpMeth);
-            mth.CriarInstancia(tpdlg);
-            mth.CarregarParametro(mth.Parametros[0]);
-            mth.CarregarParametro(mth.Parametros[1]);
-            mth.ChamarFuncaoVirtual(dlg.InvokeInfo);
+            mth.InvocarDelegate(dlg,tpMeth, mth.Parametros[0], mth.Parametros[1]);
             mth.ChamarFuncao(typeof(Console).GetMethod("WriteLine",new Type[] { typeof(int)}));
             mth.CriarRetorno();
 
