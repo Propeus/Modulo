@@ -122,12 +122,24 @@ namespace Propeus.Modulo.IL.API
         {
             iLMetodo.PilhaExecucao.Add(new ILNewArr(iLMetodo._metodoBuilder, tipo));
         }
+        public static void CriarPonteiro(ILMetodo iLMetodo, MethodInfo methodInfo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILLdftn(iLMetodo._metodoBuilder, methodInfo));
+        }
+        public static void CriarInstancia(ILMetodo iLMetodo,ConstructorInfo constructorInfo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILNewObj(iLMetodo._metodoBuilder, constructorInfo));
+        }
         #endregion
 
         #region Chamar
         public static void ChamarFuncao(ILMetodo iLMetodo, ConstructorInfo constructorInfo)
         {
             iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo._metodoBuilder, constructorInfo));
+        }
+        public static void ChamarFuncao(ILMetodo iLMetodo, MethodInfo methodInfo)
+        {
+            iLMetodo.PilhaExecucao.Add(new ILCall(iLMetodo._metodoBuilder, methodInfo));
         }
         public static void ChamarFuncaoVirtual(ILMetodo iLMetodo, MethodInfo methodInfo)
         {

@@ -11,16 +11,26 @@
 		<RepositoryUrl>https://dev.azure.com/Propeus-Modulo/Propeus.Modulo/_git/Propeus.Modulo.IL</RepositoryUrl>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<VersionPrefix>3.0.0.0</VersionPrefix>
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>Propeus.Modulo.Assinatura.snk</AssemblyOriginatorKeyFile>
+		<SignAssembly>False</SignAssembly>
+		<AssemblyOriginatorKeyFile>Propeus.Modulo.IL.snk</AssemblyOriginatorKeyFile>
 		<NeutralLanguage>pt-BR</NeutralLanguage>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseFile>LICENCE</PackageLicenseFile>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<IncludeSymbols>True</IncludeSymbols>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>PROPEUS 2023</Copyright>
+		<DelaySign>True</DelaySign>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Propeus.NetCore.IL.xml</DocumentationFile>
+		<DocumentationFile></DocumentationFile>
 		<NoWarn>1701;1702</NoWarn>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,10 +40,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

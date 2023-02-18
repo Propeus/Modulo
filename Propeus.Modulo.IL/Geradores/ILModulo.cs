@@ -16,8 +16,14 @@ namespace Propeus.Modulo.IL.Geradores
         public const string CONST_NME_CLASSE = "IL_Gerador_Classe_";
         public const string CONST_NME_CLASSE_PROXY = CONST_NME_CLASSE + "PROXY_";
 
-        public const string CONST_NME_NAMESPACE = "Propeus.IL.Classes";
-        public const string CONST_NME_NAMESPACE_PROXY = CONST_NME_NAMESPACE + ".Proxy";
+        public const string CONST_NME_NAMESPACE_CLASSE = "Propeus.IL.Classes";
+        public const string CONST_NME_NAMESPACE_CLASSE_PROXY = CONST_NME_NAMESPACE_CLASSE + ".Proxy";
+        
+        public const string CONST_NME_DELEGATE = "IL_Gerador_Delegate_";
+        public const string CONST_NME_DELEGATE_PROXY = CONST_NME_DELEGATE + "PROXY_";
+
+        public const string CONST_NME_NAMESPACE_DELEGATE = "Propeus.IL.Delegates";
+        public const string CONST_NME_NAMESPACE_DELEGATE_PROXY = CONST_NME_NAMESPACE_DELEGATE+ ".Proxy";
 
     }
 
@@ -32,6 +38,7 @@ namespace Propeus.Modulo.IL.Geradores
         /// <summary>
         /// Obtem um clone do <see cref="ILBuilderProxy"/>
         /// </summary>
+        private Dictionary<string, ILDelegate> Delegates { get; set; }
         private Dictionary<string, ILClasseProvider> Classes { get; set; }
         public bool Executado { get; private set; }
 
@@ -39,23 +46,52 @@ namespace Propeus.Modulo.IL.Geradores
         {
             this.iLGerador = iLGerador;
             this.nomeModulo = nomeModulo;
+            Delegates = new Dictionary<string, ILDelegate>();
             Classes = new Dictionary<string, ILClasseProvider>();
 
             moduleBuilder = iLGerador.assemblyBuilder.DefineDynamicModule(nomeModulo);
 
         }
 
-
-        internal ILClasseProvider CriarClasseProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
+        internal ILDelegate CriarDelegate(string nomeClasse = Constantes.CONST_NME_DELEGATE, string @namespace = Constantes.CONST_NME_NAMESPACE_DELEGATE, Token[] acessadores = null)
         {
             if (Constantes.CONST_NME_CLASSE == nomeClasse)
             {
                 nomeClasse = Constantes.GerarNome(Constantes.CONST_NME_CLASSE);
             }
 
-            if (Constantes.CONST_NME_NAMESPACE == @namespace)
+            if (Constantes.CONST_NME_NAMESPACE_DELEGATE == @namespace)
             {
-                @namespace = Constantes.CONST_NME_NAMESPACE + "." + nomeModulo;
+                @namespace = Constantes.CONST_NME_NAMESPACE_DELEGATE + "." + nomeModulo;
+            }else if(@namespace is null)
+            {
+                @namespace = Constantes.CONST_NME_NAMESPACE_DELEGATE;
+            }
+
+            if (Delegates.TryGetValue(@namespace + nomeClasse, out ILDelegate value))
+            {
+                return value;
+            }
+            else
+            {
+                ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
+
+                var clsProvider = new ILDelegate(proxy, nomeClasse, @namespace, acessadores);
+                Delegates.Add(@namespace + nomeClasse, clsProvider);
+                return clsProvider;
+            }
+        }
+
+        internal ILClasseProvider CriarClasseProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
+        {
+            if (Constantes.CONST_NME_CLASSE == nomeClasse)
+            {
+                nomeClasse = Constantes.GerarNome(Constantes.CONST_NME_CLASSE);
+            }
+
+            if (Constantes.CONST_NME_NAMESPACE_CLASSE == @namespace)
+            {
+                @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE + "." + nomeModulo;
             }
 
             if (Classes.TryGetValue(@namespace + nomeClasse, out ILClasseProvider value))
@@ -66,7 +102,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 ILBuilderProxy proxy = new(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                ILClasseProvider clsProvider = new(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
+                ILClasseProvider clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
                 Classes.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }
@@ -82,6 +118,11 @@ namespace Propeus.Modulo.IL.Geradores
             if (Executado)
             {
                 return;
+            }
+
+            foreach (KeyValuePair<string, ILDelegate> @delegate in Delegates)
+            {
+                @delegate.Value.Executar();
             }
 
             foreach (KeyValuePair<string, ILClasseProvider> classe in Classes)
@@ -102,6 +143,14 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
+
+                    foreach (KeyValuePair<string, ILDelegate> @delegate in Delegates)
+                    {
+                        @delegate.Value.Dispose();
+                    }
+                    Delegates.Clear();
+                    Delegates = null;
+
                     foreach (KeyValuePair<string, ILClasseProvider> classe in Classes)
                     {
                         classe.Value.Dispose();
@@ -143,6 +192,12 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
             StringBuilder sb = new();
+
+            foreach (KeyValuePair<string, ILDelegate> @delegate in Delegates)
+            {
+                _ = sb.Append("Delegate: ").AppendLine(@delegate.Key);
+                _ = sb.AppendLine(@delegate.Value.ToString());
+            }
 
             foreach (KeyValuePair<string, ILClasseProvider> classe in Classes)
             {

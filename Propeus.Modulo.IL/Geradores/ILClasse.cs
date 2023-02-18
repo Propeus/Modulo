@@ -15,7 +15,7 @@ namespace Propeus.Modulo.IL.Geradores
     /// <summary>
     /// Gera uma classe em IL
     /// </summary>
-    internal class ILClasse : IILExecutor, IDisposable
+    public class ILClasse : IILExecutor, IDisposable
     {
         private Token[] _acessadores;
 

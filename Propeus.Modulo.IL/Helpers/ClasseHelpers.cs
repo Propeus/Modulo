@@ -9,7 +9,7 @@ using Propeus.Modulo.IL.Geradores;
 
 namespace Propeus.Modulo.IL.Helpers
 {
-    public static class Helpers
+    public static class ClasseHelpers
     {
         public static ILClasseProvider CriarProxyClasse<TClasse>(this ILModulo iLGerador)
             where TClasse : class
@@ -26,6 +26,7 @@ namespace Propeus.Modulo.IL.Helpers
             API.ClasseAPI.CriarCampo(cls.Atual, new Token[] { Enums.Token.Privado }, tClasse, "IL_Gerador_Proxy_" + tClasse.Name);
             ILCampo cmp = cls.Atual.Campos.Last();
 
+            #region Construtores
             foreach (ConstructorInfo c in tClasse.GetConstructors())
             {
 
@@ -42,7 +43,9 @@ namespace Propeus.Modulo.IL.Helpers
                 API.MetodoAPI.ArmazenarValorCampo(ctorMth, cmp);
                 API.MetodoAPI.CriarRetorno(ctorMth);
             }
+            #endregion
 
+            #region Metodos
             foreach (MethodInfo metodo in tClasse.GetMethods())
             {
                 if (metodo.Name.Contains("get_") || metodo.Name.Contains("set_"))
@@ -70,7 +73,9 @@ namespace Propeus.Modulo.IL.Helpers
                 API.MetodoAPI.ChamarFuncaoVirtual(mth, metodo);
                 API.MetodoAPI.CriarRetorno(mth);
             }
+            #endregion
 
+            #region Propriedades
             foreach (PropertyInfo propriedade in tClasse.GetProperties())
             {
                 MethodInfo mth_info_get = propriedade.GetGetMethod();
@@ -105,6 +110,7 @@ namespace Propeus.Modulo.IL.Helpers
                 }
 
             }
+            #endregion
 
 
             return cls;
@@ -112,6 +118,31 @@ namespace Propeus.Modulo.IL.Helpers
         public static ILClasseProvider CriarClasse(this ILModulo iLGerador, string nome, string @namespace, Type tipoBase, Type[] interfaces, Token[] token)
         {
             ILClasseProvider cls = iLGerador.CriarClasseProvider(nome, @namespace, tipoBase, interfaces, token);
+            return cls;
+        }
+
+        public static ILDelegate CriarDelegate(this ILModulo ilGerador, Type tipoSaida, string nomeDelegate, params ILParametro[] parametros)
+        {
+            ILDelegate cls = ilGerador.CriarDelegate(nomeDelegate, null, new Enums.Token[] { Token.Publico, Token.Auto, Token.Ansi, Token.Selado });
+            cls.CriarConstrutor(
+                   new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
+                   new ILParametro(".ctor", typeof(object), "object"),
+                   new ILParametro(".ctor", typeof(nint), "method"));
+
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
+                "Invoke", parametros);
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+                typeof(IAsyncResult),
+                "BeginInvoke",
+                parametros.Join(new ILParametro[] {
+                new ILParametro("BeginInvoke", typeof(AsyncCallback)),
+                new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+                typeof(int),
+                "EndInvoke",
+                new ILParametro("result", typeof(IAsyncResult)));
+
+
             return cls;
         }
 

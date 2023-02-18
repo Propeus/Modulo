@@ -55,10 +55,40 @@ namespace Propeus.Modulo.IL.Helpers
 
         }
 
+        public static ILMetodo CarregarArgumentoZero(this ILMetodo iLMetodo)
+        {
+            API.MetodoAPI.CarregarArgumento(iLMetodo);
+            return iLMetodo;
+        }
+
         public static ILMetodo CriarMetodo(this ILClasseProvider iLClasseProvider, Token[] acessadores, Type retorno, string nome, ILParametro[] parametros)
         {
             API.ClasseAPI.CriarMetodo(iLClasseProvider.Atual, acessadores, retorno, nome, parametros);
             return iLClasseProvider.Atual.Metodos.Last();
+        }
+        public static ILMetodo CriarMetodo(this ILDelegate iLClasseProvider, Token[] acessadores, Type retorno, string nome,params ILParametro[] parametros)
+        {
+            API.ClasseAPI.CriarMetodo(iLClasseProvider, acessadores, retorno, nome, parametros);
+            var mth = iLClasseProvider.Metodos.Last();
+            mth._metodoBuilder.SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
+            return mth;
+        }
+        public static ILMetodo CriarConstrutor(this ILDelegate iLClasseProvider, Token[] acessadores, params ILParametro[] parametros)
+        {
+            API.ClasseAPI.CriarMetodo(iLClasseProvider, acessadores, typeof(void), ".ctor", parametros);
+            var mth= iLClasseProvider.Metodos.Last();
+            mth._metodoBuilder.SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
+            return mth;
+        }
+        public static ILMetodo CriarPonteiro(this ILMetodo iLMetodo, MethodInfo methodInfo)
+        {
+            API.MetodoAPI.CriarPonteiro(iLMetodo, methodInfo);
+            return iLMetodo;
+        }
+        public static ILMetodo CriarInstancia(this ILMetodo iLMetodo, ConstructorInfo constructorInfo)
+        {
+            API.MetodoAPI.CriarInstancia(iLMetodo, constructorInfo);
+            return iLMetodo;
         }
 
         public static ILMetodo Soma(this ILMetodo iLMetodo, ILVariavel iLVariavel1, ILVariavel iLVariavel2)
@@ -201,7 +231,6 @@ namespace Propeus.Modulo.IL.Helpers
             API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametro.Indice);
             return iLMetodo;
         }
-
         public static ILMetodo CarregarTrue(this ILMetodo iLMetodo)
         {
             API.MetodoAPI.CarregarValorBoolean(iLMetodo, true);
@@ -215,6 +244,20 @@ namespace Propeus.Modulo.IL.Helpers
         public static ILMetodo CriarRetorno(this ILMetodo iLMetodo)
         {
             API.MetodoAPI.CriarRetorno(iLMetodo);
+            return iLMetodo;
+        }
+        public static ILMetodo ChamarFuncao(this ILMetodo iLMetodo, MethodInfo methodInfo)
+        {
+
+            API.MetodoAPI.ChamarFuncao(iLMetodo, methodInfo);
+
+            return iLMetodo;
+        }
+        public static ILMetodo ChamarFuncaoVirtual(this ILMetodo iLMetodo, MethodInfo methodInfo)
+        {
+
+            API.MetodoAPI.ChamarFuncaoVirtual(iLMetodo, methodInfo);
+
             return iLMetodo;
         }
 

@@ -95,6 +95,24 @@ namespace Propeus.Modulo.IL.Enums
         /// vtablelayoutmask
         /// </summary>
         [Description("VtableLayoutMask")]
-        VtableLayoutMask
+        VtableLayoutMask,
+
+        /// <summary>
+        /// AutoLayout
+        /// </summary>
+        [Description("AutoLayout")]
+        Auto,
+
+        /// <summary>
+        /// Sealed
+        /// </summary>
+        [Description("Sealed")]
+        Selado,
+
+        /// <summary>
+        /// AnsiClass
+        /// </summary>
+        [Description("AnsiClass")]
+        Ansi
     }
 }

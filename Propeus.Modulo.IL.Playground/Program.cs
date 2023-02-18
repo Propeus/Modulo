@@ -34,14 +34,65 @@ namespace Propeus.Modulo.IL.Playground
             {
 
                 var modulo = iLGerador.CriarModulo("CalculadoraModulo");
-                Calculadora(modulo);
-                Matematica(modulo);
+
+
+                //Calculadora(modulo);
+                //Matematica(modulo);
+                fDelegate(modulo);
 
             }
 
         }
 
+        private static void fDelegate(ILModulo modulo)
+        {
+            ILDelegate dlg = modulo.CriarDelegate(typeof(int),
+                  "calc",
+                  new ILParametro[] {
+                    new ILParametro("calc", typeof(int)),
+                    new ILParametro("calc", typeof(int))
+                  });
 
+            dlg.Executar();
+            ILClasseProvider classe = modulo.CriarClasse("MatematicaBase", "Propeus.IL.Exemplo",
+                null,
+                null,
+                new Token[] { Token.Publico });
+            ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
+                new ILParametro("Adicao",typeof(int),"p1"),
+                new ILParametro("Adicao",typeof(int),"p2")
+            });
+
+            mth.Soma(mth.Parametros[0], mth.Parametros[1]);
+            mth.CriarRetorno();
+
+
+            classe.Executar();
+
+            var tpMeth = mth.MethodInfo;
+            var tpdlg = dlg.ConstructorInfo;
+
+            classe.NovaVersao();
+
+            mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(void), "Exibir", new ILParametro[] {
+                new ILParametro("Exibir",typeof(int),"p1"),
+                new ILParametro("Exibir",typeof(int),"p2")
+            });
+
+            mth.CarregarArgumentoZero();
+            mth.CriarPonteiro(tpMeth);
+            mth.CriarInstancia(tpdlg);
+            mth.CarregarParametro(mth.Parametros[0]);
+            mth.CarregarParametro(mth.Parametros[1]);
+            mth.ChamarFuncaoVirtual(dlg.InvokeInfo);
+            mth.ChamarFuncao(typeof(Console).GetMethod("WriteLine",new Type[] { typeof(int)}));
+            mth.CriarRetorno();
+
+            classe.Executar();
+            var cls = classe.ObterInstancia();
+
+            cls.Exibir(1,1);
+        }
 
         public static Task testeTask()
         {
