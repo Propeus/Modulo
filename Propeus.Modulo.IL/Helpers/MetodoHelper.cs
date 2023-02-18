@@ -238,14 +238,17 @@ namespace Propeus.Modulo.IL.Helpers
 
             return iLMetodo;
         }
-        public static ILMetodo InvocarDelegate(this ILMetodo iLMetodo, ILDelegate iLDelegate,ILMetodo metodoDelegate, params ILParametro[] iLParametros)
+
+        public static ILMetodo AtribuirMetodoEmDelegate(this ILMetodo iLMetodo, ILDelegate iLDelegate, ILMetodo metodoDelegate)
         {
-
-
             API.MetodoAPI.CarregarArgumento(iLMetodo);
             API.MetodoAPI.CriarPonteiro(iLMetodo, metodoDelegate.MethodInfo);
             API.MetodoAPI.CriarInstancia(iLMetodo, iLDelegate.ConstructorInfo);
+            return iLMetodo;
+        }
 
+        public static ILMetodo InvocarDelegate(this ILMetodo iLMetodo, ILDelegate iLDelegate, params ILParametro[] iLParametros)
+        {
             for (int i = 0; i < iLParametros.Length; i++)
             {
                 API.MetodoAPI.CarregarArgumento(iLMetodo, iLParametros[i].Indice);

@@ -46,47 +46,51 @@ namespace Propeus.Modulo.IL.Playground
 
         private static void fDelegate(ILModulo modulo)
         {
+            //Cria um delegate `int calc(int,int)`
             ILDelegate dlg = modulo.CriarDelegate(typeof(int),
                   "calc",
                   new ILParametro[] {
                     new ILParametro("calc", typeof(int)),
                     new ILParametro("calc", typeof(int))
                   });
-
-            dlg.Executar();
-            ILClasseProvider classe = modulo.CriarClasse("MatematicaBase", "Propeus.IL.Exemplo",
+                        
+            //Cria uma classe
+            ILClasseProvider classe = modulo.CriarClasse("MatematicaBaseDelegate", "Propeus.IL.Exemplo",
                 null,
                 null,
                 new Token[] { Token.Publico });
+
+            //Cria um metodo `int Adicao(int,int)`
             ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
                 new ILParametro("Adicao",typeof(int),"p1"),
                 new ILParametro("Adicao",typeof(int),"p2")
             });
-
             mth.Soma(mth.Parametros[0], mth.Parametros[1]);
             mth.CriarRetorno();
 
-
-            classe.Executar();
-
+            modulo.Executar();
             var tpMeth = mth;
-            var tpdlg = dlg.ConstructorInfo;
-
             classe.NovaVersao();
 
+            //Cria um metodo `void Exibir()`
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(void), "Exibir", new ILParametro[] {
                 new ILParametro("Exibir",typeof(int),"p1"),
                 new ILParametro("Exibir",typeof(int),"p2")
             });
 
-            mth.InvocarDelegate(dlg,tpMeth, mth.Parametros[0], mth.Parametros[1]);
-            mth.ChamarFuncao(typeof(Console).GetMethod("WriteLine",new Type[] { typeof(int)}));
+            //Atribui o metodo `Adicao` dentro de `calc`  `calc a = Adicao`
+            mth.AtribuirMetodoEmDelegate(dlg, tpMeth);
+            //Chama `a.Invoke(int,int);`
+            mth.InvocarDelegate(dlg, mth.Parametros[0], mth.Parametros[1]);
+            //Chama `Console.WriteLine(int)`
+            mth.ChamarFuncao(typeof(Console).GetMethod("WriteLine", new Type[] { typeof(int) }));
+            // Chama `return;`
             mth.CriarRetorno();
 
             classe.Executar();
             var cls = classe.ObterInstancia();
 
-            cls.Exibir(1,1);
+            cls.Exibir(1, 1);
         }
 
         public static Task testeTask()

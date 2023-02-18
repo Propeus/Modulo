@@ -142,7 +142,6 @@ namespace Propeus.Modulo.IL.Helpers
                 "EndInvoke",
                 new ILParametro("result", typeof(IAsyncResult)));
 
-
             return cls;
         }
 
