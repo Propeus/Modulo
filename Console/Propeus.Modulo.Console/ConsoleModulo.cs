@@ -1,9 +1,8 @@
-﻿using Propeus.Modulo.Modelos;
-using Propeus.Modulo.Modelos.Atributos;
-using Propeus.Modulo.Modelos.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +18,7 @@ namespace Propeus.Modulo.Console
         IModulo modulo;
         public ConsoleModulo(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
-            Util.Thread.LimitedConcurrencyLevelTaskScheduler limitedConcurrencyLevelTaskScheduler = new Util.Thread.LimitedConcurrencyLevelTaskScheduler(2);
-            modulo = gerenciador.Listar().First(m => m.Nome == "Gerenciador");
+            modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
             tarefa = Task.Run(IniciarProcesso);
         }
 
@@ -56,12 +54,12 @@ namespace Propeus.Modulo.Console
                                 System.Console.WriteLine("Estado: " + item.Estado);
                             }
                             break;
-                        case "obter":
-                            System.Console.WriteLine(gerenciador.ObterInstancia(cmd[1]));
-                            break;
-                        case "existe":
-                            System.Console.WriteLine(gerenciador.ExisteInstancia(cmd[1]));
-                            break;
+                        //case "obter":
+                        //    System.Console.WriteLine(gerenciador.ObterInstancia(cmd[1]));
+                        //    break;
+                        //case "existe":
+                        //    System.Console.WriteLine(gerenciador.ExisteInstancia(cmd[1]));
+                        //    break;
                         case "reiniciar":
                             System.Console.WriteLine(gerenciador.Reiniciar(cmd[1]));
                             break;

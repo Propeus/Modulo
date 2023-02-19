@@ -2,7 +2,7 @@
 
 using static Propeus.Modulo.Abstrato.Constante;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Modulo.Abstrato.Atributos
 {
     /// <summary>
     /// Atributo de identificação de modulo.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -13,19 +14,21 @@ namespace Propeus.Modulo.IL.Helpers
 {
     public static class ClasseHelpers
     {
-        public static ILClasseProvider CriarProxyClasse<TClasse>(this ILModulo iLGerador)
-            where TClasse : class
+    
+        public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null)
         {
             if (iLGerador is null)
             {
                 throw new ArgumentNullException(nameof(iLGerador));
             }
 
-            Type tClasse = typeof(TClasse);
+            Type tClasse = classe;
 
-            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, interfaces: tClasse.GetInterfaces());
+            interfaces = tClasse.GetInterfaces().Join(interfaces).ToArray();
 
-            API.ClasseAPI.CriarCampo(cls.Atual, new Token[] { Enums.Token.Privado }, tClasse,  Constantes.CONST_NME_CLASSE_PROXY + tClasse.Name);
+            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces);
+
+            API.ClasseAPI.CriarCampo(cls.Atual, new Token[] { Enums.Token.Privado }, tClasse, Constantes.CONST_NME_CLASSE_PROXY + tClasse.Name);
             ILCampo cmp = cls.Atual.Campos.Last();
 
             #region Construtores
@@ -129,6 +132,12 @@ namespace Propeus.Modulo.IL.Helpers
 
             return cls;
         }
+
+        public static ILClasseProvider CriarProxyClasse<TClasse>(this ILModulo iLGerador, Type[] interfaces = null)
+            where TClasse : class
+        {
+            return iLGerador.CriarProxyClasse(typeof(TClasse), interfaces);
+        }
         public static ILClasseProvider CriarClasse(this ILModulo iLGerador, string nome, string @namespace, Type tipoBase, Type[] interfaces, Token[] token)
         {
             ILClasseProvider cls = iLGerador.CriarClasseProvider(nome, @namespace, tipoBase, interfaces, token);
@@ -189,7 +198,10 @@ namespace Propeus.Modulo.IL.Helpers
         }
 
 
-
+        public static ILClasseProvider ObterClasseProvider(this ILModulo iLModulo, string nome, string @namespace)
+        {
+            return iLModulo.ObterCLasseProvider(nome, @namespace);
+        }
         public static dynamic ObterInstancia(this ILClasseProvider iLClasse, params object[] args)
         {
             return Activator.CreateInstance(iLClasse.Atual.TipoGerado, args);
@@ -200,7 +212,10 @@ namespace Propeus.Modulo.IL.Helpers
                 ? (TInterface)Activator.CreateInstance(iLClasse.Atual.TipoGerado, args)
                 : throw new InvalidCastException();
         }
-
+        public static Type ObterTipoGerado(this ILClasseProvider iLClasseProvider)
+        {
+            return iLClasseProvider.Atual.TipoGerado;
+        }
 
 
 

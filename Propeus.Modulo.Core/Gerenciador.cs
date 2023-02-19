@@ -1,8 +1,9 @@
-﻿using Propeus.Modulo.Abstrato;
+﻿using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
 
 using Propeus.Modulo.Abstrato.Util;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

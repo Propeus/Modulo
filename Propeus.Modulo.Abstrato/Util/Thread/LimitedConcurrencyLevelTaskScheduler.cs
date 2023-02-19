@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Abstrato.Util.Thread
 {
     /// <summary>
     /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading.tasks.taskscheduler?view=netcore-3.1
@@ -85,7 +85,7 @@ namespace Propeus.Modulo.Abstrato.Util
                         }
 
                         // Execute the task we pulled out of the queue
-                        base.TryExecuteTask(item);
+                        TryExecuteTask(item);
                     }
                 }
                 // We're done processing items on the current thread
@@ -113,7 +113,7 @@ namespace Propeus.Modulo.Abstrato.Util
                 // Try to run the task.
                 if (TryDequeue(task))
                 {
-                    return base.TryExecuteTask(task);
+                    return TryExecuteTask(task);
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace Propeus.Modulo.Abstrato.Util
             }
             else
             {
-                return base.TryExecuteTask(task);
+                return TryExecuteTask(task);
             }
         }
 

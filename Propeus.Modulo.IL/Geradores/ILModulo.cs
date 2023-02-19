@@ -108,6 +108,16 @@ namespace Propeus.Modulo.IL.Geradores
             }
         }
 
+        internal ILClasseProvider ObterCLasseProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE)
+        {
+            if(Classes.TryGetValue(@namespace+nomeClasse, out ILClasseProvider iLClasseProvider))
+            {
+                return iLClasseProvider;    
+            }
+
+            return null;
+        }
+
         public void Executar()
         {
             if (disposedValue)

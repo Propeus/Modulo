@@ -3,6 +3,8 @@ using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.Abstrato;
 using System;
 using System.Collections.Generic;
+using Propeus.Modulo.IL.Helpers;
+using Propeus.Modulo.IL.Geradores;
 
 namespace Propeus.Modulo.Core
 {
@@ -22,6 +24,7 @@ namespace Propeus.Modulo.Core
             }
 
             TipoModulo = moduloInformacao.ObterTipoModulo(nomeModulo);
+
             if (TipoModulo is null)
             {
                 throw new InvalidProgramException($"O tipo '{nomeModulo}' não foi encontrado na dll {moduloInformacao.Caminho}");
@@ -60,6 +63,9 @@ namespace Propeus.Modulo.Core
         /// Tipo do modulo
         /// </summary>
         public Type TipoModulo { get; }
+
+        private ILClasseProvider _classeProvider;
+
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
@@ -74,6 +80,7 @@ namespace Propeus.Modulo.Core
             if (!Elimindado)
             {
                 Modulo.Dispose();
+                _classeProvider.Dispose();
             }
             WeakReference = null;
             base.Dispose(disposing);
@@ -84,7 +91,18 @@ namespace Propeus.Modulo.Core
             if (!Contratos.Contains(tipo))
             {
                 Contratos.Add(tipo);
-                TipoModuloDinamico = TipoModulo.DynamicProxyType(Contratos.ToArray(), tipo.ObterModuloContratoAtributo().Nome);
+
+                if (_classeProvider == null)
+                {
+                    _classeProvider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(TipoModulo, Contratos.ToArray());
+                }
+                else
+                {
+                    _classeProvider.NovaVersao(interfaces: Contratos.ToArray());
+                }
+
+                _classeProvider.Executar();
+                TipoModuloDinamico = _classeProvider.ObterTipoGerado();
             }
             return TipoModuloDinamico;
         }

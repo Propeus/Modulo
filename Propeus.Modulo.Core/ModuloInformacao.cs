@@ -1,5 +1,4 @@
-﻿using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Util;
+﻿using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.Abstrato.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using Propeus.Modulo.Abstrato.Atributos;
 
 namespace Propeus.Modulo.Core
 {

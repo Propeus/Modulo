@@ -4,11 +4,30 @@ using Propeus.Modulo.IL.Helpers;
 
 using System;
 using System.Threading.Tasks;
-
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Atributos;
 
 namespace Propeus.Modulo.IL.Playground
 {
-   
+
+    [ModuloContrato("ModuloTeste")]
+    public interface IModuloContrato : IModulo
+    {
+        string GetInfo();
+    }
+
+    [Modulo]
+    public class ModuloTeste : Propeus.Modulo.Core.ModuloBase, IModuloContrato
+    {
+        public ModuloTeste(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        {
+        }
+
+        public string GetInfo()
+        {
+            return Gerenciador.ToString();
+        }
+    }
 
     internal class Program
     {
@@ -30,23 +49,30 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
-            using (ILGerador iLGerador = new ILGerador())
-            {
+            var gen = Propeus.Modulo.Core.Gerenciador.Atual;
+            var modulo = gen.Criar<IModuloContrato>();
+            modulo = gen.Obter<ModuloTeste>();
+            System.Console.WriteLine(gen);
+            System.Console.WriteLine(modulo);
+            System.Console.WriteLine(modulo.GetInfo());
 
-                var modulo = iLGerador.CriarModulo("CalculadoraModulo");
+            //using (ILGerador iLGerador = new ILGerador())
+            //{
+
+            //    var modulo = iLGerador.CriarModulo("CalculadoraModulo");
 
 
-                //Calculadora(modulo);
-                //Matematica(modulo);
-                fDelegate(modulo);
+            //    //Calculadora(modulo);
+            //    //Matematica(modulo);
+            //    fDelegate(modulo);
 
-            }
+            //}
 
         }
 
         private static void fDelegate(ILModulo modulo)
         {
-           
+
             //Cria uma classe
             ILClasseProvider classe = modulo.CriarClasse("MatematicaBaseDelegate", "Propeus.IL.Exemplo",
                 null,
@@ -85,7 +111,7 @@ namespace Propeus.Modulo.IL.Playground
             //Chama `a.Invoke(int,int);`
             mth.InvocarDelegate(dlg, mth.Parametros[0], mth.Parametros[1]);
             //Chama `Console.WriteLine(int)`
-            mth.ChamarFuncao(typeof(Console).GetMethod("WriteLine", new Type[] { typeof(int) }));
+            mth.ChamarFuncao(typeof(System.Console).GetMethod("WriteLine", new Type[] { typeof(int) }));
             // Chama `return;`
             mth.CriarRetorno();
 
@@ -97,7 +123,7 @@ namespace Propeus.Modulo.IL.Playground
 
         public static Task testeTask()
         {
-            Console.WriteLine("ok");
+            System.Console.WriteLine("ok");
             return Task.CompletedTask;
         }
 
@@ -134,11 +160,8 @@ namespace Propeus.Modulo.IL.Playground
             mth.CriarRetorno();
 
             classe.Executar();
-            Console.WriteLine(mth.ToString());
-            var calc = classe.ObterInstancia();
 
-            Console.WriteLine("Matematica");
-            Console.WriteLine(calc.EntreValores2(5, 4, 10));
+            var calc = classe.ObterInstancia();
 
 
         }
@@ -185,11 +208,11 @@ namespace Propeus.Modulo.IL.Playground
             classe.Executar();
             var calc = classe.ObterInstancia();
 
-            Console.WriteLine("Calculadora");
-            Console.WriteLine(calc.Adicao(1, 1));
-            Console.WriteLine(calc.Subtracao(2, 2));
-            Console.WriteLine(calc.Divisao(3, 3));
-            Console.WriteLine(calc.Multiplicacao(4, 4));
+            System.Console.WriteLine("Calculadora");
+            System.Console.WriteLine(calc.Adicao(1, 1));
+            System.Console.WriteLine(calc.Subtracao(2, 2));
+            System.Console.WriteLine(calc.Divisao(3, 3));
+            System.Console.WriteLine(calc.Multiplicacao(4, 4));
         }
 
 

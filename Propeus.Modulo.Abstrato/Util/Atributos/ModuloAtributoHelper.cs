@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reflection;
 
+using Propeus.Modulo.Abstrato.Atributos;
+
 namespace Propeus.Modulo.Abstrato.Util
 {
     /// <summary>
