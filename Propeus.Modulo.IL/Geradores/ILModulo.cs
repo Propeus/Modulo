@@ -76,7 +76,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                var clsProvider = new ILDelegate(proxy, nomeClasse, @namespace, acessadores);
+                ILDelegate clsProvider = new ILDelegate(proxy, nomeClasse, @namespace, acessadores);
                 Delegates.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }

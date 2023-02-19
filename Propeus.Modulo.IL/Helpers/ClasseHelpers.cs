@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
 
 using Propeus.Modulo.IL.Geradores;
+using Propeus.Modulo.IL.Proxy;
 
 namespace Propeus.Modulo.IL.Helpers
 {
@@ -112,6 +114,17 @@ namespace Propeus.Modulo.IL.Helpers
             }
             #endregion
 
+            #region Delegates
+            var innerCls = tClasse.GetNestedTypes();
+
+            foreach (var inner in innerCls)
+            {
+                if (inner.Herdado<System.MulticastDelegate>())
+                {
+                    
+                }
+            }
+            #endregion
 
             return cls;
         }
@@ -123,6 +136,7 @@ namespace Propeus.Modulo.IL.Helpers
 
         public static ILDelegate CriarDelegate(this ILModulo ilGerador, Type tipoSaida, string nomeDelegate, params ILParametro[] parametros)
         {
+
             ILDelegate cls = ilGerador.CriarDelegate(nomeDelegate, null, new Enums.Token[] { Token.Publico, Token.Auto, Token.Ansi, Token.Selado });
             cls.CriarConstrutor(
                    new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
@@ -144,6 +158,36 @@ namespace Propeus.Modulo.IL.Helpers
 
             return cls;
         }
+        public static ILDelegate CriarDelegate(this ILClasseProvider iLClasse, Type tipoSaida, string nomeDelegate, params ILParametro[] parametros)
+        {
+
+            ILBuilderProxy iLGerador = iLClasse.Atual.Proxy;
+            ILDelegate cls = new ILDelegate(iLGerador, nomeDelegate, null, new Enums.Token[] { Token.PublicaAninhado, Token.Auto, Token.Ansi, Token.Selado });
+
+            cls.CriarConstrutor(
+                   new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
+                   new ILParametro(".ctor", typeof(object), "object"),
+                   new ILParametro(".ctor", typeof(nint), "method"));
+
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
+                "Invoke", parametros);
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+                typeof(IAsyncResult),
+                "BeginInvoke",
+                parametros.Join(new ILParametro[] {
+                new ILParametro("BeginInvoke", typeof(AsyncCallback)),
+                new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
+            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+                typeof(int),
+                "EndInvoke",
+                new ILParametro("result", typeof(IAsyncResult)));
+
+            iLClasse.Atual.Delegates.Add(cls);
+
+            return cls;
+        }
+
+
 
         public static dynamic ObterInstancia(this ILClasseProvider iLClasse, params object[] args)
         {

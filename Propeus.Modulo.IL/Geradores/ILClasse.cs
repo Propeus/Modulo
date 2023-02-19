@@ -40,12 +40,13 @@ namespace Propeus.Modulo.IL.Geradores
                 throw new ArgumentException($"'{nameof(nome)}' não pode ser nulo nem vazio.", nameof(nome));
             }
 
-            if (string.IsNullOrEmpty(@namespace))
-            {
-                throw new ArgumentException($"'{nameof(@namespace)}' não pode ser nulo nem vazio.", nameof(@namespace));
-            }
-
             Proxy = IlProxy.Clone();
+
+            Construtores = new List<ILMetodo>();
+            Metodos = new List<ILMetodo>();
+            Campos = new List<ILCampo>();
+            Propriedades = new List<ILPropriedade>();
+            Delegates = new List<ILDelegate>();
 
             @base ??= typeof(object);
             interfaces ??= Array.Empty<Type>();
@@ -58,20 +59,43 @@ namespace Propeus.Modulo.IL.Geradores
             _acessadores = acessadores;
             Hash = GerarHashIlClasse(Nome, Namespace, Base, interfaces, acessadores)[..5];
 
-            ModuleBuilder builder = Proxy.ObterBuilder<ModuleBuilder>();
             List<TypeAttributes> typeAttributes = new();
             foreach (Token item in acessadores)
             {
                 typeAttributes.Add((TypeAttributes)Enum.Parse(typeof(TypeAttributes), item.ObterDescricaoEnum()));
             }
-            TypeBuilder tiper = builder.DefineType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
-            Proxy.RegistrarBuilders(tiper);
+            TypeBuilder typeBuilder;
+
+            if (Proxy.ObterBuilder<TypeBuilder>() == null)
+            {
+                ModuleBuilder builder = Proxy.ObterBuilder<ModuleBuilder>();
+
+                if (Namespace != null)
+                {
+                    typeBuilder = builder.DefineType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
+                }
+                else
+                {
+                    typeBuilder = builder.DefineType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
+                }
+            }
+            else
+            {
+                TypeBuilder builder = Proxy.ObterBuilder<TypeBuilder>();
+                if (Namespace != null)
+                {
+                    typeBuilder = builder.DefineNestedType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
+                }
+                else
+                {
+                    typeBuilder = builder.DefineNestedType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
+                }
+            }
+            Proxy.RegistrarOuAtualizarBuilder(typeBuilder);
 
 
-            Construtores = new List<ILMetodo>();
-            Metodos = new List<ILMetodo>();
-            Campos = new List<ILCampo>();
-            Propriedades = new List<ILPropriedade>();
+
+
         }
 
         /// <summary>
@@ -112,6 +136,7 @@ namespace Propeus.Modulo.IL.Geradores
         internal List<ILMetodo> Metodos { get; private set; }
         internal List<ILMetodo> Construtores { get; private set; }
         internal List<ILPropriedade> Propriedades { get; private set; }
+        internal List<ILDelegate> Delegates { get; private set; }
         internal List<ILCampo> Campos { get; private set; }
         internal List<Type> Interfaces { get; set; }
 
@@ -135,6 +160,11 @@ namespace Propeus.Modulo.IL.Geradores
             if (TipoGerado is not null)
             {
                 return;
+            }
+
+            foreach (var @delegate in Delegates)
+            {
+                @delegate.Executar();
             }
 
             foreach (ILCampo campo in Campos)

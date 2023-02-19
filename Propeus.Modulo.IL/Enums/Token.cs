@@ -113,6 +113,11 @@ namespace Propeus.Modulo.IL.Enums
         /// AnsiClass
         /// </summary>
         [Description("AnsiClass")]
-        Ansi
+        Ansi,
+        /// <summary>
+        /// NestedPublic
+        /// </summary>
+        [Description("NestedPublic")]
+        PublicaAninhado
     }
 }

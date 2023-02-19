@@ -5,10 +5,10 @@ using Propeus.Modulo.IL.Helpers;
 using System;
 using System.Threading.Tasks;
 
+
 namespace Propeus.Modulo.IL.Playground
 {
-
-
+   
 
     internal class Program
     {
@@ -46,19 +46,21 @@ namespace Propeus.Modulo.IL.Playground
 
         private static void fDelegate(ILModulo modulo)
         {
-            //Cria um delegate `int calc(int,int)`
-            ILDelegate dlg = modulo.CriarDelegate(typeof(int),
-                  "calc",
-                  new ILParametro[] {
-                    new ILParametro("calc", typeof(int)),
-                    new ILParametro("calc", typeof(int))
-                  });
-                        
+           
             //Cria uma classe
             ILClasseProvider classe = modulo.CriarClasse("MatematicaBaseDelegate", "Propeus.IL.Exemplo",
                 null,
                 null,
                 new Token[] { Token.Publico });
+
+            //Cria um delegate `int calc(int,int)`
+            ILDelegate dlg = classe.CriarDelegate(typeof(int),
+                  "calc",
+                  new ILParametro[] {
+                    new ILParametro("calc", typeof(int)),
+                    new ILParametro("calc", typeof(int))
+                  });
+
 
             //Cria um metodo `int Adicao(int,int)`
             ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {

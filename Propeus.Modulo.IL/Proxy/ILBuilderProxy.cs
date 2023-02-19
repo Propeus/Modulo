@@ -124,6 +124,31 @@ namespace Propeus.Modulo.IL.Proxy
             return Builders.ContainsKey(typeof(TBuilder)) ? (TBuilder)Builders[typeof(TBuilder)] : default;
         }
 
+
+        public void RegistrarOuAtualizarBuilder(object builder)
+        {
+            if (Builders.ContainsKey(builder.GetType()))
+            {
+                AtualizarBuilder(builder);
+            }
+            else
+            {
+                RegistrarBuilders(builder);
+            }
+        }
+
+        public void AtualizarBuilder(object builder)
+        {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
+
+            Builders[builder.GetType()] = builder;
+
+        }
+
         /// <summary>
         /// Adiciona um novo builder no proxy
         /// </summary>
