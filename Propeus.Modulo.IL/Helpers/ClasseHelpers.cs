@@ -23,9 +23,9 @@ namespace Propeus.Modulo.IL.Helpers
 
             Type tClasse = typeof(TClasse);
 
-            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, tClasse.Namespace + ".IL.Proxy", interfaces: tClasse.GetInterfaces());
+            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, interfaces: tClasse.GetInterfaces());
 
-            API.ClasseAPI.CriarCampo(cls.Atual, new Token[] { Enums.Token.Privado }, tClasse, "IL_Gerador_Proxy_" + tClasse.Name);
+            API.ClasseAPI.CriarCampo(cls.Atual, new Token[] { Enums.Token.Privado }, tClasse,  Constantes.CONST_NME_CLASSE_PROXY + tClasse.Name);
             ILCampo cmp = cls.Atual.Campos.Last();
 
             #region Construtores
@@ -115,15 +115,16 @@ namespace Propeus.Modulo.IL.Helpers
             #endregion
 
             #region Delegates
-            var innerCls = tClasse.GetNestedTypes();
+            //TODO: Implemnetar proxy de delegate
+            //var innerCls = tClasse.GetNestedTypes();
 
-            foreach (var inner in innerCls)
-            {
-                if (inner.Herdado<System.MulticastDelegate>())
-                {
-                    
-                }
-            }
+            //foreach (var inner in innerCls)
+            //{
+            //    if (inner.Herdado<System.MulticastDelegate>())
+            //    {
+
+            //    }
+            //}
             #endregion
 
             return cls;
@@ -199,7 +200,7 @@ namespace Propeus.Modulo.IL.Helpers
                 ? (TInterface)Activator.CreateInstance(iLClasse.Atual.TipoGerado, args)
                 : throw new InvalidCastException();
         }
-       
+
 
 
 

@@ -14,13 +14,13 @@ namespace Propeus.Modulo.IL.Geradores
     public static partial class Constantes
     {
         public const string CONST_NME_CLASSE = "IL_Gerador_Classe_";
-        public const string CONST_NME_CLASSE_PROXY = CONST_NME_CLASSE + "PROXY_";
+        public const string CONST_NME_CLASSE_PROXY = CONST_NME_CLASSE + "Proxy_";
 
         public const string CONST_NME_NAMESPACE_CLASSE = "Propeus.IL.Classes";
         public const string CONST_NME_NAMESPACE_CLASSE_PROXY = CONST_NME_NAMESPACE_CLASSE + ".Proxy";
         
         public const string CONST_NME_DELEGATE = "IL_Gerador_Delegate_";
-        public const string CONST_NME_DELEGATE_PROXY = CONST_NME_DELEGATE + "PROXY_";
+        public const string CONST_NME_DELEGATE_PROXY = CONST_NME_DELEGATE + "Proxy_";
 
         public const string CONST_NME_NAMESPACE_DELEGATE = "Propeus.IL.Delegates";
         public const string CONST_NME_NAMESPACE_DELEGATE_PROXY = CONST_NME_NAMESPACE_DELEGATE+ ".Proxy";
