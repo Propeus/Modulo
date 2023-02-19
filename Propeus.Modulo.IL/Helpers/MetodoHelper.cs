@@ -71,7 +71,9 @@ namespace Propeus.Modulo.IL.Helpers
         {
             API.ClasseAPI.CriarMetodo(iLClasseProvider, acessadores, typeof(void), ".ctor", parametros);
             var mth = iLClasseProvider.Metodos.Last();
+            iLClasseProvider.Metodos.Remove(mth); 
             mth._metodoBuilder.SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
+            iLClasseProvider.Construtores.Add(mth);
             return mth;
         }
 
