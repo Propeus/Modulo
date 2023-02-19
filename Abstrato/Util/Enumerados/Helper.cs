@@ -14,7 +14,7 @@ namespace Propeus.Modulo.Abstrato.Util
     {
 
 
-        
+
         public static TNovoEnum[] ParseEnum<TAntigoEnum, TNovoEnum>(this TAntigoEnum[] @enum) where TNovoEnum : struct, Enum
             where TAntigoEnum : struct, Enum
         {
@@ -74,6 +74,22 @@ namespace Propeus.Modulo.Abstrato.Util
 
             return renums;
 
+        }
+
+        public static TEnum[] ObterEnumsConcatenadoBitaBit<TEnum>(this TEnum valorConcatenado) where TEnum : Enum
+        {
+            ulong valorConcatenadoInteiro = Convert.ToUInt64(valorConcatenado);
+            List<TEnum> enums = new List<TEnum>();
+            foreach (string nome in Enum.GetNames(typeof(TEnum)))
+            {
+                TEnum valor = (TEnum)Enum.Parse(typeof(TEnum), nome);
+                ulong valorInteiro = Convert.ToUInt64(valor);
+                if ((valorInteiro & valorConcatenadoInteiro) == valorInteiro)
+                {
+                    enums.Add(valor);
+                }
+            }
+            return enums.ToArray(); 
         }
 
         /// <summary>

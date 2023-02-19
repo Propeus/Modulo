@@ -176,11 +176,13 @@ namespace Propeus.Modulo.IL.Geradores
                 _ = sb.Append("() ");
             }
 
-            _ = sb.Append("cil")
-            .Append(' ')
-            .Append("managed")
-            .Append(' ')
-            .AppendLine()
+            //TODO: Preciso exibir o runtime managed
+            //foreach (MethodImplAttributes item in _metodoBuilder.GetMethodImplementationFlags().ObterEnumsConcatenadoBitaBit())
+            //{
+            //    _ = sb.Append(' ').Append(item.ToString());
+            //}
+
+            _ = sb.AppendLine()
             .Append('\t')
             .Append('{')
             .AppendLine()
