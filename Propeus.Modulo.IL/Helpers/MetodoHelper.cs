@@ -63,15 +63,15 @@ namespace Propeus.Modulo.IL.Helpers
         public static ILMetodo CriarMetodo(this ILDelegate iLClasseProvider, Token[] acessadores, Type retorno, string nome, params ILParametro[] parametros)
         {
             API.ClasseAPI.CriarMetodo(iLClasseProvider, acessadores, retorno, nome, parametros);
-            var mth = iLClasseProvider.Metodos.Last();
+            ILMetodo mth = iLClasseProvider.Metodos.Last();
             mth._metodoBuilder.SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
             return mth;
         }
         public static ILMetodo CriarConstrutor(this ILDelegate iLClasseProvider, Token[] acessadores, params ILParametro[] parametros)
         {
             API.ClasseAPI.CriarMetodo(iLClasseProvider, acessadores, typeof(void), ".ctor", parametros);
-            var mth = iLClasseProvider.Metodos.Last();
-            iLClasseProvider.Metodos.Remove(mth); 
+            ILMetodo mth = iLClasseProvider.Metodos.Last();
+            _ = iLClasseProvider.Metodos.Remove(mth);
             mth._metodoBuilder.SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
             iLClasseProvider.Construtores.Add(mth);
             return mth;

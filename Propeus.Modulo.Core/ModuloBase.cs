@@ -1,7 +1,6 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato;
-using System;
-using System.Text;
+﻿using System.Text;
+
+using Propeus.Modulo.Abstrato.Interfaces;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -45,12 +44,12 @@ namespace Propeus.Modulo.Core
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder(base.ToString());
+            StringBuilder sb = new(base.ToString());
 
-            sb.AppendLine($"---Modulo---");
-            sb.AppendLine($"Instancia Unica: {InstanciaUnica}");
-            sb.AppendLine($"---Modulo---");
-            sb.AppendLine();
+            _ = sb.AppendLine($"---Modulo---");
+            _ = sb.AppendLine($"Instancia Unica: {InstanciaUnica}");
+            _ = sb.AppendLine($"---Modulo---");
+            _ = sb.AppendLine();
 
             return sb.ToString();
         }

@@ -1,13 +1,10 @@
-﻿using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.Abstrato.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Runtime.Loader;
+
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
 
 namespace Propeus.Modulo.Core
 {
@@ -53,7 +50,7 @@ namespace Propeus.Modulo.Core
             if (MemoryStream.IsAlive)
             {
                 Assembly = AssemblyLoadContext.LoadFromStream(MemoryStream.Target as MemoryStream);
-                (MemoryStream.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
+                _ = (MemoryStream.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
             }
 
             AssemblyName = Assembly.GetName();
@@ -69,7 +66,7 @@ namespace Propeus.Modulo.Core
 
         private void AssemblyLoadContext_Unloading(AssemblyLoadContext obj)
         {
-            if (!(MemoryStream is null)  && MemoryStream.IsAlive)
+            if (MemoryStream is not null && MemoryStream.IsAlive)
             {
                 ((MemoryStream)MemoryStream.Target).Dispose();
             }
@@ -80,15 +77,15 @@ namespace Propeus.Modulo.Core
         /// <summary>
         /// Assembly a qual o modulo pertence
         /// </summary>
-        public Assembly Assembly { get; private set; }
+        public Assembly? Assembly { get; private set; }
         /// <summary>
         /// Informações sobre o assembly do modulo
         /// </summary>
-        public AssemblyName AssemblyName { get; private set; }
+        public AssemblyName? AssemblyName { get; private set; }
         /// <summary>
         /// Contexto do assembly
         /// </summary>
-        private AssemblyLoadContext AssemblyLoadContext { get; set; }
+        private AssemblyLoadContext? AssemblyLoadContext { get; set; }
         /// <summary>
         /// Modulos mapeados do assembly
         /// </summary>

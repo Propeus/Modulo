@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Propeus.Modulo.Abstrato.Util.Thread
+﻿namespace Propeus.Modulo.Abstrato.Util.Thread
 {
     /// <summary>
     /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading.tasks.taskscheduler?view=netcore-3.1
@@ -14,7 +9,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
         private bool _currentThreadIsProcessingItems;
 
         // The list of tasks to be executed
-        private readonly LinkedList<Task> _tasks = new LinkedList<Task>(); // protected by lock(_tasks)
+        private readonly LinkedList<Task> _tasks = new(); // protected by lock(_tasks)
 
         // The maximum concurrency level allowed by this scheduler.
         private readonly int _maxDegreeOfParallelism;
@@ -46,7 +41,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             // delegates currently queued or running to process tasks, schedule another.
             lock (_tasks)
             {
-                _tasks.AddLast(task);
+                _ = _tasks.AddLast(task);
                 if (_delegatesQueuedOrRunning < _maxDegreeOfParallelism)
                 {
                     ++_delegatesQueuedOrRunning;
@@ -58,7 +53,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
         // Inform the ThreadPool that there's work to be executed for this scheduler.
         private void NotifyThreadPoolOfPendingWork()
         {
-            ThreadPool.UnsafeQueueUserWorkItem(_ =>
+            _ = ThreadPool.UnsafeQueueUserWorkItem(_ =>
             {
                 // Note that the current thread is now processing work items.
                 // This is necessary to enable inlining of tasks into this thread.
@@ -85,7 +80,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
                         }
 
                         // Execute the task we pulled out of the queue
-                        TryExecuteTask(item);
+                        _ = TryExecuteTask(item);
                     }
                 }
                 // We're done processing items on the current thread
@@ -111,14 +106,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             if (taskWasPreviouslyQueued)
             {
                 // Try to run the task.
-                if (TryDequeue(task))
-                {
-                    return TryExecuteTask(task);
-                }
-                else
-                {
-                    return false;
-                }
+                return TryDequeue(task) && TryExecuteTask(task);
             }
             else
             {
@@ -154,14 +142,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             try
             {
                 Monitor.TryEnter(_tasks, ref lockTaken);
-                if (lockTaken)
-                {
-                    return _tasks;
-                }
-                else
-                {
-                    throw new NotSupportedException();
-                }
+                return lockTaken ? (IEnumerable<Task>)_tasks : throw new NotSupportedException();
             }
             finally
             {

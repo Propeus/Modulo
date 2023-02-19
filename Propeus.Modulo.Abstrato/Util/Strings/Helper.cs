@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 using Propeus.Modulo.Abstrato.Util.Tabelas;
 
@@ -60,7 +57,7 @@ namespace Propeus.Modulo.Abstrato.Util
             {
                 string[] spl = new string[]
                 {
-                    str.Substring(0, i ),
+                    str[..i ],
                     str[(i+1)..]
                 };
 
@@ -91,7 +88,7 @@ namespace Propeus.Modulo.Abstrato.Util
                 throw new ArgumentNullException(nameof(antigo), ARGUMENTO_NULO_OU_VAZIO);
             }
 
-            Regex regex = new Regex(Regex.Escape(antigo));
+            Regex regex = new(Regex.Escape(antigo));
             string newText = regex.Replace(str, novo, 1);
             return newText;
         }
@@ -115,11 +112,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static bool ExisteMetodo<T>(this string nome)
         {
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-            return typeof(T).GetMethods().Where(x => x.Name == nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
+            return nome.IsNullOrEmpty()
+                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
+                : typeof(T).GetMethods().Where(x => x.Name == nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
         }
 
         public static string WriteTable(this object[] data)
@@ -129,31 +124,33 @@ namespace Propeus.Modulo.Abstrato.Util
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (data[0] ==null)
+            if (data[0] == null)
             {
                 return string.Empty;
             }
 
-            var propriedades = data[0].ObterPropriedadeInfoType().Select(t => t.Key).ToArray();
+            System.Reflection.PropertyInfo[] propriedades = data[0].ObterPropriedadeInfoType().Select(t => t.Key).ToArray();
 
-            ConsoleTable consoleTable = new ConsoleTable(new ConsoleTableOptions
+            ConsoleTable consoleTable = new(new ConsoleTableOptions
             {
                 Columns = propriedades.Select(p => p.Name),
                 EnableCount = false,
                 NumberAlignment = Alignment.Right
             });
 
-            foreach (var dataItem in data)
+            foreach (object dataItem in data)
             {
                 if (dataItem == null)
+                {
                     continue;
+                }
 
-                var dataValor = new object[propriedades.Length];
+                object[] dataValor = new object[propriedades.Length];
                 for (int i = 0; i < propriedades.Length; i++)
                 {
                     dataValor[i] = dataItem.ObterValorPropriedade(propriedades[i]);
                 }
-                consoleTable.AddRow(dataValor);
+                _ = consoleTable.AddRow(dataValor);
             }
 
             return consoleTable.ToString();

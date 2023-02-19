@@ -1,17 +1,10 @@
-﻿using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
-
-using Propeus.Modulo.Abstrato.Util;
-
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -31,14 +24,14 @@ namespace Propeus.Modulo.Core
             ModulosIgnorados = Array.Empty<string>();
         }
 
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-        private static Gerenciador _atual;
+        private readonly CancellationTokenSource _cancellationToken = new();
+        private static Gerenciador? _atual;
 
         private DateTime DataInicio { get; }
 
         private DateTime UltimaAtualizacao { get; set; } = DateTime.Now;
 
-        private Task LimpezaListaTask { get; set; } = null;
+        private Task? LimpezaListaTask { get; set; } = null;
         /// <summary>
         /// Dicionario composto por ID do modulo e instancia do tipo do modulo
         /// </summary>
@@ -76,18 +69,11 @@ namespace Propeus.Modulo.Core
         public IModulo Criar(string nomeModulo, params object[] argumentos)
         {
             IEnumerable<Type> result = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName == nomeModulo ^ t.Name == nomeModulo);
-            if (!result.Any())
-            {
-                throw new Exception(string.Format(ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo));
-            }
-
-            if (result.Count() > 1)
-            {
-                throw new IndexOutOfRangeException(string.Format(ERRO_TIPO_AMBIGUO, nomeModulo));
-            }
-
-            return Criar(result.First(), argumentos);
-
+            return !result.Any()
+                ? throw new Exception(string.Format(ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
+                : result.Count() > 1
+                ? throw new IndexOutOfRangeException(string.Format(ERRO_TIPO_AMBIGUO, nomeModulo))
+                : Criar(result.First(), argumentos);
         }
 
         public T Criar<T>(params object[] argumentos) where T : IModulo
@@ -149,7 +135,7 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentException(ERRO_MODULO_INSTANCIA_UNICA);
             }
 
-            ConstructorInfo ctor = null;
+            ConstructorInfo? ctor = null;
             if (argumentos.Any())
             {
                 ctor = modulo.GetConstructors().OrderByDescending(x => x.GetParameters().Length == argumentos.Length).FirstOrDefault();
@@ -162,33 +148,11 @@ namespace Propeus.Modulo.Core
                 for (int i = 0; i < paramst.Length; i++)
                 {
                     //Melhorar a busca e atribuição de parametros
-                    if (paramst[i].ParameterType.Is<IGerenciador>())
-                    {
-                        if (!argumentos[i].Herdado<IGerenciador>())
-                        {
-                            throw new ArgumentException(string.Format(ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name));
-                        }
-                        else
-                        {
-                            arr[i] = argumentos[i];
-                        }
-
-                    }
-                    else if (paramst[i].DefaultValue.IsNotNull())
-                    {
-                        if (argumentos.Length < i)
-                        {
-                            arr[i] = paramst[i].DefaultValue;
-                        }
-                        else
-                        {
-                            arr[i] = argumentos[i];
-                        }
-                    }
-                    else
-                    {
-                        arr[i] = argumentos[i];
-                    }
+                    arr[i] = paramst[i].ParameterType.Is<IGerenciador>()
+                        ? !argumentos[i].Herdado<IGerenciador>()
+                            ? throw new ArgumentException(string.Format(ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name))
+                            : argumentos[i]
+                        : paramst[i].DefaultValue.IsNotNull() ? argumentos.Length < i ? paramst[i].DefaultValue : argumentos[i] : argumentos[i];
 
                 }
                 argumentos = arr;
@@ -213,24 +177,15 @@ namespace Propeus.Modulo.Core
                 for (int i = 0; i < paramst.Length; i++)
                 {
 
-                    if (paramst[i].ParameterType.Is<IGerenciador>())
-                    {
-                        arr[i] = this.As<IGerenciador>();
-                    }
-                    else if (paramst[i].DefaultValue.IsNotNull())
-                    {
-                        arr[i] = paramst[i].DefaultValue;
-                    }
-                    else
-                    {
-                        arr[i] = paramst[i].ParameterType.Default();
-                    }
+                    arr[i] = paramst[i].ParameterType.Is<IGerenciador>()
+                        ? this.As<IGerenciador>()
+                        : paramst[i].DefaultValue.IsNotNull() ? paramst[i].DefaultValue : paramst[i].ParameterType.Default();
                 }
                 argumentos = arr;
             }
 
-            var mAux = Activator.CreateInstance(modulo, argumentos).As<IModulo>();
-            ArgumentosModulo.TryAdd(mAux.Id, argumentos);
+            IModulo mAux = Activator.CreateInstance(modulo, argumentos).As<IModulo>();
+            _ = ArgumentosModulo.TryAdd(mAux.Id, argumentos);
             return mAux;
 
         }
@@ -244,8 +199,8 @@ namespace Propeus.Modulo.Core
             }
 
             Type t = modulo.GetType();
-            Cache.TryRemove(t.FullName, out _);
-            Cache.TryRemove(t.Name, out _);
+            _ = Cache.TryRemove(t.FullName, out _);
+            _ = Cache.TryRemove(t.Name, out _);
             if (Modulos.TryRemove(modulo.Id, out IModuloTipo outer))
             {
                 outer.Dispose();
@@ -272,8 +227,8 @@ namespace Propeus.Modulo.Core
                 }
                 else
                 {
-                    Cache.TryRemove(modulo.Value.Nome, out _);
-                    Modulos.TryRemove(modulo.Value.IdModulo, out _);
+                    _ = Cache.TryRemove(modulo.Value.Nome, out _);
+                    _ = Modulos.TryRemove(modulo.Value.IdModulo, out _);
                 }
 
             }
@@ -297,7 +252,7 @@ namespace Propeus.Modulo.Core
                 throw new InvalidCastException(ERRO_TIPO_VOID);
             }
 
-            IEnumerable<IModuloTipo> info = null;
+            IEnumerable<IModuloTipo>? info = null;
             if (modulo.IsInterface)
             {
                 ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
@@ -321,15 +276,12 @@ namespace Propeus.Modulo.Core
                     }
                 }
 
-                if (info is null)
-                {
-                    info = Modulos
+                info ??= Modulos
                            .Select(x => x.Value)
                            .Where(x => x.TipoModulo.FullName == modulo.Name
                            || x.TipoModuloDinamico?.FullName == modulo.Name
                            || x.TipoModulo.Name == modulo.Name
                            || x.TipoModuloDinamico?.Name == modulo.Name);
-                }
             }
             else
             {
@@ -342,12 +294,7 @@ namespace Propeus.Modulo.Core
             }
 
             IModuloTipo result = info.First(m => !m.Elimindado);
-            if (result.Elimindado)
-            {
-                throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, result.Nome));
-            }
-
-            return result.Modulo;
+            return result.Elimindado ? throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, result.Nome)) : result.Modulo;
         }
 
         public IModulo Obter(string id)
@@ -365,12 +312,7 @@ namespace Propeus.Modulo.Core
             IModuloTipo info = Modulos[id];
 
 
-            if (info.Elimindado)
-            {
-                throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, id));
-            }
-
-            return info.Modulo;
+            return info.Elimindado ? throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, id)) : info.Modulo;
         }
 
 
@@ -418,22 +360,12 @@ namespace Propeus.Modulo.Core
 
         public bool Existe(IModulo modulo)
         {
-            if (modulo is null)
-            {
-                throw new ArgumentNullException(nameof(modulo));
-            }
-
-            return Existe(modulo.Id);
+            return modulo is null ? throw new ArgumentNullException(nameof(modulo)) : Existe(modulo.Id);
         }
 
         public bool Existe(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            return Modulos.ContainsKey(id);
+            return string.IsNullOrEmpty(id) ? throw new ArgumentNullException(nameof(id)) : Modulos.ContainsKey(id);
         }
 
 
@@ -482,7 +414,7 @@ namespace Propeus.Modulo.Core
                 {
                     throw new ArgumentException(string.Format(ERRO_MODULO_REGISTRADO_CACHE, modulo.Nome, modulo.Id));
                 }
-                Cache.TryAdd(t.FullName, modulo.Id);
+                _ = Cache.TryAdd(t.FullName, modulo.Id);
             }
 
             if (Modulos.ContainsKey(modulo.Id))
@@ -491,7 +423,7 @@ namespace Propeus.Modulo.Core
             }
 
             IModuloTipo info = new ModuloTipo(modulo);
-            Modulos.TryAdd(modulo.Id, info);
+            _ = Modulos.TryAdd(modulo.Id, info);
 
         }
 
@@ -509,7 +441,7 @@ namespace Propeus.Modulo.Core
 
         public IEnumerable<IModulo> Listar()
         {
-            if (Modulos!= null)
+            if (Modulos != null)
             {
                 foreach (KeyValuePair<string, IModuloTipo> modulo in Modulos)
                 {
@@ -549,8 +481,8 @@ namespace Propeus.Modulo.Core
                 List<string> keys = Modulos.Where(x => x.Value.Elimindado).Select(x => x.Key).ToList();
                 foreach (string key in keys)
                 {
-                    Cache.TryRemove(key, out _);
-                    Modulos.TryRemove(key, out _);
+                    _ = Cache.TryRemove(key, out _);
+                    _ = Modulos.TryRemove(key, out _);
                 }
 
             }, _cancellationToken.Token);
@@ -580,16 +512,16 @@ namespace Propeus.Modulo.Core
         }
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder(base.ToString());
+            StringBuilder stringBuilder = new(base.ToString());
 
 
-            stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
+            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
 
-            stringBuilder.Append("Ultima atualização: ").Append(UltimaAtualizacao).AppendLine();
+            _ = stringBuilder.Append("Ultima atualização: ").Append(UltimaAtualizacao).AppendLine();
 
-            stringBuilder.Append("Quantidade de modulos mapeados: ").Append(ModulosValidos.Count()).AppendLine();
+            _ = stringBuilder.Append("Quantidade de modulos mapeados: ").Append(ModulosValidos.Count()).AppendLine();
 
-            stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
+            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
 
 
             return stringBuilder.ToString();

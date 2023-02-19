@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.Abstrato.Atributos
+﻿namespace Propeus.Modulo.Abstrato.Atributos
 {
     /// <summary>
     /// Identificador de extremidade de um modulo

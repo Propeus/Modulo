@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Collections;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -17,7 +12,7 @@ namespace Propeus.Modulo.Abstrato.Util
     public static partial class Helper
     {
 
-        public static ConstructorInfo ObterConstrutor(this Type type, Type[] parametros = null)
+        public static ConstructorInfo ObterConstrutor(this Type type, Type[]? parametros = null)
         {
             ConstructorInfo? ctor = null;
             if (parametros.IsNullOrEmpty())
@@ -25,18 +20,22 @@ namespace Propeus.Modulo.Abstrato.Util
                 ctor = type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0);
 
                 if (ctor == null)
+                {
                     throw new Exception("Nao existem construtores sem parametro para este tipo");
+                }
             }
             else
             {
                 ctor = type.GetConstructors().FirstOrDefault(ct =>
                                 {
-                                    var tParametros = ct.ObterTipoParametros();
+                                    IEnumerable<Type> tParametros = ct.ObterTipoParametros();
                                     return tParametros.ContainsAll(parametros);
                                 });
 
                 if (ctor == null)
+                {
                     throw new Exception("Nao existem construtores com os parametros informado");
+                }
             }
 
 
@@ -51,12 +50,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterTipoParametros(this ConstructorInfo action)
         {
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-
-            return action.GetParameters().Select(x => x.ParameterType).ToList();
+            return action.IsNull()
+                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
         /// <summary>
@@ -67,12 +63,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterTipoParametros(this MethodInfo action)
         {
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-
-            return action.GetParameters().Select(x => x.ParameterType).ToList();
+            return action.IsNull()
+                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
         /// <summary>
@@ -83,11 +76,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterTipoParametros(this PropertyInfo action)
         {
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-            return action.GetIndexParameters().Select(x => x.ParameterType).ToList();
+            return action.IsNull()
+                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                : (IEnumerable<Type>)action.GetIndexParameters().Select(x => x.ParameterType).ToList();
         }
 
         /// <summary>
@@ -99,11 +90,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ExisteMetodo<T>(this Action action)
         {
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-            return typeof(T).ExisteMetodo(action);
+            return action.IsNull() ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO) : typeof(T).ExisteMetodo(action);
         }
 
         /// <summary>
@@ -128,14 +115,17 @@ namespace Propeus.Modulo.Abstrato.Util
         public static void Dispose(this TypeBuilder tb)
         {
             if (tb == null)
+            {
                 return;
+            }
+
             Type tbType = typeof(TypeBuilder);
             FieldInfo tbMbList = tbType.GetField("m_listMethods", BindingFlags.Instance | BindingFlags.NonPublic); //List<MethodBuilder>
             FieldInfo tbDecType = tbType.GetField("m_DeclaringType", BindingFlags.Instance | BindingFlags.NonPublic);//TypeBuilder
             FieldInfo tbGenType = tbType.GetField("m_genTypeDef", BindingFlags.Instance | BindingFlags.NonPublic);//TypeBuilder
             FieldInfo tbDeclMeth = tbType.GetField("m_declMeth", BindingFlags.Instance | BindingFlags.NonPublic);//MethodBuilder
             FieldInfo tbMbCurMeth = tbType.GetField("m_currentMethod", BindingFlags.Instance | BindingFlags.NonPublic);//MethodBuilder
-            FieldInfo tbMod = tbType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic);//ModuleBuilder
+            _ = tbType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic);//ModuleBuilder
             FieldInfo tbGenTypeParArr = tbType.GetField("m_inst", BindingFlags.Instance | BindingFlags.NonPublic); //GenericTypeParameterBuilder[] 
 
             TypeBuilder tempDecType = tbDecType.GetValue(tb) as TypeBuilder;
@@ -152,8 +142,7 @@ namespace Propeus.Modulo.Abstrato.Util
             tempMeth.Dispose();
             tbMbCurMeth?.SetValue(tb, null);
 
-            IList mbList = tbMbList.GetValue(tb) as IList;
-            if (mbList != null)
+            if (tbMbList.GetValue(tb) is IList mbList)
             {
                 for (int i = 0; i < mbList.Count; i++)
                 {
@@ -173,7 +162,10 @@ namespace Propeus.Modulo.Abstrato.Util
         public static void Dispose(this MethodBuilder mb)
         {
             if (mb == null)
+            {
                 return;
+            }
+
             Type mbType = typeof(MethodBuilder);
             FieldInfo mbILGen = mbType.GetField("m_ilGenerator", BindingFlags.Instance | BindingFlags.NonPublic);
             //FieldInfo mbIAttr = mbType.GetField("m_iAttributes", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -202,7 +194,10 @@ namespace Propeus.Modulo.Abstrato.Util
         public static void Dispose(this SignatureHelper sh)
         {
             if (sh == null)
+            {
                 return;
+            }
+
             Type shType = typeof(SignatureHelper);
             FieldInfo shModule = shType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic);
             //FieldInfo shSig = shType.GetField("m_signature", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -212,28 +207,33 @@ namespace Propeus.Modulo.Abstrato.Util
         public static void Dispose(this ILGenerator ilGen)
         {
             if (ilGen == null)
+            {
                 return;
+            }
+
             Type ilGenType = typeof(ILGenerator);
             FieldInfo ilSigHelp = ilGenType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
             SignatureHelper sigTemp = ilSigHelp.GetValue(ilGen) as SignatureHelper;
             sigTemp.Dispose();
             ilSigHelp.SetValue(ilGen, null);
         }
-        public static void Dispose(this ModuleBuilder modBuild, string nome=null)
+        public static void Dispose(this ModuleBuilder modBuild, string? nome = null)
         {
             if (modBuild == null)
+            {
                 return;
+            }
+
             Type modBuildType = typeof(ModuleBuilder);
             //FieldInfo modBuildModData = modBuildType.GetField("m__moduleData", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
             FieldInfo modTypeBuildList = modBuildType.GetField("_typeBuilderDict", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
 
-            var modTypeList = modTypeBuildList.GetValue(modBuild) as Dictionary<string, Type>;
-            if (modTypeList != null)
+            if (modTypeBuildList.GetValue(modBuild) is Dictionary<string, Type> modTypeList)
             {
 
                 if (string.IsNullOrEmpty(nome))
                 {
-                    foreach (var item in modTypeList)
+                    foreach (KeyValuePair<string, Type> item in modTypeList)
                     {
                         (item.Value as TypeBuilder).Dispose();
                     }
@@ -246,7 +246,7 @@ namespace Propeus.Modulo.Abstrato.Util
                     if (modTypeList.ContainsKey(nome))
                     {
                         (modTypeList[nome] as TypeBuilder).Dispose();
-                        modTypeList.Remove(nome);
+                        _ = modTypeList.Remove(nome);
                     }
                 }
                 //for (int i = 0; i < modTypeList.Count; i++)
@@ -255,12 +255,12 @@ namespace Propeus.Modulo.Abstrato.Util
                 //    tb.Dispose();
                 //    modTypeList = null;
                 //}
-               
+
             }
             ////modBuildModData.SetValue(modBuild, null);
         }
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
 
-        
+
     }
 }

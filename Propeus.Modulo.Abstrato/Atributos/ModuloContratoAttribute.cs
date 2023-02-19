@@ -1,6 +1,4 @@
-﻿using System;
-
-using static Propeus.Modulo.Abstrato.Constantes;
+﻿using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Atributos
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -18,15 +15,15 @@ namespace Propeus.Modulo.Abstrato.Util
         public static TNovoEnum[] ParseEnum<TAntigoEnum, TNovoEnum>(this TAntigoEnum[] @enum) where TNovoEnum : struct, Enum
             where TAntigoEnum : struct, Enum
         {
-            var vnEnums = Enum.GetValues<TNovoEnum>();
-            var nEnums = new TNovoEnum[@enum.Length];
+            TNovoEnum[] vnEnums = Enum.GetValues<TNovoEnum>();
+            TNovoEnum[] nEnums = new TNovoEnum[@enum.Length];
 
             for (int i = 0; i < @enum.Length; i++)
             {
                 bool convertido = false;
-                foreach (var vnEnum in vnEnums)
+                foreach (TNovoEnum vnEnum in vnEnums)
                 {
-                    var dsc_vnEnum = vnEnum.ObterDescricaoEnum();
+                    string? dsc_vnEnum = vnEnum.ObterDescricaoEnum();
                     if (dsc_vnEnum is not null && dsc_vnEnum.Equals(@enum[i].ToString().Trim(), StringComparison.CurrentCultureIgnoreCase))
                     {
                         convertido = true;
@@ -47,11 +44,11 @@ namespace Propeus.Modulo.Abstrato.Util
             where TAntigoEnum : struct, Enum
         {
 
-            var vnEnums = Enum.GetValues<TNovoEnum>();
+            TNovoEnum[] vnEnums = Enum.GetValues<TNovoEnum>();
 
-            foreach (var vnEnum in vnEnums)
+            foreach (TNovoEnum vnEnum in vnEnums)
             {
-                var dsc_vnEnum = vnEnum.ObterDescricaoEnum();
+                string? dsc_vnEnum = vnEnum.ObterDescricaoEnum();
                 if (dsc_vnEnum is not null && dsc_vnEnum.Equals(@enum.ToString().Trim(), StringComparison.CurrentCultureIgnoreCase))
                 {
                     return vnEnum;
@@ -64,7 +61,7 @@ namespace Propeus.Modulo.Abstrato.Util
 
         public static TEnum[] DividirEnum<TEnum>(this TEnum @enum) where TEnum : struct
         {
-            var sEnum = @enum.ToString().Split(',');
+            string[] sEnum = @enum.ToString().Split(',');
             TEnum[] renums = new TEnum[sEnum.Length];
 
             for (int i = 0; i < sEnum.Length; i++)
@@ -79,7 +76,7 @@ namespace Propeus.Modulo.Abstrato.Util
         public static TEnum[] ObterEnumsConcatenadoBitaBit<TEnum>(this TEnum valorConcatenado) where TEnum : Enum
         {
             ulong valorConcatenadoInteiro = Convert.ToUInt64(valorConcatenado);
-            List<TEnum> enums = new List<TEnum>();
+            List<TEnum> enums = new();
             foreach (string nome in Enum.GetNames(typeof(TEnum)))
             {
                 TEnum valor = (TEnum)Enum.Parse(typeof(TEnum), nome);
@@ -89,7 +86,7 @@ namespace Propeus.Modulo.Abstrato.Util
                     enums.Add(valor);
                 }
             }
-            return enums.ToArray(); 
+            return enums.ToArray();
         }
 
         /// <summary>
@@ -110,7 +107,7 @@ namespace Propeus.Modulo.Abstrato.Util
             if (@enum.Any(x => x.GetType().IsEnum))
             {
                 string enums = string.Join(",", @enum);
-                var vlr = (TEnum)Enum.Parse(typeof(TEnum), enums);
+                TEnum vlr = (TEnum)Enum.Parse(typeof(TEnum), enums);
                 return vlr;
             }
             else
@@ -161,7 +158,7 @@ namespace Propeus.Modulo.Abstrato.Util
 
             if (@enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true).Any())
             {
-                string data = (@enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true).First() as DescriptionAttribute)?.Description;
+                string? data = (@enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true).First() as DescriptionAttribute)?.Description;
                 return data;
             }
             else

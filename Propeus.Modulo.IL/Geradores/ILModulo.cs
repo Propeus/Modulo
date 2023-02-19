@@ -18,12 +18,12 @@ namespace Propeus.Modulo.IL.Geradores
 
         public const string CONST_NME_NAMESPACE_CLASSE = "Propeus.IL.Classes";
         public const string CONST_NME_NAMESPACE_CLASSE_PROXY = CONST_NME_NAMESPACE_CLASSE + ".Proxy";
-        
+
         public const string CONST_NME_DELEGATE = "IL_Gerador_Delegate_";
         public const string CONST_NME_DELEGATE_PROXY = CONST_NME_DELEGATE + "Proxy_";
 
         public const string CONST_NME_NAMESPACE_DELEGATE = "Propeus.IL.Delegates";
-        public const string CONST_NME_NAMESPACE_DELEGATE_PROXY = CONST_NME_NAMESPACE_DELEGATE+ ".Proxy";
+        public const string CONST_NME_NAMESPACE_DELEGATE_PROXY = CONST_NME_NAMESPACE_DELEGATE + ".Proxy";
 
     }
 
@@ -63,9 +63,10 @@ namespace Propeus.Modulo.IL.Geradores
             if (Constantes.CONST_NME_NAMESPACE_DELEGATE == @namespace)
             {
                 @namespace = Constantes.CONST_NME_NAMESPACE_DELEGATE + "." + nomeModulo;
-            }else if(@namespace is null)
+            }
+            else
             {
-                @namespace = Constantes.CONST_NME_NAMESPACE_DELEGATE;
+                @namespace ??= Constantes.CONST_NME_NAMESPACE_DELEGATE;
             }
 
             if (Delegates.TryGetValue(@namespace + nomeClasse, out ILDelegate value))
@@ -74,9 +75,9 @@ namespace Propeus.Modulo.IL.Geradores
             }
             else
             {
-                ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
+                ILBuilderProxy proxy = new(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                ILDelegate clsProvider = new ILDelegate(proxy, nomeClasse, @namespace, acessadores);
+                ILDelegate clsProvider = new(proxy, nomeClasse, @namespace, acessadores);
                 Delegates.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }
@@ -102,7 +103,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 ILBuilderProxy proxy = new(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                ILClasseProvider clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
+                ILClasseProvider clsProvider = new(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
                 Classes.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }
@@ -110,12 +111,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         internal ILClasseProvider ObterCLasseProvider(string nomeClasse = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE)
         {
-            if(Classes.TryGetValue(@namespace+nomeClasse, out ILClasseProvider iLClasseProvider))
-            {
-                return iLClasseProvider;    
-            }
-
-            return null;
+            return Classes.TryGetValue(@namespace + nomeClasse, out ILClasseProvider iLClasseProvider) ? iLClasseProvider : null;
         }
 
         public void Executar()

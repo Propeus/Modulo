@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Propeus.Modulo.Abstrato.Interfaces
+﻿namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado

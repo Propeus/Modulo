@@ -1,10 +1,7 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.Abstrato;
-using System;
-using System.Collections.Generic;
-using Propeus.Modulo.IL.Helpers;
+﻿using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.IL.Geradores;
+using Propeus.Modulo.IL.Helpers;
 
 namespace Propeus.Modulo.Core
 {
@@ -46,19 +43,19 @@ namespace Propeus.Modulo.Core
         /// <summary>
         /// Informa se o modulo foi coletado pelo <see cref="GC"/>
         /// </summary>
-        public bool Coletado => (WeakReference is null || !WeakReference.IsAlive);
+        public bool Coletado => WeakReference is null || !WeakReference.IsAlive;
         /// <summary>
         /// Informa se o modulo foi eliminado da aplicação
         /// </summary>
-        public bool Elimindado => (Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado || Modulo.Disposed);
+        public bool Elimindado => Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado || Modulo.Disposed;
         /// <summary>
         /// Informações sobre o modulo na visão do <see cref="GC"/>
         /// </summary>
-        public WeakReference WeakReference { get; protected set; }
+        public WeakReference? WeakReference { get; protected set; }
         /// <summary>
         /// Instancia do modulo
         /// </summary>
-        public IModulo Modulo => WeakReference.Target as IModulo;
+        public IModulo? Modulo => WeakReference.Target as IModulo;
         /// <summary>
         /// Tipo do modulo
         /// </summary>
@@ -98,7 +95,7 @@ namespace Propeus.Modulo.Core
                 }
                 else
                 {
-                    _classeProvider.NovaVersao(interfaces: Contratos.ToArray());
+                    _ = _classeProvider.NovaVersao(interfaces: Contratos.ToArray());
                 }
 
                 _classeProvider.Executar();

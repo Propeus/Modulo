@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.Abstrato.Atributos
+﻿namespace Propeus.Modulo.Abstrato.Atributos
 {
     /// <summary>
     /// Informa se o modulo atual é opcional a sua instancia

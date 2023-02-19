@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-using System.Threading.Tasks;
 
 using Propeus.Modulo.IL.Proxy;
 
@@ -37,12 +34,12 @@ namespace Propeus.Modulo.IL.Pilhas
         public override string ToString()
         {
 
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(Code).Append(' ').Append(MethodInfo.ReturnType.Name).Append(' ');
-            stringBuilder.Append(MethodInfo.DeclaringType.FullName).Append("::").Append(MethodInfo.Name);
-            stringBuilder.Append("(");
-            stringBuilder.Append(string.Join(',', MethodInfo.GetParameters().Select(x => x.ParameterType.Name)));
-            stringBuilder.Append(")");
+            StringBuilder stringBuilder = new();
+            _ = stringBuilder.Append(Code).Append(' ').Append(MethodInfo.ReturnType.Name).Append(' ');
+            _ = stringBuilder.Append(MethodInfo.DeclaringType.FullName).Append("::").Append(MethodInfo.Name);
+            _ = stringBuilder.Append("(");
+            _ = stringBuilder.Append(string.Join(',', MethodInfo.GetParameters().Select(x => x.ParameterType.Name)));
+            _ = stringBuilder.Append(")");
 
 
 

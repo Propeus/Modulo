@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.Abstrato
+﻿namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Informa o estado do modulo
@@ -23,7 +21,7 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Define que durante o desligamento do modulo houve alguma exceção
         /// </summary>
-        DesligamentoForcado = Desligado|Erro
-        
+        DesligamentoForcado = Desligado | Erro
+
     }
 }

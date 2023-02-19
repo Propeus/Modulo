@@ -70,26 +70,16 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 ModuleBuilder builder = Proxy.ObterBuilder<ModuleBuilder>();
 
-                if (Namespace != null)
-                {
-                    typeBuilder = builder.DefineType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
-                }
-                else
-                {
-                    typeBuilder = builder.DefineType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
-                }
+                typeBuilder = Namespace != null
+                    ? builder.DefineType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces)
+                    : builder.DefineType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
             }
             else
             {
                 TypeBuilder builder = Proxy.ObterBuilder<TypeBuilder>();
-                if (Namespace != null)
-                {
-                    typeBuilder = builder.DefineNestedType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
-                }
-                else
-                {
-                    typeBuilder = builder.DefineNestedType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
-                }
+                typeBuilder = Namespace != null
+                    ? builder.DefineNestedType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces)
+                    : builder.DefineNestedType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
             }
             Proxy.RegistrarOuAtualizarBuilder(typeBuilder);
 
@@ -162,7 +152,7 @@ namespace Propeus.Modulo.IL.Geradores
                 return;
             }
 
-            foreach (var @delegate in Delegates)
+            foreach (ILDelegate @delegate in Delegates)
             {
                 @delegate.Executar();
             }

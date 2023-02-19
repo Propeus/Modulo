@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Propeus.Modulo.Abstrato.Interfaces
+﻿namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Interface de modelo para obter informações do binario do modulo

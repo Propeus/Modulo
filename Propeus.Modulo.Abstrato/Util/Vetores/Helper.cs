@@ -1,11 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -25,12 +20,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="SerializationException">Objeto não serializavel</exception>
         public static TObjeto Deserializar<TObjeto>(this byte[] obj)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            return (TObjeto)obj.Deserializar(typeof(TObjeto));
+            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (TObjeto)obj.Deserializar(typeof(TObjeto));
         }
 
         /// <summary>
@@ -43,10 +33,10 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="SerializationException">Objeto não serializavel</exception>
         public static object Deserializar(this byte[] obj, Type type)
         {
-            var size = Marshal.SizeOf(obj);
-            var ptr = Marshal.AllocHGlobal(size);
+            int size = Marshal.SizeOf(obj);
+            nint ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(obj, 0, ptr, size);
-            var objeto = Marshal.PtrToStructure(ptr, type);
+            object? objeto = Marshal.PtrToStructure(ptr, type);
             Marshal.FreeHGlobal(ptr);
             return objeto;
         }
@@ -63,8 +53,8 @@ namespace Propeus.Modulo.Abstrato.Util
             {
                 throw new ArgumentNullException(nameof(bytes), ARGUMENTO_NULO_OU_VAZIO);
             }
-            var md5Hash = MD5.HashData(bytes);
-            var md5String = md5Hash.Select(c => c.ToString("x2"));
+            byte[] md5Hash = MD5.HashData(bytes);
+            IEnumerable<string> md5String = md5Hash.Select(c => c.ToString("x2"));
 
             return string.Concat(md5String);
         }

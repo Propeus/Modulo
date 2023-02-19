@@ -1,5 +1,4 @@
-﻿using Propeus.Modulo.Dinamico.Properties;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -7,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Util.Thread;
+
 using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.IL.Geradores;
+using Propeus.Modulo.Abstrato.Util.Thread;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico.Properties;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -27,8 +27,8 @@ namespace Propeus.Modulo.Dinamico
 
             autoResetEvent = new AutoResetEvent(false);
             timer = new Timer(AtualizarModulos, autoResetEvent, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(_tempoAtualziacaoModulo));
-            autoResetEvent.WaitOne();
-     
+            _ = autoResetEvent.WaitOne();
+
         }
 
         private void AtualizarModulos(object state)
@@ -38,7 +38,7 @@ namespace Propeus.Modulo.Dinamico
             MapearModulos().Wait();
             MapearModulosAutoInicializavel().Wait();
 
-            gen.Set();
+            _ = gen.Set();
         }
 
         public TimeSpan TempoExecucao => DateTime.Now - dataInicio;
@@ -47,9 +47,9 @@ namespace Propeus.Modulo.Dinamico
         private int quantidadeModulosDiretorio = 0;
 
         private readonly DateTime dataInicio;
-        private readonly ConcurrentDictionary<string, IModuloTipo> Modulos = new ConcurrentDictionary<string, IModuloTipo>();
-        private readonly ConcurrentDictionary<Type, bool> ModulosAutoinicializaveis = new ConcurrentDictionary<Type, bool>();
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private readonly ConcurrentDictionary<string, IModuloTipo> Modulos = new();
+        private readonly ConcurrentDictionary<Type, bool> ModulosAutoinicializaveis = new();
+        private readonly CancellationTokenSource _cancellationToken = new();
         private readonly double _tempoAtualziacaoModulo = 5;
         private readonly Timer timer;
         private readonly AutoResetEvent autoResetEvent;
@@ -88,7 +88,7 @@ namespace Propeus.Modulo.Dinamico
             IModulo result;
 
             //Obtem o tipo do modulo
-            var nModulo = ObterTipoPorInterface(modulo);
+            Type nModulo = ObterTipoPorInterface(modulo);
             //Cria a instancia do tipo (Gerenciador base)
             result = Gerenciador.Criar(nModulo, args);
 
@@ -97,7 +97,7 @@ namespace Propeus.Modulo.Dinamico
             if (result.ExisteMetodo(Abstrato.Constantes.MetodoInstancia))
             {
                 Type[] @params = result.ObterParametrosMetodo(Abstrato.Constantes.MetodoInstancia);
-                List<object> lParams = new List<object>();
+                List<object> lParams = new();
                 foreach (Type item in @params)
                 {
                     //Verifica se algum parametro do modulo precisa do gerenciador atual
@@ -115,7 +115,7 @@ namespace Propeus.Modulo.Dinamico
 
                     //Caso seja tipos primitivos? Adicinar Validacao ou setar tudo nulo?
                 }
-                result.InvocarMetodo(Abstrato.Constantes.MetodoInstancia, lParams.ToArray());
+                _ = result.InvocarMetodo(Abstrato.Constantes.MetodoInstancia, lParams.ToArray());
             }
 
             //Verifica se existe algum metodo com o nome da constante `MetodoConfiguracao`
@@ -123,7 +123,7 @@ namespace Propeus.Modulo.Dinamico
             if (result.ExisteMetodo(Abstrato.Constantes.MetodoConfiguracao))
             {
                 Type[] @params = result.ObterParametrosMetodo(Abstrato.Constantes.MetodoConfiguracao);
-                List<object> lParams = new List<object>();
+                List<object> lParams = new();
                 foreach (Type item in @params)
                 {
                     //Verifica se algum parametro do modulo precisa do gerenciador atual
@@ -140,7 +140,7 @@ namespace Propeus.Modulo.Dinamico
                     }
 
                 }
-                result.InvocarMetodo(Abstrato.Constantes.MetodoConfiguracao, lParams.ToArray());
+                _ = result.InvocarMetodo(Abstrato.Constantes.MetodoConfiguracao, lParams.ToArray());
             }
             return result;
         }
@@ -202,7 +202,7 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentNullException(nameof(type));
             }
 
-            var nModulo = ObterTipoPorInterface(type);
+            Type nModulo = ObterTipoPorInterface(type);
 
             IModulo modulo = Gerenciador.Obter(nModulo);
             return modulo;
@@ -220,7 +220,7 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentNullException(nameof(type));
             }
 
-            var modulo = ObterTipoPorInterface(type);
+            Type modulo = ObterTipoPorInterface(type);
             return Gerenciador.Existe(modulo);
         }
         public bool Existe(IModulo modulo)
@@ -255,7 +255,7 @@ namespace Propeus.Modulo.Dinamico
             }
         }
 
-    
+
 
         public async Task ManterVivoAsync()
         {
@@ -281,8 +281,8 @@ namespace Propeus.Modulo.Dinamico
             emAtualizacao = true;
             IEnumerable<string> libs = MapearDiretorios(mapearDiretorio);
 
-            Regras.ModuloComAtributoRegra regraAtributo = new Regras.ModuloComAtributoRegra();
-            Regras.ModuloIgnorarRegra moduloIgnorarRegra = new Regras.ModuloIgnorarRegra();
+            Regras.ModuloComAtributoRegra regraAtributo = new();
+            Regras.ModuloIgnorarRegra moduloIgnorarRegra = new();
 
             for (int cont = 0; cont < libs.Count(); cont++)
             {
@@ -290,16 +290,16 @@ namespace Propeus.Modulo.Dinamico
                 {
                     string path = (string)lib;
 
-                    ModuloBinario moduloBin = new ModuloBinario(path);
+                    ModuloBinario moduloBin = new(path);
 
                     if (ModuloInformacao.PossuiModuloValido(moduloBin, regraAtributo, moduloIgnorarRegra))
                     {
-                        ModuloInformacao moduloInfo = new ModuloInformacao(moduloBin);
-                        foreach (var modulotipo in moduloInfo.Modulos)
+                        ModuloInformacao moduloInfo = new(moduloBin);
+                        foreach (KeyValuePair<string, IModuloTipo> modulotipo in moduloInfo.Modulos)
                         {
-                            var aux = modulotipo.Value;
+                            IModuloTipo aux = modulotipo.Value;
 
-                            Modulos.AddOrUpdate(aux.Id, aux, (chave, antigoValor) =>
+                            _ = Modulos.AddOrUpdate(aux.Id, aux, (chave, antigoValor) =>
                             {
                                 antigoValor.Dispose();
                                 return aux;
@@ -357,7 +357,7 @@ namespace Propeus.Modulo.Dinamico
 
         private Task MapearModulosAutoInicializavel()
         {
-            foreach (var modulo in Modulos)
+            foreach (KeyValuePair<string, IModuloTipo> modulo in Modulos)
             {
                 if (modulo.Value.TipoModulo.PossuiAtributo<ModuloAutoInicializavelAttribute>())
                 {
@@ -365,14 +365,14 @@ namespace Propeus.Modulo.Dinamico
                     {
                         if (!inicializado)
                         {
-                            Criar(modulo.Value.TipoModulo);
+                            _ = Criar(modulo.Value.TipoModulo);
                             ModulosAutoinicializaveis[modulo.Value.TipoModulo] = true;
                         }
                     }
                     else
                     {
-                        Criar(modulo.Value.TipoModulo);
-                        ModulosAutoinicializaveis.TryAdd(modulo.Value.TipoModulo, true);
+                        _ = Criar(modulo.Value.TipoModulo);
+                        _ = ModulosAutoinicializaveis.TryAdd(modulo.Value.TipoModulo, true);
                     }
                 }
             }
@@ -402,28 +402,19 @@ namespace Propeus.Modulo.Dinamico
         private void SalvarConfiguracoes()
         {
             string th = GetType().FullName;
-            using FileStream fileStream = new FileStream(th + Resources.EXT_INDICE, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-            ReadOnlySpan<byte> span = new ReadOnlySpan<byte>(System.Text.Json.JsonSerializer.Serialize(ModulosDicionario).ToArrayByte());
+            using FileStream fileStream = new(th + Resources.EXT_INDICE, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
+            ReadOnlySpan<byte> span = new(System.Text.Json.JsonSerializer.Serialize(ModulosDicionario).ToArrayByte());
             fileStream.Write(span);
             fileStream.Close();
         }
 
         private void CriarTaskScheduler(Action<object> action, object estado)
         {
-            if (scheduler is null)
-            {
-                scheduler = new LimitedConcurrencyLevelTaskScheduler(2);
-            }
+            scheduler ??= new LimitedConcurrencyLevelTaskScheduler(2);
 
-            if (taskFactory is null)
-            {
-                taskFactory = new TaskFactory(scheduler);
-            }
+            taskFactory ??= new TaskFactory(scheduler);
 
-            if (tarefas is null)
-            {
-                tarefas = new List<Task>();
-            }
+            tarefas ??= new List<Task>();
 
             tarefas.Add(taskFactory.StartNew(action, estado, _cancellationToken.Token, TaskCreationOptions.DenyChildAttach, scheduler));
         }
@@ -431,17 +422,11 @@ namespace Propeus.Modulo.Dinamico
         private IEnumerable<KeyValuePair<string, IModuloTipo>> ObterTipoPorNome(string nomeModulo)
         {
             IEnumerable<KeyValuePair<string, IModuloTipo>> query = Modulos.Where(y => y.Key == nomeModulo || y.Value.TipoModulo.FullName == nomeModulo);
-            if (query.Count() > 1)
-            {
-                throw new ArgumentOutOfRangeException(string.Format(Resources.Culture, Resources.ERRO_AMBIGUIDADE_NOME, nomeModulo));
-            }
-
-            if (!query.Any())
-            {
-                throw new DllNotFoundException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, nomeModulo));
-            }
-
-            return query;
+            return query.Count() > 1
+                ? throw new ArgumentOutOfRangeException(string.Format(Resources.Culture, Resources.ERRO_AMBIGUIDADE_NOME, nomeModulo))
+                : !query.Any()
+                ? throw new DllNotFoundException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, nomeModulo))
+                : query;
         }
         private Type ObterTipoPorInterface(Type modulo)
         {
@@ -458,11 +443,11 @@ namespace Propeus.Modulo.Dinamico
                 throw new InvalidCastException(Resources.ERRO_TIPO_MODULO_INVALIDO);
             }
 
-            var contrato = modulo.ObterModuloContratoAtributo();
-            var nomeModulo = contrato.Nome;
+            ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
+            string nomeModulo = contrato.Nome;
 
             //Obtem os modulos que possui o mesmo nome da interface de contrato
-             var query = Modulos.Where(modulo => modulo.Value.TipoModuloDinamico?.FullName == nomeModulo
+            IEnumerable<KeyValuePair<string, IModuloTipo>> query = Modulos.Where(modulo => modulo.Value.TipoModuloDinamico?.FullName == nomeModulo
                                                 || modulo.Value.TipoModuloDinamico?.Name == nomeModulo
                                                 || modulo.Value.TipoModulo.FullName == nomeModulo
                                                 || modulo.Value.TipoModulo.Name == nomeModulo);
@@ -480,17 +465,12 @@ namespace Propeus.Modulo.Dinamico
             //Obtem o metedata do modulo
             IModuloTipo moduloTipo = query.First().Value;
             //Adiciona a interface de contrato na lista de contratos do modulo
-            moduloTipo.AdicionarContrato(modulo);
+            _ = moduloTipo.AdicionarContrato(modulo);
 
             //Obtem o tipo original ou o tipo dinamico
-            var tipo = moduloTipo.TipoModuloDinamico ?? moduloTipo.TipoModulo;
+            Type tipo = moduloTipo.TipoModuloDinamico ?? moduloTipo.TipoModulo;
 
-            if (tipo == null)
-            {
-                throw new DllNotFoundException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, nomeModulo));
-            }
-
-            return tipo;
+            return tipo ?? throw new DllNotFoundException(string.Format(Resources.Culture, Resources.ERRO_MODULO_NAO_ENCONTRADO, nomeModulo));
         }
 
         protected override void Dispose(bool disposing)
@@ -506,22 +486,22 @@ namespace Propeus.Modulo.Dinamico
 
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
 
-            stringBuilder.Append(base.ToString());
+            _ = stringBuilder.Append(base.ToString());
 
-            stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
+            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
 
-            stringBuilder.Append("Data de inicio da execução do Gerenciador: ").Append(dataInicio).AppendLine();
-            stringBuilder.Append("Tempo em execução: ").Append(TempoExecucao).AppendLine();
+            _ = stringBuilder.Append("Data de inicio da execução do Gerenciador: ").Append(dataInicio).AppendLine();
+            _ = stringBuilder.Append("Tempo em execução: ").Append(TempoExecucao).AppendLine();
 
-            stringBuilder.Append("Modulos Carregados: ").Append(modulosCarregados ? "Sim" : "Não").AppendLine();
-            stringBuilder.Append("Modulos em atualização: ").Append(emAtualizacao ? "Sim" : "Não").AppendLine();
-            stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
-            stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(quantidadeModulosDiretorio).AppendLine();
-            stringBuilder.Append("Tempo de atualização dos modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
+            _ = stringBuilder.Append("Modulos Carregados: ").Append(modulosCarregados ? "Sim" : "Não").AppendLine();
+            _ = stringBuilder.Append("Modulos em atualização: ").Append(emAtualizacao ? "Sim" : "Não").AppendLine();
+            _ = stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
+            _ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(quantidadeModulosDiretorio).AppendLine();
+            _ = stringBuilder.Append("Tempo de atualização dos modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
 
-            stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
+            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
 
 
             return stringBuilder.ToString();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Propeus.Modulo.Abstrato.Interfaces
+﻿namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Modelo base para criação de gerenciadores

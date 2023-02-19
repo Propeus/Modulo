@@ -126,7 +126,7 @@ namespace Propeus.Modulo.IL.API
         {
             iLMetodo.PilhaExecucao.Add(new ILLdftn(iLMetodo._metodoBuilder, methodInfo));
         }
-        public static void CriarInstancia(ILMetodo iLMetodo,ConstructorInfo constructorInfo)
+        public static void CriarInstancia(ILMetodo iLMetodo, ConstructorInfo constructorInfo)
         {
             iLMetodo.PilhaExecucao.Add(new ILNewObj(iLMetodo._metodoBuilder, constructorInfo));
         }

@@ -1,11 +1,11 @@
-﻿using Propeus.Modulo.IL.Enums;
+﻿using System;
+using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
-
-using System;
-using System.Threading.Tasks;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Atributos;
 
 namespace Propeus.Modulo.IL.Playground
 {
@@ -49,9 +49,9 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
-            var gen = Propeus.Modulo.Core.Gerenciador.Atual;
-            var modulo = gen.Criar<IModuloContrato>();
-            modulo = gen.Obter<ModuloTeste>();
+            IGerenciador gen = Propeus.Modulo.Core.Gerenciador.Atual;
+            _ = gen.Criar<IModuloContrato>();
+            IModuloContrato modulo = gen.Obter<ModuloTeste>();
             System.Console.WriteLine(gen);
             System.Console.WriteLine(modulo);
             System.Console.WriteLine(modulo.GetInfo());
@@ -93,12 +93,12 @@ namespace Propeus.Modulo.IL.Playground
                 new ILParametro("Adicao",typeof(int),"p1"),
                 new ILParametro("Adicao",typeof(int),"p2")
             });
-            mth.Soma(mth.Parametros[0], mth.Parametros[1]);
-            mth.CriarRetorno();
+            _ = mth.Soma(mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.CriarRetorno();
 
             modulo.Executar();
-            var tpMeth = mth;
-            classe.NovaVersao();
+            ILMetodo tpMeth = mth;
+            _ = classe.NovaVersao();
 
             //Cria um metodo `void Exibir()`
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(void), "Exibir", new ILParametro[] {
@@ -107,16 +107,16 @@ namespace Propeus.Modulo.IL.Playground
             });
 
             //Atribui o metodo `Adicao` dentro de `calc`  `calc a = Adicao`
-            mth.AtribuirMetodoEmDelegate(dlg, tpMeth);
+            _ = mth.AtribuirMetodoEmDelegate(dlg, tpMeth);
             //Chama `a.Invoke(int,int);`
-            mth.InvocarDelegate(dlg, mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.InvocarDelegate(dlg, mth.Parametros[0], mth.Parametros[1]);
             //Chama `Console.WriteLine(int)`
-            mth.ChamarFuncao(typeof(System.Console).GetMethod("WriteLine", new Type[] { typeof(int) }));
+            _ = mth.ChamarFuncao(typeof(System.Console).GetMethod("WriteLine", new Type[] { typeof(int) }));
             // Chama `return;`
-            mth.CriarRetorno();
+            _ = mth.CriarRetorno();
 
             classe.Executar();
-            var cls = classe.ObterInstancia();
+            dynamic cls = classe.ObterInstancia();
 
             cls.Exibir(1, 1);
         }
@@ -129,7 +129,7 @@ namespace Propeus.Modulo.IL.Playground
 
         private static void Matematica(ILModulo modulo)
         {
-            var classe = modulo.CriarClasse("MatematicaBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
+            ILClasseProvider classe = modulo.CriarClasse("MatematicaBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
 
             ////Criar metodo de entre valores (teste de multiplos ifs)
             //var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores", new ILParametro[] {
@@ -145,68 +145,68 @@ namespace Propeus.Modulo.IL.Playground
             //mth.CriarRetorno();
 
             //Criar metodo de entre valores (teste de multiplos ifs)
-            var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores2", new ILParametro[] {
+            ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores2", new ILParametro[] {
                 new ILParametro("EntreValores2",typeof(int),"menor"),
                 new ILParametro("EntreValores2",typeof(int),"atual"),
                 new ILParametro("EntreValores2",typeof(int),"maior")
             });
-            mth.Se(mth.Parametros[0], mth.MenorOuIgualQue, mth.Parametros[1]);
-            mth.Ou(mth.Parametros[2], mth.MenorOuIgualQue, mth.Parametros[1]);
-            mth.E(mth.Parametros[2], mth.MaiorQue, mth.Parametros[0]);
-            mth.CarregarTrue();
-            mth.CriarRetorno();
-            mth.SeFim();
-            mth.CarregarFalse();
-            mth.CriarRetorno();
+            _ = mth.Se(mth.Parametros[0], mth.MenorOuIgualQue, mth.Parametros[1]);
+            _ = mth.Ou(mth.Parametros[2], mth.MenorOuIgualQue, mth.Parametros[1]);
+            _ = mth.E(mth.Parametros[2], mth.MaiorQue, mth.Parametros[0]);
+            _ = mth.CarregarTrue();
+            _ = mth.CriarRetorno();
+            _ = mth.SeFim();
+            _ = mth.CarregarFalse();
+            _ = mth.CriarRetorno();
 
             classe.Executar();
 
-            var calc = classe.ObterInstancia();
+            dynamic calc = classe.ObterInstancia();
 
 
         }
 
         private static void Calculadora(ILModulo modulo)
         {
-            var classe = modulo.CriarClasse("CalculadoraBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
+            ILClasseProvider classe = modulo.CriarClasse("CalculadoraBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
 
-            var mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
+            ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
                 new ILParametro("Adicao",typeof(int),"p1"),
                 new ILParametro("Adicao",typeof(int),"p2")
             });
 
-            mth.Soma(mth.Parametros[0], mth.Parametros[1]);
-            mth.CriarRetorno();
+            _ = mth.Soma(mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Subtracao", new ILParametro[] {
                 new ILParametro("Subtracao",typeof(int),"p1"),
                 new ILParametro("Subtracao",typeof(int),"p2")
             });
 
-            mth.Subitrair(mth.Parametros[0], mth.Parametros[1]);
-            mth.CriarRetorno();
+            _ = mth.Subitrair(mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Divisao", new ILParametro[] {
                 new ILParametro("Divisao",typeof(int),"p1"),
                 new ILParametro("Divisao",typeof(int),"p2")
             });
 
-            mth.Dividir(mth.Parametros[0], mth.Parametros[1]);
-            mth.CriarRetorno();
+            _ = mth.Dividir(mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Multiplicacao", new ILParametro[] {
                 new ILParametro("Multiplicacao",typeof(int),"p1"),
                 new ILParametro("Multiplicacao",typeof(int),"p2")
             });
 
-            mth.Multiplicar(mth.Parametros[0], mth.Parametros[1]);
-            mth.CriarRetorno();
+            _ = mth.Multiplicar(mth.Parametros[0], mth.Parametros[1]);
+            _ = mth.CriarRetorno();
 
 
 
 
             classe.Executar();
-            var calc = classe.ObterInstancia();
+            dynamic calc = classe.ObterInstancia();
 
             System.Console.WriteLine("Calculadora");
             System.Console.WriteLine(calc.Adicao(1, 1));

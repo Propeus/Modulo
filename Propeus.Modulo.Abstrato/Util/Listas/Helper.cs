@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -57,17 +54,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<T> ConcatDistinct<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
         {
-            if (esquerda.IsNull())
-            {
-                throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
-            }
-
-            if (direita.IsNull())
-            {
-                return esquerda;
-            }
-
-            return esquerda.Concat(direita).Distinct();
+            return esquerda.IsNull()
+                ? throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO)
+                : direita.IsNull() ? esquerda : esquerda.Concat(direita).Distinct();
         }
 
 
@@ -113,12 +102,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool IsEmpty<T>(this IEnumerable<T> obj)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            return !obj.Any();
+            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : !obj.Any();
         }
 
         /// <summary>
@@ -130,12 +114,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static bool IsNotEmpty<T>(this IEnumerable<T> obj)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            return obj.Any();
+            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : obj.Any();
         }
 
         /// <summary>
@@ -162,7 +141,7 @@ namespace Propeus.Modulo.Abstrato.Util
 
         public static IEnumerable<TSaida> Converter<TSaida>(this IEnumerable obj)
         {
-            foreach(var entrada in obj)
+            foreach (object? entrada in obj)
             {
                 yield return entrada.To<TSaida>();
             }

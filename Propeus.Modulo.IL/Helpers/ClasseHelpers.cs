@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
@@ -14,7 +12,7 @@ namespace Propeus.Modulo.IL.Helpers
 {
     public static class ClasseHelpers
     {
-    
+
         public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null)
         {
             if (iLGerador is null)
@@ -148,20 +146,20 @@ namespace Propeus.Modulo.IL.Helpers
         {
 
             ILDelegate cls = ilGerador.CriarDelegate(nomeDelegate, null, new Enums.Token[] { Token.Publico, Token.Auto, Token.Ansi, Token.Selado });
-            cls.CriarConstrutor(
+            _ = cls.CriarConstrutor(
                    new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
                    new ILParametro(".ctor", typeof(object), "object"),
                    new ILParametro(".ctor", typeof(nint), "method"));
 
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
                 "Invoke", parametros);
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(IAsyncResult),
                 "BeginInvoke",
                 parametros.Join(new ILParametro[] {
                 new ILParametro("BeginInvoke", typeof(AsyncCallback)),
                 new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(int),
                 "EndInvoke",
                 new ILParametro("result", typeof(IAsyncResult)));
@@ -172,22 +170,22 @@ namespace Propeus.Modulo.IL.Helpers
         {
 
             ILBuilderProxy iLGerador = iLClasse.Atual.Proxy;
-            ILDelegate cls = new ILDelegate(iLGerador, nomeDelegate, null, new Enums.Token[] { Token.PublicaAninhado, Token.Auto, Token.Ansi, Token.Selado });
+            ILDelegate cls = new(iLGerador, nomeDelegate, null, new Enums.Token[] { Token.PublicaAninhado, Token.Auto, Token.Ansi, Token.Selado });
 
-            cls.CriarConstrutor(
+            _ = cls.CriarConstrutor(
                    new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
                    new ILParametro(".ctor", typeof(object), "object"),
                    new ILParametro(".ctor", typeof(nint), "method"));
 
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
                 "Invoke", parametros);
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(IAsyncResult),
                 "BeginInvoke",
                 parametros.Join(new ILParametro[] {
                 new ILParametro("BeginInvoke", typeof(AsyncCallback)),
                 new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
-            cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
+            _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(int),
                 "EndInvoke",
                 new ILParametro("result", typeof(IAsyncResult)));

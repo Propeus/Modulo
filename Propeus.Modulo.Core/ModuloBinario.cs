@@ -1,10 +1,7 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using System.Collections.ObjectModel;
+
+using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.Abstrato;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 
 namespace Propeus.Modulo.Core
 {
@@ -22,16 +19,16 @@ namespace Propeus.Modulo.Core
         {
             Caminho = caminho;
             Memoria = new MemoryStream();
-            using (FileStream arquivo = new FileStream(caminho, FileMode.Open, FileAccess.Read))
+            using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
             {
-                using (BinaryReader binario = new BinaryReader(arquivo))
+                using (BinaryReader binario = new(arquivo))
                 {
                     binario.BaseStream.CopyTo(Memoria);
                     binario.Close();
                 }
                 arquivo.Close();
             }
-            Memoria.Seek(0, SeekOrigin.Begin);
+            _ = Memoria.Seek(0, SeekOrigin.Begin);
             Hash = Memoria.GetBuffer().Hash();
             Modulos = new Collection<IModuloInformacao>();
         }
@@ -76,7 +73,7 @@ namespace Propeus.Modulo.Core
         /// <param name="moduloInformarcao"></param>
         public void Remover(IModuloInformacao moduloInformarcao)
         {
-            Modulos.Remove(moduloInformarcao);
+            _ = Modulos.Remove(moduloInformarcao);
         }
 
         protected override void Dispose(bool disposing)

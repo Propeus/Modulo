@@ -12,13 +12,13 @@ namespace Propeus.Modulo.Dinamico.Regras
         public bool Executar(params object[] args)
         {
             IModuloBinario path = (IModuloBinario)args[0];
-            ModuloAssemblyLoadContext loader = new ModuloAssemblyLoadContext();
+            ModuloAssemblyLoadContext loader = new();
             System.Reflection.Assembly assembly = loader.LoadFromStream(path.Memoria);
             int src = assembly.DefinedTypes.Where(t => t.UnderlyingSystemType.Herdado<IModulo>() && t.UnderlyingSystemType.PossuiAtributo<ModuloAttribute>()).Count();
             assembly = null;
             loader.Unload();
             loader = null;
-            path.Memoria.Seek(0, System.IO.SeekOrigin.Begin);
+            _ = path.Memoria.Seek(0, System.IO.SeekOrigin.Begin);
             path = null;
             return src != 0;
         }

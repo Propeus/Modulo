@@ -2,18 +2,12 @@
 
 using Propeus.Modulo.Core;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Propeus.Modulo.CoreTests
 {
     [TestClass()]
     public class ModuloBinarioTests
     {
-        string ns = "Propeus.Modulo.CoreTestsModels";
+        private readonly string ns = "Propeus.Modulo.CoreTestsModels";
 
         [TestMethod]
         public void CarregarBinarios()
@@ -24,7 +18,7 @@ namespace Propeus.Modulo.CoreTests
 #else
             Copiar(ns,modo:"Release");
 #endif
-            ModuloBinario modelo = new ModuloBinario(ns + ".dll");
+            ModuloBinario modelo = new(ns + ".dll");
             modelo.Dispose();
             Assert.IsNotNull(modelo.Memoria);
         }
@@ -37,8 +31,8 @@ namespace Propeus.Modulo.CoreTests
 #else
             Copiar(ns,modo:"Release");
 #endif
-            ModuloBinario modelo = new ModuloBinario(ns + ".dll");
-            ModuloInformacao info = new ModuloInformacao(modelo);
+            ModuloBinario modelo = new(ns + ".dll");
+            ModuloInformacao info = new(modelo);
             Assert.IsNotNull(info.Versao);
             Assert.IsNotNull(info.Caminho);
             info.Dispose();
@@ -51,7 +45,7 @@ namespace Propeus.Modulo.CoreTests
         {
             string pathDll = modulo;
             Console.WriteLine(pathDll);
-            DirectoryInfo d = new DirectoryInfo(Directory.GetCurrentDirectory());
+            DirectoryInfo d = new(Directory.GetCurrentDirectory());
             Console.WriteLine(d.FullName);
             d = d.Parent.Parent.Parent.Parent;
             Console.WriteLine(d.FullName);

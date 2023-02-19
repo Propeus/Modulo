@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
-using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Core
 {
@@ -11,7 +10,7 @@ namespace Propeus.Modulo.Core
     /// </summary>
     public class BaseModelo : IBaseModelo
     {
-       
+
         /// <summary>
         /// Inicia um modelo basico
         /// </summary>
@@ -71,15 +70,15 @@ namespace Propeus.Modulo.Core
         /// <returns></returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            sb.AppendLine("---Base---");
-            sb.Append("Nome: ").Append(Nome).AppendLine();
-            sb.Append("Estado: ").Append(Estado).AppendLine();
-            sb.Append("Id: ").Append(Id).AppendLine();
-            sb.Append("Versao: ").Append(Versao).AppendLine();
-            sb.AppendLine("---Base---");
-            sb.AppendLine();
+            _ = sb.AppendLine("---Base---");
+            _ = sb.Append("Nome: ").Append(Nome).AppendLine();
+            _ = sb.Append("Estado: ").Append(Estado).AppendLine();
+            _ = sb.Append("Id: ").Append(Id).AppendLine();
+            _ = sb.Append("Versao: ").Append(Versao).AppendLine();
+            _ = sb.AppendLine("---Base---");
+            _ = sb.AppendLine();
 
             return sb.ToString();
         }

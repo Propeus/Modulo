@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -78,19 +76,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <param name="property">Propriedade que será obtido o valor</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static object ObterValorPropriedade<TClase>(this TClase obj, PropertyInfo property)
+        public static object? ObterValorPropriedade<TClase>(this TClase obj, PropertyInfo property)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            if (property.IsNull())
-            {
-                throw new ArgumentNullException(nameof(property), ARGUMENTO_NULO);
-            }
-
-            return property.GetValue(obj);
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : property.IsNull() ? throw new ArgumentNullException(nameof(property), ARGUMENTO_NULO) : property.GetValue(obj);
         }
 
         /// <summary>
@@ -151,15 +141,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ExisteMetodo<T>(this T obj, Action action)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-            return action.Method.Name.ExisteMetodo<T>();
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : action.IsNull() ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO) : action.Method.Name.ExisteMetodo<T>();
         }
     }
 }

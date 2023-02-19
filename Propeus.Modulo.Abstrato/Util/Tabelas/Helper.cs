@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Util.Tabelas
 {
-   
+
     public class ConsoleTable
     {
         public IList<object> Columns { get; set; }
@@ -16,7 +12,7 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
         public ConsoleTableOptions Options { get; protected set; }
         public Type[] ColumnTypes { get; private set; }
 
-        public static HashSet<Type> NumericTypes = new HashSet<Type>
+        public static HashSet<Type> NumericTypes = new()
         {
             typeof(int),  typeof(double),  typeof(decimal),
             typeof(long), typeof(short),   typeof(sbyte),
@@ -38,22 +34,31 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
 
         public ConsoleTable AddColumn(IEnumerable<string> names)
         {
-            foreach (var name in names)
+            foreach (string name in names)
+            {
                 Columns.Add(name);
+            }
+
             return this;
         }
 
         public ConsoleTable AddRow(params object[] values)
         {
             if (values == null)
+            {
                 throw new ArgumentNullException(nameof(values));
+            }
 
             if (!Columns.Any())
+            {
                 throw new Exception("Please set the columns first");
+            }
 
             if (Columns.Count != values.Length)
+            {
                 throw new Exception(
                     $"The number columns in the row ({Columns.Count}) does not match the values ({values.Length})");
+            }
 
             Rows.Add(values);
             return this;
@@ -67,68 +72,71 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
 
         public static ConsoleTable From<T>(IEnumerable<T> values)
         {
-            var table = new ConsoleTable
+            ConsoleTable table = new()
             {
                 ColumnTypes = GetColumnsType<T>().ToArray()
             };
 
-            var columns = GetColumns<T>();
+            IEnumerable<string> columns = GetColumns<T>();
 
-            table.AddColumn(columns);
+            _ = table.AddColumn(columns);
 
             foreach (
-                var propertyValues
+                IEnumerable<object>? propertyValues
                 in values.Select(value => columns.Select(column => GetColumnValue<T>(value, column)))
-            ) table.AddRow(propertyValues.ToArray());
+            )
+            {
+                _ = table.AddRow(propertyValues.ToArray());
+            }
 
             return table;
         }
 
         public override string ToString()
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new();
 
             // find the longest column by searching each row
-            var columnLengths = ColumnLengths();
+            List<int> columnLengths = ColumnLengths();
 
             // set right alinment if is a number
-            var columnAlignment = Enumerable.Range(0, Columns.Count)
+            List<string> columnAlignment = Enumerable.Range(0, Columns.Count)
                 .Select(GetNumberAlignment)
                 .ToList();
 
             // create the string format with padding
-            var format = Enumerable.Range(0, Columns.Count)
+            string format = Enumerable.Range(0, Columns.Count)
                 .Select(i => " | {" + i + "," + columnAlignment[i] + columnLengths[i] + "}")
                 .Aggregate((s, a) => s + a) + " |";
 
             // find the longest formatted line
-            var maxRowLength = Math.Max(0, Rows.Any() ? Rows.Max(row => string.Format(format, row).Length) : 0);
-            var columnHeaders = string.Format(format, Columns.ToArray());
+            int maxRowLength = Math.Max(0, Rows.Any() ? Rows.Max(row => string.Format(format, row).Length) : 0);
+            string columnHeaders = string.Format(format, Columns.ToArray());
 
             // longest line is greater of formatted columnHeader and longest row
-            var longestLine = Math.Max(maxRowLength, columnHeaders.Length);
+            int longestLine = Math.Max(maxRowLength, columnHeaders.Length);
 
             // add each row
-            var results = Rows.Select(row => string.Format(format, row)).ToList();
+            List<string> results = Rows.Select(row => string.Format(format, row)).ToList();
 
             // create the divider
-            var divider = " " + string.Join("", Enumerable.Repeat("-", longestLine - 1)) + " ";
+            string divider = " " + string.Join("", Enumerable.Repeat("-", longestLine - 1)) + " ";
 
-            builder.AppendLine(divider);
-            builder.AppendLine(columnHeaders);
+            _ = builder.AppendLine(divider);
+            _ = builder.AppendLine(columnHeaders);
 
-            foreach (var row in results)
+            foreach (string? row in results)
             {
-                builder.AppendLine(divider);
-                builder.AppendLine(row);
+                _ = builder.AppendLine(divider);
+                _ = builder.AppendLine(row);
             }
 
-            builder.AppendLine(divider);
+            _ = builder.AppendLine(divider);
 
             if (Options.EnableCount)
             {
-                builder.AppendLine("");
-                builder.AppendFormat(" Count: {0}", Rows.Count);
+                _ = builder.AppendLine("");
+                _ = builder.AppendFormat(" Count: {0}", Rows.Count);
             }
 
             return builder.ToString();
@@ -141,25 +149,25 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
 
         private string ToMarkDownString(char delimiter)
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new();
 
             // find the longest column by searching each row
-            var columnLengths = ColumnLengths();
+            List<int> columnLengths = ColumnLengths();
 
             // create the string format with padding
-            var format = Format(columnLengths, delimiter);
+            string format = Format(columnLengths, delimiter);
 
             // find the longest formatted line
-            var columnHeaders = string.Format(format, Columns.ToArray());
+            string columnHeaders = string.Format(format, Columns.ToArray());
 
             // add each row
-            var results = Rows.Select(row => string.Format(format, row)).ToList();
+            List<string> results = Rows.Select(row => string.Format(format, row)).ToList();
 
             // create the divider
-            var divider = Regex.Replace(columnHeaders, @"[^|]", "-");
+            string divider = Regex.Replace(columnHeaders, @"[^|]", "-");
 
-            builder.AppendLine(columnHeaders);
-            builder.AppendLine(divider);
+            _ = builder.AppendLine(columnHeaders);
+            _ = builder.AppendLine(divider);
             results.ForEach(row => builder.AppendLine(row));
 
             return builder.ToString();
@@ -172,33 +180,33 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
 
         public string ToStringAlternative()
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new();
 
             // find the longest column by searching each row
-            var columnLengths = ColumnLengths();
+            List<int> columnLengths = ColumnLengths();
 
             // create the string format with padding
-            var format = Format(columnLengths);
+            string format = Format(columnLengths);
 
             // find the longest formatted line
-            var columnHeaders = string.Format(format, Columns.ToArray());
+            string columnHeaders = string.Format(format, Columns.ToArray());
 
             // add each row
-            var results = Rows.Select(row => string.Format(format, row)).ToList();
+            List<string> results = Rows.Select(row => string.Format(format, row)).ToList();
 
             // create the divider
-            var divider = Regex.Replace(columnHeaders, @"[^|]", "-");
-            var dividerPlus = divider.Replace("|", "+");
+            string divider = Regex.Replace(columnHeaders, @"[^|]", "-");
+            string dividerPlus = divider.Replace("|", "+");
 
-            builder.AppendLine(dividerPlus);
-            builder.AppendLine(columnHeaders);
+            _ = builder.AppendLine(dividerPlus);
+            _ = builder.AppendLine(columnHeaders);
 
-            foreach (var row in results)
+            foreach (string? row in results)
             {
-                builder.AppendLine(dividerPlus);
-                builder.AppendLine(row);
+                _ = builder.AppendLine(dividerPlus);
+                _ = builder.AppendLine(row);
             }
-            builder.AppendLine(dividerPlus);
+            _ = builder.AppendLine(dividerPlus);
 
             return builder.ToString();
         }
@@ -206,12 +214,12 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
         private string Format(List<int> columnLengths, char delimiter = '|')
         {
             // set right alinment if is a number
-            var columnAlignment = Enumerable.Range(0, Columns.Count)
+            List<string> columnAlignment = Enumerable.Range(0, Columns.Count)
                 .Select(GetNumberAlignment)
                 .ToList();
 
-            var delimiterStr = delimiter == char.MinValue ? string.Empty : delimiter.ToString();
-            var format = (Enumerable.Range(0, Columns.Count)
+            string delimiterStr = delimiter == char.MinValue ? string.Empty : delimiter.ToString();
+            string format = (Enumerable.Range(0, Columns.Count)
                 .Select(i => " " + delimiterStr + " {" + i + "," + columnAlignment[i] + columnLengths[i] + "}")
                 .Aggregate((s, a) => s + a) + " " + delimiterStr).Trim();
             return format;
@@ -228,7 +236,7 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
 
         private List<int> ColumnLengths()
         {
-            var columnLengths = Columns
+            List<int> columnLengths = Columns
                 .Select((t, i) => Rows.Select(x => x[i])
                     .Union(new[] { Columns[i] })
                     .Where(x => x != null)
@@ -237,7 +245,7 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
             return columnLengths;
         }
 
-        public void Write(Format format =Propeus.Modulo.Abstrato.Util.Tabelas.Format.Default)
+        public void Write(Format format = Propeus.Modulo.Abstrato.Util.Tabelas.Format.Default)
         {
             switch (format)
             {

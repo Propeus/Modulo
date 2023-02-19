@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -44,7 +41,7 @@ namespace Propeus.Modulo.Abstrato.Util
             if (comparacao.IsClass)
             {
                 Type type = obj;
-                List<Type> heranca = new List<Type>();
+                List<Type> heranca = new();
                 while (type != null)
                 {
                     heranca.Add(type);
@@ -56,7 +53,7 @@ namespace Propeus.Modulo.Abstrato.Util
             else if (comparacao.IsInterface)
             {
                 Type type = obj;
-                List<Type> heranca = new List<Type>();
+                List<Type> heranca = new();
                 while (type != null)
                 {
                     heranca.AddRange(type.GetInterfaces());
@@ -104,27 +101,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentException">Argumento invalido</exception>
         public static bool Is(this Type obj, Type comparacao)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            if (comparacao.IsNull())
-            {
-                throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO);
-            }
-
-            if (obj.IsPrimitive || comparacao.IsPrimitive)
-            {
-                return (obj == comparacao);
-            }
-
-            if (obj == comparacao)
-            {
-                return true;
-            }
-
-            return (obj.Herdado(comparacao));
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : comparacao.IsNull()
+                ? throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO)
+                : obj.IsPrimitive || comparacao.IsPrimitive ? obj == comparacao : obj == comparacao || obj.Herdado(comparacao);
         }
 
         /// <summary>
@@ -162,7 +143,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static object Default(this Type obj)
+        public static object? Default(this Type obj)
         {
             if (obj.IsClass || obj.IsInterface)
             {
@@ -188,11 +169,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterInterfaces(this Type obj)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            return obj.GetInterfaces();
+            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (IEnumerable<Type>)obj.GetInterfaces();
         }
 
         /// <summary>
@@ -204,16 +181,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static IEnumerable<MethodInfo> ObterMetodos(this Type obj, string nome)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-
-            return obj.ObterMetodos().Where(m => m.Name == nome);
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : nome.IsNullOrEmpty()
+                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
+                : obj.ObterMetodos().Where(m => m.Name == nome);
         }
 
         /// <summary>
@@ -224,12 +196,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<MethodInfo> ObterMetodos(this Type obj)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            return obj.GetMethods().Where(x => !x.IsSpecialName && !x.Name.Contains("get_") && !x.Name.Contains("set_"));
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : obj.GetMethods().Where(x => !x.IsSpecialName && !x.Name.Contains("get_") && !x.Name.Contains("set_"));
         }
 
         /// <summary>
@@ -241,16 +210,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ExisteMetodo(this Type obj, MethodInfo mth)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (mth.IsNull())
-            {
-                throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO);
-            }
-
-            return obj.GetMethods().Where(x => x.Name == mth.Name && x.GetParameters().Count() == mth.GetParameters().Count()).IsNotEmpty();
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : mth.IsNull()
+                ? throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO)
+                : obj.GetMethods().Where(x => x.Name == mth.Name && x.GetParameters().Count() == mth.GetParameters().Count()).IsNotEmpty();
         }
 
         /// <summary>
@@ -262,15 +226,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ExisteMetodo(this Type obj, Action action)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (action.IsNull())
-            {
-                throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO);
-            }
-            return obj.GetMethods().Where(x => x.Name == action.Method.Name).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : action.IsNull()
+                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                : obj.GetMethods().Where(x => x.Name == action.Method.Name).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
         }
 
         /// <summary>
@@ -282,16 +242,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static MethodInfo ObterMetodoComMaiorParametros(this Type obj, string nome)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-
-            return obj.ObterMetodos(nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; });
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : nome.IsNullOrEmpty()
+                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
+                : obj.ObterMetodos(nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; });
         }
 
         /// <summary>
@@ -302,18 +257,13 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <param name="params"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static MethodInfo ObterMetodo(this Type obj, string nome, params Type[] @params)
+        public static MethodInfo? ObterMetodo(this Type obj, string nome, params Type[] @params)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-
-            return obj.ObterMetodos(nome).FirstOrDefault(m => m.ObterTipoParametros().ContainsAll(@params));
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : nome.IsNullOrEmpty()
+                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
+                : obj.ObterMetodos(nome).FirstOrDefault(m => m.ObterTipoParametros().ContainsAll(@params));
         }
 
         /// <summary>
@@ -323,18 +273,13 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <param name="mth"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static MethodInfo ObterMetodo(this Type obj, MethodInfo mth)
+        public static MethodInfo? ObterMetodo(this Type obj, MethodInfo mth)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (mth.IsNull())
-            {
-                throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO);
-            }
-
-            return obj.ObterMetodo(mth.Name, mth.ObterTipoParametros().ToArray());
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : mth.IsNull()
+                ? throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO)
+                : obj.ObterMetodo(mth.Name, mth.ObterTipoParametros().ToArray());
         }
 
         /// <summary>
@@ -344,17 +289,13 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <param name="prop"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static PropertyInfo ObterPropriedade(this Type obj, PropertyInfo prop)
+        public static PropertyInfo? ObterPropriedade(this Type obj, PropertyInfo prop)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (prop.IsNull())
-            {
-                throw new ArgumentNullException(nameof(prop), ARGUMENTO_NULO);
-            }
-            return obj.GetProperties().FirstOrDefault(p => p.Name == prop.Name && p.GetIndexParameters().SequenceEqual(prop.GetIndexParameters()));
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : prop.IsNull()
+                ? throw new ArgumentNullException(nameof(prop), ARGUMENTO_NULO)
+                : obj.GetProperties().FirstOrDefault(p => p.Name == prop.Name && p.GetIndexParameters().SequenceEqual(prop.GetIndexParameters()));
         }
 
         /// <summary>
@@ -364,18 +305,13 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <param name="evt"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static EventInfo ObterEvento(this Type obj, EventInfo evt)
+        public static EventInfo? ObterEvento(this Type obj, EventInfo evt)
         {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (evt.IsNull())
-            {
-                throw new ArgumentNullException(nameof(evt), ARGUMENTO_NULO);
-            }
-
-            return obj.GetEvents().FirstOrDefault(p => p.Name == evt.Name && p.EventHandlerType == evt.EventHandlerType);
+            return obj.IsNull()
+                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                : evt.IsNull()
+                ? throw new ArgumentNullException(nameof(evt), ARGUMENTO_NULO)
+                : obj.GetEvents().FirstOrDefault(p => p.Name == evt.Name && p.EventHandlerType == evt.EventHandlerType);
         }
     }
 }

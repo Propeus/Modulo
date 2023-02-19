@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Propeus.Modulo.Abstrato.Interfaces
+﻿namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Modelo base para criação de gerenciadores
@@ -31,7 +26,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <param name="args">Argumentos a serem enviadoss</param>
         /// <returns></returns>
         IModulo Criar(string nomeModulo, params object[] args);
-        
+
         /// <summary>
         /// Remove um modulo pelo seu ID
         /// </summary>

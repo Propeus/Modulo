@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -29,12 +26,9 @@ namespace Propeus.Modulo.Abstrato.Util
 
             CustomAttributeData result = obj.FirstOrDefault(x => x.AttributeType == typeof(T));
 
-            if (result is null)
-            {
-                throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, typeof(T).Name, nameof(obj)));
-            }
-
-            return Activator.CreateInstance(result.AttributeType).To<T>();
+            return result is null
+                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, typeof(T).Name, nameof(obj)))
+                : Activator.CreateInstance(result.AttributeType).To<T>();
         }
 
         /// <summary>
@@ -60,12 +54,9 @@ namespace Propeus.Modulo.Abstrato.Util
 
             object result = obj.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(T));
 
-            if (result is null)
-            {
-                throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, nameof(T), nameof(obj)));
-            }
-
-            return result.To<T>();
+            return result is null
+                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, nameof(T), nameof(obj)))
+                : result.To<T>();
         }
 
         /// <summary>
@@ -79,19 +70,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="InvalidOperationException">Tipo do parâmetro <paramref name="obj"/> herdado da classe <see cref="Attribute"/></exception>
         public static T ObterAtributo<T>(this object obj) where T : Attribute
         {
-            if (obj is null)
-            {
-                throw new ArgumentException(ARGUMENTO_NULO, nameof(obj));
-            }
-
-            if (!obj.Is<Type>())
-            {
-                return obj.GetType().ObterAtributo<T>();
-            }
-            else
-            {
-                return obj.As<Type>().ObterAtributo<T>();
-            }
+            return obj is null
+                ? throw new ArgumentException(ARGUMENTO_NULO, nameof(obj))
+                : !obj.Is<Type>() ? obj.GetType().ObterAtributo<T>() : obj.As<Type>().ObterAtributo<T>();
         }
 
         /// <summary>
@@ -117,12 +98,9 @@ namespace Propeus.Modulo.Abstrato.Util
 
             IEnumerable<object> results = obj.GetCustomAttributes(true).Where(x => x.GetType() == typeof(T));
 
-            if (results.IsNullOrEmpty())
-            {
-                throw new InvalidOperationException(string.Format( ATRIBUTO_NAO_ENCONTRADO, nameof(T), nameof(obj)));
-            }
-
-            return results.Select(x => x.To<T>());
+            return results.IsNullOrEmpty()
+                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, nameof(T), nameof(obj)))
+                : results.Select(x => x.To<T>());
         }
 
         /// <summary>
@@ -135,14 +113,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="InvalidOperationException">Tipo do parâmetro <paramref name="obj"/> herdado da classe <see cref="Attribute"/></exception>
         public static bool PossuiAtributo<T>(this object obj) where T : Attribute
         {
-            if (!obj.Is<Type>())
-            {
-                return obj.GetType().PossuiAtributo<T>();
-            }
-            else
-            {
-                return obj.As<Type>().PossuiAtributo<T>();
-            }
+            return !obj.Is<Type>() ? obj.GetType().PossuiAtributo<T>() : obj.As<Type>().PossuiAtributo<T>();
         }
 
         /// <summary>
@@ -154,12 +125,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentException">Argumento <paramref name="obj"/> nulo</exception>
         public static bool PossuiAtributo<T>(this PropertyInfo obj) where T : Attribute
         {
-            if (obj is null)
-            {
-                throw new ArgumentNullException(ARGUMENTO_NULO, nameof(obj));
-            }
-
-            return obj.GetCustomAttributes(true).Any(x => x.GetType() == typeof(T));
+            return obj is null
+                ? throw new ArgumentNullException(ARGUMENTO_NULO, nameof(obj))
+                : obj.GetCustomAttributes(true).Any(x => x.GetType() == typeof(T));
         }
 
         /// <summary>
@@ -171,17 +139,11 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentException">Argumento <paramref name="obj"/> nulo</exception>
         public static bool PossuiAtributo<T>(this Type obj) where T : Attribute
         {
-            if (obj is null)
-            {
-                throw new ArgumentNullException(ARGUMENTO_NULO, nameof(obj));
-            }
-
-            if (obj.Herdado<Attribute>())
-            {
-                throw new InvalidOperationException(PARAMETRO_ATRIBUTO_INVALIDO);
-            }
-
-            return obj.GetCustomAttributes(true).Any(x => x.GetType() == typeof(T));
+            return obj is null
+                ? throw new ArgumentNullException(ARGUMENTO_NULO, nameof(obj))
+                : obj.Herdado<Attribute>()
+                ? throw new InvalidOperationException(PARAMETRO_ATRIBUTO_INVALIDO)
+                : obj.GetCustomAttributes(true).Any(x => x.GetType() == typeof(T));
         }
     }
 }
