@@ -1,14 +1,4 @@
 ﻿using Propeus.Modulo.Dinamico.Properties;
-using Propeus.Modulo.Modelos;
-using Propeus.Modulo.Modelos.Atributos;
-using Propeus.Modulo.Modelos.Delegates;
-using Propeus.Modulo.Modelos.Helpers.Attributes;
-using Propeus.Modulo.Modelos.Interfaces;
-using Propeus.Modulo.Modelos.Interfaces.Registro;
-using Propeus.Modulo.Util.Objetos;
-using Propeus.Modulo.Util.Atributos;
-using Propeus.Modulo.Util.Thread;
-using Propeus.Modulo.Util.Strings;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -17,7 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static Propeus.Modulo.Modelos.Constantes.Helper;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Util.Thread;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.IL.Geradores;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -98,9 +94,9 @@ namespace Propeus.Modulo.Dinamico
 
             //Verifica se existe algum metodo com o nome da constante `MetodoInstancia`
             //Metodo destinado a receber instancias de dos parametros solicitados
-            if (result.ExisteMetodo(MetodoInstancia))
+            if (result.ExisteMetodo(Abstrato.Constantes.MetodoInstancia))
             {
-                Type[] @params = result.ObterParametrosMetodo(MetodoInstancia);
+                Type[] @params = result.ObterParametrosMetodo(Abstrato.Constantes.MetodoInstancia);
                 List<object> lParams = new List<object>();
                 foreach (Type item in @params)
                 {
@@ -119,14 +115,14 @@ namespace Propeus.Modulo.Dinamico
 
                     //Caso seja tipos primitivos? Adicinar Validacao ou setar tudo nulo?
                 }
-                result.InvocarMetodo(MetodoInstancia, lParams.ToArray());
+                result.InvocarMetodo(Abstrato.Constantes.MetodoInstancia, lParams.ToArray());
             }
 
             //Verifica se existe algum metodo com o nome da constante `MetodoConfiguracao`
             //Metodo destinado a configurar as instancias de dos parametros solicitados
-            if (result.ExisteMetodo(MetodoConfiguracao))
+            if (result.ExisteMetodo(Abstrato.Constantes.MetodoConfiguracao))
             {
-                Type[] @params = result.ObterParametrosMetodo(MetodoConfiguracao);
+                Type[] @params = result.ObterParametrosMetodo(Abstrato.Constantes.MetodoConfiguracao);
                 List<object> lParams = new List<object>();
                 foreach (Type item in @params)
                 {
@@ -144,7 +140,7 @@ namespace Propeus.Modulo.Dinamico
                     }
 
                 }
-                result.InvocarMetodo(MetodoConfiguracao, lParams.ToArray());
+                result.InvocarMetodo(Abstrato.Constantes.MetodoConfiguracao, lParams.ToArray());
             }
             return result;
         }

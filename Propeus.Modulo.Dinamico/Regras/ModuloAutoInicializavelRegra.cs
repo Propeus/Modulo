@@ -1,7 +1,8 @@
-﻿using Propeus.Modulo.Modelos;
-using Propeus.Modulo.Modelos.Atributos;
-using Propeus.Modulo.Modelos.Interfaces;
-using Propeus.Modulo.Util.Atributos;
+﻿using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Core;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

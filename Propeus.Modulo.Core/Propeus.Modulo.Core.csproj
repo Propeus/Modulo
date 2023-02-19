@@ -5,6 +5,13 @@
     <ProjectReference Include="..\Propeus.Modulo.IL\Propeus.Modulo.IL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="LICENCE">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

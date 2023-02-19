@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 using Propeus.Modulo.Abstrato.Util.Tabelas;
 
-using static Propeus.Modulo.Abstrato.Constante;
+using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Util
 {
