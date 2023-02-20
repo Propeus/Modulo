@@ -49,12 +49,9 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
-            IGerenciador gen = Propeus.Modulo.Core.Gerenciador.Atual;
-            _ = gen.Criar<IModuloContrato>();
-            IModuloContrato modulo = gen.Obter<ModuloTeste>();
-            System.Console.WriteLine(gen);
-            System.Console.WriteLine(modulo);
-            System.Console.WriteLine(modulo.GetInfo());
+            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
+            genv2.OnEvento += Genv2_OnEvento;
+            genv2.ManterVivoAsync().Wait();
 
             //using (ILGerador iLGerador = new ILGerador())
             //{
@@ -68,6 +65,14 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
+        }
+
+        private static void Genv2_OnEvento(object[] args)
+        {
+            foreach(object o in args)
+            {
+                global::System.Console.WriteLine(o.ToString());
+            }
         }
 
         private static void fDelegate(ILModulo modulo)

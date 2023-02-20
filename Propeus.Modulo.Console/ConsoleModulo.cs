@@ -18,6 +18,7 @@ namespace Propeus.Modulo.Console
         IModulo modulo;
         public ConsoleModulo(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
+            Abstrato.Util.Thread.LimitedConcurrencyLevelTaskScheduler limitedConcurrencyLevelTaskScheduler = new Abstrato.Util.Thread.LimitedConcurrencyLevelTaskScheduler(2);
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
             tarefa = Task.Run(IniciarProcesso);
         }
@@ -46,20 +47,33 @@ namespace Propeus.Modulo.Console
 
                             break;
                         case "listar":
-                            foreach (var item in gerenciador.Listar())
+                            switch (cmd[1])
                             {
-                                System.Console.WriteLine("Nome: " + item.Nome);
-                                System.Console.WriteLine("Id: " + item.Id);
-                                System.Console.WriteLine("Versao: " + item.Versao);
-                                System.Console.WriteLine("Estado: " + item.Estado);
+                                case "modulo":
+                                    foreach (var item in gerenciador.Listar())
+                                    {
+                                        System.Console.WriteLine("Nome: " + item.Nome);
+                                        System.Console.WriteLine("Id: " + item.Id);
+                                        System.Console.WriteLine("Versao: " + item.Versao);
+                                        System.Console.WriteLine("Estado: " + item.Estado);
+                                    }
+                                    break;
+                                case "gerenciador":
+                                    System.Console.WriteLine(gerenciador);
+                                    break;
+                                default:
+                                    System.Console.WriteLine("Comando invalido");
+                                    break;
                             }
+
+                          
                             break;
-                        //case "obter":
-                        //    System.Console.WriteLine(gerenciador.ObterInstancia(cmd[1]));
-                        //    break;
-                        //case "existe":
-                        //    System.Console.WriteLine(gerenciador.ExisteInstancia(cmd[1]));
-                        //    break;
+                        case "obter":
+                            System.Console.WriteLine(gerenciador.Obter(cmd[1]));
+                            break;
+                        case "existe":
+                            System.Console.WriteLine(gerenciador.Existe(cmd[1]));
+                            break;
                         case "reiniciar":
                             System.Console.WriteLine(gerenciador.Reiniciar(cmd[1]));
                             break;
