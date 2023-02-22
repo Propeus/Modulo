@@ -18,23 +18,14 @@
         /// </summary>
         MemoryStream Memoria { get; }
         /// <summary>
-        /// Modulos mapeados do binario
+        /// ModuloInformacao mapeados do binario
         /// </summary>
-        ICollection<IModuloInformacao> Modulos { get; }
+        IModuloInformacao ModuloInformacao { get; }
         /// <summary>
         /// "Ponteiro" onde se encontra o binario em memoria
         /// </summary>
         Span<byte> Referencia { get; }
+        bool BinarioValido { get; }
 
-        /// <summary>
-        /// Registra novas informações de modulo.
-        /// </summary>
-        /// <param name="moduloInformarcao"></param>
-        void Registrar(IModuloInformacao moduloInformarcao);
-        /// <summary>
-        /// Remove as informações de modulo.
-        /// </summary>
-        /// <param name="moduloInformarcao"></param>
-        void Remover(IModuloInformacao moduloInformarcao);
     }
 }

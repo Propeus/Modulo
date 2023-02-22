@@ -4,7 +4,7 @@ using Propeus.Modulo.Abstrato.Interfaces;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Classe base para o modulo
@@ -18,7 +18,7 @@ namespace Propeus.Modulo.Core
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
         public ModuloBase(IGerenciador gerenciador, bool instanciaUnica = false)
         {
-            Gerenciador = gerenciador ?? throw new System.ArgumentNullException(nameof(gerenciador));
+            Gerenciador = gerenciador ?? throw new ArgumentNullException(nameof(gerenciador));
             InstanciaUnica = instanciaUnica;
             if (gerenciador is IGerenciadorRegistro)
             {
@@ -46,10 +46,7 @@ namespace Propeus.Modulo.Core
         {
             StringBuilder sb = new(base.ToString());
 
-            _ = sb.AppendLine($"---Modulo---");
             _ = sb.AppendLine($"Instancia Unica: {InstanciaUnica}");
-            _ = sb.AppendLine($"---Modulo---");
-            _ = sb.AppendLine();
 
             return sb.ToString();
         }

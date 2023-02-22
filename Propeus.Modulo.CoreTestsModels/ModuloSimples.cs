@@ -1,6 +1,6 @@
-﻿using Propeus.Modulo.Abstrato.Atributos;
+﻿using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.CoreTestsModels
 {

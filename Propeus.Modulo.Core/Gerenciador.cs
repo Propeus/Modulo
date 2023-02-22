@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text;
 
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
@@ -10,7 +11,7 @@ using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Core
 {
-    public sealed class Gerenciador : BaseModelo, IGerenciador, IGerenciadorRegistro
+    public sealed class Gerenciador : BaseModelo, IGerenciador, IGerenciadorRegistro, IGerenciadorInformacao, IGerenciadorDiagnostico
     {
         private Gerenciador()
         {
@@ -27,9 +28,10 @@ namespace Propeus.Modulo.Core
         private readonly CancellationTokenSource _cancellationToken = new();
         private static Gerenciador? _atual;
 
-        private DateTime DataInicio { get; }
+        public DateTime DataInicio { get; }
 
-        private DateTime UltimaAtualizacao { get; set; } = DateTime.Now;
+        public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
+        public int ModulosInicializados => Modulos.Count;
 
         private Task? LimpezaListaTask { get; set; } = null;
         /// <summary>
@@ -41,9 +43,11 @@ namespace Propeus.Modulo.Core
         /// </summary>
         private ConcurrentDictionary<string, object[]> ArgumentosModulo { get; } = new ConcurrentDictionary<string, object[]>();
 
+        ///<inheritdoc/>
         private ConcurrentDictionary<string, string> Cache { get; } = new ConcurrentDictionary<string, string>();
 
 
+        ///<inheritdoc/>
         public static IGerenciador Atual
         {
             get
@@ -57,15 +61,20 @@ namespace Propeus.Modulo.Core
             }
         }
 
+        ///<inheritdoc/>
         public Task LimpezaAutomaticaTask { get; private set; }
 
+        ///<inheritdoc/>
         public IEnumerable<string> ModulosValidos { get; }
 
+        ///<inheritdoc/>
         public IEnumerable<string> ModulosIgnorados { get; }
 
+        ///<inheritdoc/>
         public TimeSpan TempoExecucao => DateTime.Now - DataInicio;
 
 
+        ///<inheritdoc/>
         public IModulo Criar(string nomeModulo, params object[] argumentos)
         {
             IEnumerable<Type> result = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName == nomeModulo ^ t.Name == nomeModulo);
@@ -76,11 +85,13 @@ namespace Propeus.Modulo.Core
                 : Criar(result.First(), argumentos);
         }
 
+        ///<inheritdoc/>
         public T Criar<T>(params object[] argumentos) where T : IModulo
         {
             return Criar(typeof(T), argumentos).To<T>();
         }
 
+        ///<inheritdoc/>
         public IModulo Criar(Type modulo, params object[] argumentos)
         {
 
@@ -104,7 +115,8 @@ namespace Propeus.Modulo.Core
                     throw new InvalidOperationException(ERRO_TIPO_NAO_MARCADO);
                 }
 
-                modulo = modulo.ObterTipoPorModuloContratoAtributo();
+
+                modulo = modulo.ObterModuloContratoAtributo().Nome.ObterTipo();
                 if (modulo is null)
                 {
                     throw new DllNotFoundException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
@@ -191,6 +203,7 @@ namespace Propeus.Modulo.Core
         }
 
 
+        ///<inheritdoc/>
         public void Remover<T>(T modulo) where T : IModulo
         {
             if (modulo is null)
@@ -210,11 +223,13 @@ namespace Propeus.Modulo.Core
 
         }
 
+        ///<inheritdoc/>
         public void Remover(string id)
         {
             Remover(Obter(id));
         }
 
+        ///<inheritdoc/>
         public void RemoverTodos()
         {
 
@@ -234,13 +249,14 @@ namespace Propeus.Modulo.Core
             }
         }
 
-
-        public T Obter<T>() where T : IModulo
+        ///<inheritdoc/>
+        public IModuloTipo ObterInfo<T>() where T : IModulo
         {
-            return Obter(typeof(T)).To<T>();
+            return ObterInfo(typeof(T));
         }
 
-        public IModulo Obter(Type modulo)
+        ///<inheritdoc/>
+        public IModuloTipo ObterInfo(Type modulo)
         {
             if (modulo is null)
             {
@@ -256,7 +272,7 @@ namespace Propeus.Modulo.Core
             if (modulo.IsInterface)
             {
                 ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
-                modulo = modulo.ObterTipoPorModuloContratoAtributo();
+                modulo = contrato.Nome.ObterTipo();
             }
 
 
@@ -293,10 +309,34 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
             }
 
-            IModuloTipo result = info.First(m => !m.Elimindado);
+            return info.First(m => !m.Elimindado);
+        }
+
+        ///<inheritdoc/>
+        public IModuloTipo ObterInfo(string id)
+        {
+            if (!Existe(id))
+            {
+                throw new ArgumentException(string.Format(ERRO_MODULO_ID_NAO_ENCONTRADO, id), nameof(id));
+            }
+
+            return Modulos[id];
+        }
+
+        ///<inheritdoc/>
+        public T Obter<T>() where T : IModulo
+        {
+            return Obter(typeof(T)).To<T>();
+        }
+
+        ///<inheritdoc/>
+        public IModulo Obter(Type modulo)
+        {
+            var result = ObterInfo(modulo);
             return result.Elimindado ? throw new InvalidProgramException(string.Format(ERRO_MODULO_ID_DESCARTADO, result.Nome)) : result.Modulo;
         }
 
+        ///<inheritdoc/>
         public IModulo Obter(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -316,6 +356,7 @@ namespace Propeus.Modulo.Core
         }
 
 
+        ///<inheritdoc/>
         public bool Existe(Type type)
         {
             if (type.IsNull())
@@ -358,17 +399,20 @@ namespace Propeus.Modulo.Core
             return result;
         }
 
+        ///<inheritdoc/>
         public bool Existe(IModulo modulo)
         {
             return modulo is null ? throw new ArgumentNullException(nameof(modulo)) : Existe(modulo.Id);
         }
 
+        ///<inheritdoc/>
         public bool Existe(string id)
         {
             return string.IsNullOrEmpty(id) ? throw new ArgumentNullException(nameof(id)) : Modulos.ContainsKey(id);
         }
 
 
+        ///<inheritdoc/>
         public T Reiniciar<T>(T modulo) where T : IModulo
         {
             if (ArgumentosModulo.TryGetValue(modulo.Id, out object[] args))
@@ -383,6 +427,7 @@ namespace Propeus.Modulo.Core
 
         }
 
+        ///<inheritdoc/>
         public IModulo Reiniciar(string id)
         {
 
@@ -400,6 +445,7 @@ namespace Propeus.Modulo.Core
         }
 
 
+        ///<inheritdoc/>
         public void Registrar(IModulo modulo)
         {
             if (modulo is null)
@@ -427,6 +473,7 @@ namespace Propeus.Modulo.Core
 
         }
 
+        ///<inheritdoc/>
         public async Task ManterVivoAsync()
         {
             await Task.Run(async () =>
@@ -439,6 +486,7 @@ namespace Propeus.Modulo.Core
               }, _cancellationToken.Token).ConfigureAwait(false);
         }
 
+        ///<inheritdoc/>
         public IEnumerable<IModulo> Listar()
         {
             if (Modulos != null)
@@ -453,12 +501,14 @@ namespace Propeus.Modulo.Core
             }
         }
 
+        ///<inheritdoc/>
         private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
             Dispose();
             e.Cancel = true;
         }
 
+        ///<inheritdoc/>
         private void LimpezaAutomatica()
         {
             LimpezaAutomaticaTask = Task.Run(async () =>
@@ -474,6 +524,7 @@ namespace Propeus.Modulo.Core
             }, _cancellationToken.Token);
 
         }
+        ///<inheritdoc/>
         private Task LimpezaLista()
         {
             LimpezaListaTask = Task.Run(() =>
@@ -488,11 +539,13 @@ namespace Propeus.Modulo.Core
             }, _cancellationToken.Token);
             return LimpezaListaTask;
         }
+        ///<inheritdoc/>
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             Atual.Dispose();
         }
 
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (!Disposed)
@@ -510,6 +563,7 @@ namespace Propeus.Modulo.Core
                 throw new ObjectDisposedException(ERRO_GERENCIADOR_DESATIVADO);
             }
         }
+        ///<inheritdoc/>
         public override string ToString()
         {
             StringBuilder stringBuilder = new(base.ToString());

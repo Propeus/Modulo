@@ -3,7 +3,6 @@
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.Dinamico.Regras
 {

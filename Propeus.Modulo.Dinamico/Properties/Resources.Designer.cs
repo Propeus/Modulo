@@ -61,7 +61,7 @@ namespace Propeus.Modulo.Dinamico.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.Diretorio.Modulos.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.Diretorio.ModuloInformacao.
         /// </summary>
         internal static string DinamicoDiretorioModulos {
             get {
@@ -70,7 +70,7 @@ namespace Propeus.Modulo.Dinamico.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.Modulos.AutoInicializados.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.ModuloInformacao.AutoInicializados.
         /// </summary>
         internal static string DinamicoDiretorioModulosAutoInicializados {
             get {
@@ -79,7 +79,7 @@ namespace Propeus.Modulo.Dinamico.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.Modulos.Ignorados.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.ModuloInformacao.Ignorados.
         /// </summary>
         internal static string DinamicoDiretorioModulosIgnorados {
             get {
@@ -88,7 +88,7 @@ namespace Propeus.Modulo.Dinamico.Properties {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.Modulos.Validos.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dinamico.ModuloInformacao.Validos.
         /// </summary>
         internal static string DinamicoDiretorioModulosValidos {
             get {

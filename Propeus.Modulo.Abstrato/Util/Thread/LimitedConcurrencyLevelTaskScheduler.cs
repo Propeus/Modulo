@@ -1,20 +1,21 @@
 ﻿namespace Propeus.Modulo.Abstrato.Util.Thread
 {
     /// <summary>
-    /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading.tasks.taskscheduler?view=netcore-3.1
+    /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading._tasks.taskscheduler?view=netcore-3.1
     /// </summary>
-    public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
+    public class LimitedConcurrencyLevelTaskScheduler : System.Threading.Tasks.TaskScheduler
     {
+        [ThreadStatic]
         // Indicates whether the current thread is processing work items.
         private bool _currentThreadIsProcessingItems;
 
-        // The list of tasks to be executed
+        // The list of _tasks to be executed
         private readonly LinkedList<Task> _tasks = new(); // protected by lock(_tasks)
 
-        // The maximum concurrency level allowed by this scheduler.
+        // The maximum concurrency level allowed by this _scheduler.
         private readonly int _maxDegreeOfParallelism;
 
-        // Indicates whether the scheduler is currently processing work items.
+        // Indicates whether the _scheduler is currently processing work items.
         private int _delegatesQueuedOrRunning = 0;
 
         /// <summary>
@@ -32,13 +33,13 @@
         }
 
         /// <summary>
-        /// Queues a task to the scheduler.
+        /// Queues a task to the _scheduler.
         /// </summary>
         /// <param name="task"></param>
         protected sealed override void QueueTask(Task task)
         {
-            // Add the task to the list of tasks to be processed.  If there aren't enough
-            // delegates currently queued or running to process tasks, schedule another.
+            // Add the task to the list of _tasks to be processed.  If there aren't enough
+            // delegates currently queued or running to process _tasks, schedule another.
             lock (_tasks)
             {
                 _ = _tasks.AddLast(task);
@@ -50,13 +51,13 @@
             }
         }
 
-        // Inform the ThreadPool that there's work to be executed for this scheduler.
+        // Inform the ThreadPool that there's work to be executed for this _scheduler.
         private void NotifyThreadPoolOfPendingWork()
         {
             _ = ThreadPool.UnsafeQueueUserWorkItem(_ =>
             {
                 // Note that the current thread is now processing work items.
-                // This is necessary to enable inlining of tasks into this thread.
+                // This is necessary to enable inlining of _tasks into this thread.
                 _currentThreadIsProcessingItems = true;
                 try
                 {
@@ -115,7 +116,7 @@
         }
 
         /// <summary>
-        /// Attempt to remove a previously scheduled task from the scheduler.
+        /// Attempt to remove a previously scheduled task from the _scheduler.
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
@@ -128,12 +129,12 @@
         }
 
         /// <summary>
-        /// Gets the maximum concurrency level supported by this scheduler.
+        /// Gets the maximum concurrency level supported by this _scheduler.
         /// </summary>
         public sealed override int MaximumConcurrencyLevel => _maxDegreeOfParallelism;
 
         /// <summary>
-        /// Gets an enumerable of the tasks currently scheduled on this scheduler.
+        /// Gets an enumerable of the _tasks currently scheduled on this _scheduler.
         /// </summary>
         /// <returns></returns>
         protected sealed override IEnumerable<Task> GetScheduledTasks()

@@ -55,19 +55,19 @@ namespace Propeus.Modulo.Abstrato.Util
         {
             return objeto.ObterAtributo<ModuloContratoAttribute>();
         }
-        /// <summary>
-        /// Obtem o <see cref="Type"/> do modulo utilizando o atributo <see cref="ModuloContratoAttribute"/>
-        /// </summary>
-        /// <param name="objeto">Tipo do objeto com o atributo <see cref="ModuloContratoAttribute"/></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Argumeto obj vazio ou nulo</exception>
-        /// <exception cref="InvalidOperationException">Contrato</exception>
-        public static Type ObterTipoPorModuloContratoAtributo(this Type objeto)
-        {
-            string nome = objeto.ObterAtributo<ModuloContratoAttribute>().Nome;
-            return Assembly.GetAssembly(objeto).GetTypes().FirstOrDefault(m => m.FullName == nome || m.Name == nome);
+        ///// <summary>
+        ///// Obtem o <see cref="Type"/> do modulo utilizando o atributo <see cref="ModuloContratoAttribute"/>
+        ///// </summary>
+        ///// <param name="objeto">Tipo do objeto com o atributo <see cref="ModuloContratoAttribute"/></param>
+        ///// <returns></returns>
+        ///// <exception cref="ArgumentException">Argumeto obj vazio ou nulo</exception>
+        ///// <exception cref="InvalidOperationException">Contrato</exception>
+        //public static Type ObterTipoPorModuloContratoAtributo(this Type objeto)
+        //{
+        //    string nome = objeto.ObterAtributo<ModuloContratoAttribute>().Nome;
+        //    return Assembly.GetAssembly(objeto).GetTypes().FirstOrDefault(m => m.FullName == nome || m.Name == nome);
 
-        }
+        //}
 
     }
 }

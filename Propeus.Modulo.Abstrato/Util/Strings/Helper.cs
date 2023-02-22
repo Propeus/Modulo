@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 using Propeus.Modulo.Abstrato.Util.Tabelas;
 
@@ -157,6 +158,10 @@ namespace Propeus.Modulo.Abstrato.Util
 
         }
 
+        public static Type ObterTipo(this string nomeTipo)
+        {
+           return Assembly.GetExecutingAssembly().GetType(nomeTipo);
+        }
 
     }
 }

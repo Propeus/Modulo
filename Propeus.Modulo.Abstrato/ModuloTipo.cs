@@ -1,9 +1,8 @@
-﻿using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.IL.Geradores;
-using Propeus.Modulo.IL.Helpers;
+﻿using System.Text;
 
-namespace Propeus.Modulo.Core
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Abstrato
 {
 
     /// <summary>
@@ -13,21 +12,6 @@ namespace Propeus.Modulo.Core
     {
 
 
-        public ModuloTipo(IModuloInformacao moduloInformacao, string nomeModulo)
-        {
-            if (moduloInformacao is null)
-            {
-                throw new ArgumentNullException(nameof(moduloInformacao));
-            }
-
-            TipoModulo = moduloInformacao.ObterTipoModulo(nomeModulo);
-
-            if (TipoModulo is null)
-            {
-                throw new InvalidProgramException($"O tipo '{nomeModulo}' não foi encontrado na dll {moduloInformacao.Caminho}");
-            }
-        }
-
         public ModuloTipo(IModulo modulo)
         {
             if (modulo is null)
@@ -36,10 +20,12 @@ namespace Propeus.Modulo.Core
             }
 
             WeakReference = new WeakReference(modulo);
-            TipoModulo = modulo.GetType();
             InstanciaUnica = modulo.InstanciaUnica;
             IdModulo = modulo.Id;
+            Versao = modulo.Versao;
         }
+
+        public override string Versao { get; }
         /// <summary>
         /// Informa se o modulo foi coletado pelo <see cref="GC"/>
         /// </summary>
@@ -55,13 +41,11 @@ namespace Propeus.Modulo.Core
         /// <summary>
         /// Instancia do modulo
         /// </summary>
-        public IModulo? Modulo => WeakReference.Target as IModulo;
+        public IModulo Modulo => WeakReference.Target as IModulo;
         /// <summary>
         /// Tipo do modulo
         /// </summary>
-        public Type TipoModulo { get; }
-
-        private ILClasseProvider _classeProvider;
+        public Type TipoModulo => WeakReference?.Target?.GetType();
 
         /// <summary>
         /// Informa se o modulo é instancia unica
@@ -69,40 +53,34 @@ namespace Propeus.Modulo.Core
         public bool InstanciaUnica { get; }
         public string IdModulo { get; }
 
-        public List<Type> Contratos { get; } = new List<Type>();
-        public Type TipoModuloDinamico { get; private set; }
+        public Type TipoModuloDinamico { get; protected internal set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new(base.ToString());
+
+            if (Modulo != null)
+            {
+                sb.Append(Modulo).AppendLine();
+            }
+            _ = sb.Append("Coletado pelo G.C.: ").Append(Coletado).AppendLine();
+            _ = sb.Append("Objeto eliminado: ").Append(Elimindado).AppendLine();
+
+
+            return sb.ToString();
+        }
 
         protected override void Dispose(bool disposing)
         {
             if (!Elimindado)
             {
                 Modulo.Dispose();
-                _classeProvider.Dispose();
             }
             WeakReference = null;
             base.Dispose(disposing);
         }
 
-        public Type AdicionarContrato(Type tipo)
-        {
-            if (!Contratos.Contains(tipo))
-            {
-                Contratos.Add(tipo);
 
-                if (_classeProvider == null)
-                {
-                    _classeProvider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(TipoModulo, Contratos.ToArray());
-                }
-                else
-                {
-                    _ = _classeProvider.NovaVersao(interfaces: Contratos.ToArray());
-                }
-
-                _classeProvider.Executar();
-                TipoModuloDinamico = _classeProvider.ObterTipoGerado();
-            }
-            return TipoModuloDinamico;
-        }
 
     }
 }

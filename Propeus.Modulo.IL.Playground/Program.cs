@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Util.Thread;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
@@ -10,33 +16,17 @@ using Propeus.Modulo.IL.Helpers;
 namespace Propeus.Modulo.IL.Playground
 {
 
-    [ModuloContrato("ModuloTeste")]
+    [ModuloContrato("ConsoleModulo")]
     public interface IModuloContrato : IModulo
     {
-        string GetInfo();
     }
 
-    [Modulo]
-    public class ModuloTeste : Propeus.Modulo.Core.ModuloBase, IModuloContrato
-    {
-        public ModuloTeste(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
-        {
-        }
-
-        public string GetInfo()
-        {
-            return Gerenciador.ToString();
-        }
-    }
 
     internal class Program
     {
 
         private static void Main(string[] args)
         {
-
-
-
             //using (ILGerador iLGerador = new ILGerador())
             //{
             //    var tp = iLGerador.CriarModulo().CriarProxyClasse<Teste>();
@@ -49,8 +39,11 @@ namespace Propeus.Modulo.IL.Playground
 
             //}
 
+            //GerenciadorDeTask();
+            //return;
+
             var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
-            genv2.OnEvento += Genv2_OnEvento;
+            //var modulo = genv2.Criar<IModuloContrato>();
             genv2.ManterVivoAsync().Wait();
 
             //using (ILGerador iLGerador = new ILGerador())
@@ -67,9 +60,46 @@ namespace Propeus.Modulo.IL.Playground
 
         }
 
+        private static void GerenciadorDeTask()
+        {
+            ConcurrentDictionary<int, int> keyValuePairs = new ConcurrentDictionary<int, int>();
+
+            Abstrato.Util.Thread.TaskJob cronTask = new Abstrato.Util.Thread.TaskJob(10);
+
+            Parallel.For(0, 9999, (i) =>
+            {
+                cronTask.AddJob((state) =>
+                {
+                    CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)state;
+                    if (!keyValuePairs.TryAdd(i, 0))
+                    {
+                        keyValuePairs[i]++;
+                    }
+
+                    if (keyValuePairs[i] >= 3)
+                    {
+                        cancellationTokenSource.Cancel();
+                        keyValuePairs.TryRemove(i, out int _);
+                    }
+                    //System.Console.WriteLine(i);
+                }, TimeSpan.FromSeconds(1), "JOB - " + i);
+            });
+
+            while (!cronTask.IsCompleted())
+            {
+                System.Console.Clear();
+                System.Console.WriteLine(cronTask.ToStringRunning());
+                Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+                //cronTask.WaitAll().Wait();
+            }
+            System.Console.WriteLine(cronTask.ToStringRunning());
+            System.Console.WriteLine("FIM");
+            return;
+        }
+
         private static void Genv2_OnEvento(object[] args)
         {
-            foreach(object o in args)
+            foreach (object o in args)
             {
                 global::System.Console.WriteLine(o.ToString());
             }

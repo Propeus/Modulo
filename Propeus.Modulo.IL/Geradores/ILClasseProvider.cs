@@ -62,7 +62,7 @@ namespace Propeus.Modulo.IL.Geradores
             Proxy = proxy;
             Nome = nome;
             Executado = false;
-            _versoes = new ILClasse[10];
+            _versoes = new ILClasse[3];
         }
 
 

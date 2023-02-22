@@ -9,10 +9,7 @@
         /// Informa se o modulo foi coletado pelo <see cref="GC"/>
         /// </summary>
         bool Coletado { get; }
-        /// <summary>
-        /// Informa quais interfaces de contrato pertencem ao modulo
-        /// </summary>
-        List<Type> Contratos { get; }
+
         /// <summary>
         /// Informa se o modulo foi eliminado da aplicação
         /// </summary>
@@ -41,12 +38,5 @@
         /// Informações sobre o modulo na visão do <see cref="GC"/>
         /// </summary>
         WeakReference WeakReference { get; }
-
-        /// <summary>
-        /// Adiciona uma nova interface de contrato
-        /// </summary>
-        /// <param name="tipo"></param>
-        /// <returns></returns>
-        Type AdicionarContrato(Type tipo);
     }
 }

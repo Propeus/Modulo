@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
-    <ProjectReference Include="..\Propeus.Modulo.IL\Propeus.Modulo.IL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

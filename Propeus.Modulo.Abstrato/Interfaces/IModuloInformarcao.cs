@@ -7,6 +7,8 @@ namespace Propeus.Modulo.Abstrato.Interfaces
     /// </summary>
     public interface IModuloInformacao : IBaseModelo
     {
+        IModuloTipo this[string nome] { get; set; }
+
         /// <summary>
         /// Concatenação da versão 
         /// </summary>
@@ -20,7 +22,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// </summary>
         AssemblyName AssemblyName { get; }
         /// <summary>
-        /// Modulos mapeados do assembly
+        /// ModuloInformacao mapeados do assembly
         /// </summary>
         Dictionary<string, IModuloTipo> Modulos { get; }
         /// <summary>
@@ -33,10 +35,24 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         string Hash { get; }
 
         /// <summary>
-        /// Obtem o tipo do modulo
+        /// Informa a quantidade de modulos disponiveis dentro de uma DLL
         /// </summary>
-        /// <param name="nomeModulo"></param>
-        /// <returns></returns>
-        Type ObterTipoModulo(string nomeModulo);
+        int ModulosDescobertos { get; }
+        /// <summary>
+        /// Informa a quantidade de modulos criados.
+        /// </summary>
+        int ModulosCarregados { get; }
+
+        void AdicionarContrato(string nomeModulo, Type contrato);
+        Type CarregarTipoModulo(string nomeModulo);
+        List<Type> ObterContratos(string nomeModulo);
+        bool PossuiModulo(string nomeModulo);
+
+        ///// <summary>
+        ///// Obtem o tipo do modulo
+        ///// </summary>
+        ///// <param name="nomeModulo"></param>
+        ///// <returns></returns>
+        //Type ObterTipoModulo(string nomeModulo);
     }
 }

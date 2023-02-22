@@ -1,6 +1,7 @@
-﻿using Propeus.Modulo.Abstrato.Atributos;
+﻿using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
+using Propeus.Modulo.Abstrato.Util;
 
 using System;
 using System.Linq;
@@ -9,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Console
 {
+    /// <summary>
+    /// Exemplo de modulo auto inicializavel e funcional
+    /// </summary>
     [Modulo]
     [ModuloAutoInicializavel]
     public class ConsoleModulo : ModuloBase
@@ -16,69 +20,88 @@ namespace Propeus.Modulo.Console
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         Task tarefa;
         IModulo modulo;
+
+        /// <summary>
+        /// Construtor padrao do <see cref="ModuloBase"/>
+        /// </summary>
+        /// <param name="gerenciador"></param>
+        /// <param name="instanciaUnica"></param>
         public ConsoleModulo(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
-            Abstrato.Util.Thread.LimitedConcurrencyLevelTaskScheduler limitedConcurrencyLevelTaskScheduler = new Abstrato.Util.Thread.LimitedConcurrencyLevelTaskScheduler(2);
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
+            //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
             tarefa = Task.Run(IniciarProcesso);
+            System.Console.CancelKeyPress += Console_CancelKeyPress;
+            System.Console.Title = "Terminal - Gerenciador";
+        }
+
+        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            cancellationTokenSource.Cancel();
         }
 
         private Task IniciarProcesso()
         {
             IGerenciador gerenciador = modulo as IGerenciador;
-            System.Console.WriteLine("Console modulo");
+            System.Console.Clear();
+            System.Console.WriteLine("Console modulo " + "v" + Versao);
             while (!cancellationTokenSource.IsCancellationRequested)
             {
+
                 try
                 {
-                    var cmd = System.Console.ReadLine().Split(' ');
+                    System.Console.Write("Digite o comando: ");
+                    var cmd = Abstrato.Util.Console.Console.ReadLine(cancellationTokenSource.Token).Split(' ');
+                    System.Console.Clear();
+                    System.Console.WriteLine("Console modulo " + "v" + Versao);
                     switch (cmd[0])
                     {
-                        case "ajuda":
-                            System.Console.Clear();
-                            System.Console.WriteLine("listar");
-                            System.Console.WriteLine("obter <id>");
-                            System.Console.WriteLine("existe <id>");
-                            System.Console.WriteLine("reiniciar <id>");
-                            System.Console.WriteLine("remover [id][todos]");
-                            System.Console.WriteLine("sair");
-                            System.Console.WriteLine("versao");
-                            System.Console.WriteLine("limpar|cls");
+                        case "-a":
+                        case "--ajuda":
+                            System.Console.WriteLine("Ajuda");
+                            System.Console.WriteLine("-l ou --listar: Lista todos os modulos do gerenciador atual ");
+                            System.Console.WriteLine("-o ou --obter [id]: Obtem um modulo em execucao pelo id ou nome");
+                            System.Console.WriteLine("-e ou --existe [id]: Verifica se o modulo esta em execucao");
+                            System.Console.WriteLine("-r ou --reciclar [id]: Recicla um modulo");
+                            System.Console.WriteLine("-rm ou --remover [ id | all ]: Remove um modulo especifico ou todos");
+                            System.Console.WriteLine("--sair: Finaliza este modulo");
+                            System.Console.WriteLine("-v ou --versao: Obtem a versao do gerenciador atual");
+                            System.Console.WriteLine("limpar ou cls: Limpa a tela do console");
 
                             break;
-                        case "listar":
+                        case "-l":
+                        case "--list":
                             switch (cmd[1])
                             {
+                                case "gerenciador":
+                                    System.Console.WriteLine(gerenciador);
+                                    break;
                                 case "modulo":
                                     foreach (var item in gerenciador.Listar())
                                     {
-                                        System.Console.WriteLine("Nome: " + item.Nome);
-                                        System.Console.WriteLine("Id: " + item.Id);
-                                        System.Console.WriteLine("Versao: " + item.Versao);
-                                        System.Console.WriteLine("Estado: " + item.Estado);
+                                        System.Console.WriteLine(item);
                                     }
-                                    break;
-                                case "gerenciador":
-                                    System.Console.WriteLine(gerenciador);
                                     break;
                                 default:
                                     System.Console.WriteLine("Comando invalido");
                                     break;
                             }
-
-                          
                             break;
-                        case "obter":
+                        case "-o":
+                        case "--obter":
                             System.Console.WriteLine(gerenciador.Obter(cmd[1]));
                             break;
-                        case "existe":
+                        case "-e":
+                        case "--existe":
                             System.Console.WriteLine(gerenciador.Existe(cmd[1]));
                             break;
-                        case "reiniciar":
+                        case "-r":
+                        case "--reciclar":
                             System.Console.WriteLine(gerenciador.Reiniciar(cmd[1]));
                             break;
-                        case "remover":
-                            if (cmd[1].ToLower() == "todos")
+                        case "-rm":
+                        case "--remover":
+                            if (cmd[1].ToLower() == "all")
                             {
                                 gerenciador.RemoverTodos();
                             }
@@ -87,11 +110,11 @@ namespace Propeus.Modulo.Console
                                 gerenciador.Remover(cmd[1]);
                             }
                             break;
-                        case "sair":
+                        case "--sair":
                             cancellationTokenSource.Cancel();
                             break;
-                        case "versao":
-                            System.Console.WriteLine("ver.: " + Versao);
+                        case "-v":
+                        case "--versao":
                             break;
                         case "cls":
                         case "limpar":
@@ -116,12 +139,14 @@ namespace Propeus.Modulo.Console
         {
             if (!Disposed)
             {
+                //Cancela a tarefa atual, pois o gerenciador nao tem os mesmos privilagios de um G.C. sob o objeto.
+                cancellationTokenSource.Cancel();
+                //Aguarta a tarefa se finalizada
+                tarefa.Wait();
 
-                tarefa.Wait((int)TimeSpan.FromSeconds(2).TotalMilliseconds, cancellationTokenSource.Token);
                 cancellationTokenSource.Dispose();
-                System.Console.Clear();
 
-
+                //Continua o disposing padrao
                 base.Dispose(disposing);
             }
         }

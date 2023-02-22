@@ -65,7 +65,7 @@ namespace Propeus.Modulo.IL.Geradores
                 typeAttributes.Add((TypeAttributes)Enum.Parse(typeof(TypeAttributes), item.ObterDescricaoEnum()));
             }
             TypeBuilder typeBuilder;
-
+            
             if (Proxy.ObterBuilder<TypeBuilder>() == null)
             {
                 ModuleBuilder builder = Proxy.ObterBuilder<ModuleBuilder>();
@@ -82,7 +82,7 @@ namespace Propeus.Modulo.IL.Geradores
                     : builder.DefineNestedType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
             }
             Proxy.RegistrarOuAtualizarBuilder(typeBuilder);
-
+            
 
 
 

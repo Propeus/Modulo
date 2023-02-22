@@ -1,9 +1,8 @@
 ﻿using System.Text;
 
-using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Classe com o modelo base para todo o projeto
@@ -36,7 +35,7 @@ namespace Propeus.Modulo.Core
         /// <summary>
         /// Versão do assembly onde o modulo foi carregado. {Maj}.{Min}.{Build}
         /// </summary>
-        public string Versao
+        public virtual string Versao
         {
             get
             {
@@ -72,13 +71,10 @@ namespace Propeus.Modulo.Core
         {
             StringBuilder sb = new();
 
-            _ = sb.AppendLine("---Base---");
             _ = sb.Append("Nome: ").Append(Nome).AppendLine();
             _ = sb.Append("Estado: ").Append(Estado).AppendLine();
             _ = sb.Append("Id: ").Append(Id).AppendLine();
             _ = sb.Append("Versao: ").Append(Versao).AppendLine();
-            _ = sb.AppendLine("---Base---");
-            _ = sb.AppendLine();
 
             return sb.ToString();
         }
@@ -92,7 +88,7 @@ namespace Propeus.Modulo.Core
             {
                 if (disposing)
                 {
-                    Estado = Abstrato.Estado.Desligado;
+                    Estado = Estado.Desligado;
                 }
 
                 disposedValue = true;
@@ -113,7 +109,7 @@ namespace Propeus.Modulo.Core
             // Não altere este código. Coloque o código de limpeza em Dispose(bool disposing) acima.
             Dispose(true);
             // TODO: remover marca de comentário da linha a seguir se o finalizador for substituído acima.
-            GC.SuppressFinalize(this);
+            //GC.SuppressFinalize(this);
         }
         #endregion
 

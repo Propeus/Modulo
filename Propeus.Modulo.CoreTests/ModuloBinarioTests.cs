@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Core;
+using Propeus.Modulo.Abstrato;
 
 namespace Propeus.Modulo.CoreTests
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Loader;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Dinamico
 {
     /// <summary>
     /// AssemblyLoadContext customizado

@@ -55,7 +55,7 @@ namespace Propeus.Modulo.Abstrato.Util
             object result = obj.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(T));
 
             return result is null
-                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, nameof(T), nameof(obj)))
+                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, typeof(T).Name, nameof(obj)))
                 : result.To<T>();
         }
 

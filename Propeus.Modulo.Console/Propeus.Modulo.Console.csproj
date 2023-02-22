@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<VersionPrefix>1.2.0</VersionPrefix>
+		<VersionPrefix>1.6.12</VersionPrefix>
 		<Description>Modulo simples para visualizção e manipulação de modulos do gerenciador 2</Description>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -17,7 +17,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
-	  <ProjectReference Include="..\Propeus.Modulo.Core\Propeus.Modulo.Core.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -295,7 +295,7 @@ namespace Propeus.Modulo.Abstrato.Util.Tabelas
         /// <summary>
         /// The <see cref="TextWriter"/> to write to. Defaults to <see cref="Console.Out"/>.
         /// </summary>
-        public TextWriter OutputTo { get; set; } = Console.Out;
+        public TextWriter OutputTo { get; set; } = System.Console.Out;
     }
 
     public enum Format

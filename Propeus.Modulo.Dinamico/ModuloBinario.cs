@@ -1,11 +1,15 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Util;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Dinamico
 {
-
     /// <summary>
     /// Modelo para obter informações do binario do modulo
     /// </summary>
@@ -19,18 +23,21 @@ namespace Propeus.Modulo.Core
         {
             Caminho = caminho;
             Memoria = new MemoryStream();
-            using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
+            if (File.Exists(caminho))
             {
-                using (BinaryReader binario = new(arquivo))
+                using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
                 {
-                    binario.BaseStream.CopyTo(Memoria);
-                    binario.Close();
+                    using (BinaryReader binario = new(arquivo))
+                    {
+                        binario.BaseStream.CopyTo(Memoria);
+                        binario.Close();
+                    }
+                    arquivo.Close();
                 }
-                arquivo.Close();
             }
             _ = Memoria.Seek(0, SeekOrigin.Begin);
             Hash = Memoria.GetBuffer().Hash();
-            Modulos = new Collection<IModuloInformacao>();
+            ModuloInformacao = new ModuloInformacao(this);
         }
 
         /// <summary>
@@ -49,43 +56,33 @@ namespace Propeus.Modulo.Core
         public string Hash { get; }
 
         /// <summary>
-        /// Modulos mapeados do binario
+        /// ModuloInformacao mapeados do binario
         /// </summary>
-        public ICollection<IModuloInformacao> Modulos { get; }
+        public IModuloInformacao ModuloInformacao { get; }
 
         /// <summary>
         /// "Ponteiro" onde se encontra o binario em memoria
         /// </summary>
         public Span<byte> Referencia => Memoria.GetBuffer().AsSpan();
-
         /// <summary>
-        /// Registra novas informações de modulo.
+        /// Verifica se o binaro possui algum modulo valido
         /// </summary>
-        /// <param name="moduloInformarcao"></param>
-        public void Registrar(IModuloInformacao moduloInformarcao)
-        {
-            Modulos.Add(moduloInformarcao);
-        }
+        public bool BinarioValido => ModuloInformacao?.ModulosDescobertos > 0;
 
-        /// <summary>
-        /// Remove as informações de modulo.
-        /// </summary>
-        /// <param name="moduloInformarcao"></param>
-        public void Remover(IModuloInformacao moduloInformarcao)
+        public override string ToString()
         {
-            _ = Modulos.Remove(moduloInformarcao);
+            StringBuilder sb = new StringBuilder(base.ToString());
+            _ = sb.Append("Binario valido: ").Append(BinarioValido).AppendLine();
+            _ = sb.Append(ModuloInformacao).AppendLine();
+
+            return sb.ToString();
+
         }
 
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            foreach (IModuloInformacao item in Modulos)
-            {
-                if (!item.Disposed)
-                {
-                    item.Dispose();
-                }
-            }
+            ModuloInformacao.Dispose();
 
         }
 

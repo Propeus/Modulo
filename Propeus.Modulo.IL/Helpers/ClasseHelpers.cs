@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using Propeus.Modulo.Abstrato.Util;
 using Propeus.Modulo.IL.Enums;
@@ -88,8 +89,12 @@ namespace Propeus.Modulo.IL.Helpers
                 API.ClasseAPI.CriarPropriedade(cls.Atual, propriedade.PropertyType, propriedade.Name, propriedadeParametros);
                 ILPropriedade prop = cls.Atual.Propriedades.Last();
 
+                prop.IsProxy = true;
+
                 API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_get.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), prop.Retorno, Constantes.CONST_NME_PROPRIEDADE_METODO_GET + prop.Nome, propriedadeParametros.Select(p => new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_GET + prop.Nome, p)).ToArray());
                 ILMetodo mth_get = cls.Atual.Metodos.Last();
+
+                prop.Getter = mth_get;
 
                 API.MetodoAPI.CarregarArgumento(mth_get);
                 API.MetodoAPI.CarregarValorCampo(mth_get, cmp);
@@ -104,6 +109,8 @@ namespace Propeus.Modulo.IL.Helpers
                 {
                     API.ClasseAPI.CriarMetodo(cls.Atual, mth_info_set.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, new ILParametro[] { new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, prop.Retorno) });
                     ILMetodo mth_set = cls.Atual.Metodos.Last();
+
+                    prop.Setter = mth_set;
 
                     API.MetodoAPI.CarregarArgumento(mth_set);
                     API.MetodoAPI.CarregarValorCampo(mth_set, cmp);
@@ -126,6 +133,21 @@ namespace Propeus.Modulo.IL.Helpers
 
             //    }
             //}
+            #endregion
+
+            #region Atributos
+            //Gera somente atributos com construtores padrao (sem parametros)
+            var attrs = tClasse.GetCustomAttributes();
+            foreach (var attr in attrs)
+            {
+                var ctor = attr.GetType().ObterConstrutor();
+                if (ctor != null)
+                {
+                    CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor,Array.Empty<object>());
+                    cls.Atual.Proxy.ObterBuilder<TypeBuilder>().SetCustomAttribute(attributeBuilder);
+                }
+
+            }
             #endregion
 
             return cls;
