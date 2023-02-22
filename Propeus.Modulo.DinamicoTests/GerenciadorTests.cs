@@ -25,7 +25,7 @@ namespace Propeus.Modulo.DinamicoTests
 
             try
             {
-                gerenciador = new Gerenciador(Core.Gerenciador.Atual);
+                gerenciador = new Gerenciador(Gerenciador.Atual);
             }
             catch
             {

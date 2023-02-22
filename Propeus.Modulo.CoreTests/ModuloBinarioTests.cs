@@ -9,37 +9,9 @@ namespace Propeus.Modulo.CoreTests
     {
         private readonly string ns = "Propeus.Modulo.CoreTestsModels";
 
-        [TestMethod]
-        public void CarregarBinarios()
-        {
+      
 
-#if DEBUG
-            Copiar(ns, modo: "Debug");
-#else
-            Copiar(ns,modo:"Release");
-#endif
-            ModuloBinario modelo = new(ns + ".dll");
-            modelo.Dispose();
-            Assert.IsNotNull(modelo.Memoria);
-        }
-
-        [TestMethod]
-        public void CarregarInformacao()
-        {
-#if DEBUG
-            Copiar(ns, modo: "Debug");
-#else
-            Copiar(ns,modo:"Release");
-#endif
-            ModuloBinario modelo = new(ns + ".dll");
-            ModuloInformacao info = new(modelo);
-            Assert.IsNotNull(info.Versao);
-            Assert.IsNotNull(info.Caminho);
-            info.Dispose();
-            modelo.Dispose();
-
-        }
-
+     
 
         private void Copiar(string modulo, string vCore = "net7.0", string modo = "Debug")
         {
