@@ -18,7 +18,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <typeparam name="T">Tipo da lista</typeparam>
         /// <param name="esquerda">Lista da esquerda</param>
         /// <param name="direita">Lista da direita</param>
-        /// <returns></returns>
+        /// <returns>Retorna os valores em commum das duas listas</returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<T> Join<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
         {
@@ -48,12 +48,12 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         /// <summary>
-        /// Verifica se uma lista contem os parâmetros passados ou se são herdados.
+        /// Indica se todos os valores passados em <paramref name="params"/> estao contido em <paramref name="obj"/>
         /// </summary>
         /// <typeparam name="T">Tipo do parametro a ser verificado</typeparam>
         /// <param name="obj">Lista do tipo <typeparamref name="T"/></param>
         /// <param name="params">Parametros do tipo <typeparamref name="T"/></param>
-        /// <returns></returns>
+        /// <returns>Retorna <see langword="true"/> caso todos os valores estejam contidos em <paramref name="obj"/>. Caso contrario retorna <see langword="false"/></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ContainsAll<T>(this IEnumerable<T> obj, params T[] @params)
         {
@@ -79,42 +79,13 @@ namespace Propeus.Modulo.Abstrato.Util
             }
             return result;
         }
-
+     
         /// <summary>
-        /// Verifica se a lista esta vazia
+        /// Converte uma lista de objetos para uma lista do tipo especificado
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool IsEmpty<T>(this IEnumerable<T> obj)
-        {
-            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : !obj.Any();
-        }
-
-        /// <summary>
-        /// Verifica se a lista não esta vazia
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static bool IsNotEmpty<T>(this IEnumerable<T> obj)
-        {
-            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : obj.Any();
-        }
-
-        /// <summary>
-        /// Verifica se a lista é nula ou vazia
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> obj)
-        {
-            return obj is null || obj.IsEmpty();
-        }
-
+        /// <typeparam name="TSaida">Tipo a ser convertido</typeparam>
+        /// <param name="obj">Lista de objetos a ser convertido</param>
+        /// <returns>Lista de objeto convertido</returns>
         public static IEnumerable<TSaida> Converter<TSaida>(this IEnumerable obj)
         {
             foreach (object entrada in obj)

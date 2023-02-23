@@ -10,7 +10,6 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
     /// </summary>
     public class LimitedConcurrencyLevelTaskScheduler : System.Threading.Tasks.TaskScheduler
     {
-        [ThreadStatic]
         // Indicates whether the current thread is processing work items.
         private bool _currentThreadIsProcessingItems;
 

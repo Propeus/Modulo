@@ -27,11 +27,10 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 #### Public  properties
 | Type | Name | Methods |
 | --- | --- | --- |
-| `bool` | [`Disposed`](#disposed)<br>Informa se as refencias já foram liberadas do objeto. | `get` |
-| [`Estado`](./Estado.md) | [`Estado`](#estado)<br>Representa o estado do objeto. É definido inicialmente como 1 (iniciado) ou 0 (disposed), podendo ser alterado pelo usuario final ou pela regra de negocio | `get, set` |
+| [`Estado`](./Estado.md) | [`Estado`](#estado)<br>Representa o estado do objeto. | `get, set` |
 | `string` | [`Id`](#id)<br>Representação alfanumerica e unica do objeto. | `get` |
-| `string` | [`Nome`](#nome)<br>Representação amigavel do objeto. Caso seja nulo o nome da classe herdado será informado na propriedade. | `get, protected set` |
-| `string` | [`Versao`](#versao)<br>Versão do assembly onde o modulo foi carregado. {Maj}.{Min}.{Build} | `get` |
+| `string` | [`Nome`](#nome)<br>Representação amigavel do ojeto. <br><br> | `get, protected set` |
+| `string` | [`Versao`](#versao)<br>Versao do modelo | `get` |
 
 ### Methods
 #### Public  methods
@@ -43,7 +42,7 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 #### Protected  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`Dispose`](#dispose-12)(`bool` disposing) |
+| `void` | [`Dispose`](#dispose-12)(`bool` disposing)<br>Libera os objetos deste modelo e altera o estado dele para [Estado](./Estado.md).[Desligado](#desligado) |
 
 ## Details
 ### Summary
@@ -57,7 +56,7 @@ Classe com o modelo base para todo o projeto
 
 ### Constructors
 #### BaseModelo [1/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L95)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/BaseModelo.cs#L71)
 ```csharp
 public BaseModelo()
 ```
@@ -65,7 +64,7 @@ public BaseModelo()
 Inicia um modelo basico
 
 #### BaseModelo [2/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L91)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/BaseModelo.cs#L71)
 ```csharp
 public BaseModelo(string nome)
 ```
@@ -79,7 +78,7 @@ Inicia um modelo com um nome customizado
 
 ### Methods
 #### ToString
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L104)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/BaseModelo.cs#L59)
 ```csharp
 public override string ToString()
 ```
@@ -90,17 +89,20 @@ Exibe informações basicas sobre o modelo
 
 
 #### Dispose [1/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L108)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/BaseModelo.cs#L78)
 ```csharp
 protected virtual void Dispose(bool disposing)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `bool` | disposing |   |
+| `bool` | disposing | Indica se deve alterar o estado do objeto para [Estado](./Estado.md).[Desligado](#desligado) |
+
+##### Summary
+Libera os objetos deste modelo e altera o estado dele para [Estado](./Estado.md).[Desligado](#desligado)
 
 #### Dispose [2/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L16707566)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/BaseModelo.cs#L92)
 ```csharp
 public virtual void Dispose()
 ```
@@ -111,28 +113,23 @@ public virtual void Dispose()
 public virtual string Versao { get; }
 ```
 ##### Summary
-Versão do assembly onde o modulo foi carregado. {Maj}.{Min}.{Build}
-
-#### Disposed
-```csharp
-public virtual bool Disposed { get; }
-```
-##### Summary
-Informa se as refencias já foram liberadas do objeto.
+Versao do modelo
 
 #### Estado
 ```csharp
 public Estado Estado { get; set; }
 ```
 ##### Summary
-Representa o estado do objeto. É definido inicialmente como 1 (iniciado) ou 0 (disposed), podendo ser alterado pelo usuario final ou pela regra de negocio
+Representa o estado do objeto.
 
 #### Nome
 ```csharp
 public string Nome { get; protected set; }
 ```
 ##### Summary
-Representação amigavel do objeto. Caso seja nulo o nome da classe herdado será informado na propriedade.
+Representação amigavel do ojeto. 
+
+
 
 #### Id
 ```csharp

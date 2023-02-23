@@ -26,7 +26,6 @@ Identificador de extremidade de um modulo
 
 ### Constructors
 #### ModuloAttribute
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Geradores/ILCampo.cs#L21)
 ```csharp
 public ModuloAttribute()
 ```

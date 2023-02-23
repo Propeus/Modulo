@@ -33,9 +33,7 @@ namespace Propeus.Modulo.Abstrato
         }
 
 
-        /// <summary>
-        /// Versão do assembly onde o modulo foi carregado. {Maj}.{Min}.{Build}
-        /// </summary>
+        ///<inheritdoc/>
         public virtual string Versao
         {
             get
@@ -44,21 +42,13 @@ namespace Propeus.Modulo.Abstrato
                 return $"{ver.Major}.{ver.Minor}.{ver.Build}";
             }
         }
-  
 
-        /// <summary>
-        /// Representa o estado do objeto. É definido inicialmente como 1 (iniciado) ou 0 (disposed), podendo ser alterado pelo usuario final ou pela regra de negocio
-        /// </summary>
+
+        ///<inheritdoc/>
         public Estado Estado { get; set; }
-
-        /// <summary>
-        /// Representação amigavel do objeto. Caso seja nulo o nome da classe herdado será informado na propriedade.
-        /// </summary>
+        ///<inheritdoc/>
         public string Nome { get; protected set; }
-
-        /// <summary>
-        /// Representação alfanumerica e unica do objeto.
-        /// </summary>
+        ///<inheritdoc/>
         public string Id { get; }
 
         /// <summary>
@@ -80,6 +70,10 @@ namespace Propeus.Modulo.Abstrato
         #region IDisposable Support
         private bool disposedValue = false; // Para detectar chamadas redundantes
 
+        /// <summary>
+        /// Libera os objetos deste modelo e altera o estado dele para <see cref="Estado.Desligado"/>
+        /// </summary>
+        /// <param name="disposing">Indica se deve alterar o estado do objeto para <see cref="Estado.Desligado"/></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -93,14 +87,7 @@ namespace Propeus.Modulo.Abstrato
             }
         }
 
-        // TODO: substituir um finalizador somente se Dispose(bool disposing) acima tiver o código para liberar recursos não gerenciados.
-        //~BaseModelo()
-        //{
-        //    // Não altere este código. Coloque o código de limpeza em Dispose(bool disposing) acima.
-        //    Dispose(false);
-        //}
-
-        // Código adicionado para implementar corretamente o padrão descartável.
+        ///<inheritdoc/>
         public void Dispose()
         {
             // Não altere este código. Coloque o código de limpeza em Dispose(bool disposing) acima.

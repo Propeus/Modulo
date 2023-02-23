@@ -35,7 +35,6 @@ Delegate base para invocação de eventos
 
 ### Constructors
 #### Evento
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L118)
 ```csharp
 public Evento(object object, IntPtr method)
 ```
@@ -47,7 +46,6 @@ public Evento(object object, IntPtr method)
 
 ### Methods
 #### Invoke
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L178)
 ```csharp
 public virtual void Invoke(object[] args)
 ```
@@ -57,7 +55,6 @@ public virtual void Invoke(object[] args)
 | `object``[]` | args |   |
 
 #### BeginInvoke
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L182)
 ```csharp
 public virtual IAsyncResult BeginInvoke(object[] args, AsyncCallback callback, object object)
 ```
@@ -69,7 +66,6 @@ public virtual IAsyncResult BeginInvoke(object[] args, AsyncCallback callback, o
 | `object` | object |   |
 
 #### EndInvoke
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L189)
 ```csharp
 public virtual void EndInvoke(IAsyncResult result)
 ```

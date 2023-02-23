@@ -29,7 +29,7 @@ namespace Propeus.Modulo.Dinamico
             _scheduler = new TaskJob(10);
 
             //[POSSIVEL PROBLEMA]Pode acontecer de chamar o moduloBin antes de mapear
-            _scheduler.AddJob((cancelationToken) =>
+            _scheduler.AddTask((cancelationToken) =>
             {
                 var arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
                 foreach (var dll in arquivos_dll)
@@ -58,7 +58,7 @@ namespace Propeus.Modulo.Dinamico
                     }
                 }
             }, TimeSpan.FromSeconds(1), "CARREGAR_MODULO_JOB");
-            _scheduler.AddJob((cancelationToken) =>
+            _scheduler.AddTask((cancelationToken) =>
             {
                 foreach (var moduloBin in Binarios)
                 {

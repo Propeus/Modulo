@@ -1,68 +1,142 @@
 
 namespace Propeus.Modulo.Abstrato
 {
+    /// <summary>
+    /// Classe para adicionar valores constantes
+    /// </summary>
     public static partial class Constantes
     {
-        //Constantes para relato de erro em parâmetros com tipo diferente do especificado
+        /// <summary>
+        /// Constantes para relato de erro em parâmetros com tipo diferente do especificado
+        /// </summary>
         public const string ARGUMENTO_NAO_E_DO_TIPO = "O argumento não é do tipo {0}";
-        //Constantes para relato de erro em parâmetros com tipo diferente do especificado
+        /// <summary>
+        ///Constantes para relato de erro em parâmetros com tipo diferente do especificado 
+        /// </summary>
         public const string ARGUMENTO_NAO_PODE_SER_DO_TIPO = "O argumento não pode ser do tipo {0}";
-        //O argumento não pode ser nulo
+        /// <summary>
+        /// O argumento não pode ser nulo
+        /// </summary>
         public const string ARGUMENTO_NULO = "O argumento não pode ser nulo";
-        //Constantes para relato de erro em parâmetros com valores nulos ou vazios
+        /// <summary>
+        /// Constantes para relato de erro em parâmetros com valores nulos ou vazios
+        /// </summary>
         public const string ARGUMENTO_NULO_OU_VAZIO = "O argumento não pode ser nulo ou vazio";
-        //Constantes para relato de erro em atributos não encontrados
+        /// <summary>
+        /// Constantes para relato de erro em atributos não encontrados
+        /// </summary>
         public const string ATRIBUTO_NAO_ENCONTRADO = "Não foi possível encontrar o atributo {0} no objeto {1}";
-        //Chave para a criptografia
-        public const string DATA_HASH_KEY = "W83sjKUHmkA!@d6Vgyrk=T^Nk^d2VD?Tasr?cAdHE#JE%Xr4Sg-KM9zTkF_v?nEm!_GcmjhYf7ajKS=?zfe5zKMaK%ej9k4JvUKsBA$L=JyEAK%xY@hfX@PKyG!jcDY7R3c-B+9rJ75x6Tpya!^FkbB3_eQ%fmY@Rdqdb#wk$w$wM*wuFwpwfK=4pz&amp;$hj&amp;C!EWGWE!UTCEux-Sdm?Hy6CSb9f$3EEW+@*BCA$D4Y_rptJ4-P#44Ztg#pQX!CSnn^YNcyYjWZV#6Uaw4cbL#zGDEay7ZJgy-NfZS@j^z#GGXfHgTJ&amp;U9KYnEz?Spr_xC6=_-Q*@MbNqE5%sjmbXqB3v9GA-Y95u8rHXkYCjp_L46FFwq-aRB4wK6z?v#FVsdWxqt%gTr_kbVFwEnguWktyXd^#=QjD!vQ++Z-#YX?3Gug4?mPC87u=ee_WqmQ9v7Q?Jz##q%+Zv^Xq&amp;gCjQ9mZvkh&amp;gvN@!JNgrraZbPsv58bYC?ySbUqEp4q5mf$jFgA5t^TjKCuqbaLNpGCfhAUj#BHNxWHjesv3VXZwZCGctMu^CQ7r6H#nA^_TLSPXwSB#_=8*^GD77$XBcJusVx9V&amp;hEwaxACz4F@Eu$arAsycD7Fu$?EvKLS9$-yaWeTH&amp;C_pG#2EP=jNB-djG2uc7!_W9jcnF$_&amp;NGSMpPGn!a23^9LRebb++yLdySfK^aqk#2j^EG&amp;QmBUwG9WD$ZUyWTkuL+_dtE?nbc@k@VwC%nD-G?SY3s@%fLstMMB5q?$$3+7Yhydhz+dz4dqhW#WUqpGQvz#&amp;t-Bm8EFFj@sT9!$S&amp;k_c7$U9ULQKPD2AP#z_$e8Bs=DB#kHspC%NefQa$PWVkv=UdtCv$PE!-JPjew^-6Xp$qNdWA==Z$GRVL%&amp;ZCbP&amp;m*VZGuNfnZK7m?4jAm#%s+k9y9Exee-fADy*hGv!aw&amp;U@dQCMXcVL!Fb%=B+7z8-7&amp;msf!dqNBsCYkX7t5#&amp;^@6#^3+_Qsk+h493tB9_jy7p^6J=zNhva2*XdJE8D%-4yLxEH%gxWBde?f44jq+HgA_f5^L$NKd#_?c*-r9Zv-cS48wbdya8kYcf3vv*kQ%h8Y5@gZc3#JSeQ7cm_bU8GAs!UASfLys5McrN3W-Zfsxj!hkDvtrH^VUnXnxrWVs2cKXy*+uqC+RxA#$qFXLvSbu!Bpne5q?Cz+f=6-hHfp9CpGF7n#GEfkAsSs4zsR8aVM&amp;5fmy*c%w7Vbw6Mn5YX6qFq%v^#QU_Q2kyHexq@S_MN!!5Cm?F_WUvh5gyAF_dEj$@sCE%^p$J8zqP$kc+A9d25uc-QRGB8AduZR?j#h5Ej8-r3rKs!fm-sFQ4&amp;3NcT_7=EYdjA!psLuM%M3tex@mZUK+&amp;4pj^5BmMk@9ZH^Xh$QpqjB-P-cSxAqD^GDszVdfdz%MDkEC%Ccs$gA*g2h&amp;Cvuxm#=@_QC_gf59_=n66rQ2-bt$j=*&amp;3w!aQg-b=s+URqs9nC$rkFa-4tFT3+CSJP@k8M@wFzz8Gx!#u?x&amp;!CNXeqr3FTMXQYSepMpvS_HDYfxgHy!nAgMQBMHsT^KS&amp;&amp;m3?NYXb57!vX?GX9ky_sdG@JYP+HCtmCMr5j73Z+*!ZTKDMdjE5UMPqVkNjkSwf5XmYzt^EaWN+cF?9!jbb@6pGrd9$!Qnu#%WWL?FmhkdpS7=eEL6UbHtm2GCNFqq6fGSu?_&amp;ay+sqxd5THF%9%xvFJyUtFgxTr#^2Ddx++=ScYZA^xVEstKC+@hyAS&amp;vA+fM?4kxxs8Eu!GTCp#RfK&amp;=*=5sFpr+aEnuFufRJ8*fZ8z*b2w6paD*LXDZ8bn+n8s=cBdzHUX$C+L2DFmqebzq^=tvJAx*&amp;T=P2ZMMg!CPGZh_NsU@FQQbh$*F?Sn_PsZALeyp%@dJJhx@magFF^DvPY!E#+g?Jxb#-ANyM6Yq7PX!NTcC*-WTEg&amp;qErLpAA7MZZFFwG_dXCrbAfNdWvjEqKG-a!Me?+3mL$*d#K9-+wTgQ+$@P%?z9d++%YCz+%BErNuWa#B%W##y^8XReED*STErJrUDSUQF#R";
-        //Constantes para relato de erro em enums sem descrição
-        public const string ENUM_SEM_DESCRICAO = "O Enum não possui uma descrição.";
-        //Constantes para relato de objeto obsoleto
-        public const string OBSOLETO_REMOCAO = "O método será removido nas próximas versões.";
-        //Constantes para relato de erro em parâmetros com objetos herdados de Attribute
+        /// <summary>
+        /// Constantes para relato de erro em parâmetros com objetos herdados de Attribute
+        /// </summary>
         public const string PARAMETRO_ATRIBUTO_INVALIDO = "Não é possível obter atributos de um tipo herdado de Attribute";
-        //Constantes para relato de erro em parâmetros não convertidos para o tipo especificado
+        /// <summary>
+        /// Constantes para relato de erro em parâmetros não convertidos para o tipo especificado
+        /// </summary>
         public const string PARAMETRO_NAO_CONVERTIDO = "Não foi possível converter o parâmetro '{0}' para '{1}'.";
-        //Constantes para relato de erro ao tentar encontrar o caminho do próprio executável
-        public const string PROGRAMA_NAO_ENCONTRADO = "Não foi possível encontrar o arquivo do programa atual";
-        //Não foi possível converter o tipo '{0}' para {1}.
+        /// <summary>
+        /// Não foi possível converter o tipo '{0}' para {1}.
+        /// </summary>
         public const string TIPO_NAO_CONVERTIDO = "Constantes para relato de erro em tipos de conversão explicita";
-        //Constantes para relato de erro em tipos não encontrados no assembly
+        /// <summary>
+        /// Constantes para relato de erro em tipos não encontrados no assembly
+        /// </summary>
         public const string VALOR_PADRAO_NAO_ENCONTRADO = "Não foi possível encontrar o valor padrão do parâmetro '{0}'.";
 
+        /// <summary>
+        /// O gerenciador informado nao emplementa a interface <see cref="Modulo.Abstrato.Interfaces.IGerenciadorRegistro"/>
+        /// </summary>
+        public const string GERENCIADOR_INVALIDO = "O gerenciador '{0}' não possui a interface IGerenciadorRegistro implentado.";
+        /// <summary>
+        /// O parametro deve ser preenchido
+        /// </summary>
+        public const string PARAMETRO_NULO = "O parametro  '{0}' não pode ser nulo";
+        /// <summary>
+        /// O parametro deve ser preenchido
+        /// </summary>
+        public const string PARAMETRO_NULO_OU_VAZIO = "O parametro  '{0}' não pode ser nulo ou vazio";
 
-        public const string GerenciadorInvalido = "O gerenciador '{0}' não possui a interface IGerenciadorRegistro implentado.";
-        //O parametro deve ser preenchido
-        public const string ParametroNulo = "O parametro  '{0}' não pode ser nulo";
-        //O parametro deve ser preenchido
-        public const string ParametroNuloOuVazio = "O parametro  '{0}' não pode ser nulo ou vazio";
+        //TODO:Adicionar as funcoes no gerenciador dinamico
+        /// <summary>
+        /// Metodo que o gerenciador irá chamar para realizar as configurações
+        /// </summary>
+        public const string METODO_CONFIGURACAO = "CriarConfiguracao";
+        /// <summary>
+        /// Metodo que o gerenciado deverá realizar a injeção de dependencias.
+        /// </summary>
+        public const string METODO_INSTANCIA = "CriarInstancia";
 
-        //Metodo que o gerenciador irá chamar para realizar as configurações
-        public const string MetodoConfiguracao = "CriarConfiguracao";
-        //Metodo que o gerenciado deverá realizar a injeção de dependencias.
-        public const string MetodoInstancia = "CriarInstancia";
-
-
+        /// <summary>
+        /// O parametro e nulo ou vazio
+        /// </summary>
         public const string ERRO_ARGUMENTO_NULO_OU_VAZIO = "O parametro '{0}' é nulo ou vazio";
+        /// <summary>
+        /// O tipo do argumento nao e o esperado
+        /// </summary>
         public const string ERRO_ARGUMENTO_TIPO_ESPERADO = "O argumento '{0}' requer o tipo '{1}', o tipo passado foi '{2}'";
+        /// <summary>
+        /// O construtor nao possui o parametro <see cref="Interfaces.IGerenciador"/>
+        /// </summary>
         public const string ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO = "O modulo requer um contrutor com o parametro do tipo IGerenciador";
+        /// <summary>
+        /// Nenhum construtor publico foi encontrado
+        /// </summary>
         public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO = "Não foi possivel encontrar um construtor";
-        public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO_PARAMETROS = "Não foi possivel encontrar um construtor com {0} parametros.\nO contrutor {1} requer {2} parametros";
-        public const string ERRO_CONSTRUTOR_PADRAO_NAO_ENCONTRADO = "Não foi encontrado o contrutor padrão {0}({1} gerenciador){{2}}";
-        public const string ERRO_GERENCIADOR_DESATIVADO = "O gerenciador já foi desaativado";
+        /// <summary>
+        /// Nenhum atribuito do tipo <see cref="Atributos.ModuloContratoAttribute"/> foi encontrado na interface atual
+        /// </summary>
         public const string ERRO_MODULO_CONTRATO_NAO_ENCONTRADO = "Não foi possivel encontrar o atributo de contrato";
+        /// <summary>
+        /// O modulo foi descartado
+        /// </summary>
         public const string ERRO_MODULO_ID_DESCARTADO = "Modulo '{0}' foi descartado.";
+        /// <summary>
+        /// O modulo permite somente a instancia unica (singleton)
+        /// </summary>
         public const string ERRO_MODULO_INSTANCIA_UNICA = "Não é possivel criar uma nova instancia de um modulo de instancia unica";
+        /// <summary>
+        /// Nome do modulo incorreto ou inexistente
+        /// </summary>
         public const string ERRO_MODULO_NAO_ENCONTRADO = "Modulo '{0}' não encontrado.\nVerifique se o nome esta correto na interface de contrato";
+        /// <summary>
+        /// Modulos criados fora do gerenciador nao podem ser reiniciados
+        /// </summary>
         public const string ERRO_MODULO_NEW_REINICIAR = "Não é possivel reiniciar modulos criados fora do gerenciador";
+        /// <summary>
+        /// O modulo informado ja foi registrado
+        /// </summary>
         public const string ERRO_MODULO_REGISTRADO = "O modulo '{0}::{1}' já foi registrado";
+        /// <summary>
+        /// O modulo informado ja foi registrado em cache
+        /// </summary>
         public const string ERRO_MODULO_REGISTRADO_CACHE = "O modulo '{0}::{1}' já foi registrado no cache.";
+        /// <summary>
+        /// Modulo nao encontrado ou inexistente
+        /// </summary>
         public const string ERRO_NOME_MODULO_NAO_ENCONTRADO = "Modulo '{0}' não encontrado";
+        /// <summary>
+        /// Existem dois ou mais modulos de mesmo nome
+        /// </summary>
         public const string ERRO_TIPO_AMBIGUO = "Foi encontrado mais de um tipo do modulo '{0}'.";
+        /// <summary>
+        /// O tipo informado nao e uma interface ou classe
+        /// </summary>
         public const string ERRO_TIPO_INVALIDO = "O tipo deve ser uma classe ou interface.";
+        /// <summary>
+        /// O tipo informado nao herda de <see cref="Interfaces.IModulo"/>
+        /// </summary>
         public const string ERRO_TIPO_NAO_HERDADO = "O tipo não é herdado de IModulo";
+        /// <summary>
+        /// A classe atual nao possui o atributo <see cref="Atributos.ModuloAttribute"/>
+        /// </summary>
         public const string ERRO_TIPO_NAO_MARCADO = "O tipo não esta marcado como modulo";
+        /// <summary>
+        /// O tipo informado nao pode ser do tipo <see langword="void"/>
+        /// </summary>
         public const string ERRO_TIPO_VOID = "O tipo não pode ser void";
+        /// <summary>
+        /// O modulo nao existe 
+        /// </summary>
         public const string ERRO_MODULO_ID_NAO_ENCONTRADO = "Modulo nao encontrado pelo id '{0}'";
 
     }

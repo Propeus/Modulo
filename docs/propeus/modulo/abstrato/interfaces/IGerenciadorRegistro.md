@@ -19,7 +19,7 @@ Modelo base para criação de gerenciadores
 #### Public  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`Registrar`](#registrar)([`IModulo`](./IModulo.md) modulo)<br>Registra o modulo no gerenciador <br><br> |
+| `void` | [`Registrar`](#registrar)([`IModulo`](./IModulo.md) modulo)<br>Registra o modulo no gerenciador |
 
 ## Details
 ### Summary
@@ -27,18 +27,15 @@ Modelo base para criação de gerenciadores
 
 ### Methods
 #### Registrar
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/MetodoHelper.cs#L117)
 ```csharp
 public void Registrar(IModulo modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| [`IModulo`](./IModulo.md) | modulo |  |
+| [`IModulo`](./IModulo.md) | modulo | Instancia do modulo |
 
 ##### Summary
-Registra o modulo no gerenciador 
-
-
+Registra o modulo no gerenciador
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

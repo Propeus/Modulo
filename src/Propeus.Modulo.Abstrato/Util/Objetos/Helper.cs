@@ -175,7 +175,7 @@ namespace Propeus.Modulo.Abstrato.Util
                 return Convert.ChangeType(obj, para);
             }
 
-            MethodInfo? box_explicito_implicito = obj.GetType().GetMethod("op_Explicit", new[] { obj.GetType() })
+            MethodInfo box_explicito_implicito = obj.GetType().GetMethod("op_Explicit", new[] { obj.GetType() })
                 ?? obj.GetType().GetMethod("op_Implicit", new[] { obj.GetType() });
 
 

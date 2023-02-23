@@ -22,7 +22,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException"></exception>
         public static string Hash(this byte[] bytes)
         {
-            if (bytes.IsNullOrEmpty())
+            if (bytes is null || !bytes.Any())
             {
                 throw new ArgumentNullException(nameof(bytes), ARGUMENTO_NULO_OU_VAZIO);
             }

@@ -32,8 +32,7 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 | `bool` | [`InstanciaUnica`](#instanciaunica)<br>Informa se o modulo é instancia unica | `get` |
 | [`IModulo`](./IModulo.md) | [`Modulo`](#modulo)<br>Instancia do modulo | `get` |
 | `Type` | [`TipoModulo`](#tipomodulo)<br>Tipo do modulo | `get` |
-| `Type` | [`TipoModuloDinamico`](#tipomodulodinamico)<br>Tipo do modulo gerado automaticamente junto com as intefaces delaclarados na propriedade Contratos | `get` |
-| `WeakReference` | [`WeakReference`](#weakreference)<br>Informações sobre o modulo na visão do GC | `get` |
+| `WeakReference` | [`WeakReference`](#weakreference)<br>Referencia fraca da instancia do modulo | `get` |
 
 ## Details
 ### Summary
@@ -88,18 +87,11 @@ public Type TipoModulo { get; }
 ##### Summary
 Tipo do modulo
 
-#### TipoModuloDinamico
-```csharp
-public Type TipoModuloDinamico { get; }
-```
-##### Summary
-Tipo do modulo gerado automaticamente junto com as intefaces delaclarados na propriedade Contratos
-
 #### WeakReference
 ```csharp
 public WeakReference WeakReference { get; }
 ```
 ##### Summary
-Informações sobre o modulo na visão do GC
+Referencia fraca da instancia do modulo
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

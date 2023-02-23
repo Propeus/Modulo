@@ -14,7 +14,14 @@ namespace Propeus.Modulo.Abstrato.Util
     {
 
 
-
+        /// <summary>
+        /// Converte o enum para o tipo informado usando o attributo <see cref="DescriptionAttribute"/> parao obter o novo valor
+        /// </summary>
+        /// <typeparam name="TAntigoEnum">Tipo do enum atual</typeparam>
+        /// <typeparam name="TNovoEnum">Tipo do novo enum</typeparam>
+        /// <param name="enum">Array de enum antigo</param>
+        /// <returns>Array de enum novos</returns>
+        /// <exception cref="InvalidCastException">O nome do novo enum nao existe</exception>
         public static TNovoEnum[] ParseEnum<TAntigoEnum, TNovoEnum>(this TAntigoEnum[] @enum) where TNovoEnum : struct, Enum
             where TAntigoEnum : struct, Enum
         {
@@ -26,7 +33,7 @@ namespace Propeus.Modulo.Abstrato.Util
                 bool convertido = false;
                 foreach (TNovoEnum vnEnum in vnEnums)
                 {
-                    string? dsc_vnEnum = vnEnum.ObterDescricaoEnum();
+                    string dsc_vnEnum = vnEnum.ObterDescricaoEnum();
                     if (dsc_vnEnum is not null && dsc_vnEnum.Equals(@enum[i].ToString().Trim(), StringComparison.CurrentCultureIgnoreCase))
                     {
                         convertido = true;
@@ -43,6 +50,15 @@ namespace Propeus.Modulo.Abstrato.Util
 
         }
 
+        /// <summary>
+        /// Converte uma cadeia de enums em um array
+        /// </summary>
+        /// <remarks>
+        /// Este metodo so funciona para enums concatenados por ','
+        /// </remarks>
+        /// <typeparam name="TEnum">Tipo do enum que sera dividido</typeparam>
+        /// <param name="enum">Valor do enum a ser dividido</param>
+        /// <returns>Array de enum</returns>
         public static TEnum[] DividirEnum<TEnum>(this TEnum @enum) where TEnum : struct
         {
             string[] sEnum = @enum.ToString().Split(',');
@@ -57,9 +73,15 @@ namespace Propeus.Modulo.Abstrato.Util
 
         }
 
-        public static TEnum[] ObterEnumsConcatenadoBitaBit<TEnum>(this TEnum valorConcatenado) where TEnum : Enum
+        /// <summary>
+        /// Semelhante ao metodo <see cref="DividirEnum{TEnum}(TEnum)"/>, este metodo realiza a divisao utilizando a comparacao bit a bit
+        /// </summary>
+        /// <typeparam name="TEnum">Tipo do enum que sera dividido</typeparam>
+        /// <param name="enum">Valor do enum a ser dividido</param>
+        /// <returns>Array de enum</returns>
+        public static TEnum[] ObterEnumsConcatenadoBitaBit<TEnum>(this TEnum @enum) where TEnum : Enum
         {
-            ulong valorConcatenadoInteiro = Convert.ToUInt64(valorConcatenado);
+            ulong valorConcatenadoInteiro = Convert.ToUInt64(@enum);
             List<TEnum> enums = new();
             foreach (string nome in Enum.GetNames(typeof(TEnum)))
             {
@@ -76,9 +98,13 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <summary>
         /// Concatena um array de enum em um único Enum
         /// </summary>
+        /// <remarks>
+        /// Este metodo realiza a funcao do metodo <see cref="DividirEnum{TEnum}(TEnum)"/> de forma reversa, 
+        /// ou seja, ele concatena todos os valores utilizando ','
+        /// </remarks>
         /// <typeparam name="TEnum"><see cref="Enum"/> qualquer.</typeparam>
         /// <param name="enum">Array de <see cref="Enum"/></param>
-        /// <returns></returns>
+        /// <returns>O enum concatenado</returns>
         /// <exception cref="InvalidCastException">O tipo não é <see cref="Enum"/></exception>
         /// <exception cref="ArgumentException">Argumento <paramref name="enum"/> vazio ou nulo</exception>
         public static TEnum ConcatenarEnum<TEnum>(this TEnum[] @enum)
@@ -105,7 +131,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// </summary>
         /// <typeparam name="TEnum"><see cref="Enum"/> a ser obtido a descrição</typeparam>
         /// <param name="enum">Valor do <see cref="Enum"/> que será obtido a descrição </param>
-        /// <returns></returns>
+        /// <returns>Descricao do enum</returns>
         /// <exception cref="InvalidEnumArgumentException"><see cref="Enum"/> sem descrição</exception>
         /// <exception cref="ArgumentException">Argumento <paramref name="enum"/> nulo</exception>
         public static string ObterDescricaoEnum<TEnum>(this TEnum @enum)

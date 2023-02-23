@@ -16,10 +16,17 @@ namespace Propeus.Modulo.Abstrato.Util
     public static partial class Helper
     {
 
-        public static ConstructorInfo ObterConstrutor(this Type type, Type[]? parametros = null)
+        /// <summary>
+        /// Obtem o construtor que possua os mesmos tipos de parametro
+        /// </summary>
+        /// <param name="type">Tipo que sera obtido o construtor</param>
+        /// <param name="parametros">Os tipos do parametro do construtor</param>
+        /// <returns>Retorna o <see cref="ConstructorInfo"/> caso encontrado</returns>
+        /// <exception cref="Exception">Caso nao existe o contrutor com os parametros informado</exception>
+        public static ConstructorInfo ObterConstrutor(this Type type, Type[] parametros = null)
         {
-            ConstructorInfo? ctor = null;
-            if (parametros.IsNullOrEmpty())
+            ConstructorInfo ctor = null;
+            if (parametros is null || !parametros.Any())
             {
                 ctor = type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0);
 
@@ -73,6 +80,13 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
+        /// <summary>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.TypeBuilder"/>
+        /// </summary>
+        /// <remarks>
+        /// Este metodo e necessario para evitar vazamentos de memoria
+        /// </remarks>
+        /// <param name="tb">A instancia do <see cref="TypeBuilder"/></param>
         public static void Dispose(this TypeBuilder tb)
         {
             if (tb == null)
@@ -120,6 +134,13 @@ namespace Propeus.Modulo.Abstrato.Util
 
             tbGenTypeParArr.SetValue(tb, null);
         }
+        /// <summary>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.MethodBuilder"/>
+        /// </summary>
+        /// <remarks>
+        /// Este metodo e necessario para evitar vazamentos de memoria
+        /// </remarks>
+        /// <param name="mb">A instancia do <see cref="MethodBuilder"/></param>
         public static void Dispose(this MethodBuilder mb)
         {
             if (mb == null)
@@ -152,6 +173,13 @@ namespace Propeus.Modulo.Abstrato.Util
             mbSigHelp.SetValue(mb, null);
             mbMod.SetValue(mb, null);
         }
+        /// <summary>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.SignatureHelper"/>
+        /// </summary>
+        /// <remarks>
+        /// Este metodo e necessario para evitar vazamentos de memoria
+        /// </remarks>
+        /// <param name="sh">A instancia do <see cref="SignatureHelper"/></param>
         public static void Dispose(this SignatureHelper sh)
         {
             if (sh == null)
@@ -165,6 +193,13 @@ namespace Propeus.Modulo.Abstrato.Util
             shModule.SetValue(sh, null);
             //shSig.SetValue(sh, null);
         }
+        /// <summary>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.ILGenerator"/>
+        /// </summary>
+        /// <remarks>
+        /// Este metodo e necessario para evitar vazamentos de memoria
+        /// </remarks>
+        /// <param name="ilGen">A instancia do <see cref="ILGenerator"/></param>
         public static void Dispose(this ILGenerator ilGen)
         {
             if (ilGen == null)
@@ -178,7 +213,15 @@ namespace Propeus.Modulo.Abstrato.Util
             sigTemp.Dispose();
             ilSigHelp.SetValue(ilGen, null);
         }
-        public static void Dispose(this ModuleBuilder modBuild, string? nome = null)
+        /// <summary>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.ModuleBuilder"/>
+        /// </summary>
+        /// <remarks>
+        /// Este metodo e necessario para evitar vazamentos de memoria
+        /// </remarks>
+        /// <param name="modBuild">A instancia do <see cref="ModuleBuilder"/></param>
+        /// <param name="nome">Nome do tipo que possui o metodo</param>
+        public static void Dispose(this ModuleBuilder modBuild, string nome = null)
         {
             if (modBuild == null)
             {
@@ -186,7 +229,6 @@ namespace Propeus.Modulo.Abstrato.Util
             }
 
             Type modBuildType = typeof(ModuleBuilder);
-            //FieldInfo modBuildModData = modBuildType.GetField("m__moduleData", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
             FieldInfo modTypeBuildList = modBuildType.GetField("_typeBuilderDict", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
 
             if (modTypeBuildList.GetValue(modBuild) is Dictionary<string, Type> modTypeList)
@@ -210,15 +252,10 @@ namespace Propeus.Modulo.Abstrato.Util
                         _ = modTypeList.Remove(nome);
                     }
                 }
-                //for (int i = 0; i < modTypeList.Count; i++)
-                //{
-                //    TypeBuilder tb = modTypeList[i] as TypeBuilder;
-                //    tb.Dispose();
-                //    modTypeList = null;
-                //}
+
 
             }
-            ////modBuildModData.SetValue(modBuild, null);
+
         }
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
 

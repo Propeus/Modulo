@@ -26,7 +26,6 @@ Informa se o modulo atual é opcional a sua instancia
 
 ### Constructors
 #### ModuloOpcionalAttribute
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Atributos/ModuloOpcionalAttribute.cs#L11)
 ```csharp
 public ModuloOpcionalAttribute()
 ```

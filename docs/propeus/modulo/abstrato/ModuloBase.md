@@ -39,7 +39,7 @@ Propeus.Modulo.Abstrato.BaseModelo --> Propeus.Modulo.Abstrato.ModuloBase
 #### Public  methods
 | Returns | Name |
 | --- | --- |
-| `string` | [`ToString`](#tostring)() |
+| `string` | [`ToString`](#tostring)()<br>Exibe informacoes basicas sobre o modulo |
 
 ## Details
 ### Summary
@@ -59,7 +59,7 @@ Classe base para o modulo
 
 ### Constructors
 #### ModuloBase
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L195)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/ModuloBase.cs#L20)
 ```csharp
 public ModuloBase(IGerenciador gerenciador, bool instanciaUnica)
 ```
@@ -74,10 +74,15 @@ Inicia um modulo com um gerenciador
 
 ### Methods
 #### ToString
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L218)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/ModuloBase.cs#L51)
 ```csharp
 public override string ToString()
 ```
+##### Summary
+Exibe informacoes basicas sobre o modulo
+
+##### Returns
+
 
 ### Properties
 #### InstanciaUnica

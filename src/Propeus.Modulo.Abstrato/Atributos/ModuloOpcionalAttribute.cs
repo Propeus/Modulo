@@ -8,8 +8,5 @@ namespace Propeus.Modulo.Abstrato.Atributos
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
     public sealed class ModuloOpcionalAttribute : Attribute
     {
-        public ModuloOpcionalAttribute()
-        {
-        }
     }
 }

@@ -1,5 +1,8 @@
 # Constantes `class`
 
+## Description
+Classe para adicionar valores constantes
+
 ## Diagram
 ```mermaid
   flowchart LR
@@ -9,5 +12,9 @@
   Propeus.Modulo.Abstrato.Constantes[[Constantes]]
   end
 ```
+
+## Details
+### Summary
+Classe para adicionar valores constantes
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

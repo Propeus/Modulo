@@ -47,7 +47,6 @@ Modelo base para criação de gerenciadores
 
 ### Methods
 #### Criar [1/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILDiv.cs#L9)
 ```csharp
 public T Criar<T>(object[] args)
 where T : IModulo
@@ -58,24 +57,22 @@ where T : IModulo
 | `object``[]` | args |   |
 
 #### Criar [2/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILDiv.cs#L14)
 ```csharp
 public IModulo Criar(Type modulo, object[] args)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | modulo |  |
-| `object``[]` | args |  |
+| `Type` | modulo | Tipo do modulo |
+| `object``[]` | args | Os parametros do construtor do modulo |
 
 ##### Summary
 Cria uma nova instancia do modulo usando o tipo do parametro `modulo`
 
 ##### Returns
-
+[IModulo](./IModulo.md)
 
 #### Criar [3/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILDiv.cs#L26)
 ```csharp
 public IModulo Criar(string nomeModulo, object[] args)
 ```
@@ -83,16 +80,15 @@ public IModulo Criar(string nomeModulo, object[] args)
 | Type | Name | Description |
 | --- | --- | --- |
 | `string` | nomeModulo | Nome do modulo |
-| `object``[]` | args | Argumentos a serem enviadoss |
+| `object``[]` | args | Argumentos a serem enviados |
 
 ##### Summary
 Cria uma nova instancia do modulo buscando o tipo pelo nome
 
 ##### Returns
-
+[IModulo](./IModulo.md)
 
 #### Remover [1/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILMul.cs#L9)
 ```csharp
 public void Remover(string id)
 ```
@@ -105,7 +101,6 @@ public void Remover(string id)
 Remove um modulo pelo seu ID
 
 #### Remover [2/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILMul.cs#L14)
 ```csharp
 public void Remover<T>(T modulo)
 where T : IModulo
@@ -116,7 +111,6 @@ where T : IModulo
 | `T` | modulo |   |
 
 #### RemoverTodos
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILMul.cs#L26)
 ```csharp
 public void RemoverTodos()
 ```
@@ -124,14 +118,12 @@ public void RemoverTodos()
 Remove todos os modulos
 
 #### Obter [1/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILSub.cs#L9)
 ```csharp
 public T Obter<T>()
 where T : IModulo
 ```
 
 #### Obter [2/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILSub.cs#L14)
 ```csharp
 public IModulo Obter(Type type)
 ```
@@ -146,10 +138,9 @@ Obtem a instancia de `type` caso exista
 
 
 ##### Returns
-
+[IModulo](./IModulo.md)
 
 #### Obter [3/3]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Pilhas/Aritimetico/ILSub.cs#L26)
 ```csharp
 public IModulo Obter(string id)
 ```
@@ -162,7 +153,7 @@ public IModulo Obter(string id)
 Obtem a instancia do modulo pelo id
 
 ##### Returns
-
+[IModulo](./IModulo.md)
 
 #### Existe [1/3]
 ```csharp
@@ -171,13 +162,13 @@ public bool Existe(IModulo modulo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| [`IModulo`](./IModulo.md) | modulo |  |
+| [`IModulo`](./IModulo.md) | modulo | A instancia do modulo |
 
 ##### Summary
 Verifica se a instancia do modulo existe no genrenciador
 
 ##### Returns
-
+Boolean
 
 #### Existe [2/3]
 ```csharp
@@ -192,7 +183,7 @@ public bool Existe(Type type)
 Verifica se existe alguma instancia do tipo no gerenciador
 
 ##### Returns
-
+Boolean
 
 #### Existe [3/3]
 ```csharp
@@ -207,10 +198,9 @@ public bool Existe(string id)
 Verifica se existe alguma instancia com o id no gerenciador
 
 ##### Returns
-
+Boolean
 
 #### Reiniciar [1/2]
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/CampoHelpers.cs#L26)
 ```csharp
 public T Reiniciar<T>(T modulo)
 where T : IModulo
@@ -233,10 +223,9 @@ public IModulo Reiniciar(string id)
 Realiza uma reciclagem do modulo
 
 ##### Returns
-
+Boolean
 
 #### Listar
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/MetodoHelper.cs#L59)
 ```csharp
 public IEnumerable<IModulo> Listar()
 ```
@@ -244,10 +233,9 @@ public IEnumerable<IModulo> Listar()
 Lista todos os modulos
 
 ##### Returns
-
+IEnumerable&lt;ModularDoc.Elements.Markdown.TextElement&gt;
 
 #### ManterVivoAsync
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/MetodoHelper.cs#L64)
 ```csharp
 public Task ManterVivoAsync()
 ```
@@ -255,6 +243,6 @@ public Task ManterVivoAsync()
 Mantem o gerenciador vivo durante o uso da aplicação
 
 ##### Returns
-
+Task
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

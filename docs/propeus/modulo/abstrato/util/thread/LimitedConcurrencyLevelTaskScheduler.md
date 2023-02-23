@@ -42,7 +42,7 @@ https://docs.microsoft.com/pt-br/dotnet/api/system.threading._tasks.taskschedule
 
 ### Constructors
 #### LimitedConcurrencyLevelTaskScheduler
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L18)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L17)
 ```csharp
 public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
 ```
@@ -56,7 +56,7 @@ Creates a new instance with the specified degree of parallelism.
 
 ### Methods
 #### QueueTask
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L45)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L44)
 ```csharp
 protected override void QueueTask(Task task)
 ```
@@ -69,7 +69,7 @@ protected override void QueueTask(Task task)
 Queues a task to the _scheduler.
 
 #### TryExecuteTaskInline
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L104)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L103)
 ```csharp
 protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
 ```
@@ -86,7 +86,7 @@ Attempts to execute the specified task on the current thread.
 
 
 #### TryDequeue
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L129)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L128)
 ```csharp
 protected override bool TryDequeue(Task task)
 ```
@@ -102,7 +102,7 @@ Attempt to remove a previously scheduled task from the _scheduler.
 
 
 #### GetScheduledTasks
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L146)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/Util/Thread/LimitedConcurrencyLevelTaskScheduler.cs#L145)
 ```csharp
 protected override IEnumerable<Task> GetScheduledTasks()
 ```

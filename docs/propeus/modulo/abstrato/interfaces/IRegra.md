@@ -27,19 +27,18 @@ Interface basica para execução de regras de negocio
 
 ### Methods
 #### Executar
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/GeradorHelper.cs#L18)
 ```csharp
 public bool Executar(object[] args)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `object``[]` | args |  |
+| `object``[]` | args | Argumentos para a regra |
 
 ##### Summary
 Função basica para execução de regras de negocio
 
 ##### Returns
-
+Retorna caso a regra tenha sido executada com sucesso, caso contrario retorna
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

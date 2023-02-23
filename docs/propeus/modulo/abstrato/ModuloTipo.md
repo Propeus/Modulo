@@ -34,24 +34,23 @@ Propeus.Modulo.Abstrato.BaseModelo --> Propeus.Modulo.Abstrato.ModuloTipo
 | --- | --- | --- |
 | `bool` | [`Coletado`](#coletado)<br>Informa se o modulo foi coletado pelo GC | `get` |
 | `bool` | [`Elimindado`](#elimindado)<br>Informa se o modulo foi eliminado da aplicação | `get` |
-| `string` | [`IdModulo`](#idmodulo) | `get` |
+| `string` | [`IdModulo`](#idmodulo)<br>Informa o id gerado para o modulo instanciado | `get` |
 | `bool` | [`InstanciaUnica`](#instanciaunica)<br>Informa se o modulo é instancia unica | `get` |
 | [`IModulo`](interfaces/IModulo.md) | [`Modulo`](#modulo)<br>Instancia do modulo | `get` |
 | `Type` | [`TipoModulo`](#tipomodulo)<br>Tipo do modulo | `get` |
-| `Type` | [`TipoModuloDinamico`](#tipomodulodinamico) | `get, set` |
-| `string` | [`Versao`](#versao) | `get` |
-| `WeakReference` | [`WeakReference`](#weakreference)<br>Informações sobre o modulo na visão do GC | `get, protected set` |
+| `string` | [`Versao`](#versao)<br>Versao do modulo | `get` |
+| `WeakReference` | [`WeakReference`](#weakreference)<br>Referencia fraca da instancia do modulo | `get, protected set` |
 
 ### Methods
 #### Public  methods
 | Returns | Name |
 | --- | --- |
-| `string` | [`ToString`](#tostring)() |
+| `string` | [`ToString`](#tostring)()<br>Exibe informacoes detalhadas sobre o modulo e seu estado no .NET |
 
 #### Protected  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`Dispose`](#dispose)(`bool` disposing) |
+| `void` | [`Dispose`](#dispose)(`bool` disposing)<br>Libera os objetos deste modelo e altera o estado dele para [Estado](./Estado.md).[Desligado](#desligado) |
 
 ## Details
 ### Summary
@@ -71,37 +70,55 @@ Informa detalhes sobre o modulo instanciado
 
 ### Constructors
 #### ModuloTipo
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/Gerenciador.cs#L227)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/ModuloTipo.cs#L20)
 ```csharp
 public ModuloTipo(IModulo modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| [`IModulo`](interfaces/IModulo.md) | modulo |   |
+| [`IModulo`](interfaces/IModulo.md) | modulo | Instancia do modulo |
+
+##### Summary
+Inicializa o objeto informando a instancia do modulo
+
+##### Exceptions
+| Name | Description |
+| --- | --- |
+| ArgumentNullException | Modulo nao pode ser nulo |
 
 ### Methods
 #### ToString
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/ModuloBinario.cs#L46)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/ModuloTipo.cs#L58)
 ```csharp
 public override string ToString()
 ```
+##### Summary
+Exibe informacoes detalhadas sobre o modulo e seu estado no .NET
+
+##### Returns
+
 
 #### Dispose
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.Dinamico/ModuloBinario.cs#L51)
+[*Source code*](https://github.com///blob//src/Propeus.Modulo.Abstrato/ModuloTipo.cs#L74)
 ```csharp
 protected override void Dispose(bool disposing)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `bool` | disposing |   |
+| `bool` | disposing | Indica se deve alterar o estado do objeto para [Estado](./Estado.md).[Desligado](#desligado) |
+
+##### Summary
+Libera os objetos deste modelo e altera o estado dele para [Estado](./Estado.md).[Desligado](#desligado)
 
 ### Properties
 #### Versao
 ```csharp
 public override string Versao { get; }
 ```
+##### Summary
+Versao do modulo
 
 #### Coletado
 ```csharp
@@ -122,7 +139,7 @@ Informa se o modulo foi eliminado da aplicação
 public WeakReference WeakReference { get; protected set; }
 ```
 ##### Summary
-Informações sobre o modulo na visão do GC
+Referencia fraca da instancia do modulo
 
 #### Modulo
 ```csharp
@@ -149,10 +166,7 @@ Informa se o modulo é instancia unica
 ```csharp
 public virtual string IdModulo { get; }
 ```
-
-#### TipoModuloDinamico
-```csharp
-public Type TipoModuloDinamico { get; set; }
-```
+##### Summary
+Informa o id gerado para o modulo instanciado
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

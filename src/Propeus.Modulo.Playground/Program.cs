@@ -68,7 +68,7 @@ namespace Propeus.Modulo.IL.Playground
 
             Parallel.For(0, 9999, (i) =>
             {
-                cronTask.AddJob((state) =>
+                cronTask.AddTask((state) =>
                 {
                     CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)state;
                     if (!keyValuePairs.TryAdd(i, 0))

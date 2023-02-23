@@ -23,7 +23,6 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 #### Public  properties
 | Type | Name | Methods |
 | --- | --- | --- |
-| `bool` | [`Disposed`](#disposed)<br>Informa se as refencias já foram liberadas do objeto. | `get` |
 | [`Estado`](../Estado.md) | [`Estado`](#estado)<br>Representa o estado do objeto. | `get` |
 | `string` | [`Id`](#id)<br>Representação alfanumerica e unica do objeto. | `get` |
 | `string` | [`Nome`](#nome)<br>Representação amigavel do ojeto. <br><br> | `get` |
@@ -43,13 +42,6 @@ public string Versao { get; }
 ```
 ##### Summary
 Versao do modelo
-
-#### Disposed
-```csharp
-public bool Disposed { get; }
-```
-##### Summary
-Informa se as refencias já foram liberadas do objeto.
 
 #### Estado
 ```csharp

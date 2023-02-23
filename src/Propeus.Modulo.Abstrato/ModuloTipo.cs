@@ -12,7 +12,11 @@ namespace Propeus.Modulo.Abstrato
     public class ModuloTipo : BaseModelo, IModuloTipo
     {
 
-
+        /// <summary>
+        /// Inicializa o objeto informando a instancia do modulo
+        /// </summary>
+        /// <param name="modulo">Instancia do modulo</param>
+        /// <exception cref="ArgumentNullException">Modulo nao pode ser nulo</exception>
         public ModuloTipo(IModulo modulo)
         {
             if (modulo is null)
@@ -26,36 +30,30 @@ namespace Propeus.Modulo.Abstrato
             Versao = modulo.Versao;
         }
 
+        /// <summary>
+        /// Versao do modulo
+        /// </summary>
         public override string Versao { get; }
-        /// <summary>
-        /// Informa se o modulo foi coletado pelo <see cref="GC"/>
-        /// </summary>
+        ///<inheritdoc/>
         public bool Coletado => WeakReference is null || !WeakReference.IsAlive;
-        /// <summary>
-        /// Informa se o modulo foi eliminado da aplicação
-        /// </summary>
+        ///<inheritdoc/>
         public bool Elimindado => Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado;
-        /// <summary>
-        /// Informações sobre o modulo na visão do <see cref="GC"/>
-        /// </summary>
-        public WeakReference? WeakReference { get; protected set; }
-        /// <summary>
-        /// Instancia do modulo
-        /// </summary>
+        ///<inheritdoc/>
+        public WeakReference WeakReference { get; protected set; }
+        ///<inheritdoc/>
         public IModulo Modulo => WeakReference.Target as IModulo;
-        /// <summary>
-        /// Tipo do modulo
-        /// </summary>
+        ///<inheritdoc/>
         public Type TipoModulo => WeakReference?.Target?.GetType();
 
-        /// <summary>
-        /// Informa se o modulo é instancia unica
-        /// </summary>
+        ///<inheritdoc/>
         public bool InstanciaUnica { get; }
+        ///<inheritdoc/>
         public string IdModulo { get; }
 
-        public Type TipoModuloDinamico { get; protected internal set; }
-
+        /// <summary>
+        /// Exibe informacoes detalhadas sobre o modulo e seu estado no .NET
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder sb = new(base.ToString());
@@ -71,6 +69,7 @@ namespace Propeus.Modulo.Abstrato
             return sb.ToString();
         }
 
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (!Elimindado)

@@ -154,45 +154,6 @@ namespace Propeus.Modulo.Abstrato.Util
         {
             return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (IEnumerable<Type>)obj.GetInterfaces();
         }
-
-        /// <summary>
-        /// Obtem todos os metodos do tipo que possuem o mesmo nome
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static IEnumerable<MethodInfo> ObterMetodos(this Type obj, string nome)
-        {
-            return obj is null
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.ObterMetodos().Where(m => m.Name == nome);
-        }
-
-        /// <summary>
-        /// Obtem todos os metodos do tipo.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<MethodInfo> ObterMetodos(this Type obj)
-        {
-            return obj is null
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : obj.GetMethods().Where(x => !x.IsSpecialName && !x.Name.Contains("get_") && !x.Name.Contains("set_"));
-        }
-
-
-     
-
-     
-
-     
-
-     
-
      
     }
 }

@@ -26,7 +26,7 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 #### Public  properties
 | Type | Name | Methods |
 | --- | --- | --- |
-| `bool` | [`BinarioValido`](#binariovalido) | `get` |
+| `bool` | [`BinarioValido`](#binariovalido)<br>Indica se o binario possui algum modulo valido ( ) ou nao ( ) | `get` |
 | `string` | [`Caminho`](#caminho)<br>Caminho onde se encontra o binario do modulo | `get` |
 | `string` | [`Hash`](#hash)<br>Hash do binario do modulo | `get` |
 | `MemoryStream` | [`Memoria`](#memoria)<br>Conteudo do modulo armazenado em memoria | `get` |
@@ -83,5 +83,7 @@ public Span<byte> Referencia { get; }
 ```csharp
 public bool BinarioValido { get; }
 ```
+##### Summary
+Indica se o binario possui algum modulo valido ( ) ou nao ( )
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

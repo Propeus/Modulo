@@ -29,21 +29,19 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 | `Assembly` | [`Assembly`](#assembly)<br>Assembly a qual o modulo pertence | `get` |
 | `AssemblyName` | [`AssemblyName`](#assemblyname)<br>Informações sobre o assembly do modulo | `get` |
 | `string` | [`Caminho`](#caminho)<br>Caminho do modulo em disco | `get` |
-| `string` | [`Hash`](#hash)<br>Hash obtido de ModuloBinario | `get` |
 | [`IModuloTipo`](./IModuloTipo.md) | [`Item`](#item) | `get, set` |
 | `Dictionary`&lt;`string`, [`IModuloTipo`](./IModuloTipo.md)&gt; | [`Modulos`](#modulos)<br>ModuloInformacao mapeados do assembly | `get` |
 | `int` | [`ModulosCarregados`](#moduloscarregados)<br>Informa a quantidade de modulos criados. | `get` |
 | `int` | [`ModulosDescobertos`](#modulosdescobertos)<br>Informa a quantidade de modulos disponiveis dentro de uma DLL | `get` |
-| `int` | [`NumeroVersaoAssembly`](#numeroversaoassembly)<br>Concatenação da versão | `get` |
 
 ### Methods
 #### Public  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`AdicionarContrato`](#adicionarcontrato)(`string` nomeModulo, `Type` contrato) |
-| `Type` | [`CarregarTipoModulo`](#carregartipomodulo)(`string` nomeModulo) |
-| `List`&lt;`Type`&gt; | [`ObterContratos`](#obtercontratos)(`string` nomeModulo) |
-| `bool` | [`PossuiModulo`](#possuimodulo)(`string` nomeModulo) |
+| `void` | [`AdicionarContrato`](#adicionarcontrato)(`string` nomeModulo, `Type` contrato)<br>Atrela uma interface de contrato ao modulo |
+| `Type` | [`CarregarTipoModulo`](#carregartipomodulo)(`string` nomeModulo)<br>Obtem o Type do modulo informado |
+| `List`&lt;`Type`&gt; | [`ObterContratos`](#obtercontratos)(`string` nomeModulo)<br>Obtem as interfaces de contratos atrelados ao modulo |
+| `bool` | [`PossuiModulo`](#possuimodulo)(`string` nomeModulo)<br>Indica se o modulo informado esta prensente |
 
 ## Details
 ### Summary
@@ -57,58 +55,68 @@ Interface de modelo para detalhar informações sobre o modulo
 
 ### Methods
 #### AdicionarContrato
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/MetodoHelper.cs#L245)
 ```csharp
 public void AdicionarContrato(string nomeModulo, Type contrato)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
-| `Type` | contrato |   |
+| `string` | nomeModulo | Nome do modulo que ira receber o contrato |
+| `Type` | contrato | O tipo da interface de contrato |
+
+##### Summary
+Atrela uma interface de contrato ao modulo
 
 #### CarregarTipoModulo
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/MetodoHelper.cs#L253)
 ```csharp
 public Type CarregarTipoModulo(string nomeModulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
+| `string` | nomeModulo | Nome do modulo a ser obtido o Type |
+
+##### Summary
+Obtem o Type do modulo informado
+
+##### Returns
+Type
 
 #### ObterContratos
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/ClasseHelpers.cs#L18)
 ```csharp
 public List<Type> ObterContratos(string nomeModulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
+| `string` | nomeModulo | Nome do modulo a ser buscado as interfaces de contrato |
+
+##### Summary
+Obtem as interfaces de contratos atrelados ao modulo
+
+##### Returns
+List&lt;ModularDoc.Elements.Markdown.TextElement&gt;
 
 #### PossuiModulo
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Helpers/ClasseHelpers.cs#L158)
 ```csharp
 public bool PossuiModulo(string nomeModulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
+| `string` | nomeModulo | Nome do modulo |
+
+##### Summary
+Indica se o modulo informado esta prensente
+
+##### Returns
+Retorna caso ache o modulo, caso contrario retorna
 
 ### Properties
 #### Item
 ```csharp
 public IModuloTipo Item { get; set; }
 ```
-
-#### NumeroVersaoAssembly
-```csharp
-public int NumeroVersaoAssembly { get; }
-```
-##### Summary
-Concatenação da versão
 
 #### Assembly
 ```csharp
@@ -137,13 +145,6 @@ public string Caminho { get; }
 ```
 ##### Summary
 Caminho do modulo em disco
-
-#### Hash
-```csharp
-public string Hash { get; }
-```
-##### Summary
-Hash obtido de ModuloBinario
 
 #### ModulosDescobertos
 ```csharp

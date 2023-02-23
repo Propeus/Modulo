@@ -26,7 +26,6 @@ Indica se o modulo marcado deve ser inicializado após o mapeamento
 
 ### Constructors
 #### ModuloAutoInicializavelAttribute
-[*Source code*](https://github.com///blob//src/Propeus.Modulo.IL/Geradores/ILGerador.cs#L15)
 ```csharp
 public ModuloAutoInicializavelAttribute()
 ```

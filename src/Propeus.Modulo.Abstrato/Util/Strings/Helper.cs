@@ -43,6 +43,11 @@ namespace Propeus.Modulo.Abstrato.Util
             return string.IsNullOrEmpty(str);
         }
 
+        /// <summary>
+        /// Obtem o tipo pelo nome 
+        /// </summary>
+        /// <param name="nomeTipo">Nome do tipo</param>
+        /// <returns>Retorna o <see cref="Type"/></returns>
         public static Type ObterTipo(this string nomeTipo)
         {
            return Assembly.GetExecutingAssembly().GetType(nomeTipo);

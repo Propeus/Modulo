@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Util.Console
 {
+    /// <summary>
+    /// Classe de extencao para o <see cref="System.Configuration"/>
+    /// </summary>
     public static partial class Console
     {
+        /// <summary>
+        /// Le uma linha no console de forma assincrona
+        /// </summary>
+        /// <param name="cancellationToken">Use o <see cref="CancellationTokenSource"/> para finalizar esta tarefa</param>
+        /// <returns>Texto inserido no console</returns>
         public static string ReadLine(CancellationToken cancellationToken)
         {
             StringBuilder stringBuilder = new StringBuilder();

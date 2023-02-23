@@ -46,4 +46,7 @@ public bool InstanciaUnica { get; }
 ##### Summary
 Informa se o modulo é instancia unica
 
+##### Value
+
+
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

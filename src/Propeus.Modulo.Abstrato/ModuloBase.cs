@@ -27,7 +27,7 @@ namespace Propeus.Modulo.Abstrato
             }
             else
             {
-                throw new ArgumentException(string.Format(GerenciadorInvalido, nameof(gerenciador)), nameof(gerenciador));
+                throw new ArgumentException(string.Format(GERENCIADOR_INVALIDO, nameof(gerenciador)), nameof(gerenciador));
             }
 
             Nome = GetType().Name;
@@ -43,6 +43,10 @@ namespace Propeus.Modulo.Abstrato
         /// </summary>
         public IGerenciador Gerenciador { get; }
 
+        /// <summary>
+        /// Exibe informacoes basicas sobre o modulo
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             StringBuilder sb = new(base.ToString());
