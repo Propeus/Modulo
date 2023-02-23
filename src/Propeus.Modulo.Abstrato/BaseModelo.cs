@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
@@ -54,7 +55,7 @@ namespace Propeus.Modulo.Abstrato
         public Estado Estado { get; set; }
 
         /// <summary>
-        /// Representação amigavel do ojeto. Caso seja nulo o nome da classe herdado será informado na propriedade.
+        /// Representação amigavel do objeto. Caso seja nulo o nome da classe herdado será informado na propriedade.
         /// </summary>
         public string Nome { get; protected set; }
 

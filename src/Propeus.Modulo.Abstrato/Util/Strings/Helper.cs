@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using Propeus.Modulo.Abstrato.Util.Tabelas;

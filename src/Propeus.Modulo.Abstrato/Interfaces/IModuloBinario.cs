@@ -1,4 +1,7 @@
-﻿namespace Propeus.Modulo.Abstrato.Interfaces
+﻿using System;
+using System.IO;
+
+namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Interface de modelo para obter informações do binario do modulo

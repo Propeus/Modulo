@@ -1,4 +1,6 @@
-﻿namespace Propeus.Modulo.Abstrato.Interfaces
+﻿using System;
+
+namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Obtem informacoes de diagnostico do gerenciador

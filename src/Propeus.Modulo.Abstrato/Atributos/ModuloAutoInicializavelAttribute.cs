@@ -1,4 +1,5 @@
-﻿namespace Propeus.Modulo.Abstrato.Atributos
+﻿using System;
+namespace Propeus.Modulo.Abstrato.Atributos
 {
     /// <summary>
     /// Indica se o modulo marcado deve ser inicializado após o mapeamento 

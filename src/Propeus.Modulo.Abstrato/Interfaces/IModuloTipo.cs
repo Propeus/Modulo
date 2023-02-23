@@ -1,4 +1,5 @@
-﻿namespace Propeus.Modulo.Abstrato.Interfaces
+﻿using System;
+namespace Propeus.Modulo.Abstrato.Interfaces
 {
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado

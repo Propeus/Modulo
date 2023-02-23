@@ -1,4 +1,9 @@
-﻿namespace Propeus.Modulo.Abstrato.Util.Thread
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Propeus.Modulo.Abstrato.Util.Thread
 {
     /// <summary>
     /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading._tasks.taskscheduler?view=netcore-3.1
