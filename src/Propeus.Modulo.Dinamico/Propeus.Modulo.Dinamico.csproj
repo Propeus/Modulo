@@ -20,6 +20,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<NeutralLanguage>pt-BR</NeutralLanguage>
 		<Platforms>AnyCPU;x64;x86</Platforms>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

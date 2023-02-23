@@ -1,20 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="LICENCE">
-      <PackagePath>\</PackagePath>
-      <Pack>True</Pack>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="LICENCE">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
 </Project>
