@@ -151,7 +151,6 @@ namespace Propeus.Modulo.IL.Geradores
         public override string ToString()
         {
             return disposedValue ? string.Empty : atual.ToString();
-            return _versoes.WriteTable();
         }
 
         private bool disposedValue;

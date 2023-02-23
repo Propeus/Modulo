@@ -54,7 +54,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterTipoParametros(this ConstructorInfo action)
         {
-            return action.IsNull()
+            return action is null
                 ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
@@ -67,52 +67,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterTipoParametros(this MethodInfo action)
         {
-            return action.IsNull()
+            return action is null
                 ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
-        }
-
-        /// <summary>
-        /// Obtem os tipos dos parametros da propriedade selecionada
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<Type> ObterTipoParametros(this PropertyInfo action)
-        {
-            return action.IsNull()
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
-                : (IEnumerable<Type>)action.GetIndexParameters().Select(x => x.ParameterType).ToList();
-        }
-
-        /// <summary>
-        /// Verifica se existe o procedimento informado no tipo <typeparamref name="T"/>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool ExisteMetodo<T>(this Action action)
-        {
-            return action.IsNull() ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO) : typeof(T).ExisteMetodo(action);
-        }
-
-        /// <summary>
-        /// Obtem o caminho completo do arquivo .exe ou .dll que esta sendo executado no momento
-        /// </summary>
-        /// <returns></returns>
-        public static string ObterPathProgramaAtual()
-        {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName);
-            if (File.Exists($"{path}.dll"))
-            {
-                return $"{path}.dll";
-            }
-            else if (File.Exists($"{path}.exe"))
-            {
-                return $"{path}.exe";
-            }
-            throw new FileNotFoundException(PROGRAMA_NAO_ENCONTRADO);
         }
 
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup

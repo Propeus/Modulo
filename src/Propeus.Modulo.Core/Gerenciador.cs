@@ -126,12 +126,12 @@ namespace Propeus.Modulo.Core
 
             if (modulo.IsClass)
             {
-                if (modulo.Is<IModulo>().Not())
+                if (!modulo.Is<IModulo>())
                 {
                     throw new InvalidCastException(ERRO_TIPO_NAO_HERDADO);
                 }
 
-                if (modulo.ObterModuloAtributo().IsNull())
+                if (modulo.ObterModuloAtributo() is null)
                 {
                     throw new ArgumentException(ERRO_TIPO_NAO_MARCADO);
                 }
@@ -164,7 +164,7 @@ namespace Propeus.Modulo.Core
                         ? !argumentos[i].Herdado<IGerenciador>()
                             ? throw new ArgumentException(string.Format(ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name))
                             : argumentos[i]
-                        : paramst[i].DefaultValue.IsNotNull() ? argumentos.Length < i ? paramst[i].DefaultValue : argumentos[i] : argumentos[i];
+                        : paramst[i].DefaultValue is not null ? argumentos.Length < i ? paramst[i].DefaultValue : argumentos[i] : argumentos[i];
 
                 }
                 argumentos = arr;
@@ -191,7 +191,7 @@ namespace Propeus.Modulo.Core
 
                     arr[i] = paramst[i].ParameterType.Is<IGerenciador>()
                         ? this.As<IGerenciador>()
-                        : paramst[i].DefaultValue.IsNotNull() ? paramst[i].DefaultValue : paramst[i].ParameterType.Default();
+                        : paramst[i].DefaultValue is not null ? paramst[i].DefaultValue : paramst[i].ParameterType.Default();
                 }
                 argumentos = arr;
             }
@@ -357,7 +357,7 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public bool Existe(Type type)
         {
-            if (type.IsNull())
+            if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }

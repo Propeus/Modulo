@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Util.Thread
 {
+    /// <summary>
+    /// Gerenciador de <see cref="Task"/>
+    /// </summary>
     public class TaskJob : IDisposable
     {
         private const string NOME_JOB_COLETOR = "_coletor_taks_completados";
@@ -18,10 +21,27 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
         private ConcurrentDictionary<string, CancellationTokenSource> _tasksTokenSource;
 
             
+        /// <summary>
+        /// Indica quantas taks estao sendo executados no momento
+        /// </summary>
         public int EmExecucao => _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Count(x => x.Value.Status == TaskStatus.Running);
+        /// <summary>
+        /// Indica quantas tasks ja foram executados
+        /// </summary>
+        /// <remarks>
+        /// Caso a task <see cref="NOME_JOB_COLETOR"/> esteja em execucao, o numero de tasks completados sera igual a propriedade <see cref="EmExecucao"/>, 
+        /// pois esta task remove as tasks que ja foram executadas
+        /// </remarks>
         public int Completado => _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Count(x => x.Value.Status == TaskStatus.RanToCompletion);
+        /// <summary>
+        /// Numero de tasks que aguardam a execucao
+        /// </summary>
         public int Aguardando => _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Count(x => x.Value.Status == TaskStatus.WaitingToRun);
 
+        /// <summary>
+        /// Inicializa o gerenciador com uma quantidade de taks que podem ser executados ao mesmo tempo
+        /// </summary>
+        /// <param name="threads">Numereo de taks que podem ser executado ao mesmo tempo. Por padrao este valor e 2</param>
         public TaskJob(int threads = 2)
         {
 
@@ -31,7 +51,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             _tasks = new ConcurrentDictionary<string, Task>();
             _tasksTokenSource = new ConcurrentDictionary<string, CancellationTokenSource>();
 
-            AddJob((state) =>
+            AddTask((state) =>
             {
                 foreach (var item in _tasks)
                 {
@@ -45,18 +65,39 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             }, TimeSpan.FromSeconds(3), NOME_JOB_COLETOR);
         }
 
+        /// <summary>
+        /// Aguarda todas as tasks serem executadas
+        /// </summary>
+        /// <remarks>
+        /// Esta espera ignora a task de limpeza '<see cref="NOME_JOB_COLETOR"/>'
+        /// </remarks>
+        /// <returns>Retorna uma <see cref="Task"/> que sera concluida quando todas as tarafas forem finalizadas</returns>
         public Task WaitAll()
         {
             var arrTasks = _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Select(x => x.Value).ToArray();
             return Task.WhenAll(arrTasks);
         }
 
+        /// <summary>
+        /// Indica se todas as tasks foram concluidas
+        /// </summary>
+        /// <remarks>
+        /// Esta funcao ignora a task de limpeza '<see cref="NOME_JOB_COLETOR"/>'
+        /// </remarks>
+        /// <returns>Retorna <see langword="true"/> caso todas as tasks tenham sido concluidas, caso contrario retorna <see langword="false"/></returns>
         public bool IsCompleted()
         {
             return _tasks.Where(x => x.Key != NOME_JOB_COLETOR).All(x => x.Value.Status == TaskStatus.RanToCompletion);
         }
 
-        public Task AddJob(Action<object?> action, TimeSpan period, string nomeJob = null)
+        /// <summary>
+        /// Adiciona uma nova task ao gerenciador
+        /// </summary>
+        /// <param name="action">Procedimento que ira ser execurado</param>
+        /// <param name="period">Periodo de intervalo entre as execucoes</param>
+        /// <param name="nomeJob">Nome da task</param>
+        /// <returns>Retorna a task</returns>
+        public Task AddTask(Action<object> action, TimeSpan period, string nomeJob = null)
         {
             if (string.IsNullOrEmpty(nomeJob))
             {
@@ -92,6 +133,10 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
 
         private bool disposedValue;
 
+        /// <summary>
+        /// Retorna o resumo das tasks em execucao, completados e em espera, alem da lista de tasks em execucao
+        /// </summary>
+        /// <returns></returns>
         public string ToStringRunning()
         {
             StringBuilder sb = new StringBuilder();
@@ -108,6 +153,10 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Retorna a lista de tasks e seu estado atual
+        /// </summary>
+        /// <returns>Retorna a lista de tasks e seu estado atual</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -120,6 +169,10 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Cancela todas as tasks e limpa a lista
+        /// </summary>
+        /// <param name="disposing">Indica se deve realizar o dispose nos objetos gerenciados</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -142,13 +195,9 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~CronTask()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
-
+        /// <summary>
+        /// Cancela todas as tasks e limpa a lista
+        /// </summary>
         public void Dispose()
         {
             // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'

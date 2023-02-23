@@ -23,7 +23,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="SerializationException">Objeto não serializavel</exception>
         public static byte[] Serializar(this object obj)
         {
-            if (obj.IsNull())
+            if (obj is null)
             {
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
             }
@@ -72,42 +72,6 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         /// <summary>
-        /// Verifica se o objeto é uma lista
-        /// </summary>
-        /// <remarks>https://stackoverflow.com/questions/17190204/check-if-object-is-dictionary-or-list</remarks>
-        /// <param name="obj">Objeto a ser verificado</param>
-        /// <returns></returns>
-        public static bool IsList(this object obj)
-        {
-            if (obj.IsNullOrDefault())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            Type tObj = obj.GetType();
-
-            return obj is IList && tObj.IsGenericType && tObj.GetGenericTypeDefinition().IsAssignableFrom(typeof(List<>));
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é um dicionario
-        /// </summary>
-        /// <remarks>https://stackoverflow.com/questions/17190204/check-if-object-is-dictionary-or-list</remarks>
-        /// <param name="obj">Objeto a ser verificado</param>
-        /// <returns></returns>
-        public static bool IsDictionary(this object obj)
-        {
-            if (obj.IsNullOrDefault())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-
-            Type tObj = obj.GetType();
-
-            return obj is IDictionary && tObj.IsGenericType && tObj.GetGenericTypeDefinition().IsAssignableFrom(typeof(Dictionary<,>));
-        }
-
-        /// <summary>
         /// Verifica se o objeto é struct
         /// </summary>
         /// <param name="obj">Qualquer objeto a ser analisado</param>
@@ -120,16 +84,6 @@ namespace Propeus.Modulo.Abstrato.Util
             }
             Type type = obj.GetType();
             return type.IsValueType && !type.IsPrimitive;
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é struct, caso seja valida somente se é nulo
-        /// </summary>
-        /// <param name="obj">Qualquer objeto</param>
-        /// <returns></returns>
-        public static bool IsStructOrNull(this object obj)
-        {
-            return obj.IsNull() || obj.IsStruct();
         }
 
         /// <summary>
@@ -180,10 +134,10 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         /// <exception cref="ArgumentException">Argumento invalido</exception>
         /// <exception cref="OverflowException"></exception>
-        public static object? To(this object obj, Type para)
+        public static object To(this object obj, Type para)
         {
             //Verifica se o objeto é nulo
-            if (obj.IsNull())
+            if (obj is null)
             {
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
             }
@@ -252,7 +206,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static object As(this object obj, Type como, object? padrao = default)
+        public static object As(this object obj, Type como, object padrao = default)
         {
             if (obj is null)
             {
@@ -286,7 +240,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool IsNullOrDefault(this object obj)
         {
-            return obj.IsNull() || obj.IsDefault();
+            return obj is null || obj.IsDefault();
         }
 
         /// <summary>
@@ -303,26 +257,6 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         /// <summary>
-        /// Verifica se o objeto não é nulo
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static bool IsNotNull(this object obj)
-        {
-            return !obj.IsNull();
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é nulo
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static bool IsNull(this object obj)
-        {
-            return obj is null;
-        }
-
-        /// <summary>
         /// Obtem o hash de um objeto serializavel
         /// </summary>
         /// <param name="obj"></param>
@@ -332,124 +266,6 @@ namespace Propeus.Modulo.Abstrato.Util
         public static string Hash(this object obj)
         {
             return Helper.Hash(obj.Serializar());
-        }
-
-        /// <summary>
-        /// Obtem as interfaces do objeto selecionado
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<Type> ObterInterfaces(this object obj)
-        {
-            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : Helper.ObterInterfaces(obj.GetType());
-        }
-
-        /// <summary>
-        /// Obtem todos os metodos do objeto que possuem o mesmo nome
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static IEnumerable<MethodInfo> ObterMetodos(this object obj, string nome)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.ObterMetodos().Where(m => m.Name == nome);
-        }
-
-        /// <summary>
-        /// Obtem todos os metodos do objeto.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<MethodInfo> ObterMetodos(this object obj)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : obj.GetType().GetMethods().Where(x => !x.Name.Contains("get_") && !x.Name.Contains("set_"));
-        }
-
-        /// <summary>
-        /// Obtem o metodo que possua o mesmo nome, quantidade e tipo de parametros
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <param name="params"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static MethodInfo ObterMetodo(this object obj, string nome, params Type[] @params)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.Is<Type>() ? Helper.ObterMetodo(obj.To<Type>(), nome, @params) : Helper.ObterMetodo(obj.GetType(), nome, @params);
-        }
-
-        /// <summary>
-        /// Realiza uma chamada a um metodo
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static object InvocarMetodo(this object obj, string nome, params object[] args)
-        {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-
-            MethodInfo metodo = obj.GetType().GetMethods().Where(x => x.Name == nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; });
-            return metodo.Invoke(obj, args);
-        }
-
-        /// <summary>
-        /// Obtem os parametros de um metodo
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static Type[] ObterParametrosMetodo(this object obj, string nome)
-        {
-            if (obj.IsNull())
-            {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
-            }
-            if (nome.IsNullOrEmpty())
-            {
-                throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO);
-            }
-
-            MethodInfo metodo = obj.GetType().GetMethods().Where(x => x.Name == nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; });
-            return metodo.GetParameters().Select(t => t.ParameterType).ToArray();
-        }
-
-        /// <summary>
-        /// Verifica se existe o metodo no objeto passado no parametro <paramref name="obj"/>
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static bool ExisteMetodo(this object obj, string nome)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.GetType().GetMethods().Any(x => x.Name == nome);
-        }
+        }      
     }
 }

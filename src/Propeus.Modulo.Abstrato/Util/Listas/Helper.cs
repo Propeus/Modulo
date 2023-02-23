@@ -22,12 +22,12 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<T> Join<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
         {
-            if (esquerda.IsNull())
+            if (esquerda is null)
             {
                 throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
             }
 
-            if (direita.IsNull())
+            if (direita is null)
             {
                 return esquerda;
             }
@@ -48,22 +48,6 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         /// <summary>
-        /// Obtém os itens em comum entre duas listas.
-        /// </summary>
-        /// <typeparam name="T">Tipo da lista</typeparam>
-        /// <param name="esquerda">Lista da esquerda</param>
-        /// <param name="direita">Lista da direita</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<T> ConcatDistinct<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
-        {
-            return esquerda.IsNull()
-                ? throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO)
-                : direita.IsNull() ? esquerda : esquerda.Concat(direita).Distinct();
-        }
-
-
-        /// <summary>
         /// Verifica se uma lista contem os parâmetros passados ou se são herdados.
         /// </summary>
         /// <typeparam name="T">Tipo do parametro a ser verificado</typeparam>
@@ -73,7 +57,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool ContainsAll<T>(this IEnumerable<T> obj, params T[] @params)
         {
-            if (obj.IsNull())
+            if (obj is null)
             {
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
             }
@@ -105,7 +89,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static bool IsEmpty<T>(this IEnumerable<T> obj)
         {
-            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : !obj.Any();
+            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : !obj.Any();
         }
 
         /// <summary>
@@ -117,7 +101,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static bool IsNotEmpty<T>(this IEnumerable<T> obj)
         {
-            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : obj.Any();
+            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : obj.Any();
         }
 
         /// <summary>
@@ -131,20 +115,9 @@ namespace Propeus.Modulo.Abstrato.Util
             return obj is null || obj.IsEmpty();
         }
 
-        /// <summary>
-        /// Verifica se a lista não é nula ou vazia
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static bool IsNotNullOrEmpty<T>(this IEnumerable<T> obj)
-        {
-            return !obj.IsNullOrEmpty();
-        }
-
         public static IEnumerable<TSaida> Converter<TSaida>(this IEnumerable obj)
         {
-            foreach (object? entrada in obj)
+            foreach (object entrada in obj)
             {
                 yield return entrada.To<TSaida>();
             }

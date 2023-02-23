@@ -31,7 +31,7 @@ namespace Propeus.Modulo.Abstrato.Util
                 throw new ArgumentException(string.Format(ARGUMENTO_NAO_PODE_SER_DO_TIPO, typeof(void).Name), nameof(obj));
             }
 
-            if (comparacao.IsNull())
+            if (comparacao is null)
             {
                 throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO);
             }
@@ -104,9 +104,9 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentException">Argumento invalido</exception>
         public static bool Is(this Type obj, Type comparacao)
         {
-            return obj.IsNull()
+            return obj is null
                 ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : comparacao.IsNull()
+                : comparacao is null
                 ? throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO)
                 : obj.IsPrimitive || comparacao.IsPrimitive ? obj == comparacao : obj == comparacao || obj.Herdado(comparacao);
         }
@@ -122,31 +122,11 @@ namespace Propeus.Modulo.Abstrato.Util
         }
 
         /// <summary>
-        /// Verifica se o tipo é diferente de void
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsNotVoid(this Type type)
-        {
-            return !type.IsVoid();
-        }
-
-        /// <summary>
-        /// Verifica se o tipo não é nulo e diferente de void
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static bool IsNotNullAndNotVoid(this Type type)
-        {
-            return type.IsNotNull() && !type.IsVoid();
-        }
-
-        /// <summary>
         /// Obtem o valor padrão do tipo passado no parametro <paramref name="obj"/>
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static object? Default(this Type obj)
+        public static object Default(this Type obj)
         {
             if (obj.IsClass || obj.IsInterface)
             {
@@ -172,7 +152,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterInterfaces(this Type obj)
         {
-            return obj.IsNull() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (IEnumerable<Type>)obj.GetInterfaces();
+            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (IEnumerable<Type>)obj.GetInterfaces();
         }
 
         /// <summary>
@@ -184,7 +164,7 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
         public static IEnumerable<MethodInfo> ObterMetodos(this Type obj, string nome)
         {
-            return obj.IsNull()
+            return obj is null
                 ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
                 : nome.IsNullOrEmpty()
                 ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
@@ -199,122 +179,20 @@ namespace Propeus.Modulo.Abstrato.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<MethodInfo> ObterMetodos(this Type obj)
         {
-            return obj.IsNull()
+            return obj is null
                 ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
                 : obj.GetMethods().Where(x => !x.IsSpecialName && !x.Name.Contains("get_") && !x.Name.Contains("set_"));
         }
 
-        /// <summary>
-        /// Verifica se existe o metodo informado
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="mth"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool ExisteMetodo(this Type obj, MethodInfo mth)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : mth.IsNull()
-                ? throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO)
-                : obj.GetMethods().Where(x => x.Name == mth.Name && x.GetParameters().Count() == mth.GetParameters().Count()).IsNotEmpty();
-        }
 
-        /// <summary>
-        /// Verifica se existe o procedimento informado
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool ExisteMetodo(this Type obj, Action action)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : action.IsNull()
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
-                : obj.GetMethods().Where(x => x.Name == action.Method.Name).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; }).IsNotNull();
-        }
+     
 
-        /// <summary>
-        /// Obtem o metodo com maior quantidade de parametros.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static MethodInfo ObterMetodoComMaiorParametros(this Type obj, string nome)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.ObterMetodos(nome).Aggregate((m1, m2) => { return m1.GetParameters().Count() > m2.GetParameters().Count() ? m1 : m2; });
-        }
+     
 
-        /// <summary>
-        /// Obtem o metodo que possua o mesmo nome, quantidade e tipo de parametros
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="nome"></param>
-        /// <param name="params"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo ou vazio</exception>
-        public static MethodInfo? ObterMetodo(this Type obj, string nome, params Type[] @params)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : nome.IsNullOrEmpty()
-                ? throw new ArgumentNullException(nameof(nome), ARGUMENTO_NULO_OU_VAZIO)
-                : obj.ObterMetodos(nome).FirstOrDefault(m => m.ObterTipoParametros().ContainsAll(@params));
-        }
+     
 
-        /// <summary>
-        /// Obtem o metodo que possua a mesma assinatura
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="mth"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static MethodInfo? ObterMetodo(this Type obj, MethodInfo mth)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : mth.IsNull()
-                ? throw new ArgumentNullException(nameof(mth), ARGUMENTO_NULO)
-                : obj.ObterMetodo(mth.Name, mth.ObterTipoParametros().ToArray());
-        }
+     
 
-        /// <summary>
-        /// Obtem a propriedade que possua a mesma assinatura
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="prop"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static PropertyInfo? ObterPropriedade(this Type obj, PropertyInfo prop)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : prop.IsNull()
-                ? throw new ArgumentNullException(nameof(prop), ARGUMENTO_NULO)
-                : obj.GetProperties().FirstOrDefault(p => p.Name == prop.Name && p.GetIndexParameters().SequenceEqual(prop.GetIndexParameters()));
-        }
-
-        /// <summary>
-        /// Obtem o evento que possua a mesma assinatura
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="evt"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static EventInfo? ObterEvento(this Type obj, EventInfo evt)
-        {
-            return obj.IsNull()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
-                : evt.IsNull()
-                ? throw new ArgumentNullException(nameof(evt), ARGUMENTO_NULO)
-                : obj.GetEvents().FirstOrDefault(p => p.Name == evt.Name && p.EventHandlerType == evt.EventHandlerType);
-        }
+     
     }
 }
