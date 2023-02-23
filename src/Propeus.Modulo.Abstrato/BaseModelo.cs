@@ -44,10 +44,7 @@ namespace Propeus.Modulo.Abstrato
                 return $"{ver.Major}.{ver.Minor}.{ver.Build}";
             }
         }
-        /// <summary>
-        /// Informa se as refencias já foram liberadas do objeto.
-        /// </summary>
-        public bool Disposed { get; private set; }
+  
 
         /// <summary>
         /// Representa o estado do objeto. É definido inicialmente como 1 (iniciado) ou 0 (disposed), podendo ser alterado pelo usuario final ou pela regra de negocio
@@ -93,7 +90,6 @@ namespace Propeus.Modulo.Abstrato
                 }
 
                 disposedValue = true;
-                Disposed = true;
             }
         }
 

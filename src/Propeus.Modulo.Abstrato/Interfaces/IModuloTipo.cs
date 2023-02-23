@@ -32,11 +32,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// </summary>
         Type TipoModulo { get; }
         /// <summary>
-        /// Tipo do modulo gerado automaticamente junto com as intefaces delaclarados na propriedade <see cref="Contratos"/>
-        /// </summary>
-        Type TipoModuloDinamico { get; }
-        /// <summary>
-        /// Informações sobre o modulo na visão do <see cref="GC"/>
+        /// Referencia fraca da instancia do modulo
         /// </summary>
         WeakReference WeakReference { get; }
     }

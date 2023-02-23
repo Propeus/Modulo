@@ -34,7 +34,7 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Informa se o modulo foi eliminado da aplicação
         /// </summary>
-        public bool Elimindado => Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado || Modulo.Disposed;
+        public bool Elimindado => Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado;
         /// <summary>
         /// Informações sobre o modulo na visão do <see cref="GC"/>
         /// </summary>

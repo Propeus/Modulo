@@ -137,7 +137,7 @@ namespace Propeus.Modulo.Console
 
         protected override void Dispose(bool disposing)
         {
-            if (!Disposed)
+            if (!disposing)
             {
                 //Cancela a tarefa atual, pois o gerenciador nao tem os mesmos privilagios de um G.C. sob o objeto.
                 cancellationTokenSource.Cancel();

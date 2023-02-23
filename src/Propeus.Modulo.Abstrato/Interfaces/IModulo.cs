@@ -8,6 +8,7 @@
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
+        /// <value><see langword="false"/></value>
         bool InstanciaUnica { get; }
     }
 }

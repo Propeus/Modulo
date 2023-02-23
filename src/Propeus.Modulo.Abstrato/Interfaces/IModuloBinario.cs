@@ -28,6 +28,9 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// "Ponteiro" onde se encontra o binario em memoria
         /// </summary>
         Span<byte> Referencia { get; }
+        /// <summary>
+        /// Indica se o binario possui algum modulo valido (<see langword="true"/>) ou nao (<see langword="false"/>)
+        /// </summary>
         bool BinarioValido { get; }
 
     }

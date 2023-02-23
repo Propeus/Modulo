@@ -52,7 +52,7 @@ namespace Propeus.Modulo.Core
         {
             get
             {
-                if (_atual is null || _atual.Disposed)
+                if (_atual is null || _atual.Estado == Estado.Desligado)
                 {
                     _atual = new Gerenciador();
                 }
@@ -295,9 +295,7 @@ namespace Propeus.Modulo.Core
                 info ??= Modulos
                            .Select(x => x.Value)
                            .Where(x => x.TipoModulo.FullName == modulo.Name
-                           || x.TipoModuloDinamico?.FullName == modulo.Name
-                           || x.TipoModulo.Name == modulo.Name
-                           || x.TipoModuloDinamico?.Name == modulo.Name);
+                           || x.TipoModulo.Name == modulo.Name);
             }
             else
             {
@@ -548,20 +546,15 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (!Disposed)
-            {
-                RemoverTodos();
-                _cancellationToken.Cancel();
-                _cancellationToken.Dispose();
-                Modulos.Clear();
-                Cache.Clear();
-                _atual = null;
-                base.Dispose(disposing);
-            }
-            else
-            {
-                throw new ObjectDisposedException(ERRO_GERENCIADOR_DESATIVADO);
-            }
+
+            RemoverTodos();
+            _cancellationToken.Cancel();
+            _cancellationToken.Dispose();
+            Modulos.Clear();
+            Cache.Clear();
+            _atual = null;
+            base.Dispose(disposing);
+
         }
         ///<inheritdoc/>
         public override string ToString()

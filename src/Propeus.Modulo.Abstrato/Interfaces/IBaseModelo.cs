@@ -13,10 +13,6 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// </summary>
         string Versao { get; }
         /// <summary>
-        /// Informa se as refencias já foram liberadas do objeto.
-        /// </summary>
-        bool Disposed { get; }
-        /// <summary>
         /// Representa o estado do objeto.
         /// </summary>
         Estado Estado { get; }

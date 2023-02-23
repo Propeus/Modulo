@@ -47,8 +47,6 @@ namespace Propeus.Modulo.Dinamico
                 Modulos.Add(item, null);
             }
             AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
-            NumeroVersaoAssembly = int.Parse(versao.Major.ToString(new CultureInfo("pt-BR")) + versao.Minor.ToString(new CultureInfo("pt-BR")) + versao.Build.ToString(new CultureInfo("pt-BR")), new CultureInfo("pt-BR"));
-            Hash = moduloBinario.Hash;
             Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
         }
         public override string Versao { get; }
@@ -100,12 +98,6 @@ namespace Propeus.Modulo.Dinamico
         /// Caminho do modulo em disco
         /// </summary>
         public string Caminho { get; }
-        /// <summary>
-        /// Obtem o numero de versão do assembly mapeado
-        /// </summary>
-        public int NumeroVersaoAssembly { get; private set; }
-
-        public string Hash { get; }
 
         public int ModulosDescobertos => Modulos.Count;
         public int ModulosCarregados => Modulos.Count(predicate: x => x.Value is not null);
@@ -168,7 +160,7 @@ namespace Propeus.Modulo.Dinamico
         {
             StringBuilder sb = new StringBuilder(base.ToString());
 
-            _ = sb.Append("Versao do assembly: ").Append(NumeroVersaoAssembly).AppendLine();
+            _ = sb.Append("Versao do assembly: ").Append(Versao).AppendLine();
             _ = sb.Append("Caminho completo do modulo: ").Append(Caminho).AppendLine();
             _ = sb.Append("Quantidade de modulos descobertos: ").Append(ModulosDescobertos).AppendLine();
             _ = sb.Append("Quantidade de modulos carregados: ").Append(ModulosCarregados).AppendLine();
@@ -177,13 +169,7 @@ namespace Propeus.Modulo.Dinamico
         }
         protected override void Dispose(bool disposing)
         {
-            //foreach (KeyValuePair<string, Type> modulo in ModuloInformacao)
-            //{
-            //    if (!modulo.Value.Disposed)
-            //    {
-            //        modulo.Value.Dispose();
-            //    }
-            //}
+           
             Modulos.Clear();
             Assembly = null;
             AssemblyName = null;

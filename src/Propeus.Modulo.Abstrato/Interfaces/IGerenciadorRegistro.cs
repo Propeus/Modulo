@@ -7,9 +7,8 @@
     {
         /// <summary>
         /// Registra o modulo no gerenciador
-        /// <para>Caso use o <see cref="ModuloBase"/>, não será necessário o uso desta função.</para>
         /// </summary>
-        /// <param name="modulo"></param>
+        /// <param name="modulo">Instancia do modulo</param>
         void Registrar(IModulo modulo);
     }
 }
