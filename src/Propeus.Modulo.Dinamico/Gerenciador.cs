@@ -3,18 +3,17 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
-using Propeus.Modulo.Abstrato.Util.Thread;
+using Propeus.Modulo.Util;
 using Propeus.Modulo.Dinamico.Properties;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
+using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Dinamico
 {

@@ -2,15 +2,16 @@
 using System.Reflection;
 
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Util;
 
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Abstrato.Helpers
 {
     /// <summary>
     /// Classe estatica para ajuda
     /// </summary>
     public static partial class Helper
     {
-        
+
         /// <summary>
         /// Obtem o atributo <see cref="ModuloAttribute"/> de um objeto
         /// </summary>
@@ -23,7 +24,7 @@ namespace Propeus.Modulo.Abstrato.Util
             return objeto.ObterAtributo<ModuloAttribute>();
         }
 
-       
+
 
         /// <summary>
         /// Obtem o atributo <see cref="ModuloContratoAttribute"/> de um objeto
@@ -36,6 +37,6 @@ namespace Propeus.Modulo.Abstrato.Util
         {
             return objeto.ObterAtributo<ModuloContratoAttribute>();
         }
-        
+
     }
 }

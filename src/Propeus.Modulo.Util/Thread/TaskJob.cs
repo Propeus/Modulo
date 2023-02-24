@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Abstrato.Util.Thread
+namespace Propeus.Modulo.Util.Thread
 {
     /// <summary>
     /// Gerenciador de <see cref="Task"/>
@@ -20,7 +20,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
         private ConcurrentDictionary<string, Task> _tasks;
         private ConcurrentDictionary<string, CancellationTokenSource> _tasksTokenSource;
 
-            
+
         /// <summary>
         /// Indica quantas taks estao sendo executados no momento
         /// </summary>
@@ -117,7 +117,7 @@ namespace Propeus.Modulo.Abstrato.Util.Thread
                     {
                         Task.Delay(period, cancellationTokenSource.Token).Wait(cancellationTokenSource.Token);
                     }
-                    catch 
+                    catch
                     {
                         //Continua o jogo e foda-se
                     }

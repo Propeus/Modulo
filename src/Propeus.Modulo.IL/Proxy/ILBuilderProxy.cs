@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.IL.Proxy
 {

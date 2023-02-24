@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Dinamico.Regras
 {

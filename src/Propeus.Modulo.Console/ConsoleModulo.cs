@@ -1,7 +1,6 @@
 ﻿using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
 
 using System;
 using System.Linq;
@@ -51,7 +50,7 @@ namespace Propeus.Modulo.Console
                 try
                 {
                     System.Console.Write("Digite o comando: ");
-                    var cmd = Abstrato.Util.Console.Console.ReadLine(cancellationTokenSource.Token).Split(' ');
+                    var cmd = Util.Console.Console.ReadLine(cancellationTokenSource.Token).Split(' ');
                     System.Console.Clear();
                     System.Console.WriteLine("Console modulo " + "v" + Versao);
                     switch (cmd[0])

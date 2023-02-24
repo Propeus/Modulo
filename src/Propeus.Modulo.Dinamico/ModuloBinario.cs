@@ -6,7 +6,7 @@ using System.Text;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Dinamico
 {

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using static Propeus.Modulo.Abstrato.Constantes;
+using static Propeus.Modulo.Compartilhado.Constantes;
 
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Util
 {
     /// <summary>
     /// Classe de ajuda para reflection

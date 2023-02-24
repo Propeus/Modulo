@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Abstrato.Util.Thread
+namespace Propeus.Modulo.Util.Thread
 {
     /// <summary>
     /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading._tasks.taskscheduler?view=netcore-3.1
     /// </summary>
-    public class LimitedConcurrencyLevelTaskScheduler : System.Threading.Tasks.TaskScheduler
+    public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     {
         // Indicates whether the current thread is processing work items.
         private bool _currentThreadIsProcessingItems;

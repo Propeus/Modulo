@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;

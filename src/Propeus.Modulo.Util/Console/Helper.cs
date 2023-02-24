@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Abstrato.Util.Console
+namespace Propeus.Modulo.Util.Console
 {
     /// <summary>
     /// Classe de extencao para o <see cref="System.Configuration"/>

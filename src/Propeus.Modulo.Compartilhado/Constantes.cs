@@ -1,5 +1,5 @@
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Modulo.Compartilhado
 {
     /// <summary>
     /// Classe para adicionar valores constantes

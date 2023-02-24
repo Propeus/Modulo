@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util.Thread;
+using Propeus.Modulo.Util.Thread;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
@@ -64,7 +64,7 @@ namespace Propeus.Modulo.IL.Playground
         {
             ConcurrentDictionary<int, int> keyValuePairs = new ConcurrentDictionary<int, int>();
 
-            Abstrato.Util.Thread.TaskJob cronTask = new Abstrato.Util.Thread.TaskJob(10);
+            Util.Thread.TaskJob cronTask = new Util.Thread.TaskJob(10);
 
             Parallel.For(0, 9999, (i) =>
             {

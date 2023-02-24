@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Playground", "Propeus.Modulo.Playground\Propeus.Modulo.Playground.csproj", "{1A1704CE-4CCF-4F26-9DE3-8B0A4407DED6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.Util", "Propeus.Modulo.Util\Propeus.Modulo.Util.csproj", "{2B60AD69-519C-46C2-A897-961D1748BC36}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Propeus.Modulo.Compartilhado", "Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.shproj", "{683165E9-D42F-48B9-97DA-89C77C235C8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,11 +115,28 @@ Global
 		{1A1704CE-4CCF-4F26-9DE3-8B0A4407DED6}.Release|x64.Build.0 = Release|Any CPU
 		{1A1704CE-4CCF-4F26-9DE3-8B0A4407DED6}.Release|x86.ActiveCfg = Release|Any CPU
 		{1A1704CE-4CCF-4F26-9DE3-8B0A4407DED6}.Release|x86.Build.0 = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x64.Build.0 = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {709E8BF4-605B-43D3-84C0-A0C0EC4E58C0}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.projitems*{2b60ad69-519c-46c2-a897-961d1748bc36}*SharedItemsImports = 5
+		Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.projitems*{43481c08-20b4-4e15-809e-1674366e3374}*SharedItemsImports = 5
+		Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.projitems*{683165e9-d42f-48b9-97da-89c77c235c8e}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

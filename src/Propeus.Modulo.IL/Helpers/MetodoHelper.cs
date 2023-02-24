@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 

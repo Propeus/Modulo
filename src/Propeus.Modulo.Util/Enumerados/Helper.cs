@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using static Propeus.Modulo.Abstrato.Constantes;
+using static Propeus.Modulo.Compartilhado.Constantes;
 
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Util
 {
     /// <summary>
     /// Classe de ajuda para <see cref="Enum"/>

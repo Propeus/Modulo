@@ -4,10 +4,11 @@ using System.Text;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Util;
+using Propeus.Modulo.Util;
 
-using static Propeus.Modulo.Abstrato.Constantes;
+using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Core
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 
-using static Propeus.Modulo.Abstrato.Constantes;
+using static Propeus.Modulo.Compartilhado.Constantes;
 
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Util
 {
     /// <summary>
     /// Classe de ajuda para string

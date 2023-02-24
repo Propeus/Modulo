@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using static Propeus.Modulo.Compartilhado.Constantes;
 
-using static Propeus.Modulo.Abstrato.Constantes;
-
-namespace Propeus.Modulo.Abstrato.Util
+namespace Propeus.Modulo.Util
 {
     /// <summary>
     /// Classe de ajuda para <see cref="Attribute"/>
@@ -27,12 +22,12 @@ namespace Propeus.Modulo.Abstrato.Util
         {
             if (obj is null)
             {
-                throw new ArgumentException(ARGUMENTO_NULO, nameof(obj));
+                throw new ArgumentNullException(nameof(obj));
             }
 
             if (obj.Herdado<Attribute>())
             {
-                throw new InvalidOperationException(PARAMETRO_ATRIBUTO_INVALIDO);
+                throw new ArgumentException(PARAMETRO_ATRIBUTO_INVALIDO, nameof(obj));
             }
 
             object result = obj.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(T));
