@@ -273,7 +273,7 @@ namespace Propeus.Modulo.Core
             if (modulo.IsInterface)
             {
                 ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
-                modulo = contrato.Nome.ObterTipo();
+                modulo = contrato.Tipo ?? contrato.Nome.ObterTipo();
             }
 
 
