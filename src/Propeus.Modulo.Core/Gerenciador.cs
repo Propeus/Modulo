@@ -117,7 +117,7 @@ namespace Propeus.Modulo.Core
                 }
 
 
-                modulo = modulo.ObterModuloContratoAtributo().Nome.ObterTipo();
+                modulo = attr.Tipo ?? attr.Nome.ObterTipo();
                 if (modulo is null)
                 {
                     throw new DllNotFoundException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));

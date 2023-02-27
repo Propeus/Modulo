@@ -39,12 +39,19 @@ namespace Propeus.Modulo.Abstrato.Atributos
             }
 
             Nome = modulo.Name;
+            Tipo = modulo;
         }
 
         /// <summary>
         /// Nome do modulo
         /// </summary>
         public string Nome { get; }
-
+        /// <summary>
+        /// Tipo do modulo
+        /// </summary>
+        /// <remarks>
+        /// Esta propriedade e opcional e sera preenchida somente quando o tipo for informado no construtor do atributo
+        /// </remarks>
+        public Type Tipo { get; }
     }
 }
