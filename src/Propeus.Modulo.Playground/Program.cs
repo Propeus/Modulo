@@ -16,10 +16,36 @@ using Propeus.Modulo.IL.Helpers;
 namespace Propeus.Modulo.IL.Playground
 {
 
-    [ModuloContrato("ConsoleModulo")]
-    public interface IModuloContrato : IModulo
+    [ModuloContrato(typeof(ModuloTesteA))]
+    public interface IModuloContratoA : IModulo
     {
     }
+
+    [ModuloContrato(typeof(ModuloTesteB))]
+    public interface IModuloContratoB : IModulo
+    {
+    }
+
+    [Modulo]
+    public class ModuloTesteA : ModuloBase, IModuloContratoA
+    {
+        public ModuloTesteA(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        {
+        }
+    }
+
+    [Modulo]
+    public class ModuloTesteB : ModuloBase, IModuloContratoB
+    {
+        public ModuloTesteB(IGerenciador gerenciador,IModuloContratoA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        {
+            if (moduloContratoA is null)
+            {
+                throw new ArgumentNullException(nameof(moduloContratoA));
+            }
+        }
+    }
+
 
 
     internal class Program
@@ -42,9 +68,13 @@ namespace Propeus.Modulo.IL.Playground
             //GerenciadorDeTask();
             //return;
 
-            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
-            //var modulo = genv2.Criar<IModuloContrato>();
-            genv2.ManterVivoAsync().Wait();
+            var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
+            Console.WriteLine(modulo.ToString());
+            return;
+
+            //var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
+            ////var modulo = genv2.Criar<IModuloContrato>();
+            //genv2.ManterVivoAsync().Wait();
 
             //using (ILGerador iLGerador = new ILGerador())
             //{

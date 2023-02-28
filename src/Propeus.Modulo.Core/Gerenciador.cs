@@ -148,56 +148,59 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentException(ERRO_MODULO_INSTANCIA_UNICA);
             }
 
-            ConstructorInfo? ctor = null;
-            if (argumentos.Any())
+
+
+
+            ConstructorInfo? ctor = modulo.GetConstructors().MaxBy(x => x.GetParameters().Length);
+            if (ctor is null)
             {
-                ctor = modulo.GetConstructors().OrderByDescending(x => x.GetParameters().Length == argumentos.Length).FirstOrDefault();
-                if (ctor is null)
-                {
-                    throw new InvalidOperationException(ERRO_CONSTRUTOR_NAO_ENCONTRADO);
-                }
-                ParameterInfo[] paramst = ctor.GetParameters();
-                object[] arr = new object[paramst.Length];
-                for (int i = 0; i < paramst.Length; i++)
-                {
-                    //Melhorar a busca e atribuição de parametros
-                    arr[i] = paramst[i].ParameterType.Is<IGerenciador>()
-                        ? !argumentos[i].Herdado<IGerenciador>()
-                            ? throw new ArgumentException(string.Format(ERRO_ARGUMENTO_TIPO_ESPERADO, paramst[i].Name, paramst[i].ParameterType.Name, argumentos[i].GetType().Name))
-                            : argumentos[i]
-                        : paramst[i].DefaultValue is not null ? argumentos.Length < i ? paramst[i].DefaultValue : argumentos[i] : argumentos[i];
-
-                }
-                argumentos = arr;
-
-            }
-            else
-            {
-                ctor = modulo.GetConstructors().OrderBy(x => x.GetParameters()).FirstOrDefault();
-                if (ctor is null)
-                {
-                    throw new InvalidOperationException(ERRO_CONSTRUTOR_NAO_ENCONTRADO);
-                }
-
-                ParameterInfo[] paramst = ctor.GetParameters();
-
-                if (paramst.Length == 0)
-                {
-                    throw new InvalidOperationException(ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO);
-                }
-
-                object[] arr = new object[paramst.Length];
-                for (int i = 0; i < paramst.Length; i++)
-                {
-
-                    arr[i] = paramst[i].ParameterType.Is<IGerenciador>()
-                        ? this.As<IGerenciador>()
-                        : paramst[i].DefaultValue is not null ? paramst[i].DefaultValue : paramst[i].ParameterType.Default();
-                }
-                argumentos = arr;
+                throw new InvalidOperationException(ERRO_CONSTRUTOR_NAO_ENCONTRADO);
             }
 
-            IModulo mAux = Activator.CreateInstance(modulo, argumentos).As<IModulo>();
+            ParameterInfo[] paramCtor = ctor.GetParameters();
+            object[] arr = new object[paramCtor.Length];
+
+            for (int i = 0; i < paramCtor.Length; i++)
+            {
+                if (!paramCtor[i].ParameterType.Is<IGerenciador>() && (paramCtor[i].ParameterType.Is<IModulo>() || paramCtor[i].ParameterType.PossuiAtributo<ModuloContratoAttribute>()))
+                {
+                    if (!Existe(paramCtor[i].ParameterType))
+                    {
+                        arr[i] = Criar(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
+                    }
+                    else
+                    {
+                        //TODO: Deve criar um novo caso nao seja singleton
+                        arr[i] = Obter(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
+                    }
+                }
+                else if (paramCtor[i].ParameterType.Is<IGerenciador>())
+                {
+                    var gen = Modulos.FirstOrDefault(x => x.Value.Modulo is IGerenciador).Value;
+                    if (gen is null)
+                    {
+                        arr[i] = Atual;
+                    }
+                    else
+                    {
+                        arr[i] = gen;
+                    }
+                }
+                else
+                {
+                    if (paramCtor[i].IsOptional)
+                        continue;
+
+                    throw new InvalidCastException($"O tipo '{paramCtor[i].ParameterType.Name}' nao e um Modulo, Contrato ou Gerenciador");
+                }
+            }
+
+
+
+
+
+
+            IModulo mAux = Activator.CreateInstance(modulo, arr).As<IModulo>();
             _ = ArgumentosModulo.TryAdd(mAux.Id, argumentos);
             return mAux;
 
