@@ -18,7 +18,7 @@ using Propeus.Modulo.Util.Thread;
 namespace Propeus.Modulo.Dinamico
 {
     [Modulo]
-    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorDiagnostico
+    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico
     {
         public Gerenciador(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
@@ -102,18 +102,20 @@ namespace Propeus.Modulo.Dinamico
 
         public string DiretorioModulo { get; set; } = Directory.GetCurrentDirectory();
 
-
-        public T Criar<T>(params object[] args) where T : IModulo
+        ///<inheritdoc/>
+        public T Criar<T>() where T : IModulo
         {
-            return Criar(typeof(T), args).As<T>();
+            return Criar(typeof(T)).As<T>();
         }
-        public IModulo Criar(string nomeModulo, params object[] args)
+        ///<inheritdoc/>
+        public IModulo Criar(string nomeModulo)
         {
             var binM = Binarios.Single(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)).Value;
 
-            return Criar(binM.ModuloInformacao.CarregarTipoModulo(nomeModulo), args);
+            return Criar(binM.ModuloInformacao.CarregarTipoModulo(nomeModulo));
         }
-        public IModulo Criar(Type modulo, params object[] args)
+        ///<inheritdoc/>
+        public IModulo Criar(Type modulo)
         {
             if (modulo.IsInterface)
             {
@@ -129,7 +131,7 @@ namespace Propeus.Modulo.Dinamico
                     IModulo iModulo;
                     if (tipoBase.Herdado(modulo))
                     {
-                        iModulo = Gerenciador.Criar(nmeTipo, args);
+                        iModulo = Gerenciador.Criar(nmeTipo);
                     }
                     else
                     {
@@ -153,7 +155,7 @@ namespace Propeus.Modulo.Dinamico
                             ModuloProvider.Add(nmeTipo, provider);
                         }
                         provider.Executar();  //Falta adicionar um atributo moduloBin
-                        iModulo = Gerenciador.Criar(provider.ObterTipoGerado(), args);
+                        iModulo = Gerenciador.Criar(provider.ObterTipoGerado());
                         infoBin.ModuloInformacao[nmeTipo] = (Gerenciador as IGerenciadorInformacao).ObterInfo(provider.ObterTipoGerado());
                     }
 
@@ -168,15 +170,32 @@ namespace Propeus.Modulo.Dinamico
             }
             else
             {
-                return Gerenciador.Criar(modulo, args);
+                return Gerenciador.Criar(modulo);
             }
         }
+        ///<inheritdoc/>
+        public T Criar<T>(object[] args) where T : IModulo
+        {
+            throw new NotImplementedException();
+        ///<inheritdoc/>
+        }
+        ///<inheritdoc/>
+        public IModulo Criar(Type modulo, object[] args)
+        {
+            throw new NotImplementedException();
+        }
+        ///<inheritdoc/>
+        public IModulo Criar(string nomeModulo, object[] args)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        ///<inheritdoc/>
         public void Remover<T>(T modulo) where T : IModulo
         {
             Gerenciador.Remover(modulo);
         }
+        ///<inheritdoc/>
         public void Remover(string id)
         {
             if (Gerenciador.Existe(id))
@@ -184,17 +203,20 @@ namespace Propeus.Modulo.Dinamico
                 Gerenciador.Remover(id);
             }
         }
+        ///<inheritdoc/>
         public void RemoverTodos()
         {
             Gerenciador.RemoverTodos();
         }
 
 
+        ///<inheritdoc/>
         public T Reiniciar<T>(T modulo) where T : IModulo
         {
             T nModulo = Gerenciador.Reiniciar(modulo);
             return nModulo;
         }
+        ///<inheritdoc/>
         public IModulo Reiniciar(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -208,11 +230,13 @@ namespace Propeus.Modulo.Dinamico
         }
 
 
+        ///<inheritdoc/>
         public T Obter<T>() where T : IModulo
         {
             Type type = typeof(T);
             return Obter(type).To<T>();
         }
+        ///<inheritdoc/>
         public IModulo Obter(Type modulo)
         {
             if (modulo is null)
@@ -222,12 +246,14 @@ namespace Propeus.Modulo.Dinamico
 
             return Gerenciador.Obter(modulo);
         }
+        ///<inheritdoc/>
         public IModulo Obter(string id)
         {
             IModulo modulo = Gerenciador.Obter(id);
             return modulo;
         }
 
+        ///<inheritdoc/>
         public bool Existe(Type modulo)
         {
             if (modulo is null)
@@ -237,32 +263,38 @@ namespace Propeus.Modulo.Dinamico
 
             return Gerenciador.Existe(modulo);
         }
+        ///<inheritdoc/>
         public bool Existe(IModulo modulo)
         {
             return Gerenciador.Existe(modulo);
         }
+        ///<inheritdoc/>
         public bool Existe(string id)
         {
             return Gerenciador.Existe(id);
         }
 
+        ///<inheritdoc/>
         public IEnumerable<IModulo> Listar()
         {
             return Gerenciador.Listar();
         }
 
+        ///<inheritdoc/>
         public async Task ManterVivoAsync()
         {
             await Gerenciador.ManterVivoAsync().ConfigureAwait(true);
         }
 
 
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             RemoverTodos();
             base.Dispose(disposing);
         }
 
+        ///<inheritdoc/>
         public override string ToString()
         {
             StringBuilder stringBuilder = new(base.ToString());
@@ -284,6 +316,6 @@ namespace Propeus.Modulo.Dinamico
             return stringBuilder.ToString();
         }
 
-
+       
     }
 }

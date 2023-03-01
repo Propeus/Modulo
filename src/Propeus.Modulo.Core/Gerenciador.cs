@@ -1,29 +1,50 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Thread;
 
 using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Core
 {
+    /// <summary>
+    /// Controlador de modulos
+    /// </summary>
     public sealed class Gerenciador : BaseModelo, IGerenciador, IGerenciadorRegistro, IGerenciadorInformacao, IGerenciadorDiagnostico
     {
+        /// <summary>
+        /// Inicializa o gerenciador de modulos
+        /// </summary>
         private Gerenciador()
         {
             DataInicio = DateTime.Now;
 
-            LimpezaAutomatica();
+            Workers = new TaskJob();
+
             Console.CancelKeyPress += Console_CancelKeyPress;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
-            ModulosValidos = Array.Empty<string>();
-            ModulosIgnorados = Array.Empty<string>();
+            Workers.AddTask((cts) =>
+            {
+
+                CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)cts;
+
+                foreach (var key in Modulos.Keys)
+                {
+                    if (Modulos[key].Elimindado)
+                    {
+                        Cache.TryRemove(key, out string _);
+                        Modulos.TryRemove(key, out IModuloTipo _);
+                    }
+                }
+            }, TimeSpan.FromSeconds(1), "LIMPEZA_AUTOMATICA_WORKER");
         }
 
         private readonly CancellationTokenSource _cancellationToken = new();
@@ -34,7 +55,7 @@ namespace Propeus.Modulo.Core
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         public int ModulosInicializados => Modulos.Count;
 
-        private Task? LimpezaListaTask { get; set; } = null;
+        private TaskJob Workers { get; set; }
         /// <summary>
         /// Dicionario composto por ID do modulo e instancia do tipo do modulo
         /// </summary>
@@ -63,37 +84,28 @@ namespace Propeus.Modulo.Core
         }
 
         ///<inheritdoc/>
-        public Task LimpezaAutomaticaTask { get; private set; }
-
-        ///<inheritdoc/>
-        public IEnumerable<string> ModulosValidos { get; }
-
-        ///<inheritdoc/>
-        public IEnumerable<string> ModulosIgnorados { get; }
-
-        ///<inheritdoc/>
         public TimeSpan TempoExecucao => DateTime.Now - DataInicio;
 
 
         ///<inheritdoc/>
-        public IModulo Criar(string nomeModulo, params object[] argumentos)
+        public IModulo Criar(string nomeModulo)
         {
             IEnumerable<Type> result = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName == nomeModulo ^ t.Name == nomeModulo);
             return !result.Any()
                 ? throw new Exception(string.Format(ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
                 : result.Count() > 1
                 ? throw new IndexOutOfRangeException(string.Format(ERRO_TIPO_AMBIGUO, nomeModulo))
-                : Criar(result.First(), argumentos);
+                : Criar(result.First());
         }
 
         ///<inheritdoc/>
-        public T Criar<T>(params object[] argumentos) where T : IModulo
+        public T Criar<T>() where T : IModulo
         {
-            return Criar(typeof(T), argumentos).To<T>();
+            return Criar(typeof(T)).To<T>();
         }
 
         ///<inheritdoc/>
-        public IModulo Criar(Type modulo, params object[] argumentos)
+        public IModulo Criar(Type modulo)
         {
 
             if (modulo is null)
@@ -200,8 +212,7 @@ namespace Propeus.Modulo.Core
 
 
 
-            IModulo mAux = Activator.CreateInstance(modulo, arr).As<IModulo>();
-            _ = ArgumentosModulo.TryAdd(mAux.Id, argumentos);
+            IModulo mAux = Activator.CreateInstance(modulo).As<IModulo>();
             return mAux;
 
         }
@@ -420,7 +431,7 @@ namespace Propeus.Modulo.Core
             if (ArgumentosModulo.TryGetValue(modulo.Id, out object[] args))
             {
                 Remover(modulo);
-                return Criar<T>(args);
+                return Criar<T>();
             }
             else
             {
@@ -432,18 +443,9 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public IModulo Reiniciar(string id)
         {
-
-
-            if (ArgumentosModulo.TryGetValue(id, out object[] args))
-            {
-                IModulo modulo = Obter(id);
-                Remover(id);
-                return Criar(modulo.GetType(), args);
-            }
-            else
-            {
-                throw new InvalidOperationException(ERRO_MODULO_NEW_REINICIAR);
-            }
+            IModulo modulo = Obter(id);
+            Remover(id);
+            return Criar(modulo.GetType());
         }
 
 
@@ -510,37 +512,7 @@ namespace Propeus.Modulo.Core
             e.Cancel = true;
         }
 
-        ///<inheritdoc/>
-        private void LimpezaAutomatica()
-        {
-            LimpezaAutomaticaTask = Task.Run(async () =>
-            {
-                while (true)
-                {
-                    await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
 
-                    await LimpezaLista().ConfigureAwait(true);
-
-                    UltimaAtualizacao = DateTime.Now;
-                }
-            }, _cancellationToken.Token);
-
-        }
-        ///<inheritdoc/>
-        private Task LimpezaLista()
-        {
-            LimpezaListaTask = Task.Run(() =>
-            {
-                List<string> keys = Modulos.Where(x => x.Value.Elimindado).Select(x => x.Key).ToList();
-                foreach (string key in keys)
-                {
-                    _ = Cache.TryRemove(key, out _);
-                    _ = Modulos.TryRemove(key, out _);
-                }
-
-            }, _cancellationToken.Token);
-            return LimpezaListaTask;
-        }
         ///<inheritdoc/>
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
@@ -564,17 +536,8 @@ namespace Propeus.Modulo.Core
         public override string ToString()
         {
             StringBuilder stringBuilder = new(base.ToString());
-
-
-            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
-
             _ = stringBuilder.Append("Ultima atualização: ").Append(UltimaAtualizacao).AppendLine();
-
-            _ = stringBuilder.Append("Quantidade de modulos mapeados: ").Append(ModulosValidos.Count()).AppendLine();
-
-            _ = stringBuilder.Append("---").Append(Nome).Append("---").AppendLine();
-
-
+            _ = stringBuilder.Append("Modulos inicializados: ").Append(ModulosInicializados).AppendLine();
             return stringBuilder.ToString();
 
         }

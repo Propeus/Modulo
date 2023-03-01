@@ -4,6 +4,36 @@ using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Interfaces
 {
+
+    //TODO: Mudar o nome da interface
+    /// <summary>
+    /// Interface para criar instancias de modulo passando argumentos
+    /// </summary>
+    public interface IGerenciadorArgumentos : IGerenciador
+    {
+        /// <summary>
+        /// Cria uma nova instancia do modulo <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
+        /// <returns></returns>
+        T Criar<T>(object[] args) where T : IModulo;
+        /// <summary>
+        /// Cria uma nova instancia do modulo usando o tipo do parametro <paramref name="modulo"/>
+        /// </summary>
+        /// <param name="modulo">Tipo do modulo</param>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
+        /// <returns><see cref="IModulo"/></returns>
+        IModulo Criar(Type modulo, object[] args);
+        /// <summary>
+        /// Cria uma nova instancia do modulo buscando o tipo pelo nome
+        /// </summary>
+        /// <param name="nomeModulo">Nome do modulo</param>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
+        /// <returns><see cref="IModulo"/></returns>
+        IModulo Criar(string nomeModulo, object[] args);
+    }
+
     /// <summary>
     /// Modelo base para criação de gerenciadores
     /// </summary>
@@ -13,23 +43,20 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// Cria uma nova instancia do modulo <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
-        /// <param name="args">Qualquer argumento necessário para o contrutor </param>
         /// <returns></returns>
-        T Criar<T>(params object[] args) where T : IModulo;
+        T Criar<T>() where T : IModulo;
         /// <summary>
         /// Cria uma nova instancia do modulo usando o tipo do parametro <paramref name="modulo"/>
         /// </summary>
         /// <param name="modulo">Tipo do modulo</param>
-        /// <param name="args">Os parametros do construtor do modulo</param>
         /// <returns><see cref="IModulo"/></returns>
-        IModulo Criar(Type modulo, params object[] args);
+        IModulo Criar(Type modulo);
         /// <summary>
         /// Cria uma nova instancia do modulo buscando o tipo pelo nome
         /// </summary>
         /// <param name="nomeModulo">Nome do modulo</param>
-        /// <param name="args">Argumentos a serem enviados</param>
         /// <returns><see cref="IModulo"/></returns>
-        IModulo Criar(string nomeModulo, params object[] args);
+        IModulo Criar(string nomeModulo);
 
         /// <summary>
         /// Remove um modulo pelo seu ID
