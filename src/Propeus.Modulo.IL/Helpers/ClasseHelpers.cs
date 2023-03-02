@@ -23,7 +23,7 @@ namespace Propeus.Modulo.IL.Helpers
 
             Type tClasse = classe;
 
-            interfaces = tClasse.GetInterfaces().Join(interfaces).ToArray();
+            interfaces = tClasse.GetInterfaces().FullJoin(interfaces).ToArray();
 
             ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces);
 
@@ -34,7 +34,7 @@ namespace Propeus.Modulo.IL.Helpers
             foreach (ConstructorInfo c in tClasse.GetConstructors())
             {
 
-                API.ClasseAPI.CriarMetodo(cls.Atual, c.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), ".ctor", c.ObterTipoParametros().Select(p => new ILParametro(".ctor", p)).ToArray());
+                API.ClasseAPI.CriarMetodo(cls.Atual, c.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), typeof(void), ".ctor", c.GetParameters().Select(p => new ILParametro(".ctor", p.ParameterType, p.IsOptional, p.DefaultValue, p.Name)).ToArray());
                 ILMetodo ctorMth = cls.Atual.Metodos.Last();
 
                 API.MetodoAPI.CarregarArgumento(ctorMth);
@@ -143,7 +143,7 @@ namespace Propeus.Modulo.IL.Helpers
                 var ctor = attr.GetType().ObterConstrutor();
                 if (ctor != null)
                 {
-                    CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor,Array.Empty<object>());
+                    CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor, Array.Empty<object>());
                     cls.Atual.Proxy.ObterBuilder<TypeBuilder>().SetCustomAttribute(attributeBuilder);
                 }
 
@@ -170,15 +170,15 @@ namespace Propeus.Modulo.IL.Helpers
             ILDelegate cls = ilGerador.CriarDelegate(nomeDelegate, null, new Enums.Token[] { Token.Publico, Token.Auto, Token.Ansi, Token.Selado });
             _ = cls.CriarConstrutor(
                    new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
-                   new ILParametro(".ctor", typeof(object), "object"),
-                   new ILParametro(".ctor", typeof(nint), "method"));
+                   new ILParametro(".ctor", typeof(object), nome: "object"),
+                   new ILParametro(".ctor", typeof(nint), nome: "method"));
 
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
                 "Invoke", parametros);
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(IAsyncResult),
                 "BeginInvoke",
-                parametros.Join(new ILParametro[] {
+                parametros.FullJoin(new ILParametro[] {
                 new ILParametro("BeginInvoke", typeof(AsyncCallback)),
                 new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
@@ -196,15 +196,15 @@ namespace Propeus.Modulo.IL.Helpers
 
             _ = cls.CriarConstrutor(
                    new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NomeEspecial, Token.RotuloNomeEspecial },
-                   new ILParametro(".ctor", typeof(object), "object"),
-                   new ILParametro(".ctor", typeof(nint), "method"));
+                   new ILParametro(".ctor", typeof(object), nome: "object"),
+                   new ILParametro(".ctor", typeof(nint), nome: "method"));
 
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual }, tipoSaida,
                 "Invoke", parametros);
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },
                 typeof(IAsyncResult),
                 "BeginInvoke",
-                parametros.Join(new ILParametro[] {
+                parametros.FullJoin(new ILParametro[] {
                 new ILParametro("BeginInvoke", typeof(AsyncCallback)),
                 new ILParametro("BeginInvoke", typeof(object)) }).ToArray());
             _ = cls.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura, Token.NovoSlot, Token.Virtual },

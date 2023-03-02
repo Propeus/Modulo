@@ -86,11 +86,11 @@ namespace Propeus.Modulo.IL.Geradores
             }
             if (interfaces is not null)
             {
-                Interfaces = Interfaces.Join(interfaces).ToArray();
+                Interfaces = Interfaces.FullJoin(interfaces).ToArray();
             }
             if (acessadores is not null)
             {
-                Acessadores = acessadores.Join(acessadores).ToArray();
+                Acessadores = acessadores.FullJoin(acessadores).ToArray();
             }
 
 

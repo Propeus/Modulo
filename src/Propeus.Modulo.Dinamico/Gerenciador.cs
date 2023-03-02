@@ -14,11 +14,13 @@ using Propeus.Modulo.Dinamico.Properties;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util.Thread;
+using System.Reflection;
+using Propeus.Modulo.Abstrato.Helpers;
 
 namespace Propeus.Modulo.Dinamico
 {
     [Modulo]
-    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico
+    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro
     {
         public Gerenciador(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
@@ -27,65 +29,14 @@ namespace Propeus.Modulo.Dinamico
             DataInicio = DateTime.Now;
             _scheduler = new TaskJob(10);
 
-            //[POSSIVEL PROBLEMA]Pode acontecer de chamar o moduloBin antes de mapear
-            _scheduler.AddTask((cancelationToken) =>
-            {
-                var arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
-                foreach (var dll in arquivos_dll)
-                {
-                    var moduloBinario = new ModuloBinario(dll);
-                    if (moduloBinario.BinarioValido)
-                    {
-                        if (!Binarios.ContainsKey(dll))
-                        {
-                            Binarios.TryAdd(dll, moduloBinario);
-                        }
-                        else
-                        {
-                            if (Binarios[dll].Hash != moduloBinario.Hash)
-                            {
-                                Binarios.TryRemove(dll, out IModuloBinario moduloBin);
-                                moduloBin.Dispose();
-                                Binarios.TryAdd(dll, moduloBinario);
-                            }
 
-                        }
-                    }
-                    else
-                    {
-                        moduloBinario.Dispose();
-                    }
-                }
-            }, TimeSpan.FromSeconds(1), "CARREGAR_MODULO_JOB");
-            _scheduler.AddTask((cancelationToken) =>
-            {
-                foreach (var moduloBin in Binarios)
-                {
+            CARREGAR_MODULO_JOB(null);
 
-                    var modulos = moduloBin.Value.ModuloInformacao.Assembly.GetTypes().Where(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>() && x.PossuiAtributo<ModuloAutoInicializavelAttribute>()).ToArray();
-                    foreach (var modulo in modulos)
-                    {
-                        if (!Existe(modulo))
-                        {
-                            Criar(modulo);
-                        }
-                        else
-                        {
-                            string oldVer = (Gerenciador as IGerenciadorInformacao).ObterInfo(modulo).Versao;
-                            string newVer = moduloBin.Value.ModuloInformacao.Versao;
-                            if (oldVer != newVer)
-                            {
-                                var iModulo = Obter(modulo);
-                                Remover(iModulo);
-                                Criar(modulo);
-
-                            }
-                        }
-                    }
-                }
-            }, TimeSpan.FromSeconds(1), "AUTO_INICIALIZAR_MODULO_JOB");
+            _scheduler.AddTask(CARREGAR_MODULO_JOB, TimeSpan.FromSeconds(1), "CARREGAR_MODULO_JOB");
+            _scheduler.AddTask(AUTO_INICIALIZAR_MODULO_JOB, TimeSpan.FromSeconds(1), "AUTO_INICIALIZAR_MODULO_JOB");
 
         }
+
 
         public DateTime DataInicio { get; }
 
@@ -105,7 +56,9 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public T Criar<T>() where T : IModulo
         {
-            return Criar(typeof(T)).As<T>();
+            var r = Criar(typeof(T));
+            r.Herdado<T>();
+            return (T)r;
         }
         ///<inheritdoc/>
         public IModulo Criar(string nomeModulo)
@@ -117,77 +70,118 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public IModulo Criar(Type modulo)
         {
+
             if (modulo.IsInterface)
             {
-                if (modulo.PossuiAtributo<ModuloContratoAttribute>())
+                modulo = ResoverContratos(modulo);
+
+                var ctors = modulo.GetConstructors();
+                foreach (var ctor in ctors)
                 {
-
-                    var nmeTipo = modulo.ObterAtributo<ModuloContratoAttribute>()?.Nome;
-                    var infoBin = Binarios.Single(x => x.Value.ModuloInformacao.PossuiModulo(nmeTipo)).Value;
-                    var tipoBase = infoBin.ModuloInformacao.CarregarTipoModulo(nmeTipo);
-
-
-
-                    IModulo iModulo;
-                    if (tipoBase.Herdado(modulo))
+                    var @params = ctor.GetParameters();
+                    foreach (var @param in @params)
                     {
-                        iModulo = Gerenciador.Criar(nmeTipo);
-                    }
-                    else
-                    {
-
-                        ILClasseProvider provider;
-                        if (ModuloProvider.ContainsKey(nmeTipo))
+                        if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                         {
-                            infoBin.ModuloInformacao.AdicionarContrato(nmeTipo, modulo);
-
-                            provider = ModuloProvider[nmeTipo];
-                            ModuloProvider[nmeTipo] = provider.NovaVersao(interfaces: infoBin.ModuloInformacao.ObterContratos(nmeTipo).ToArray());
+                            _ = ResoverContratos(param.ParameterType);
                         }
-                        else
-                        {
-                            var interfaces = tipoBase.ObterInterfaces();
-                            foreach (var item in interfaces)
-                            {
-                                infoBin.ModuloInformacao.AdicionarContrato(nmeTipo, item);
-                            }
-                            provider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(tipoBase, infoBin.ModuloInformacao.ObterContratos(nmeTipo).ToArray());
-                            ModuloProvider.Add(nmeTipo, provider);
-                        }
-                        provider.Executar();  //Falta adicionar um atributo moduloBin
-                        iModulo = Gerenciador.Criar(provider.ObterTipoGerado());
-                        infoBin.ModuloInformacao[nmeTipo] = (Gerenciador as IGerenciadorInformacao).ObterInfo(provider.ObterTipoGerado());
                     }
+                }
+            }
 
+            return Gerenciador.Criar(modulo);
 
-                    return iModulo;
+         
+        }
 
+        private Type ResoverContratos(Type contrato)
+        {
+            if (!contrato.IsInterface)
+                throw new ArgumentException("O tipo nao e uma interface");
+
+            if (contrato.PossuiAtributo<ModuloContratoAttribute>())
+            {
+                Type tipoImplementacao;
+                IModuloInformacao moduloInfo;
+                ILClasseProvider provider;
+
+                var attr = contrato.ObterAtributo<ModuloContratoAttribute>();
+                if (attr.Tipo is not null)
+                {
+                    moduloInfo = new ModuloInformacao(attr.Tipo);
                 }
                 else
                 {
-                    throw new ArgumentException("A interface nao possui o atributo de contrato");
+                    moduloInfo = Binarios.Single(bin => bin.Value.ModuloInformacao.PossuiModulo(attr.Nome)).Value.ModuloInformacao;
+
                 }
+                tipoImplementacao = moduloInfo.CarregarTipoModulo(attr.Nome);
+
+
+                moduloInfo.AdicionarContrato(tipoImplementacao.Name, contrato);
+                if (!ModuloProvider.ContainsKey(tipoImplementacao.Name))
+                {
+                    provider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(tipoImplementacao, moduloInfo.ObterContratos(tipoImplementacao.Name).ToArray());
+                    ModuloProvider.Add(tipoImplementacao.Name, provider);
+                }
+                else
+                {
+                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: moduloInfo.ObterContratos(tipoImplementacao.Name).ToArray());
+                }
+
+                ModuloProvider[tipoImplementacao.Name].Executar();
+                contrato = ModuloProvider[tipoImplementacao.Name].ObterTipoGerado();
+
+                if (attr.Tipo is not null)
+                {
+                    moduloInfo.Dispose();
+                }
+
+                return contrato;
+               
+
             }
             else
             {
-                return Gerenciador.Criar(modulo);
+                //Interface nao mapeada
+                throw new InvalidCastException();
             }
         }
+
         ///<inheritdoc/>
         public T Criar<T>(object[] args) where T : IModulo
         {
-            throw new NotImplementedException();
-        ///<inheritdoc/>
+
+
+            T modulo = Gerenciador.Criar<T>();
+
+            var mthInstancia = modulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            mthInstancia?.Invoke(modulo, args);
+
+            return modulo;
+
         }
         ///<inheritdoc/>
         public IModulo Criar(Type modulo, object[] args)
         {
-            throw new NotImplementedException();
+            IModulo iModulo = Gerenciador.Criar(modulo);
+
+            var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            mthInstancia?.Invoke(iModulo, args);
+
+            return iModulo;
+
+
         }
         ///<inheritdoc/>
         public IModulo Criar(string nomeModulo, object[] args)
         {
-            throw new NotImplementedException();
+            IModulo iModulo = Gerenciador.Criar(Nome);
+
+            var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            mthInstancia?.Invoke(iModulo, args);
+
+            return iModulo;
         }
 
         ///<inheritdoc/>
@@ -286,6 +280,10 @@ namespace Propeus.Modulo.Dinamico
             await Gerenciador.ManterVivoAsync().ConfigureAwait(true);
         }
 
+        public void Registrar(IModulo modulo)
+        {
+            (Gerenciador as IGerenciadorRegistro).Registrar(modulo);
+        }
 
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)
@@ -316,6 +314,63 @@ namespace Propeus.Modulo.Dinamico
             return stringBuilder.ToString();
         }
 
-       
+        private void AUTO_INICIALIZAR_MODULO_JOB(object cancelationToken)
+        {
+            foreach (var moduloBin in Binarios)
+            {
+
+                var modulos = moduloBin.Value.ModuloInformacao.Assembly.GetTypes().Where(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>() && x.PossuiAtributo<ModuloAutoInicializavelAttribute>()).ToArray();
+                foreach (var modulo in modulos)
+                {
+                    if (!Existe(modulo))
+                    {
+                        Criar(modulo);
+                    }
+                    else
+                    {
+                        string oldVer = (Gerenciador as IGerenciadorInformacao).ObterInfo(modulo).Versao;
+                        string newVer = moduloBin.Value.ModuloInformacao.Versao;
+                        if (oldVer != newVer)
+                        {
+                            var iModulo = Obter(modulo);
+                            Remover(iModulo);
+                            Criar(modulo);
+
+                        }
+                    }
+                }
+            }
+        }
+        private void CARREGAR_MODULO_JOB(object cancelationToken)
+        {
+            var arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
+            foreach (var dll in arquivos_dll)
+            {
+                var moduloBinario = new ModuloBinario(dll);
+                if (moduloBinario.BinarioValido)
+                {
+                    if (!Binarios.ContainsKey(dll))
+                    {
+                        Binarios.TryAdd(dll, moduloBinario);
+                    }
+                    else
+                    {
+                        if (Binarios[dll].Hash != moduloBinario.Hash)
+                        {
+                            Binarios.TryRemove(dll, out IModuloBinario moduloBin);
+                            moduloBin.Dispose();
+                            Binarios.TryAdd(dll, moduloBinario);
+                        }
+
+                    }
+                }
+                else
+                {
+                    moduloBinario.Dispose();
+                }
+            }
+        }
+
+
     }
 }

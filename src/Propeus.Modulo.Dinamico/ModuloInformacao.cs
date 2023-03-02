@@ -20,6 +20,29 @@ namespace Propeus.Modulo.Dinamico
     public class ModuloInformacao : BaseModelo, IModuloInformacao
     {
 
+        public ModuloInformacao(Type moduloTipo)
+        {
+            if (moduloTipo is null)
+            {
+                throw new ArgumentNullException(nameof(moduloTipo));
+            }
+
+
+            Nome = moduloTipo.Name;
+            Caminho = moduloTipo.Assembly.Location;
+            Assembly = moduloTipo.Assembly;
+            Modulos = new Dictionary<string, IModuloTipo>();
+            Contratos = new Dictionary<string, List<Type>>();
+            WeakReferenceAssembly = new WeakReference(moduloTipo);
+            AssemblyName = moduloTipo.Assembly?.GetName();
+            Version versao = AssemblyName.Version;
+            Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
+            foreach (var item in ObterNomeModulos())
+            {
+                Modulos.Add(item, null);
+            }
+        }
+
         public ModuloInformacao(IModuloBinario moduloBinario)
         {
             if (moduloBinario is null)
@@ -31,23 +54,24 @@ namespace Propeus.Modulo.Dinamico
             Caminho = moduloBinario.Caminho;
             Modulos = new Dictionary<string, IModuloTipo>();
             Contratos = new Dictionary<string, List<Type>>();
-            MemoryStream = new WeakReference(moduloBinario.Memoria);
+            WeakReferenceAssembly = new WeakReference(moduloBinario.Memoria);
 
             AssemblyLoadContext = new ModuloAssemblyLoadContext();
-            if (MemoryStream.IsAlive)
+            AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
+            if (WeakReferenceAssembly.IsAlive)
             {
-                Assembly = AssemblyLoadContext.LoadFromStream(MemoryStream.Target as MemoryStream);
-                _ = (MemoryStream.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
+                Assembly = AssemblyLoadContext.LoadFromStream(WeakReferenceAssembly.Target as MemoryStream);
+                _ = (WeakReferenceAssembly.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
             }
 
             AssemblyName = Assembly.GetName();
             Version versao = AssemblyName.Version;
+            Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
+
             foreach (var item in ObterNomeModulos())
             {
                 Modulos.Add(item, null);
             }
-            AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
-            Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
         }
         public override string Versao { get; }
         public IModuloTipo this[string nome]
@@ -76,7 +100,7 @@ namespace Propeus.Modulo.Dinamico
             }
         }
 
-        private readonly WeakReference MemoryStream;
+        private WeakReference WeakReferenceAssembly;
         /// <summary>
         /// Assembly a qual o modulo pertence
         /// </summary>
@@ -99,8 +123,8 @@ namespace Propeus.Modulo.Dinamico
         /// </summary>
         public string Caminho { get; }
 
-        public int ModulosDescobertos => Modulos.Count;
-        public int ModulosCarregados => Modulos.Count(predicate: x => x.Value is not null);
+        public int ModulosDescobertos => Modulos?.Count ?? 0;
+        public int ModulosCarregados => Modulos?.Count(predicate: x => x.Value is not null) ?? 0;
 
         /// <summary>
         /// Adiciona um contrato atrelado a um modulo
@@ -130,7 +154,7 @@ namespace Propeus.Modulo.Dinamico
             }
             else
             {
-                Contratos.Add(nomeModulo,new List<Type> { contrato });
+                Contratos.Add(nomeModulo, new List<Type> { contrato });
             }
         }
         /// <summary>
@@ -155,7 +179,7 @@ namespace Propeus.Modulo.Dinamico
             }
             return null;
         }
-       
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());
@@ -169,15 +193,21 @@ namespace Propeus.Modulo.Dinamico
         }
         protected override void Dispose(bool disposing)
         {
-           
             Modulos.Clear();
+            Contratos.Clear();
+
             Assembly = null;
             AssemblyName = null;
-            if (AssemblyLoadContext.IsCollectible)
+
+            if (AssemblyLoadContext is not null)
             {
-                AssemblyLoadContext.Unload();
+                if (AssemblyLoadContext.IsCollectible)
+                {
+                    AssemblyLoadContext.Unload();
+                }
+                AssemblyLoadContext = null;
             }
-            AssemblyLoadContext = null;
+
             base.Dispose(disposing);
         }
 
@@ -219,16 +249,11 @@ namespace Propeus.Modulo.Dinamico
 
         private void AssemblyLoadContext_Unloading(AssemblyLoadContext obj)
         {
-            if (MemoryStream is not null && MemoryStream.IsAlive)
+            if (WeakReferenceAssembly is not null && WeakReferenceAssembly.IsAlive)
             {
-                ((MemoryStream)MemoryStream.Target).Dispose();
+                ((MemoryStream)WeakReferenceAssembly.Target).Dispose();
+                WeakReferenceAssembly = null;
             }
         }
-
-
-        //public Type ObterTipoModulo(string nomeModulo)
-        //{
-        //    return ModuloInformacao.FirstOrDefault(x => x.Value.Nome == nomeModulo);
-        //}
     }
 }

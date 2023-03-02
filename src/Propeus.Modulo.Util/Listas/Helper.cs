@@ -12,6 +12,41 @@ namespace Propeus.Modulo.Util
     /// </summary>
     public static partial class Helper
     {
+
+        /// <summary>
+        /// Junta as duas listas sem repitir os objetos.
+        /// </summary>
+        /// <typeparam name="T">Tipo da lista</typeparam>
+        /// <param name="esquerda">Lista da esquerda</param>
+        /// <param name="direita">Lista da direita</param>
+        /// <returns>Retorna os valores das duas listas sem repitir os valores</returns>
+        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
+        public static IEnumerable<T> FullJoin<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
+        {
+            if (esquerda is null)
+            {
+                throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
+            }
+
+            if (direita is null)
+            {
+                return esquerda;
+            }
+
+            ICollection<T> join = new LinkedList<T>();
+            foreach (T ia in esquerda)
+            {
+                join.Add(ia);
+            }
+            foreach (T ib in direita)
+            {
+                if (!join.Contains(ib))
+                {
+                    join.Add(ib);
+                }
+            }
+            return join;
+        }
         /// <summary>
         /// Obtém os itens em comum entre duas listas.
         /// </summary>
@@ -79,7 +114,7 @@ namespace Propeus.Modulo.Util
             }
             return result;
         }
-     
+
         /// <summary>
         /// Converte uma lista de objetos para uma lista do tipo especificado
         /// </summary>

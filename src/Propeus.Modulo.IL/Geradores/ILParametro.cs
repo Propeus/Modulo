@@ -22,7 +22,7 @@ namespace Propeus.Modulo.IL.Geradores
         private bool disposedValue;
         private bool _Executado;
 
-        public ILParametro(string nomeMetodo, Type tipo, string nome = Constantes.CONST_NME_VARIAVEL)
+        public ILParametro(string nomeMetodo, Type tipo, bool opcional = false, object defaultValue = null, string nome = Constantes.CONST_NME_VARIAVEL)
         {
             if (nome == Constantes.CONST_NME_VARIAVEL)
             {
@@ -32,6 +32,8 @@ namespace Propeus.Modulo.IL.Geradores
 
             Nome = nome;
             Tipo = tipo;
+            Opcional = opcional;
+            DefaultValue = defaultValue;
         }
 
         public ILParametro(ILBuilderProxy builderProxy, string nomeMetodo, Type tipo = null, string nome = Constantes.CONST_NME_VARIAVEL)
@@ -62,6 +64,8 @@ namespace Propeus.Modulo.IL.Geradores
         }
 
         public Type Tipo { get; private set; }
+        public bool Opcional { get; private set; }
+        public object DefaultValue { get; private set; }
         public string Nome { get; private set; }
         public int Indice { get; internal set; }
 

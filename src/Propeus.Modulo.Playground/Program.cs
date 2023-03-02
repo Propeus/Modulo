@@ -37,12 +37,18 @@ namespace Propeus.Modulo.IL.Playground
     [Modulo]
     public class ModuloTesteB : ModuloBase, IModuloContratoB
     {
-        public ModuloTesteB(IGerenciador gerenciador,IModuloContratoA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        public ModuloTesteB(IGerenciador gerenciador, IModuloContratoA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
         {
             if (moduloContratoA is null)
             {
                 throw new ArgumentNullException(nameof(moduloContratoA));
             }
+        }
+
+        public void CriarInstancia(int a, string txt)
+        {
+            Console.WriteLine(txt);
+            Console.WriteLine(a);
         }
     }
 
@@ -68,13 +74,16 @@ namespace Propeus.Modulo.IL.Playground
             //GerenciadorDeTask();
             //return;
 
-            var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
-            Console.WriteLine(modulo.ToString());
-            return;
+            //var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
+            //Console.WriteLine(modulo.ToString());
+            //return;
 
-            //var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
-            ////var modulo = genv2.Criar<IModuloContrato>();
+            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
+            //TODO: Esta dando ruim de cast do mesmo tipo???
+            var modulo = genv2.Criar<IModuloContratoB>();
+            Console.WriteLine(modulo.ToString());
             //genv2.ManterVivoAsync().Wait();
+            return;
 
             //using (ILGerador iLGerador = new ILGerador())
             //{
@@ -155,8 +164,8 @@ namespace Propeus.Modulo.IL.Playground
 
             //Cria um metodo `int Adicao(int,int)`
             ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
-                new ILParametro("Adicao",typeof(int),"p1"),
-                new ILParametro("Adicao",typeof(int),"p2")
+                new ILParametro("Adicao",typeof(int),nome:"p1"),
+                new ILParametro("Adicao",typeof(int),nome: "p2")
             });
             _ = mth.Soma(mth.Parametros[0], mth.Parametros[1]);
             _ = mth.CriarRetorno();
@@ -167,8 +176,8 @@ namespace Propeus.Modulo.IL.Playground
 
             //Cria um metodo `void Exibir()`
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(void), "Exibir", new ILParametro[] {
-                new ILParametro("Exibir",typeof(int),"p1"),
-                new ILParametro("Exibir",typeof(int),"p2")
+                new ILParametro("Exibir",typeof(int),nome : "p1"),
+                new ILParametro("Exibir",typeof(int),nome : "p2")
             });
 
             //Atribui o metodo `Adicao` dentro de `calc`  `calc a = Adicao`
@@ -211,9 +220,9 @@ namespace Propeus.Modulo.IL.Playground
 
             //Criar metodo de entre valores (teste de multiplos ifs)
             ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(bool), "EntreValores2", new ILParametro[] {
-                new ILParametro("EntreValores2",typeof(int),"menor"),
-                new ILParametro("EntreValores2",typeof(int),"atual"),
-                new ILParametro("EntreValores2",typeof(int),"maior")
+                new ILParametro("EntreValores2",typeof(int),nome : "menor"),
+                new ILParametro("EntreValores2",typeof(int),nome : "atual"),
+                new ILParametro("EntreValores2",typeof(int),nome : "maior")
             });
             _ = mth.Se(mth.Parametros[0], mth.MenorOuIgualQue, mth.Parametros[1]);
             _ = mth.Ou(mth.Parametros[2], mth.MenorOuIgualQue, mth.Parametros[1]);
@@ -236,32 +245,32 @@ namespace Propeus.Modulo.IL.Playground
             ILClasseProvider classe = modulo.CriarClasse("CalculadoraBase", "Propeus.IL.Exemplo", null, null, new Token[] { Token.Publico });
 
             ILMetodo mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Adicao", new ILParametro[] {
-                new ILParametro("Adicao",typeof(int),"p1"),
-                new ILParametro("Adicao",typeof(int),"p2")
+                new ILParametro("Adicao",typeof(int),nome : "p1"),
+                new ILParametro("Adicao",typeof(int),nome : "p2")
             });
 
             _ = mth.Soma(mth.Parametros[0], mth.Parametros[1]);
             _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Subtracao", new ILParametro[] {
-                new ILParametro("Subtracao",typeof(int),"p1"),
-                new ILParametro("Subtracao",typeof(int),"p2")
+                new ILParametro("Subtracao",typeof(int),nome : "p1"),
+                new ILParametro("Subtracao",typeof(int),nome : "p2")
             });
 
             _ = mth.Subitrair(mth.Parametros[0], mth.Parametros[1]);
             _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Divisao", new ILParametro[] {
-                new ILParametro("Divisao",typeof(int),"p1"),
-                new ILParametro("Divisao",typeof(int),"p2")
+                new ILParametro("Divisao",typeof(int),nome : "p1"),
+                new ILParametro("Divisao",typeof(int),nome : "p2")
             });
 
             _ = mth.Dividir(mth.Parametros[0], mth.Parametros[1]);
             _ = mth.CriarRetorno();
 
             mth = classe.CriarMetodo(new Token[] { Token.Publico, Token.OcutarAssinatura }, typeof(int), "Multiplicacao", new ILParametro[] {
-                new ILParametro("Multiplicacao",typeof(int),"p1"),
-                new ILParametro("Multiplicacao",typeof(int),"p2")
+                new ILParametro("Multiplicacao",typeof(int),nome : "p1"),
+                new ILParametro("Multiplicacao",typeof(int),nome : "p2")
             });
 
             _ = mth.Multiplicar(mth.Parametros[0], mth.Parametros[1]);

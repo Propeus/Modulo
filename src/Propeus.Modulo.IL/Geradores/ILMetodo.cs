@@ -109,6 +109,23 @@ namespace Propeus.Modulo.IL.Geradores
             for (int i = 0; i < parametros.Length; i++)
             {
                 parametros[i].Indice = i + 1;
+                //TODO: Fazer implemnentacao de parametro opcional
+                if (parametros[i].Opcional)
+                {
+                    if (parametros[i].DefaultValue is null)
+                    {
+                        _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
+                    }
+                    else
+                    {
+                        var paramBuilder = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional, parametros[i].Nome);
+                        paramBuilder.SetConstant(parametros[i].DefaultValue);
+                    }
+                }
+                else
+                {
+                    _metodoBuilder.DefineParameter(i, ParameterAttributes.In, parametros[i].Nome);
+                }
             }
             PilhaExecucao = new List<IILPilha>();
             Variaveis = new List<ILVariavel>();

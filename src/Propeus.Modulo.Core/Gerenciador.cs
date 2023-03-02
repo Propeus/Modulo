@@ -189,14 +189,8 @@ namespace Propeus.Modulo.Core
                 else if (paramCtor[i].ParameterType.Is<IGerenciador>())
                 {
                     var gen = Modulos.FirstOrDefault(x => x.Value.Modulo is IGerenciador).Value;
-                    if (gen is null)
-                    {
-                        arr[i] = Atual;
-                    }
-                    else
-                    {
-                        arr[i] = gen;
-                    }
+
+                    arr[i] = (gen?.Modulo as IGerenciador) ?? Atual;
                 }
                 else
                 {
@@ -212,8 +206,7 @@ namespace Propeus.Modulo.Core
 
 
 
-            IModulo mAux = Activator.CreateInstance(modulo).As<IModulo>();
-            return mAux;
+            return (IModulo)Activator.CreateInstance(modulo, arr);
 
         }
 
