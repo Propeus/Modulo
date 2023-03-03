@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 using Propeus.Modulo.Abstrato;
@@ -15,28 +16,30 @@ namespace Propeus.Modulo.Dinamico
     /// </summary>
     public class ModuloBinario : BaseModelo, IModuloBinario
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="caminho">Caminho fisico do modulo (dll)</param>
+       
         public ModuloBinario(string caminho)
         {
             Caminho = caminho;
-            Memoria = new MemoryStream();
-            if (File.Exists(caminho))
+            //Nao pode carregaar em memoria um modulo que esta em execucao
+            if (!Assembly.GetEntryAssembly().Location.Equals(caminho, StringComparison.CurrentCultureIgnoreCase))
             {
-                using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
+                Memoria = new MemoryStream();
+                if (File.Exists(caminho))
                 {
-                    using (BinaryReader binario = new(arquivo))
+                    using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
                     {
-                        binario.BaseStream.CopyTo(Memoria);
-                        binario.Close();
+                        using (BinaryReader binario = new(arquivo))
+                        {
+                            binario.BaseStream.CopyTo(Memoria);
+                            binario.Close();
+                        }
+                        arquivo.Close();
                     }
-                    arquivo.Close();
                 }
+                _ = Memoria.Seek(0, SeekOrigin.Begin);
+                Hash = Memoria.GetBuffer().Hash();
             }
-            _ = Memoria.Seek(0, SeekOrigin.Begin);
-            Hash = Memoria.GetBuffer().Hash();
+
             ModuloInformacao = new ModuloInformacao(this);
         }
 

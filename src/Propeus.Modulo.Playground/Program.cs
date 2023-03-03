@@ -21,7 +21,7 @@ namespace Propeus.Modulo.IL.Playground
     {
     }
 
-    [ModuloContrato(typeof(ModuloTesteB))]
+    [ModuloContrato("ModuloTesteB")]
     public interface IModuloContratoB : IModulo
     {
     }
@@ -37,7 +37,7 @@ namespace Propeus.Modulo.IL.Playground
     [Modulo]
     public class ModuloTesteB : ModuloBase, IModuloContratoB
     {
-        public ModuloTesteB(IGerenciador gerenciador, IModuloContratoA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        public ModuloTesteB(IGerenciador gerenciador, ModuloTesteA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
         {
             if (moduloContratoA is null)
             {

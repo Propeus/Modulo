@@ -30,13 +30,15 @@ namespace Propeus.Modulo.Dinamico
 
             Nome = moduloTipo.Name;
             Caminho = moduloTipo.Assembly.Location;
+            
             Assembly = moduloTipo.Assembly;
-            Modulos = new Dictionary<string, IModuloTipo>();
-            Contratos = new Dictionary<string, List<Type>>();
-            WeakReferenceAssembly = new WeakReference(moduloTipo);
             AssemblyName = moduloTipo.Assembly?.GetName();
             Version versao = AssemblyName.Version;
             Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
+
+            Modulos = new Dictionary<string, IModuloTipo>();
+            Contratos = new Dictionary<string, List<Type>>();
+            
             foreach (var item in ObterNomeModulos())
             {
                 Modulos.Add(item, null);
@@ -50,21 +52,34 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentNullException(nameof(moduloBinario));
             }
 
+
+
             Nome = moduloBinario.Caminho;
             Caminho = moduloBinario.Caminho;
             Modulos = new Dictionary<string, IModuloTipo>();
             Contratos = new Dictionary<string, List<Type>>();
-            WeakReferenceAssembly = new WeakReference(moduloBinario.Memoria);
 
-            AssemblyLoadContext = new ModuloAssemblyLoadContext();
-            AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
-            if (WeakReferenceAssembly.IsAlive)
+            //Nao pode carregaar em memoria um modulo que esta em execucao
+            if (!Assembly.GetEntryAssembly().Location.Equals(Caminho, StringComparison.CurrentCultureIgnoreCase))
             {
-                Assembly = AssemblyLoadContext.LoadFromStream(WeakReferenceAssembly.Target as MemoryStream);
-                _ = (WeakReferenceAssembly.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
-            }
+                WeakReferenceAssembly = new WeakReference(moduloBinario.Memoria);
 
-            AssemblyName = Assembly.GetName();
+                AssemblyLoadContext = new ModuloAssemblyLoadContext();
+                AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
+                if (WeakReferenceAssembly.IsAlive)
+                {
+                    Assembly = AssemblyLoadContext.LoadFromStream(WeakReferenceAssembly.Target as MemoryStream);
+                    _ = (WeakReferenceAssembly.Target as MemoryStream).Seek(0, SeekOrigin.Begin);
+                }
+
+                AssemblyName = Assembly.GetName();
+            }
+            else
+            {
+                Assembly = System.Reflection.Assembly.GetEntryAssembly();
+                AssemblyName = Assembly.GetName();
+
+            }
             Version versao = AssemblyName.Version;
             Versao = $"{versao.Major}.{versao.Minor}.{versao.Build}";
 

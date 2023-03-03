@@ -56,9 +56,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public T Criar<T>() where T : IModulo
         {
-            var r = Criar(typeof(T));
-            r.Herdado<T>();
-            return (T)r;
+            return (T)Criar(typeof(T));
         }
         ///<inheritdoc/>
         public IModulo Criar(string nomeModulo)
@@ -70,28 +68,33 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public IModulo Criar(Type modulo)
         {
+            if (modulo is null)
+            {
+                throw new ArgumentNullException(nameof(modulo));
+            }
 
             if (modulo.IsInterface)
             {
                 modulo = ResoverContratos(modulo);
 
-                var ctors = modulo.GetConstructors();
-                foreach (var ctor in ctors)
+            }
+
+            var ctors = modulo.GetConstructors();
+            foreach (var ctor in ctors)
+            {
+                var @params = ctor.GetParameters();
+                foreach (var @param in @params)
                 {
-                    var @params = ctor.GetParameters();
-                    foreach (var @param in @params)
+                    if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                     {
-                        if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
-                        {
-                            _ = ResoverContratos(param.ParameterType);
-                        }
+                        _ = ResoverContratos(param.ParameterType);
                     }
                 }
             }
 
             return Gerenciador.Criar(modulo);
 
-         
+
         }
 
         private Type ResoverContratos(Type contrato)
@@ -138,7 +141,7 @@ namespace Propeus.Modulo.Dinamico
                 }
 
                 return contrato;
-               
+
 
             }
             else
