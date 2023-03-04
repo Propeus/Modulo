@@ -97,10 +97,9 @@ namespace Propeus.Modulo.IL.Playground
             //var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
             //Console.WriteLine(modulo.ToString());
             //return;
-
             var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
             //TODO: Esta dando ruim de cast do mesmo tipo???
-            var modulo = genv2.Criar<IModuloContratoC>();
+            var modulo = genv2.Criar<IModuloContratoC>(new object[] { 1, "Ola mundo" });
             Console.WriteLine(modulo.ToString());
             //genv2.ManterVivoAsync().Wait();
             return;

@@ -101,7 +101,7 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public T Criar<T>() where T : IModulo
         {
-            return Criar(typeof(T)).To<T>();
+            return  (T)Criar(typeof(T));
         }
 
         ///<inheritdoc/>

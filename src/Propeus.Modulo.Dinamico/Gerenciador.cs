@@ -156,7 +156,7 @@ namespace Propeus.Modulo.Dinamico
         {
 
 
-            T modulo = Gerenciador.Criar<T>();
+            T modulo = (T)Criar(typeof(T));
 
             var mthInstancia = modulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(modulo, args);
