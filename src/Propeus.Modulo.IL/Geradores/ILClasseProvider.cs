@@ -94,7 +94,7 @@ namespace Propeus.Modulo.IL.Geradores
             }
 
 
-            ILClasse classe = new(Proxy, Nome, Namespace + "V" + Versao, Base, Interfaces, Acessadores);
+            ILClasse classe = new(Proxy, Nome, Namespace + ".V" + Versao, Base, Interfaces, Acessadores);
             InserirNovaVersaoArray(classe, Versao);
             Atual = classe;
 
