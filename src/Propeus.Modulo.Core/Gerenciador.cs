@@ -201,11 +201,6 @@ namespace Propeus.Modulo.Core
                 }
             }
 
-
-
-
-
-
             return (IModulo)Activator.CreateInstance(modulo, arr);
 
         }

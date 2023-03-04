@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Util.Thread;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
@@ -23,6 +21,11 @@ namespace Propeus.Modulo.IL.Playground
 
     [ModuloContrato("ModuloTesteB")]
     public interface IModuloContratoB : IModulo
+    {
+    }
+
+    [ModuloContrato("ModuloTesteC")]
+    public interface IModuloContratoC : IModulo
     {
     }
 
@@ -49,6 +52,23 @@ namespace Propeus.Modulo.IL.Playground
         {
             Console.WriteLine(txt);
             Console.WriteLine(a);
+        }
+    }
+
+    [Modulo]
+    public class ModuloTesteC : ModuloBase
+    {
+        public ModuloTesteC(IGerenciador gerenciador, ModuloTesteA moduloContratoA, IModuloContratoB moduloContratoB, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        {
+            if (moduloContratoA is null)
+            {
+                throw new ArgumentNullException(nameof(moduloContratoA));
+            }
+
+            if (moduloContratoB is null)
+            {
+                throw new ArgumentNullException(nameof(moduloContratoB));
+            }
         }
     }
 
@@ -80,7 +100,7 @@ namespace Propeus.Modulo.IL.Playground
 
             var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
             //TODO: Esta dando ruim de cast do mesmo tipo???
-            var modulo = genv2.Criar<IModuloContratoB>();
+            var modulo = genv2.Criar<IModuloContratoC>();
             Console.WriteLine(modulo.ToString());
             //genv2.ManterVivoAsync().Wait();
             return;

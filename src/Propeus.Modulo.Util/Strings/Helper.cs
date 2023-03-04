@@ -18,7 +18,7 @@ namespace Propeus.Modulo.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static byte[] ToArrayByte(this string obj)
         {
-            if (obj.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(obj))
             {
                 throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO_OU_VAZIO);
             }
@@ -34,23 +34,23 @@ namespace Propeus.Modulo.Util
         }
 
         /// <summary>
-        /// Verifica se a string esta vazia ou nula
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty(this string str)
-        {
-            return string.IsNullOrEmpty(str);
-        }
-
-        /// <summary>
         /// Obtem o tipo pelo nome 
         /// </summary>
         /// <param name="nomeTipo">Nome do tipo</param>
         /// <returns>Retorna o <see cref="Type"/></returns>
         public static Type ObterTipo(this string nomeTipo)
         {
-           return Assembly.GetExecutingAssembly().GetType(nomeTipo);
+            //TODO:Otimizar este metodo, muito pessado em caso de muitos modulos
+            foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Type type = item.GetTypes().SingleOrDefault(x=> x.Name.Equals(nomeTipo,StringComparison.CurrentCultureIgnoreCase));
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+
+            return null;
         }
 
     }
