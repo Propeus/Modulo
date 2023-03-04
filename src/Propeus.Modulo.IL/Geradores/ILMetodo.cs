@@ -118,13 +118,13 @@ namespace Propeus.Modulo.IL.Geradores
                     }
                     else
                     {
-                        var paramBuilder = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional, parametros[i].Nome);
+                        var paramBuilder = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
                         paramBuilder.SetConstant(parametros[i].DefaultValue);
                     }
                 }
                 else
                 {
-                    _metodoBuilder.DefineParameter(i, ParameterAttributes.In, parametros[i].Nome);
+                    _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In, parametros[i].Nome);
                 }
             }
             PilhaExecucao = new List<IILPilha>();
@@ -181,7 +181,7 @@ namespace Propeus.Modulo.IL.Geradores
 
                 foreach (ILParametro parametro in Parametros)
                 {
-                    _ = sb.Append(parametro.Tipo.Name.ToLower())
+                    _ = sb.Append(parametro.Tipo.Name)
                         .Append(' ')
                         .Append(parametro.Nome)
                         .AppendLine();
