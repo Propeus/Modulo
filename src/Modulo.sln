@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Playground", "Propeus.Modulo.Playground\Propeus.Modulo.Playground.csproj", "{1A1704CE-4CCF-4F26-9DE3-8B0A4407DED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.Util", "Propeus.Modulo.Util\Propeus.Modulo.Util.csproj", "{2B60AD69-519C-46C2-A897-961D1748BC36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Util", "Propeus.Modulo.Util\Propeus.Modulo.Util.csproj", "{2B60AD69-519C-46C2-A897-961D1748BC36}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Propeus.Modulo.Compartilhado", "Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.shproj", "{683165E9-D42F-48B9-97DA-89C77C235C8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.CoreTests", "Propeus.Modulo.CoreTests\Propeus.Modulo.CoreTests.csproj", "{DF33B81A-CAC5-4158-A209-12B995B8CC77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,18 @@ Global
 		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x64.Build.0 = Release|Any CPU
 		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x86.ActiveCfg = Release|Any CPU
 		{2B60AD69-519C-46C2-A897-961D1748BC36}.Release|x86.Build.0 = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x64.Build.0 = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

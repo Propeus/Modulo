@@ -190,7 +190,7 @@ namespace Propeus.Modulo.Core
                 {
                     var gen = Modulos.FirstOrDefault(x => x.Value.Modulo is IGerenciador).Value;
 
-                    arr[i] = (gen?.Modulo as IGerenciador) ?? Atual;
+                    arr[i] = (gen?.Modulo as IGerenciador) ?? this;
                 }
                 else
                 {
@@ -227,6 +227,7 @@ namespace Propeus.Modulo.Core
         }
 
         ///<inheritdoc/>
+        ///<exception cref="ArgumentException"></exception>
         public void Remover(string id)
         {
             Remover(Obter(id));
@@ -266,9 +267,9 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentNullException(nameof(modulo), string.Format(ARGUMENTO_NULO, nameof(modulo)));
             }
 
-            if (modulo.IsVoid())
+            if (!modulo.IsInterface && !modulo.IsClass)
             {
-                throw new InvalidCastException(ERRO_TIPO_VOID);
+                throw new InvalidCastException(ERRO_TIPO_INVALIDO);
             }
 
             IEnumerable<IModuloTipo>? info = null;
@@ -276,14 +277,13 @@ namespace Propeus.Modulo.Core
             {
                 ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
                 modulo = contrato.Tipo ?? contrato.Nome.ObterTipo();
+
+                if (modulo is null)
+                {
+                    throw new NullReferenceException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, contrato.Nome));
+                }
             }
-
-
-            if (modulo is null)
-            {
-                throw new NullReferenceException(string.Format(ERRO_MODULO_NAO_ENCONTRADO, modulo.FullName));
-            }
-
+            
 
             if (modulo.IsClass)
             {
@@ -295,10 +295,8 @@ namespace Propeus.Modulo.Core
                     }
                 }
 
-                info ??= Modulos
-                           .Select(x => x.Value)
-                           .Where(x => x.TipoModulo.FullName == modulo.Name
-                           || x.TipoModulo.Name == modulo.Name);
+                info ??= Modulos.Values
+                           .Where(x => x.TipoModulo == modulo);
             }
             else
             {
@@ -327,7 +325,7 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public T Obter<T>() where T : IModulo
         {
-            return Obter(typeof(T)).To<T>();
+            return (T)Obter(typeof(T));
         }
 
         ///<inheritdoc/>
@@ -338,6 +336,9 @@ namespace Propeus.Modulo.Core
         }
 
         ///<inheritdoc/>
+        ///<exception cref="ArgumentNullException"></exception>
+        ///<exception cref="ArgumentException"></exception>
+        ///<exception cref="InvalidProgramException"></exception>
         public IModulo Obter(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -391,6 +392,8 @@ namespace Propeus.Modulo.Core
                     result = Modulos.ContainsKey(idOuter);
                 }
 
+                result = this.Modulos.Values.Any(t => t.TipoModulo == type);
+
             }
             else
             {
@@ -416,10 +419,10 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public T Reiniciar<T>(T modulo) where T : IModulo
         {
-            if (ArgumentosModulo.TryGetValue(modulo.Id, out object[] args))
+            if (this.Modulos.ContainsKey(modulo.Id))
             {
                 Remover(modulo);
-                return Criar<T>();
+                return (T)Criar(modulo.GetType());
             }
             else
             {

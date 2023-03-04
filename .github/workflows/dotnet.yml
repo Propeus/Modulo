@@ -24,5 +24,5 @@ jobs:
       run: dotnet restore ./src/Modulo.sln
     - name: Build
       run: dotnet build ./src/Modulo.sln --no-restore
-#    - name: Test
-#      run: dotnet test  --no-build --verbosity normal
+    - name: Test
+      run: dotnet test ./src/Modulo.sln --no-build --verbosity normal
