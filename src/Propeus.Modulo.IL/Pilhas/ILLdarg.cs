@@ -26,7 +26,14 @@ namespace Propeus.Modulo.IL.Pilhas
             }
 
             base.Executar();
-            Proxy.Emit(Code);
+            if (Indice > 3)
+            {
+                Proxy.Emit(Code, Indice);
+            }
+            else
+            {
+                Proxy.Emit(Code);
+            }
 
         }
 

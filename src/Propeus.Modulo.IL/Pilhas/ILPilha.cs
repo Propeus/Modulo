@@ -26,7 +26,7 @@ namespace Propeus.Modulo.IL.Pilhas
                     1 => OpCodes.Ldarg_1,
                     2 => OpCodes.Ldarg_2,
                     3 => OpCodes.Ldarg_3,
-                    _ => OpCodes.Ldarga_S,
+                    _ => OpCodes.Ldarg_S,
                 };
             }
             else if (valor.GetType().IsPrimitive)
