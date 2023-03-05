@@ -43,7 +43,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// Cria uma nova instancia do modulo <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
-        /// <returns></returns>
+        /// <returns><typeparamref name="T"/></returns>
         T Criar<T>() where T : IModulo;
         /// <summary>
         /// Cria uma nova instancia do modulo usando o tipo do parametro <paramref name="modulo"/>

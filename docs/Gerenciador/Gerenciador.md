@@ -93,3 +93,139 @@ namespace Propeus.Modulo.Exemplo
     }
 }
 ```
+
+###  `Criar<T>()`
+#### Descricao
+Cria uma nova instancia do modulo
+#### Parametros
+- `T`:
+  - Tipo: `IModulo` 
+  - Descricao: Tipo do modulo a ser criado
+  - Obrigatorio: `Sim`
+
+#### Retorno
+- `T` 
+
+#### Excecoes
+- `ArgumentNullException`: Parametro nulo
+- `TipoModuloInvalidoException`:
+  - Tipo do modulo invalido
+  - Tipo do modulo nao herdado de `IModulo`
+  - Tipo do modulo nao possui o atributo `ModuloAttribute`
+  - Parametro do construtor nao e um modulo valido
+- `ModuloContratoNaoEncontratoException`: Tipo da interface de contrato nao possui o atributo `ModuloContratoAttribute`
+- `TipoModuloNaoEncontradoException`: 
+  - Tipo nao encontrado pelo nome no atributo `ModuloContratoAttribute`
+  - Tipo ausente no atributo `ModuloContratoAttribute`
+- `ModuloInstanciaUnicaException`: Criacao de mais de uma instancia de modulo definido como instancia unica
+- `ModuloConstrutorAusenteException`: Construtor ausente no modulo
+
+#### Exemplo
+```cs
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
+
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+            
+        }
+        
+        public int Calcular(int a, int b)
+        {
+            return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
+    
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using(Gerenciador gerenciador = Gereciador.Atual)
+            {
+                ICalculadoraModuloContrato modulo = gerenciador.Criar<ICalculadoraModuloContrato>();
+                Console.WriteLine(modulo.Calcular(1,1));
+            }
+        }
+    }
+}
+```
+
+###  `Criar(Type modulo)`
+#### Descricao
+Cria uma nova instancia do modulo
+#### Parametros
+- `modulo`:
+  - Tipo: `Type` 
+  - Descricao: Cria uma nova instancia do modulo usando o tipo do parametro
+  - Obrigatorio: `Sim`
+
+#### Retorno
+- `IModulo` 
+
+#### Excecoes
+- `ArgumentNullException`: Parametro nulo
+- `TipoModuloInvalidoException`:
+  - Tipo do modulo invalido
+  - Tipo do modulo nao herdado de `IModulo`
+  - Tipo do modulo nao possui o atributo `ModuloAttribute`
+  - Parametro do construtor nao e um modulo valido
+- `ModuloContratoNaoEncontratoException`: Tipo da interface de contrato nao possui o atributo `ModuloContratoAttribute`
+- `TipoModuloNaoEncontradoException`: 
+  - Tipo nao encontrado pelo nome no atributo `ModuloContratoAttribute`
+  - Tipo ausente no atributo `ModuloContratoAttribute`
+- `ModuloInstanciaUnicaException`: Criacao de mais de uma instancia de modulo definido como instancia unica
+- `ModuloConstrutorAusenteException`: Construtor ausente no modulo
+
+#### Exemplo
+```cs
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
+
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+            
+        }
+        
+        public int Calcular(int a, int b)
+        {
+            return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
+    
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using(Gerenciador gerenciador = Gereciador.Atual)
+            {
+                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+                Console.WriteLine(modulo.Calcular(1,1));
+            }
+        }
+    }
+}
+```
