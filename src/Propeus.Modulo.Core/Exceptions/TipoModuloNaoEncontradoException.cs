@@ -3,23 +3,16 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao para quando o tipo do modulo informado nao for encontrado no Assembly
+    /// </summary>
     [Serializable]
     public class TipoModuloNaoEncontradoException : Exception
     {
-        public TipoModuloNaoEncontradoException()
-        {
-        }
-
-        public TipoModuloNaoEncontradoException(string message) : base(message)
-        {
-        }
-
-        public TipoModuloNaoEncontradoException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected TipoModuloNaoEncontradoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
+        public TipoModuloNaoEncontradoException(string message) : base(message) { }
     }
 }

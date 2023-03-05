@@ -3,23 +3,16 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao para tentativa de criacao de um novo modulo de instancia unica
+    /// </summary>
     [Serializable]
     public class ModuloInstanciaUnicaException : Exception
     {
-        public ModuloInstanciaUnicaException()
-        {
-        }
-
-        public ModuloInstanciaUnicaException(string message) : base(message)
-        {
-        }
-
-        public ModuloInstanciaUnicaException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected ModuloInstanciaUnicaException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
+        public ModuloInstanciaUnicaException(string message) : base(message) { }
     }
 }

@@ -3,23 +3,16 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao para quando for encontrado mais de um modulo de mesmo nome
+    /// </summary>
     [Serializable]
     public class TipoModuloAmbiguoException : Exception
     {
-        public TipoModuloAmbiguoException()
-        {
-        }
-
-        public TipoModuloAmbiguoException(string message) : base(message)
-        {
-        }
-
-        public TipoModuloAmbiguoException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected TipoModuloAmbiguoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
+        public TipoModuloAmbiguoException(string message) : base(message) { }
     }
 }

@@ -3,22 +3,20 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao generica
+    /// </summary>
     public class ModuloException : Exception
     {
-        public ModuloException()
-        {
-        }
 
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
         public ModuloException(string message) : base(message)
         {
         }
 
-        public ModuloException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected ModuloException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        
     }
 }

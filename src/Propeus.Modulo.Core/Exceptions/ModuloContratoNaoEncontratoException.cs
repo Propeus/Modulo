@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
+using Propeus.Modulo.Abstrato.Atributos;
+
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao para quando a interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/>
+    /// </summary>
     [Serializable]
     public class ModuloContratoNaoEncontratoException : Exception
     {
-        public ModuloContratoNaoEncontratoException()
-        {
-        }
-
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
         public ModuloContratoNaoEncontratoException(string message) : base(message)
         {
         }
 
-        public ModuloContratoNaoEncontratoException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected ModuloContratoNaoEncontratoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        
     }
 }

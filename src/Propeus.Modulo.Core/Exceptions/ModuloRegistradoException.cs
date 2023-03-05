@@ -3,23 +3,16 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
+    /// <summary>
+    /// Excecao para quando o mesmo modulo for registrado mais de uma unica vez
+    /// </summary>
     [Serializable]
     public class ModuloRegistradoException : Exception
     {
-        public ModuloRegistradoException()
-        {
-        }
-
-        public ModuloRegistradoException(string message) : base(message)
-        {
-        }
-
-        public ModuloRegistradoException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected ModuloRegistradoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        /// <summary>
+        /// Construtor padrao
+        /// </summary>
+        /// <param name="message">Mensagem do erro</param>
+        public ModuloRegistradoException(string message) : base(message) { }
     }
 }
