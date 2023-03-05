@@ -157,7 +157,7 @@ namespace Propeus.Modulo.Core
         ///</example>
         public IModulo Criar(string nomeModulo)
         {
-            IEnumerable<Type> result = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.FullName == nomeModulo ^ t.Name == nomeModulo);
+            IEnumerable<Type> result = nomeModulo.ObterTipos();
             return !result.Any()
                 ? throw new TipoModuloNaoEncontradoException(string.Format(ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
                 : result.Count() > 1
