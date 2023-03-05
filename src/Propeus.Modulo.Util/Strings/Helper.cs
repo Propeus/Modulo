@@ -43,7 +43,7 @@ namespace Propeus.Modulo.Util
             //TODO:Otimizar este metodo, muito pessado em caso de muitos modulos
             foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
             {
-                Type type = item.GetTypes().SingleOrDefault(x=> x.Name.Equals(nomeTipo,StringComparison.CurrentCultureIgnoreCase));
+                Type type = item.GetTypes().SingleOrDefault(x => x.Name.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase));
                 if (type != null)
                 {
                     return type;
@@ -51,6 +51,28 @@ namespace Propeus.Modulo.Util
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Obtem o tipo pelo nome 
+        /// </summary>
+        /// <param name="nomeTipo">Nome do tipo</param>
+        /// <returns>Retorna o <see cref="Type"/></returns>
+        public static IEnumerable<Type> ObterTipos(this string nomeTipo)
+        {
+            foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var typeAssembly in item.GetTypes())
+                {
+                    if (typeAssembly.Name.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
+                        yield return typeAssembly;
+
+                    if (typeAssembly.FullName.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
+                        yield return typeAssembly;
+                }
+
+            }
+
         }
 
     }
