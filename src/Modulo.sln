@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Util", "Prop
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Propeus.Modulo.Compartilhado", "Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.shproj", "{683165E9-D42F-48B9-97DA-89C77C235C8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.CoreTests", "Propeus.Modulo.CoreTests\Propeus.Modulo.CoreTests.csproj", "{DF33B81A-CAC5-4158-A209-12B995B8CC77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.CoreTests", "Propeus.Modulo.CoreTests\Propeus.Modulo.CoreTests.csproj", "{DF33B81A-CAC5-4158-A209-12B995B8CC77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

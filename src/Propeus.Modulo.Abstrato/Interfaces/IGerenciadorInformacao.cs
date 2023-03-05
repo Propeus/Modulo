@@ -8,7 +8,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
 {
 
     /// <summary>
-    /// Modelo base para criação de gerenciadores
+    /// Modelo base para obter informações dos modulos
     /// </summary>
     public interface IGerenciadorInformacao
     {

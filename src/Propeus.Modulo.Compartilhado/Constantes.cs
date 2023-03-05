@@ -75,7 +75,7 @@ namespace Propeus.Modulo.Compartilhado
         /// </summary>
         public const string ERRO_ARGUMENTO_TIPO_ESPERADO = "O argumento '{0}' requer o tipo '{1}', o tipo passado foi '{2}'";
         /// <summary>
-        /// O construtor nao possui o parametro <see cref="Interfaces.IGerenciador"/>
+        /// O construtor nao possui o parametro IGerenciador
         /// </summary>
         public const string ERRO_CONSTRUTOR_IGERENCIADOR_NAO_ENCONTRADO = "O modulo requer um contrutor com o parametro do tipo IGerenciador";
         /// <summary>
@@ -83,7 +83,7 @@ namespace Propeus.Modulo.Compartilhado
         /// </summary>
         public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO = "Não foi possivel encontrar um construtor";
         /// <summary>
-        /// Nenhum atribuito do tipo <see cref="Atributos.ModuloContratoAttribute"/> foi encontrado na interface atual
+        /// Nenhum atribuito do tipo ModuloContratoAttribute foi encontrado na interface atual
         /// </summary>
         public const string ERRO_MODULO_CONTRATO_NAO_ENCONTRADO = "Não foi possivel encontrar o atributo de contrato";
         /// <summary>
@@ -99,7 +99,7 @@ namespace Propeus.Modulo.Compartilhado
         /// </summary>
         public const string ERRO_MODULO_NAO_ENCONTRADO = "Modulo '{0}' não encontrado.\nVerifique se o nome esta correto na interface de contrato";
         /// <summary>
-        /// Modulos criados fora do gerenciador nao podem ser reiniciados
+        /// _modulos criados fora do gerenciador nao podem ser reiniciados
         /// </summary>
         public const string ERRO_MODULO_NEW_REINICIAR = "Não é possivel reiniciar modulos criados fora do gerenciador";
         /// <summary>
@@ -123,11 +123,11 @@ namespace Propeus.Modulo.Compartilhado
         /// </summary>
         public const string ERRO_TIPO_INVALIDO = "O tipo deve ser uma classe ou interface.";
         /// <summary>
-        /// O tipo informado nao herda de <see cref="Interfaces.IModulo"/>
+        /// O tipo informado nao herda de IModulo
         /// </summary>
         public const string ERRO_TIPO_NAO_HERDADO = "O tipo não é herdado de IModulo";
         /// <summary>
-        /// A classe atual nao possui o atributo <see cref="Atributos.ModuloAttribute"/>
+        /// A classe atual nao possui o atributo ModuloAttribute
         /// </summary>
         public const string ERRO_TIPO_NAO_MARCADO = "O tipo não esta marcado como modulo";
         /// <summary>
