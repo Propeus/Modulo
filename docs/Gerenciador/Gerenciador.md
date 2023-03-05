@@ -1,67 +1,95 @@
-
 # Gerenciador
 
-A classe Gerenciador é responsável por carregar, inicializar e gerenciar todos os módulos do sistema.
+Autor: Propeus
+Data da ultima atualziacao: 05/03/2023
 
-## Estado de um modulo
-```mermaid
-stateDiagram-v2
-    [*] --> Inicializado
-    Inicializado --> Desligado
-    Desligado --> [*]
+## Descricao
+
+A classe `Propeus.Modulo.Core.Gerenciador` e responsavel por gerenciar o ciclo de vida de um modulo, ele possui as seguintes funcionalidades
+
+- Criar um módulo
+- Remover um módulo
+- Reciclar um módulo
+- Obter um módulo existente
+- Obter informações de um módulo existente
+
+## Uso
+
+Para criar uma instância do gerenciador, utilize o seguinte trecho de código:
+
+```cs
+using (IGerenciador gerenciador = Propeus.Modulo.Core.Gerenciador.Atual)
+{
+    //Escreva o seu codigo aqui
+}
 ```
 
+## Metodos
+###  `Criar(string nomeModulo)`
+#### Descricao
+Cria uma nova instancia do modulo buscando o tipo pelo nome
+#### Parametros
+- `nomeModulo`:
+  - Tipo: `string` 
+  - Descricao: Nome do modulo a ser criado
+  - Obrigatorio: `Sim`
 
-## Criar
-Fluxo para criacao de um novo modulo
-```mermaid
-flowchart TD
-    A[Gerenciador]-->|Solicita a criacao de uma instancia| B(Criar)
-    B --> C{E interface?}
-    C -->|Sim| D{Possui o atributo ModuloContrato?}
-    D -->|Nao| J[Lanca excecao de contrato invalido]
-    D -->|Sim| E{Possui um tipo?}
-    E -->|Nao| K[Lanca excecao de tipo invalido]
-    E -->|Sim| F{O tipo e uma classe?}
-    F -->|Nao| L[Lanca excecao de tipo invalido]
-    F -->|Sim| G{Possui a implementacao da interface IModulo?}
-    G -->|Nao| M[Lanca excecao de modulo invalido]
-    G -->|Sim| H{Possui o atributo Modulo?}
-    H -->|Nao| N[Lanca excecao de modulo invalido]
-    H -->|Sim| I[Cria a instancia do modulo]
-    I -->|Devolve a instancia do objeto|B
-    B -->|Devolve a instancia do objeto|A 
-    C -->|Nao| F
-```
+#### Retorno
+- `IModulo` 
 
-## Remover
-```mermaid
-flowchart TD
-    A[Gerenciador]-->|Solicita a remocao de uma instancia| B(Remover)
-    B --> C{Existe no gerenciador?}
-    C -->|Sim| D[Remove do dicionario]
-    D -->E[Realiza o Dispose do modulo]
-```
+#### Excecoes
+- `ArgumentNullException`: Parametro nulo
+- `TipoModuloInvalidoException`:
+  - Tipo do modulo invalido
+  - Tipo do modulo nao herdado de `IModulo`
+  - Tipo do modulo nao possui o atributo `ModuloAttribute`
+  - Parametro do construtor nao e um modulo valido
+- `ModuloContratoNaoEncontratoException`: Tipo da interface de contrato nao possui o atributo `ModuloContratoAttribute`
+- `TipoModuloNaoEncontradoException`: 
+  - Tipo nao encontrado pelo nome no atributo `ModuloContratoAttribute`
+  - Tipo ausente no atributo `ModuloContratoAttribute`
+- `TipoModuloAmbiguoException`: Mais um tipo de mesmo nome
+- `ModuloInstanciaUnicaException`: Criacao de mais de uma instancia de modulo definido como instancia unica
+- `ModuloConstrutorAusenteException`: Construtor ausente no modulo
 
-## Obter
-```mermaid
-flowchart TD
-    A[Gerenciador]-->|Obtem a instancia do modulo| B(Obter)
-    B --> C{E interface?}
-    C -->|Sim| D{Possui o atributo ModuloContrato?}
-    D -->|Nao| J[Lanca excecao de contrato invalido]
-    D -->|Sim| E{Possui um tipo?}
-    E -->|Nao| K[Lanca excecao de tipo invalido]
-    E -->|Sim| F{O tipo e uma classe?}
-    F -->|Nao| L[Lanca excecao de tipo invalido]
-    F -->|Sim| G[Busca os modulos com o mesmo tipo]
-    G -->|Sim| H{Existe algum modulo do tipo?}
-    H -->|Nao| I[Lanca excecao de modulo nao encontrado]
-    H -->|Sim| M{Foi eliminado pelo G.C.?}
-    M -->|Sim| N[Lanca excecao de modulo descartado]
-    M -->|Nao - Retorna a instancia do objeto| B
-    B -->|Devolve a instancia do objeto|A 
-```
+#### Exemplo
+```cs
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
 
-**Este documento nao esta finalizado, caso queria mais detalhes, acesse a pasta "propeus" para obter a documentacao auto-gerado.
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+            
+        }
+        
+        public int Calcular(int a, int b)
+        {
+            return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
     
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using(Gerenciador gerenciador = Gereciador.Atual)
+            {
+                ICalculadoraModuloContrato modulo =  (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
+                Console.WriteLine(modulo.Calcular(1,1));
+            }
+        }
+    }
+}
+```

@@ -89,8 +89,8 @@ namespace Propeus.Modulo.Core
         ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloAmbiguoException">Mais um tipo de mesmo nome</exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
+        ///<exception cref="TipoModuloAmbiguoException">Mais um tipo de mesmo nome</exception>
         ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
         ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
         ///<example>
