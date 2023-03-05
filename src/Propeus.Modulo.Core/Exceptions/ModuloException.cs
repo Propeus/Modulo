@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Core.Exceptions
 {
-    internal class ModuloException : Exception
+    public class ModuloException : Exception
     {
         public ModuloException()
         {

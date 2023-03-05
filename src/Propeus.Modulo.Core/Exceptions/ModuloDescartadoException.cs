@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Core.Exceptions
 {
     [Serializable]
-    internal class ModuloDescartadoException : Exception
+    public class ModuloDescartadoException : Exception
     {
         public ModuloDescartadoException()
         {

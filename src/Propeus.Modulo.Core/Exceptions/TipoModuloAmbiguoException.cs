@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Core.Exceptions
 {
     [Serializable]
-    internal class TipoModuloAmbiguoException : Exception
+    public class TipoModuloAmbiguoException : Exception
     {
         public TipoModuloAmbiguoException()
         {

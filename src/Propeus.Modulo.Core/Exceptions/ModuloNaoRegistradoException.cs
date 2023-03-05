@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Core.Exceptions
 {
     [Serializable]
-    internal class ModuloNaoRegistradoException : Exception
+    public class ModuloNaoRegistradoException : Exception
     {
         public ModuloNaoRegistradoException()
         {

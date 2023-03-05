@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Core.Exceptions
 {
     [Serializable]
-    internal class ModuloInstanciaUnicaException : Exception
+    public class ModuloInstanciaUnicaException : Exception
     {
         public ModuloInstanciaUnicaException()
         {
