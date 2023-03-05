@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Util
 {
@@ -111,7 +110,7 @@ namespace Propeus.Modulo.Util
         {
             if (@enum is null || @enum.Length == 0)
             {
-                throw new ArgumentNullException(nameof(@enum), ARGUMENTO_NULO_OU_VAZIO);
+                throw new ArgumentNullException(nameof(@enum));
             }
 
             if (@enum.Any(x => x.GetType().IsEnum))
@@ -122,7 +121,7 @@ namespace Propeus.Modulo.Util
             }
             else
             {
-                throw new ArgumentException(string.Format(ARGUMENTO_NAO_E_DO_TIPO, @enum.First().GetType().Name), nameof(@enum));
+                throw new ArgumentException(nameof(@enum));
             }
         }
       
@@ -138,7 +137,7 @@ namespace Propeus.Modulo.Util
         {
             if (@enum is null)
             {
-                throw new ArgumentNullException(nameof(@enum), ARGUMENTO_NULO_OU_VAZIO);
+                throw new ArgumentNullException(nameof(@enum));
             }
 
             DescriptionAttribute[] attr = @enum.GetType().GetField(@enum.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), true) as DescriptionAttribute[] ?? Array.Empty<DescriptionAttribute>();

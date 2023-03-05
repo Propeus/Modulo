@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Util
 {
@@ -25,7 +24,7 @@ namespace Propeus.Modulo.Util
         {
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
 
             if (obj.Is<string>())
@@ -53,9 +52,9 @@ namespace Propeus.Modulo.Util
         public static bool Herdado(this object obj, Type comparacao)
         {
             return obj is null
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO_OU_VAZIO)
+                ? throw new ArgumentNullException(nameof(obj))
                 : comparacao is null
-                ? throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(comparacao))
                 : obj is Type ? Helper.Herdado(obj as Type, comparacao) : Helper.Herdado(obj.GetType(), comparacao);
         }
 
@@ -80,7 +79,7 @@ namespace Propeus.Modulo.Util
         {
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
             Type type = obj.GetType();
             return type.IsValueType && !type.IsPrimitive;
@@ -95,7 +94,7 @@ namespace Propeus.Modulo.Util
         public static bool Is<T>(this object obj)
         {
             return !obj.IsStruct() && obj.IsNullOrDefault()
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(obj))
                 : obj is Type ? obj.Is(typeof(T)) : Helper.Is(obj.GetType(), typeof(T));
         }
 
@@ -108,7 +107,7 @@ namespace Propeus.Modulo.Util
         /// <exception cref="ArgumentException">Argumento invalido</exception>
         public static bool Is(this object obj, Type comparacao)
         {
-            return obj.IsNullOrDefault() ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : Helper.Is(obj.GetType(), comparacao);
+            return obj.IsNullOrDefault() ? throw new ArgumentNullException(nameof(obj)) : Helper.Is(obj.GetType(), comparacao);
         }
 
         /// <summary>
@@ -139,16 +138,16 @@ namespace Propeus.Modulo.Util
             //Verifica se o objeto é nulo
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
             if (obj.Is<Type>())
             {
-                throw new InvalidCastException(string.Format(PARAMETRO_NAO_CONVERTIDO, nameof(obj), para.Name));
+                throw new InvalidCastException();
             }
 
             if (para.IsNullOrDefault())
             {
-                throw new ArgumentNullException(nameof(para), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(para));
             }
 
             //Evita redundancia de conversão
@@ -181,7 +180,7 @@ namespace Propeus.Modulo.Util
 
             return box_explicito_implicito?.ReturnType == para
                 ? box_explicito_implicito.Invoke(obj, new object[] { obj })
-                : throw new InvalidCastException(string.Format(TIPO_NAO_CONVERTIDO, obj.GetType().Name, para.Name));
+                : throw new InvalidCastException();
         }
 
         /// <summary>
@@ -210,12 +209,12 @@ namespace Propeus.Modulo.Util
         {
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
 
             if (como.IsNullOrDefault())
             {
-                throw new ArgumentNullException(nameof(como), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(como));
             }
 
             object result;
@@ -252,7 +251,7 @@ namespace Propeus.Modulo.Util
         public static bool IsDefault(this object obj)
         {
             return obj is null
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(obj))
                 : obj is not Type ? obj.Equals(obj.GetType().Default()) : obj.Equals(((Type)obj).Default());
         }
 

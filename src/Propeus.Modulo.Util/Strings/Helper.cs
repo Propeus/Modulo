@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Util
 {
@@ -20,7 +19,7 @@ namespace Propeus.Modulo.Util
         {
             if (string.IsNullOrEmpty(obj))
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO_OU_VAZIO);
+                throw new ArgumentNullException(nameof(obj));
             }
 
             byte[] arr = new byte[obj.Length];

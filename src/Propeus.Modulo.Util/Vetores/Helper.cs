@@ -5,8 +5,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
-
 namespace Propeus.Modulo.Util
 {
     /// <summary>
@@ -24,7 +22,7 @@ namespace Propeus.Modulo.Util
         {
             if (bytes is null || !bytes.Any())
             {
-                throw new ArgumentNullException(nameof(bytes), ARGUMENTO_NULO_OU_VAZIO);
+                throw new ArgumentNullException(nameof(bytes));
             }
             byte[] md5Hash = MD5.HashData(bytes);
             IEnumerable<string> md5String = md5Hash.Select(c => c.ToString("x2"));

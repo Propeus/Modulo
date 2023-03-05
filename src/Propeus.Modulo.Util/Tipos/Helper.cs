@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
-
 namespace Propeus.Modulo.Util
 {
     /// <summary>
@@ -24,20 +22,20 @@ namespace Propeus.Modulo.Util
         {
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
             if (obj.IsVoid())
             {
-                throw new ArgumentException(string.Format(ARGUMENTO_NAO_PODE_SER_DO_TIPO, typeof(void).Name), nameof(obj));
+                throw new ArgumentException();
             }
 
             if (comparacao is null)
             {
-                throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(comparacao));
             }
             if (comparacao.IsVoid())
             {
-                throw new ArgumentException(string.Format(ARGUMENTO_NAO_PODE_SER_DO_TIPO, typeof(void).Name), nameof(comparacao));
+                throw new ArgumentException();
             }
 
             bool r = false;
@@ -105,9 +103,9 @@ namespace Propeus.Modulo.Util
         public static bool Is(this Type obj, Type comparacao)
         {
             return obj is null
-                ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(obj))
                 : comparacao is null
-                ? throw new ArgumentNullException(nameof(comparacao), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(comparacao))
                 : obj.IsPrimitive || comparacao.IsPrimitive ? obj == comparacao : obj == comparacao || obj.Herdado(comparacao);
         }
 
@@ -141,7 +139,7 @@ namespace Propeus.Modulo.Util
                 return Activator.CreateInstance(obj);
             }
 
-            throw new InvalidCastException(string.Format(VALOR_PADRAO_NAO_ENCONTRADO, nameof(obj)));
+            throw new InvalidCastException();
         }
 
         /// <summary>
@@ -152,7 +150,7 @@ namespace Propeus.Modulo.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<Type> ObterInterfaces(this Type obj)
         {
-            return obj is null ? throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO) : (IEnumerable<Type>)obj.GetInterfaces();
+            return obj is null ? throw new ArgumentNullException(nameof(obj)) : (IEnumerable<Type>)obj.GetInterfaces();
         }
      
     }

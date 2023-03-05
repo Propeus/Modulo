@@ -6,8 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
-
 namespace Propeus.Modulo.Util
 {
     /// <summary>
@@ -62,7 +60,7 @@ namespace Propeus.Modulo.Util
         public static IEnumerable<Type> ObterTipoParametros(this ConstructorInfo action)
         {
             return action is null
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(action))
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
@@ -75,7 +73,7 @@ namespace Propeus.Modulo.Util
         public static IEnumerable<Type> ObterTipoParametros(this MethodInfo action)
         {
             return action is null
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(action))
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 

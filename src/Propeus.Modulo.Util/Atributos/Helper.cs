@@ -1,5 +1,4 @@
-﻿using static Propeus.Modulo.Compartilhado.Constantes;
-
+﻿
 namespace Propeus.Modulo.Util
 {
     /// <summary>
@@ -7,7 +6,7 @@ namespace Propeus.Modulo.Util
     /// </summary>
     public static partial class Helper
     {
-        
+
 
         /// <summary>
         /// Obtem um atributo a partir de um tipo especifico.
@@ -27,13 +26,13 @@ namespace Propeus.Modulo.Util
 
             if (obj.Herdado<Attribute>())
             {
-                throw new ArgumentException(PARAMETRO_ATRIBUTO_INVALIDO, nameof(obj));
+                throw new ArgumentException();
             }
 
             object result = obj.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(T));
 
             return result is null
-                ? throw new InvalidOperationException(string.Format(ATRIBUTO_NAO_ENCONTRADO, typeof(T).Name, obj.Name))
+                ? throw new InvalidOperationException()
                 : result.To<T>();
         }
 
@@ -49,7 +48,7 @@ namespace Propeus.Modulo.Util
         public static T ObterAtributo<T>(this object obj) where T : Attribute
         {
             return obj is null
-                ? throw new ArgumentException(ARGUMENTO_NULO, nameof(obj))
+                ? throw new ArgumentException(nameof(obj))
                 : !obj.Is<Type>() ? obj.GetType().ObterAtributo<T>() : obj.As<Type>().ObterAtributo<T>();
         }
 
@@ -63,9 +62,9 @@ namespace Propeus.Modulo.Util
         public static bool PossuiAtributo<T>(this Type obj) where T : Attribute
         {
             return obj is null
-                ? throw new ArgumentNullException(ARGUMENTO_NULO, nameof(obj))
+                ? throw new ArgumentNullException(nameof(obj))
                 : obj.Herdado<Attribute>()
-                ? throw new InvalidOperationException(PARAMETRO_ATRIBUTO_INVALIDO)
+                ? throw new InvalidOperationException()
                 : obj.GetCustomAttributes(true).Any(x => x.GetType() == typeof(T));
         }
     }

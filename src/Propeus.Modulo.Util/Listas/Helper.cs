@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
+
 
 namespace Propeus.Modulo.Util
 {
@@ -25,7 +25,7 @@ namespace Propeus.Modulo.Util
         {
             if (esquerda is null)
             {
-                throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(esquerda));
             }
 
             if (direita is null)
@@ -59,7 +59,7 @@ namespace Propeus.Modulo.Util
         {
             if (esquerda is null)
             {
-                throw new ArgumentNullException(nameof(esquerda), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(esquerda));
             }
 
             if (direita is null)
@@ -94,7 +94,7 @@ namespace Propeus.Modulo.Util
         {
             if (obj is null)
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO);
+                throw new ArgumentNullException(nameof(obj));
             }
 
             bool result = true;
