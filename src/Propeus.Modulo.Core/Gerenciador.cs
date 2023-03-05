@@ -711,7 +711,7 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), message: string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
             }
 
             if (!modulo.IsInterface && !modulo.IsClass)
@@ -1196,7 +1196,7 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), message: string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
             }
 
             Type t = modulo.GetType();
