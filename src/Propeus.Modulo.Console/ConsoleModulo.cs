@@ -96,7 +96,7 @@ namespace Propeus.Modulo.Console
                             break;
                         case "-r":
                         case "--reciclar":
-                            System.Console.WriteLine(gerenciador.Reiniciar(cmd[1]));
+                            System.Console.WriteLine(gerenciador.Reciclar(cmd[1]));
                             break;
                         case "-rm":
                         case "--remover":

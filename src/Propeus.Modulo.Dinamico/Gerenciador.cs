@@ -208,20 +208,20 @@ namespace Propeus.Modulo.Dinamico
 
 
         ///<inheritdoc/>
-        public T Reiniciar<T>(T modulo) where T : IModulo
+        public T Reciclar<T>(T modulo) where T : IModulo
         {
-            T nModulo = Gerenciador.Reiniciar(modulo);
+            T nModulo = Gerenciador.Reciclar(modulo);
             return nModulo;
         }
         ///<inheritdoc/>
-        public IModulo Reiniciar(string id)
+        public IModulo Reciclar(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentException(string.Format(Resources.Culture, Resources.ERRO_ID_NULO_OU_VAZIO, nameof(id)), nameof(id));
             }
 
-            return Gerenciador.Reiniciar(id);
+            return Gerenciador.Reciclar(id);
 
 
         }

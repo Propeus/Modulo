@@ -645,9 +645,9 @@ namespace Propeus.Modulo.Core.Tests
             }
         }
 
-        //Reiniciar
+        //Reciclar
         [TestMethod()]
-        [TestCategory("Reiniciar")]
+        [TestCategory("Reciclar")]
         public void ReiniciarModuloInstanciaUnicaPorInstancia()
         {
             using (IGerenciador gerenciador = Gerenciador.Atual)
@@ -655,14 +655,14 @@ namespace Propeus.Modulo.Core.Tests
                 IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
                 Assert.IsNotNull(modulo);
                 Assert.IsTrue(gerenciador.Existe(modulo));
-                IModulo modulov2 = gerenciador.Reiniciar(modulo);
+                IModulo modulov2 = gerenciador.Reciclar(modulo);
                 Assert.IsNotNull(modulov2);
                 Assert.IsTrue(gerenciador.Existe(modulov2));
                 Assert.IsFalse(gerenciador.Existe(modulo));
             }
         }
         [TestMethod()]
-        [TestCategory("Reiniciar")]
+        [TestCategory("Reciclar")]
         public void ReiniciarModuloInstanciaMultiplaPorInstancia()
         {
             using (IGerenciador gerenciador = Gerenciador.Atual)
@@ -670,14 +670,14 @@ namespace Propeus.Modulo.Core.Tests
                 IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
                 Assert.IsNotNull(modulo);
                 Assert.IsTrue(gerenciador.Existe(modulo));
-                IModulo modulov2 = gerenciador.Reiniciar(modulo);
+                IModulo modulov2 = gerenciador.Reciclar(modulo);
                 Assert.IsNotNull(modulov2);
                 Assert.IsTrue(gerenciador.Existe(modulov2));
                 Assert.IsFalse(gerenciador.Existe(modulo));
             }
         }
         [TestMethod()]
-        [TestCategory("Reiniciar")]
+        [TestCategory("Reciclar")]
         public void ReiniciarModuloInstanciaUnicaPorId()
         {
             using (IGerenciador gerenciador = Gerenciador.Atual)
@@ -685,14 +685,14 @@ namespace Propeus.Modulo.Core.Tests
                 IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
                 Assert.IsNotNull(modulo);
                 Assert.IsTrue(gerenciador.Existe(modulo));
-                IModulo modulov2 = gerenciador.Reiniciar(modulo.Id);
+                IModulo modulov2 = gerenciador.Reciclar(modulo.Id);
                 Assert.IsNotNull(modulov2);
                 Assert.IsTrue(gerenciador.Existe(modulov2));
                 Assert.IsFalse(gerenciador.Existe(modulo));
             }
         }
         [TestMethod()]
-        [TestCategory("Reiniciar")]
+        [TestCategory("Reciclar")]
         public void ReiniciarModuloInstanciaMultiplaPorId()
         {
             using (IGerenciador gerenciador = Gerenciador.Atual)
@@ -700,21 +700,21 @@ namespace Propeus.Modulo.Core.Tests
                 IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
                 Assert.IsNotNull(modulo);
                 Assert.IsTrue(gerenciador.Existe(modulo));
-                IModulo modulov2 = gerenciador.Reiniciar(modulo.Id);
+                IModulo modulov2 = gerenciador.Reciclar(modulo.Id);
                 Assert.IsNotNull(modulov2);
                 Assert.IsTrue(gerenciador.Existe(modulov2));
                 Assert.IsFalse(gerenciador.Existe(modulo));
             }
         }
         [TestMethod()]
-        [TestCategory("Reiniciar")]
+        [TestCategory("Reciclar")]
         public void ReiniciarModuloInstanciaPorIdInexistente_ArgumentException()
         {
             using (IGerenciador gerenciador = Gerenciador.Atual)
             {
                 Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
                 {
-                    IModulo modulov2 = gerenciador.Reiniciar(Guid.NewGuid().ToString());
+                    IModulo modulov2 = gerenciador.Reciclar(Guid.NewGuid().ToString());
                 });
             }
         }

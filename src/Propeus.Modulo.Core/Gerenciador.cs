@@ -81,6 +81,7 @@ namespace Propeus.Modulo.Core
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
         public int ModulosInicializados => Modulos.Count;
+        
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
@@ -163,7 +164,6 @@ namespace Propeus.Modulo.Core
                 ? throw new TipoModuloAmbiguoException(string.Format(Compartilhado.Constantes.ERRO_TIPO_AMBIGUO, nomeModulo))
                 : Criar(result.First());
         }
-
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
@@ -240,7 +240,6 @@ namespace Propeus.Modulo.Core
         {
             return (T)Criar(typeof(T));
         }
-
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
@@ -405,8 +404,8 @@ namespace Propeus.Modulo.Core
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
+        ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
         ///
@@ -507,7 +506,6 @@ namespace Propeus.Modulo.Core
 
             return result;
         }
-
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
@@ -575,7 +573,6 @@ namespace Propeus.Modulo.Core
         {
             return modulo is null ? throw new ArgumentNullException(nameof(modulo)) : Existe(modulo.Id);
         }
-
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
@@ -648,9 +645,7 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi encontrado</exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
         ///
@@ -1430,7 +1425,7 @@ namespace Propeus.Modulo.Core
         ///}
         /// </code>
         ///</example>
-        public T Reiniciar<T>(T modulo) where T : IModulo
+        public T Reciclar<T>(T modulo) where T : IModulo
         {
             if (this.Modulos.ContainsKey(modulo.Id))
             {
@@ -1509,7 +1504,7 @@ namespace Propeus.Modulo.Core
         ///}
         /// </code>
         ///</example>
-        public IModulo Reiniciar(string id)
+        public IModulo Reciclar(string id)
         {
             IModulo modulo = Obter(id);
             Remover(id);

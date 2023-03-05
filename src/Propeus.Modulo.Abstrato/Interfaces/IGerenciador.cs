@@ -64,7 +64,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <param name="id">Identificação unica do modulo </param>
         void Remover(string id);
         /// <summary>
-        /// Remove qualquer modulo instanciado
+        /// Remove o modulo instanciado
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
         /// <param name="modulo">Qualquer modulo herdado de <see cref="IModulo"/></param>
@@ -85,7 +85,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// Obtem a instancia de <paramref name="type"/> caso exista
         /// <para>Caso exista mais de uma instancia do mesmo tipo, o primeiro modulo sempre será retornado</para>
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">Qualquer tipo herdado de IModulo</param>
         /// <returns><see cref="IModulo"/></returns>
         IModulo Obter(Type type);
         /// <summary>
@@ -104,13 +104,13 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <summary>
         /// Verifica se existe alguma instancia do tipo no gerenciador
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">Tipo da instancia do modulo a ser verificado</param>
         /// <returns><see cref="bool"/></returns>
         bool Existe(Type type);
         /// <summary>
         /// Verifica se existe alguma instancia com o id no gerenciador
         /// </summary>
-        /// <param name="id">Identificação unica do modulo </param>
+        /// <param name="id">Identificação unica do modulo</param>
         /// <returns><see cref="bool"/></returns>
         bool Existe(string id);
 
@@ -120,13 +120,13 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
         /// <param name="modulo"></param>
         /// <returns><typeparamref name="T"/></returns>
-        T Reiniciar<T>(T modulo) where T : IModulo;
+        T Reciclar<T>(T modulo) where T : IModulo;
         /// <summary>
         /// Realiza uma reciclagem do modulo 
         /// </summary>
         /// <param name="id">Identificação unica do modulo </param>
         /// <returns><see cref="bool"/></returns>
-        IModulo Reiniciar(string id);
+        IModulo Reciclar(string id);
 
         /// <summary>
         /// Lista todos os modulos
