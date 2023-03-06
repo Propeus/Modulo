@@ -169,7 +169,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public IModulo Criar(Type modulo, object[] args)
         {
-            IModulo iModulo = Gerenciador.Criar(modulo);
+            IModulo iModulo = Criar(modulo);
 
             var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
@@ -181,7 +181,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public IModulo Criar(string nomeModulo, object[] args)
         {
-            IModulo iModulo = Gerenciador.Criar(Nome);
+            IModulo iModulo = Criar(Nome);
 
             var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
