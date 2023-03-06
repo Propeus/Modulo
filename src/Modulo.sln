@@ -23,6 +23,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Propeus.Modulo.Compartilhad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.CoreTests", "Propeus.Modulo.CoreTests\Propeus.Modulo.CoreTests.csproj", "{DF33B81A-CAC5-4158-A209-12B995B8CC77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.DinamicoTests", "Propeus.Modulo.DinamicoTests\Propeus.Modulo.DinamicoTests.csproj", "{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,18 @@ Global
 		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x64.Build.0 = Release|Any CPU
 		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x86.ActiveCfg = Release|Any CPU
 		{DF33B81A-CAC5-4158-A209-12B995B8CC77}.Release|x86.Build.0 = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|x64.Build.0 = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A686C19-D934-4A6C-8A59-FFB24F8B6B54}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,7 +20,7 @@ using Propeus.Modulo.Abstrato.Helpers;
 namespace Propeus.Modulo.Dinamico
 {
     [Modulo]
-    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro
+    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro, IGerenciadorInformacao
     {
         public Gerenciador(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
@@ -195,10 +195,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public void Remover(string id)
         {
-            if (Gerenciador.Existe(id))
-            {
-                Gerenciador.Remover(id);
-            }
+            Gerenciador.Remover(id);
         }
         ///<inheritdoc/>
         public void RemoverTodos()
@@ -374,6 +371,22 @@ namespace Propeus.Modulo.Dinamico
             }
         }
 
+        ///<inheritdoc/>
+        IModuloTipo IGerenciadorInformacao.ObterInfo<T>()
+        {
+           return (Gerenciador as IGerenciadorInformacao).ObterInfo<T>();
+        }
 
+        ///<inheritdoc/>
+        IModuloTipo IGerenciadorInformacao.ObterInfo(Type type)
+        {
+            return (Gerenciador as IGerenciadorInformacao).ObterInfo(type);
+        }
+
+        ///<inheritdoc/>
+        IModuloTipo IGerenciadorInformacao.ObterInfo(string id)
+        {
+            return (Gerenciador as IGerenciadorInformacao).ObterInfo(id);
+        }
     }
 }
