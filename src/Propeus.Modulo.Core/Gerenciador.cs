@@ -81,7 +81,7 @@ namespace Propeus.Modulo.Core
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
         public int ModulosInicializados => Modulos.Count;
-        
+
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
@@ -96,64 +96,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como criar uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo =  (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
-        ///                 Console.WriteLine(modulo.Calcular(1,1));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo =  (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
+        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModulo Criar(string nomeModulo)
         {
@@ -177,64 +159,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como criar uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo =  gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(modulo.Calcular(1,1));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public T Criar<T>() where T : IModulo
         {
@@ -253,64 +217,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como criar uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine(modulo.Calcular(1,1));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModulo Criar(Type modulo)
         {
@@ -407,65 +353,47 @@ namespace Propeus.Modulo.Core
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
+        ///Exemplo para verificar um modulo
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como verificar uma instancia do modulo pelo tipo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine(gerenciador.Existe(typeof(ICalculadoraModuloContrato)));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(gerenciador.Existe(typeof(ICalculadoraModuloContrato)));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public bool Existe(Type type)
         {
@@ -510,64 +438,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
         ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como verificar uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine(gerenciador.Existe(modulo));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(gerenciador.Existe(modulo));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public bool Existe(IModulo modulo)
         {
@@ -576,65 +486,46 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como verificar uma instancia do modulo pelo id
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine(gerenciador.Existe(modulo.Id));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(gerenciador.Existe(modulo.Id));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public bool Existe(string id)
         {
@@ -647,65 +538,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi encontrado</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter informacoes de uma instancia do modulo pelo typo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo(typeof(ICalculadoraModuloContrato)));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo(typeof(ICalculadoraModuloContrato)));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModuloTipo ObterInfo(Type modulo)
         {
@@ -759,65 +631,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter informacoes de uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo&lt;ICalculadoraModuloContrato&gt;());
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo&lt;ICalculadoraModuloContrato&gt;());
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModuloTipo ObterInfo<T>() where T : IModulo
         {
@@ -828,65 +681,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter informacoes de uma instancia do modulo pelo ID
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo(modulo.Id));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine((gerenciador as IGerenciadorInformacao).ObterInfo(modulo.Id));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModuloTipo ObterInfo(string id)
         {
@@ -905,70 +739,51 @@ namespace Propeus.Modulo.Core
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo G.C ou acionou o <see cref="IDisposable.Dispose"/></exception>
+        ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        ///using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter uma instancia do modulo pelo tipo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                 Console.WriteLine(gerenciador.Obter(typeof(ICalculadoraModuloContrato)));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(gerenciador.Obter(typeof(ICalculadoraModuloContrato)));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModulo Obter(Type modulo)
         {
@@ -981,65 +796,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Obter&lt;ICalculadoraModuloContrato&gt;());
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.Obter&lt;ICalculadoraModuloContrato&gt;());
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public T Obter<T>() where T : IModulo
         {
@@ -1051,65 +847,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo G.C ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como obter uma instancia do modulo pelo ID
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Obter(modulo.Id));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(gerenciador.Obter(modulo.Id));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public IModulo Obter(string id)
         {
@@ -1132,65 +909,46 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como remover uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Remover(modulo));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.Remover(modulo));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public void Remover<T>(T modulo) where T : IModulo
         {
@@ -1214,65 +972,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo G.C ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como remover uma instancia do modulo pelo ID
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Remover(modulo.Id));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.Remover(modulo.Id));
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public void Remover(string id)
         {
@@ -1281,65 +1020,46 @@ namespace Propeus.Modulo.Core
 
         ///<inheritdoc/>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como remover todos os modulos
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.RemoverTodos());
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.RemoverTodos());
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public void RemoverTodos()
         {
@@ -1365,65 +1085,46 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuloNaoRegistradoException">Modulos criados fora do gerenciador</exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como reiniciar uma instancia do modulo
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Reinicar(modulo));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.Reciclar&lt;ICalculadoraModuloContrato&gt;());
+        ///            }
+        ///        }
+        ///    }
         ///}
-        /// </code>
+        ///</code>
         ///</example>
         public T Reciclar<T>(T modulo) where T : IModulo
         {
@@ -1444,63 +1145,44 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
         ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo G.C ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<example>
-        ///Exemplo para criar um modulo com contrato
-        ///
-        ///Exemplo de codigo do contrato
         ///<code>
+        ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [ModuloContrato(typeof(CalculadoraModulo))]
-        ///     public interface ICalculadoraModuloContrato : IModulo
-        ///     {
-        ///         public int Calcular(int a, int b);
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de codigo do modulo
-        /// <code>
-        /// using Propeus.Modulo.Abstrato.Atributos;
+        ///using Propeus.Modulo.Core.Gerenciador;
         ///
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     [Modulo]
-        ///     public class CalculadoraModulo : ICalculadoraModuloContrato
-        ///     {
-        ///     
-        ///         public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        ///         {
-        ///         
-        ///         }
-        ///         
-        ///         public int Calcular(int a, int b)
-        ///         {
-        ///             return a+b;
-        ///         }
-        ///     }
-        /// }
-        /// </code>
-        /// 
-        /// Exemplo de como reiniciar uma instancia do modulo pelo ID
-        /// <code>
-        /// using System;
-        /// using Propeus.Modulo.Core.Gerenciador
-        /// 
-        /// namespace Propeus.Modulo.Exemplo
-        /// {
-        ///     internal class Program
-        ///     {
-        ///         private static void Main(string[] args)
-        ///         {
-        ///             using(Gerenciador gerenciador = Gereciador.Atual)
-        ///             {
-        ///                 ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
-        ///                 Console.WriteLine(gerenciador.Reinicar(modulo.Id));
-        ///             }
-        ///         }
-        ///     }
+        ///namespace Propeus.Modulo.Exemplo
+        ///{
+        ///    [Modulo]
+        ///    public class CalculadoraModulo : ICalculadoraModuloContrato
+        ///    {
+        ///        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///    }
+        ///
+        ///    [ModuloContrato(typeof(CalculadoraModulo))]
+        ///    public interface ICalculadoraModuloContrato : IModulo
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using(Gerenciador gerenciador = Gereciador.Atual)
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = gerenciador.Criar&lt;ICalculadoraModuloContrato&gt;();
+        ///                Console.WriteLine(gerenciador.Reciclar(modulo.Id));
+        ///            }
+        ///        }
+        ///    }
         ///}
         /// </code>
         ///</example>

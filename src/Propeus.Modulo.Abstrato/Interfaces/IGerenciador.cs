@@ -124,7 +124,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <summary>
         /// Realiza uma reciclagem do modulo 
         /// </summary>
-        /// <param name="id">Identificação unica do modulo </param>
+        /// <param name="id">Identificação unica do modulo</param>
         /// <returns><see cref="bool"/></returns>
         IModulo Reciclar(string id);
 
