@@ -12,6 +12,44 @@ namespace Propeus.Modulo.Util
     /// </summary>
     public static partial class Helper
     {
+        public static void SaveFilePathsToFile(this string filePath, HashSet<string> filePaths)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (string path in filePaths)
+                {
+                    writer.Write(path);
+                    writer.Write('\t');
+                }
+            }
+        }
+
+        public static HashSet<string> LoadFilePathsAsHashSet(this string filePath, int blockSize = 4096)
+        {
+            HashSet<string> filePathHashSet = new HashSet<string>();
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using (StreamReader reader = new StreamReader(fileStream))
+            {
+                char[] buffer = new char[blockSize];
+                int bytesRead;
+
+                while ((bytesRead = reader.ReadBlock(buffer, 0, blockSize)) > 0)
+                {
+                    string block = new string(buffer, 0, bytesRead);
+                    string[] paths = block.Split('\t');
+
+                    foreach (string path in paths)
+                    {
+                        if(string.IsNullOrEmpty(path)) continue;
+
+                        filePathHashSet.Add(path);
+                    }
+                }
+            }
+
+            return filePathHashSet;
+        }
 
         /// <summary>
         /// Junta as duas listas sem repitir os objetos.

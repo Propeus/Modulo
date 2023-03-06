@@ -22,12 +22,14 @@ namespace Propeus.Modulo.Dinamico
     [Modulo]
     public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro, IGerenciadorInformacao
     {
+        const string CAMINHO_MODULOS_ARQUIVO = "modulos.path";
+
         public Gerenciador(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
         {
             Binarios = new ConcurrentDictionary<string, IModuloBinario>();
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             DataInicio = DateTime.Now;
-            _scheduler = new TaskJob(10);
+            _scheduler = new TaskJob(3);
 
 
             CARREGAR_MODULO_JOB(null);
@@ -308,8 +310,8 @@ namespace Propeus.Modulo.Dinamico
             //_ = stringBuilder.Append("ModuloInformacao em atualização: ").Append(emAtualizacao ? "Sim" : "Não").AppendLine();
             _ = stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
             _ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(Binarios.Count).AppendLine();
-            _ = stringBuilder.Append("Quantidade de modulos inicializados: ").Append(ModulosInicializados).AppendLine();
-            //_ = stringBuilder.Append("Tempo de atualização dos modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
+            _ = stringBuilder.Append("Quantidade de caminho_modulos inicializados: ").Append(ModulosInicializados).AppendLine();
+            //_ = stringBuilder.Append("Tempo de atualização dos caminho_modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
 
             return stringBuilder.ToString();
         }
@@ -343,7 +345,18 @@ namespace Propeus.Modulo.Dinamico
         }
         private void CARREGAR_MODULO_JOB(object cancelationToken)
         {
-            var arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
+            HashSet<string> caminho_modulos = new HashSet<string>();
+            if (File.Exists(CAMINHO_MODULOS_ARQUIVO))
+            {
+                caminho_modulos = CAMINHO_MODULOS_ARQUIVO.LoadFilePathsAsHashSet();
+            }
+
+            string[] arquivos_dll = caminho_modulos.ToArray();
+            if (caminho_modulos.Count == 0 || cancelationToken != null)
+            {
+                arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
+            }
+
             foreach (var dll in arquivos_dll)
             {
                 var moduloBinario = new ModuloBinario(dll);
@@ -351,6 +364,7 @@ namespace Propeus.Modulo.Dinamico
                 {
                     if (!Binarios.ContainsKey(dll))
                     {
+                        caminho_modulos.Add(dll);
                         Binarios.TryAdd(dll, moduloBinario);
                     }
                     else
@@ -369,12 +383,14 @@ namespace Propeus.Modulo.Dinamico
                     moduloBinario.Dispose();
                 }
             }
+
+            CAMINHO_MODULOS_ARQUIVO.SaveFilePathsToFile(caminho_modulos);
         }
 
         ///<inheritdoc/>
         IModuloTipo IGerenciadorInformacao.ObterInfo<T>()
         {
-           return (Gerenciador as IGerenciadorInformacao).ObterInfo<T>();
+            return (Gerenciador as IGerenciadorInformacao).ObterInfo<T>();
         }
 
         ///<inheritdoc/>
