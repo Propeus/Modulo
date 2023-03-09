@@ -14,22 +14,19 @@ using Propeus.Modulo.Dinamico.Properties;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util.Thread;
-using System.Reflection;
-using Propeus.Modulo.Abstrato.Helpers;
 
 namespace Propeus.Modulo.Dinamico
 {
     [Modulo]
     public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro, IGerenciadorInformacao
     {
-        const string CAMINHO_MODULOS_ARQUIVO = "modulos.path";
-
-        public Gerenciador(IGerenciador gerenciador, bool instanciaUnica = true) : base(gerenciador, instanciaUnica)
+        public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao = null) : base(gerenciador, true)
         {
             Binarios = new ConcurrentDictionary<string, IModuloBinario>();
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             DataInicio = DateTime.Now;
             _scheduler = new TaskJob(3);
+            Configuracao = configuracao ?? new GerenciadorConfiguracao();
 
 
             CARREGAR_MODULO_JOB(null);
@@ -43,6 +40,11 @@ namespace Propeus.Modulo.Dinamico
         public DateTime DataInicio { get; }
 
         private TaskJob _scheduler;
+
+        /// <summary>
+        /// Configuracoes do gerenciador
+        /// </summary>
+        public GerenciadorConfiguracao Configuracao { get; }
 
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         public int ModulosInicializados => ((Gerenciador is IGerenciadorDiagnostico) ? (Gerenciador as IGerenciadorDiagnostico).ModulosInicializados : -1);
@@ -63,9 +65,16 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public IModulo Criar(string nomeModulo)
         {
-            var binM = Binarios.Single(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)).Value;
+            if (Binarios.Any(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)))
+            {
+                var binM = Binarios.Single(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)).Value;
+                return Criar(binM.ModuloInformacao.CarregarTipoModulo(nomeModulo));
+            }
+            else
+            {
+                return Gerenciador.Criar(nomeModulo);
+            }
 
-            return Criar(binM.ModuloInformacao.CarregarTipoModulo(nomeModulo));
         }
         ///<inheritdoc/>
         public IModulo Criar(Type modulo)
@@ -117,7 +126,16 @@ namespace Propeus.Modulo.Dinamico
                 }
                 else
                 {
-                    moduloInfo = Binarios.Single(bin => bin.Value.ModuloInformacao.PossuiModulo(attr.Nome)).Value.ModuloInformacao;
+                    if (Binarios.Any(x => x.Value.ModuloInformacao.PossuiModulo(attr.Nome)))
+                    {
+                        moduloInfo = Binarios.Single(bin => bin.Value.ModuloInformacao.PossuiModulo(attr.Nome)).Value.ModuloInformacao;
+                    }
+                    else
+                    {
+                        //TODO: Achar outra forma de obter o tipo pelo nome
+                        moduloInfo = new ModuloInformacao(attr.Nome.ObterTipo());
+                    }
+
 
                 }
                 tipoImplementacao = moduloInfo.CarregarTipoModulo(attr.Nome);
@@ -291,6 +309,7 @@ namespace Propeus.Modulo.Dinamico
         protected override void Dispose(bool disposing)
         {
             RemoverTodos();
+            this._scheduler.Dispose();
             base.Dispose(disposing);
         }
 
@@ -346,13 +365,13 @@ namespace Propeus.Modulo.Dinamico
         private void CARREGAR_MODULO_JOB(object cancelationToken)
         {
             HashSet<string> caminho_modulos = new HashSet<string>();
-            if (File.Exists(CAMINHO_MODULOS_ARQUIVO))
+            string[] arquivos_dll = Array.Empty<string>();
+            if (Configuracao.CarregamentoRapido && cancelationToken == null && File.Exists(Configuracao.CaminhoArquivoModulos))
             {
-                caminho_modulos = CAMINHO_MODULOS_ARQUIVO.LoadFilePathsAsHashSet();
+                caminho_modulos = Configuracao.CaminhoArquivoModulos.LoadFilePathsAsHashSet();
+                arquivos_dll = caminho_modulos.ToArray();
             }
-
-            string[] arquivos_dll = caminho_modulos.ToArray();
-            if (caminho_modulos.Count == 0 || cancelationToken != null)
+            else
             {
                 arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
             }
@@ -384,7 +403,7 @@ namespace Propeus.Modulo.Dinamico
                 }
             }
 
-            CAMINHO_MODULOS_ARQUIVO.SaveFilePathsToFile(caminho_modulos);
+            Configuracao.CaminhoArquivoModulos.SaveFilePathsToFile(caminho_modulos);
         }
 
         ///<inheritdoc/>

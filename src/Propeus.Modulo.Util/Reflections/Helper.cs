@@ -77,6 +77,11 @@ namespace Propeus.Modulo.Util
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
+        public static string ObterHashMetodo(this MethodInfo methodInfo)
+        {
+            return $"{methodInfo.ReturnType} {methodInfo.Name} ({string.Join(",", methodInfo.GetParameters().Select(p => p.ParameterType.Name))})".Hash();
+        }
+
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
         /// <summary>
         /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.TypeBuilder"/>

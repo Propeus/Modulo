@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Propeus.Modulo.Core.Exceptions;
+using System.IO;
 
 namespace Propeus.Modulo.Dinamico.Tests
 {
@@ -45,14 +46,12 @@ namespace Propeus.Modulo.Dinamico.Tests
     public class GerenciadorTests
     {
 
-
-
         private IGerenciador gerenciador;
 
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
+            gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = true });
         }
 
         [TestCleanup]
@@ -728,9 +727,42 @@ namespace Propeus.Modulo.Dinamico.Tests
                 _ = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
             }
 
-            Assert.AreEqual(101, gerenciador.Listar().Count()); 
+            Assert.AreEqual(101, gerenciador.Listar().Count());
 
         }
         #endregion
+
+        [TestMethod]
+        public void ExecutarModuloEmTempoDeExecucao()
+        {
+            CarregarModuloDLL("Propeus.Modulo.DinamicoTests.ModuloSoma");
+
+            gerenciador.Dispose();
+            gerenciador = null;
+            gerenciador = new Gerenciador(Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = false });
+
+            //TODO: problema com entrypoint
+            var CalculadoraSoma = (gerenciador as IGerenciadorArgumentos).Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
+            Assert.AreEqual(2, CalculadoraSoma.Calcular(1, 1));
+            DescarregarModuloDLL("Propeus.Modulo.DinamicoTests.ModuloSoma");
+        }
+
+
+        private void CarregarModuloDLL(string nomeProjeto)
+        {
+            File.Copy($"../../../../{nomeProjeto}/bin/Debug/net7.0/{nomeProjeto}.dll", $"./{nomeProjeto}.dll", true);
+        }
+
+        private void DescarregarModuloDLL(string nomeProjeto)
+        {
+            File.Delete($"./{nomeProjeto}.dll");
+        }
+    }
+
+
+    [ModuloContrato("ModuloCalculo")]
+    public interface IModuloCalculadoraContrato : IModulo
+    {
+        int Calcular(int a, int b);
     }
 }

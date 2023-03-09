@@ -30,7 +30,7 @@ namespace Propeus.Modulo.Dinamico
 
             Nome = moduloTipo.Name;
             Caminho = moduloTipo.Assembly.Location;
-            
+
             Assembly = moduloTipo.Assembly;
             AssemblyName = moduloTipo.Assembly?.GetName();
             Version versao = AssemblyName.Version;
@@ -38,7 +38,7 @@ namespace Propeus.Modulo.Dinamico
 
             Modulos = new Dictionary<string, IModuloTipo>();
             Contratos = new Dictionary<string, List<Type>>();
-            
+
             foreach (var item in ObterNomeModulos())
             {
                 Modulos.Add(item, null);
@@ -59,8 +59,9 @@ namespace Propeus.Modulo.Dinamico
             Modulos = new Dictionary<string, IModuloTipo>();
             Contratos = new Dictionary<string, List<Type>>();
 
+            var assem = AppDomain.CurrentDomain.GetAssemblies().Select(asm => asm.Location).ToArray();
             //Nao pode carregaar em memoria um modulo que esta em execucao
-            if (!Assembly.GetEntryAssembly().Location.Equals(Caminho, StringComparison.CurrentCultureIgnoreCase))
+            if (!assem.Contains(Caminho))
             {
                 WeakReferenceAssembly = new WeakReference(moduloBinario.Memoria);
 

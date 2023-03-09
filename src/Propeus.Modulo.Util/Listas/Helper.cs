@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
-
+using System.Reflection;
 
 namespace Propeus.Modulo.Util
 {
@@ -41,7 +40,7 @@ namespace Propeus.Modulo.Util
 
                     foreach (string path in paths)
                     {
-                        if(string.IsNullOrEmpty(path)) continue;
+                        if (string.IsNullOrEmpty(path)) continue;
 
                         filePathHashSet.Add(path);
                     }
@@ -71,7 +70,7 @@ namespace Propeus.Modulo.Util
                 return esquerda;
             }
 
-            ICollection<T> join = new LinkedList<T>();
+            ICollection<T> join = new HashSet<T>();
             foreach (T ia in esquerda)
             {
                 join.Add(ia);
@@ -85,6 +84,92 @@ namespace Propeus.Modulo.Util
             }
             return join;
         }
+
+        /// <summary>
+        /// Junta as duas listas sem repitir os objetos.
+        /// </summary>
+        /// <remarks>
+        /// No dicionario, esquerda retorna como true e direita como false
+        /// </remarks>
+        /// <typeparam name="T">Tipo da lista</typeparam>
+        /// <param name="esquerda">Lista da esquerda</param>
+        /// <param name="direita">Lista da direita</param>
+        /// <returns>Retorna os valores das duas listas sem repitir os valores</returns>
+        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
+        public static IDictionary<T, bool> FullJoinDictionary<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
+        {
+            if (esquerda is null)
+            {
+                throw new ArgumentNullException(nameof(esquerda));
+            }
+
+            if (direita is null)
+            {
+                return esquerda.ToDictionary((k => k), (v => false));
+            }
+
+            IDictionary<T, bool> join = new Dictionary<T, bool>();
+            foreach (T ia in esquerda)
+            {
+                join.Add(ia, true);
+            }
+            foreach (T ib in direita)
+            {
+                if (!join.ContainsKey(ib))
+                {
+                    join.Add(ib, false);
+                }
+            }
+            return join;
+        }
+
+        /// <summary>
+        /// Junta as duas listas sem repitir os objetos.
+        /// </summary>
+        /// <remarks>
+        /// No dicionario, esquerda retorna como true e direita como false
+        /// </remarks>
+        /// <typeparam name="T">Tipo da lista</typeparam>
+        /// <param name="esquerda">Lista da esquerda</param>
+        /// <param name="direita">Lista da direita</param>
+        /// <returns>Retorna os valores das duas listas sem repitir os valores</returns>
+        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
+        public static IDictionary<MethodInfo, bool> FullJoinDictionaryMethodInfo(this IEnumerable<MethodInfo> esquerda, IEnumerable<MethodInfo> direita)
+        {
+            if (esquerda is null)
+            {
+                throw new ArgumentNullException(nameof(esquerda));
+            }
+
+            if (direita is null)
+            {
+                return esquerda.ToDictionary((k => k), (v => false));
+            }
+
+            IDictionary<MethodInfo, bool> join = new Dictionary<MethodInfo, bool>();
+            IDictionary<string, bool> joinhash = new Dictionary<string, bool>();
+
+            foreach (MethodInfo ia in esquerda)
+            {
+                if (!joinhash.ContainsKey(ia.ObterHashMetodo()))
+                {
+                    join.Add(ia, true);
+                    joinhash.Add(ia.ObterHashMetodo(), true);
+                }
+            }
+
+            foreach (MethodInfo ib in direita)
+            {
+                if (joinhash.ContainsKey(ib.ObterHashMetodo()))
+                    continue;
+
+                join.Add(ib, false);
+            }
+            joinhash.Clear();
+
+            return join;
+        }
+
         /// <summary>
         /// Obtém os itens em comum entre duas listas.
         /// </summary>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -16,16 +18,17 @@ namespace Propeus.Modulo.Dinamico
     /// </summary>
     public class ModuloBinario : BaseModelo, IModuloBinario
     {
-       
+
         public ModuloBinario(string caminho)
         {
             Caminho = caminho;
+            var assem = AppDomain.CurrentDomain.GetAssemblies().Select(asm => asm.Location).ToArray();
             //Nao pode carregaar em memoria um modulo que esta em execucao
-            if (!Assembly.GetEntryAssembly().Location.Equals(caminho, StringComparison.CurrentCultureIgnoreCase))
+            if (!assem.Contains(caminho))
             {
-                Memoria = new MemoryStream();
                 if (File.Exists(caminho))
                 {
+                    Memoria = new MemoryStream();
                     using (FileStream arquivo = new(caminho, FileMode.Open, FileAccess.Read))
                     {
                         using (BinaryReader binario = new(arquivo))
@@ -35,12 +38,12 @@ namespace Propeus.Modulo.Dinamico
                         }
                         arquivo.Close();
                     }
+                    _ = Memoria.Seek(0, SeekOrigin.Begin);
+                    Hash = Memoria.GetBuffer().Hash();
+                    ModuloInformacao = new ModuloInformacao(this);
                 }
-                _ = Memoria.Seek(0, SeekOrigin.Begin);
-                Hash = Memoria.GetBuffer().Hash();
             }
 
-            ModuloInformacao = new ModuloInformacao(this);
         }
 
         /// <summary>
@@ -85,7 +88,7 @@ namespace Propeus.Modulo.Dinamico
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            ModuloInformacao.Dispose();
+            ModuloInformacao?.Dispose();
 
         }
 

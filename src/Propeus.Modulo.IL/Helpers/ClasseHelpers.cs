@@ -8,6 +8,8 @@ using Propeus.Modulo.IL.Enums;
 
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Proxy;
+using Propeus.Modulo.IL.API;
+using System.Collections.Generic;
 
 namespace Propeus.Modulo.IL.Helpers
 {
@@ -50,21 +52,42 @@ namespace Propeus.Modulo.IL.Helpers
             #endregion
 
             #region Metodos
-            foreach (MethodInfo metodo in tClasse.GetMethods())
+            var mthInterfaces = interfaces.SelectMany(i => i.GetMethods()).ToDictionary((k=> k), (v => true));
+            //var mths = tClasse.GetMethods();
+
+            var methods= mthInterfaces;
+
+            foreach (var metodoKP in methods)
             {
+                var metodo = metodoKP.Key;
+
                 if (metodo.Name.Contains("get_") || metodo.Name.Contains("set_"))
                 {
                     continue;
                 }
-
-
-                if (metodo.GetParameters().Length == 0)
+                Token[] _acessadores;
+                if (metodoKP.Value)
                 {
-                    API.ClasseAPI.CriarMetodo(cls.Atual, metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), metodo.ReturnType, metodo.Name);
+                    var _acessadoresL = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>().ToList();
+                    _acessadoresL.Remove(Token.Abstrato);
+                    _acessadoresL.Remove(Token.ReusoSlot);
+                    _acessadoresL.Remove(Token.VtableLayoutMask);
+                    _acessadoresL.Add(Token.Final);
+                    _acessadoresL.Add(Token.NovoSlot);
+                    _acessadores = _acessadoresL.ToArray();
                 }
                 else
                 {
-                    API.ClasseAPI.CriarMetodo(cls.Atual, metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>(), metodo.ReturnType, metodo.Name, metodo.ObterTipoParametros().Select(p => new ILParametro(metodo.Name, p)).ToArray());
+                    _acessadores = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>();
+                }
+
+                if (metodo.GetParameters().Length == 0)
+                {
+                    API.ClasseAPI.CriarMetodo(cls.Atual, _acessadores, metodo.ReturnType, metodo.Name);
+                }
+                else
+                {
+                    API.ClasseAPI.CriarMetodo(cls.Atual, _acessadores, metodo.ReturnType, metodo.Name, metodo.GetParameters().Select(p => new ILParametro(metodo.Name, p.ParameterType,p.IsOptional,p.DefaultValue,p.Name)).ToArray());
                 }
 
                 ILMetodo mth = cls.Atual.Metodos.Last();
@@ -74,7 +97,8 @@ namespace Propeus.Modulo.IL.Helpers
                 {
                     API.MetodoAPI.CarregarArgumento(mth, i);
                 }
-                API.MetodoAPI.ChamarFuncaoVirtual(mth, metodo);
+                var cmpMetodo = tClasse.GetMethod(metodo.Name);
+                API.MetodoAPI.ChamarFuncao(mth, cmpMetodo);
                 API.MetodoAPI.CriarRetorno(mth);
             }
             #endregion

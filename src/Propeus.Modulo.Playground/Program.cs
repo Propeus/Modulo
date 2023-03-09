@@ -72,6 +72,24 @@ namespace Propeus.Modulo.IL.Playground
         }
     }
 
+    [ModuloContrato("Teste")]
+    public interface IModuloCalculadoraContrato : IModulo
+    {
+        int Calcular(int a, int b);
+    }
+
+    [Modulo]
+    public class Teste : ModuloBase, IModuloCalculadoraContrato
+    {
+        public Teste(IGerenciador gerenciador) : base(gerenciador)
+        {
+        }
+
+        public int Calcular(int a, int b)
+        {
+            return a + b;
+        }
+    }
 
 
     internal class Program
@@ -97,9 +115,9 @@ namespace Propeus.Modulo.IL.Playground
             //var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
             //Console.WriteLine(modulo.ToString());
             //return;
-            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual);
+            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual,new Dinamico.GerenciadorConfiguracao { CarregamentoRapido = false });
             //TODO: Esta dando ruim de cast do mesmo tipo???
-            var modulo = genv2.Criar<IModuloContratoC>(new object[] { 1, "Ola mundo" });
+            var modulo = genv2.Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
             Console.WriteLine(modulo.ToString());
             //genv2.ManterVivoAsync().Wait();
             return;
