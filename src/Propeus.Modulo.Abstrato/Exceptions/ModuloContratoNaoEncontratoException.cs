@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 using Propeus.Modulo.Abstrato.Atributos;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para quando a interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/>
@@ -19,6 +19,6 @@ namespace Propeus.Modulo.Core.Exceptions
         {
         }
 
-        
+
     }
 }

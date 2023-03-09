@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para tentativa de criacao de um novo modulo de instancia unica

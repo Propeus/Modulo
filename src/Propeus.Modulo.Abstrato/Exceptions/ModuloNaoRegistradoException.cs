@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
-    /// Excecao para quando o mesmo modulo for registrado mais de uma unica vez
+    /// Excecao para quando o modulo for criado fora do Gerenciador
     /// </summary>
     [Serializable]
-    public class ModuloRegistradoException : Exception
+    public class ModuloNaoRegistradoException : Exception
     {
         /// <summary>
         /// Construtor padrao
         /// </summary>
         /// <param name="message">Mensagem do erro</param>
-        public ModuloRegistradoException(string message) : base(message) { }
+        public ModuloNaoRegistradoException(string message) : base(message) { }
     }
 }

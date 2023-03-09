@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao generica
@@ -17,6 +17,6 @@ namespace Propeus.Modulo.Core.Exceptions
         {
         }
 
-        
+
     }
 }

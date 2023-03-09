@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para quando o modulo nao possuir nenhum construtor publico
@@ -9,7 +9,7 @@ namespace Propeus.Modulo.Core.Exceptions
     [Serializable]
     public class ModuloConstrutorAusenteException : ModuloException
     {
-       
+
         /// <summary>
         /// Construtor padrao
         /// </summary>
@@ -18,6 +18,6 @@ namespace Propeus.Modulo.Core.Exceptions
         {
         }
 
-      
+
     }
 }

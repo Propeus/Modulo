@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Core.Exceptions
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
-    /// Excecao para quando for encontrado mais de um modulo de mesmo nome
+    /// Excecao para quando o modulo informado nao foi encontrado
     /// </summary>
     [Serializable]
-    public class TipoModuloAmbiguoException : Exception
+    public class ModuloNaoEncontradoException : Exception
     {
         /// <summary>
         /// Construtor padrao
         /// </summary>
         /// <param name="message">Mensagem do erro</param>
-        public TipoModuloAmbiguoException(string message) : base(message) { }
+        public ModuloNaoEncontradoException(string message) : base(message) { }
     }
 }
