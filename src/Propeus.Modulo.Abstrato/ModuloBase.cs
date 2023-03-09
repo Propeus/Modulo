@@ -13,7 +13,7 @@ namespace Propeus.Modulo.Abstrato
     public class ModuloBase : BaseModelo, IModulo
     {
         /// <summary>
-        /// Inicia um modulo com um gerenciador
+        /// Inicializa um modulo
         /// </summary>
         /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
