@@ -1,5 +1,7 @@
 # Propeus.Modulo
 
+[![.NET](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml)
+
 Este projeto tem como objetivo criar e gerenciar módulos .NET dinamicamente, permitindo que sejam modificados, melhorados ou removidos em tempo de execução, sem a necessidade de realizar um CI/CD ou mesmo paralisar um sistema para realizar o deploy. Em poucas palavras, este projeto tem como objetivo ser um "Docker" para .NET.
 
 O projeto não requer instalação, pois é adicionado como componente e inicializado junto com a aplicação web, console ou worker service.
