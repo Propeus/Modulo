@@ -19,7 +19,11 @@ namespace Propeus.Modulo.Dinamico
     /// </summary>
     public class ModuloInformacao : BaseModelo, IModuloInformacao
     {
-
+        /// <summary>
+        /// Inicializa o objeto obtendo as informacoes sobre o tipo informado
+        /// </summary>
+        /// <param name="moduloTipo">Tipo do modulo</param>
+        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public ModuloInformacao(Type moduloTipo)
         {
             if (moduloTipo is null)
@@ -45,6 +49,11 @@ namespace Propeus.Modulo.Dinamico
             }
         }
 
+        /// <summary>
+        /// Inicializa o objeto obtendo as informacoes sobre o binario carregado
+        /// </summary>
+        /// <param name="moduloBinario"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public ModuloInformacao(IModuloBinario moduloBinario)
         {
             if (moduloBinario is null)
@@ -89,7 +98,9 @@ namespace Propeus.Modulo.Dinamico
                 Modulos.Add(item, null);
             }
         }
+        ///<inheritdoc/>
         public override string Versao { get; }
+        ///<inheritdoc/>
         public IModuloTipo this[string nome]
         {
             get
@@ -139,13 +150,16 @@ namespace Propeus.Modulo.Dinamico
         /// </summary>
         public string Caminho { get; }
 
+        ///<inheritdoc/>
         public int ModulosDescobertos => Modulos?.Count ?? 0;
+        ///<inheritdoc/>
         public int ModulosCarregados => Modulos?.Count(predicate: x => x.Value is not null) ?? 0;
 
         /// <summary>
         /// Adiciona um contrato atrelado a um modulo
         /// </summary>
-        /// <param name="contrato"></param>
+        /// <param name="nomeModulo">Nome do modulo a ser vinculado o contrato</param>
+        /// <param name="contrato">Tipo da interface de contrato</param>
         public void AdicionarContrato(string nomeModulo, Type contrato)
         {
             if (string.IsNullOrEmpty(nomeModulo))
@@ -186,7 +200,9 @@ namespace Propeus.Modulo.Dinamico
             }
             return null;
         }
+        ///<inheritdoc/>
         public bool PossuiModulo(string nomeModulo) => Modulos.ContainsKey(nomeModulo);
+        ///<inheritdoc/>
         public Type CarregarTipoModulo(string nomeModulo)
         {
             if (Modulos.ContainsKey(nomeModulo))
@@ -195,7 +211,7 @@ namespace Propeus.Modulo.Dinamico
             }
             return null;
         }
-
+        ///<inheritdoc/>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());
@@ -207,6 +223,7 @@ namespace Propeus.Modulo.Dinamico
 
             return sb.ToString();
         }
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             Modulos.Clear();

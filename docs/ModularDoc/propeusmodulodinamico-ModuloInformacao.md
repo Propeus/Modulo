@@ -39,24 +39,24 @@ Propeus.Modulo.Abstrato.BaseModelo --> Propeus.Modulo.Dinamico.ModuloInformacao
 | `string` | [`Caminho`](#caminho)<br>Caminho do modulo em disco | `get` |
 | [`IModuloTipo`](./propeusmoduloabstratointerfaces-IModuloTipo.md) | [`Item`](#item) | `get, set` |
 | `Dictionary`&lt;`string`, [`IModuloTipo`](./propeusmoduloabstratointerfaces-IModuloTipo.md)&gt; | [`Modulos`](#modulos)<br>ModuloInformacao mapeados do assembly | `get` |
-| `int` | [`ModulosCarregados`](#moduloscarregados) | `get` |
-| `int` | [`ModulosDescobertos`](#modulosdescobertos) | `get` |
-| `string` | [`Versao`](#versao) | `get` |
+| `int` | [`ModulosCarregados`](#moduloscarregados)<br>Informa a quantidade de modulos criados. | `get` |
+| `int` | [`ModulosDescobertos`](#modulosdescobertos)<br>Informa a quantidade de modulos disponiveis dentro de uma DLL | `get` |
+| `string` | [`Versao`](#versao)<br>Versao do modelo | `get` |
 
 ### Methods
 #### Public  methods
 | Returns | Name |
 | --- | --- |
 | `void` | [`AdicionarContrato`](#adicionarcontrato)(`string` nomeModulo, `Type` contrato)<br>Adiciona um contrato atrelado a um modulo |
-| `Type` | [`CarregarTipoModulo`](#carregartipomodulo)(`string` nomeModulo) |
+| `Type` | [`CarregarTipoModulo`](#carregartipomodulo)(`string` nomeModulo)<br>Obtem o Type do modulo informado |
 | `List`&lt;`Type`&gt; | [`ObterContratos`](#obtercontratos)(`string` nomeModulo)<br>Obtem a lista de contratos do modulo informado |
-| `bool` | [`PossuiModulo`](#possuimodulo)(`string` nomeModulo) |
-| `string` | [`ToString`](#tostring)() |
+| `bool` | [`PossuiModulo`](#possuimodulo)(`string` nomeModulo)<br>Indica se o modulo informado esta prensente |
+| `string` | [`ToString`](#tostring)()<br>Exibe informações basicas sobre o modelo |
 
 #### Protected  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`Dispose`](#dispose)(`bool` disposing) |
+| `void` | [`Dispose`](#dispose)(`bool` disposing)<br>Libera os objetos deste modelo e altera o estado dele para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado) |
 
 #### Public Static methods
 | Returns | Name |
@@ -87,7 +87,15 @@ public ModuloInformacao(Type moduloTipo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | moduloTipo |   |
+| `Type` | moduloTipo | Tipo do modulo |
+
+##### Summary
+Inicializa o objeto obtendo as informacoes sobre o tipo informado
+
+##### Exceptions
+| Name | Description |
+| --- | --- |
+| ArgumentNullException | Argumento nulo |
 
 #### ModuloInformacao [2/2]
 ```csharp
@@ -96,7 +104,15 @@ public ModuloInformacao(IModuloBinario moduloBinario)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| [`IModuloBinario`](./propeusmoduloabstratointerfaces-IModuloBinario.md) | moduloBinario |   |
+| [`IModuloBinario`](./propeusmoduloabstratointerfaces-IModuloBinario.md) | moduloBinario |  |
+
+##### Summary
+Inicializa o objeto obtendo as informacoes sobre o binario carregado
+
+##### Exceptions
+| Name | Description |
+| --- | --- |
+| ArgumentNullException |  |
 
 ### Methods
 #### AdicionarContrato
@@ -106,8 +122,8 @@ public virtual void AdicionarContrato(string nomeModulo, Type contrato)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
-| `Type` | contrato |  |
+| `string` | nomeModulo | Nome do modulo a ser vinculado o contrato |
+| `Type` | contrato | Tipo da interface de contrato |
 
 ##### Summary
 Adiciona um contrato atrelado a um modulo
@@ -134,7 +150,13 @@ public virtual bool PossuiModulo(string nomeModulo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
+| `string` | nomeModulo | Nome do modulo |
+
+##### Summary
+Indica se o modulo informado esta prensente
+
+##### Returns
+Retorna caso ache o modulo, caso contrario retorna
 
 #### CarregarTipoModulo
 ```csharp
@@ -143,12 +165,23 @@ public virtual Type CarregarTipoModulo(string nomeModulo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | nomeModulo |   |
+| `string` | nomeModulo | Nome do modulo a ser obtido o Type |
+
+##### Summary
+Obtem o Type do modulo informado
+
+##### Returns
+Type
 
 #### ToString
 ```csharp
 public override string ToString()
 ```
+##### Summary
+Exibe informações basicas sobre o modelo
+
+##### Returns
+
 
 #### Dispose
 ```csharp
@@ -157,7 +190,10 @@ protected override void Dispose(bool disposing)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `bool` | disposing |   |
+| `bool` | disposing | Indica se deve alterar o estado do objeto para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado) |
+
+##### Summary
+Libera os objetos deste modelo e altera o estado dele para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado)
 
 #### PossuiModuloValido
 ```csharp
@@ -180,6 +216,8 @@ Metodo estatico para validação de modulo
 ```csharp
 public override string Versao { get; }
 ```
+##### Summary
+Versao do modelo
 
 #### Item
 ```csharp
@@ -218,10 +256,14 @@ Caminho do modulo em disco
 ```csharp
 public virtual int ModulosDescobertos { get; }
 ```
+##### Summary
+Informa a quantidade de modulos disponiveis dentro de uma DLL
 
 #### ModulosCarregados
 ```csharp
 public virtual int ModulosCarregados { get; }
 ```
+##### Summary
+Informa a quantidade de modulos criados.
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

@@ -28,6 +28,7 @@ namespace Propeus.Modulo.Dinamico
         /// Inicializa o gerenciador
         /// </summary>
         /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
+        /// <param name="configuracao">Configuracao do gerenciador atual</param>
         public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao = null) : base(gerenciador, true)
         {
             Binarios = new ConcurrentDictionary<string, IModuloBinario>();
@@ -216,7 +217,11 @@ namespace Propeus.Modulo.Dinamico
             if (modulo.IsInterface)
             {
                 modulo = ResoverContratos(modulo);
+            }
 
+            if (modulo is null)
+            {
+                throw new ArgumentNullException(nameof(modulo));
             }
 
             var ctors = modulo.GetConstructors();

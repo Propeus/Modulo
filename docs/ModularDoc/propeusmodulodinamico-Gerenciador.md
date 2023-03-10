@@ -109,7 +109,7 @@ public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuraca
 | Type | Name | Description |
 | --- | --- | --- |
 | [`IGerenciador`](./propeusmoduloabstratointerfaces-IGerenciador.md) | gerenciador | Gerenciador que irá controlar o modulo |
-| [`GerenciadorConfiguracao`](./propeusmodulodinamico-GerenciadorConfiguracao.md) | configuracao |   |
+| [`GerenciadorConfiguracao`](./propeusmodulodinamico-GerenciadorConfiguracao.md) | configuracao | Configuracao do gerenciador atual |
 
 ##### Summary
 Inicializa o gerenciador

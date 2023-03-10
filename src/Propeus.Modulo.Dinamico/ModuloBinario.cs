@@ -18,7 +18,10 @@ namespace Propeus.Modulo.Dinamico
     /// </summary>
     public class ModuloBinario : BaseModelo, IModuloBinario
     {
-
+        /// <summary>
+        /// Inicializa o modulo carregando o binario em memoria
+        /// </summary>
+        /// <param name="caminho">Caminho do arquivo a ser carregado em memoria</param>
         public ModuloBinario(string caminho)
         {
             Caminho = caminho;
@@ -75,6 +78,7 @@ namespace Propeus.Modulo.Dinamico
         /// </summary>
         public bool BinarioValido => ModuloInformacao?.ModulosDescobertos > 0;
 
+        ///<inheritdoc/>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());
@@ -85,6 +89,7 @@ namespace Propeus.Modulo.Dinamico
 
         }
 
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

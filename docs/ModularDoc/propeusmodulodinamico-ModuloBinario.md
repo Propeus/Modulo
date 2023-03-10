@@ -45,12 +45,12 @@ Propeus.Modulo.Abstrato.BaseModelo --> Propeus.Modulo.Dinamico.ModuloBinario
 #### Public  methods
 | Returns | Name |
 | --- | --- |
-| `string` | [`ToString`](#tostring)() |
+| `string` | [`ToString`](#tostring)()<br>Exibe informações basicas sobre o modelo |
 
 #### Protected  methods
 | Returns | Name |
 | --- | --- |
-| `void` | [`Dispose`](#dispose)(`bool` disposing) |
+| `void` | [`Dispose`](#dispose)(`bool` disposing)<br>Libera os objetos deste modelo e altera o estado dele para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado) |
 
 ## Details
 ### Summary
@@ -76,13 +76,21 @@ public ModuloBinario(string caminho)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `string` | caminho |   |
+| `string` | caminho | Caminho do arquivo a ser carregado em memoria |
+
+##### Summary
+Inicializa o modulo carregando o binario em memoria
 
 ### Methods
 #### ToString
 ```csharp
 public override string ToString()
 ```
+##### Summary
+Exibe informações basicas sobre o modelo
+
+##### Returns
+
 
 #### Dispose
 ```csharp
@@ -91,7 +99,10 @@ protected override void Dispose(bool disposing)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `bool` | disposing |   |
+| `bool` | disposing | Indica se deve alterar o estado do objeto para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado) |
+
+##### Summary
+Libera os objetos deste modelo e altera o estado dele para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado)
 
 ### Properties
 #### Caminho
