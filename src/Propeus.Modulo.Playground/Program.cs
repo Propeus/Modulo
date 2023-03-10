@@ -30,7 +30,7 @@ namespace Propeus.Modulo.IL.Playground
     }
 
     [Modulo]
-    public class ModuloTesteA : ModeloBase, IModuloContratoA
+    public class ModuloTesteA : ModuloBase, IModuloContratoA
     {
         public ModuloTesteA(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
         {
@@ -38,7 +38,7 @@ namespace Propeus.Modulo.IL.Playground
     }
 
     [Modulo]
-    public class ModuloTesteB : ModeloBase, IModuloContratoB
+    public class ModuloTesteB : ModuloBase, IModuloContratoB
     {
         public ModuloTesteB(IGerenciador gerenciador, ModuloTesteA moduloContratoA, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
         {
@@ -56,7 +56,7 @@ namespace Propeus.Modulo.IL.Playground
     }
 
     [Modulo]
-    public class ModuloTesteC : ModeloBase
+    public class ModuloTesteC : ModuloBase
     {
         public ModuloTesteC(IGerenciador gerenciador, ModuloTesteA moduloContratoA, IModuloContratoB moduloContratoB, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
         {
@@ -79,7 +79,7 @@ namespace Propeus.Modulo.IL.Playground
     }
 
     [Modulo]
-    public class Teste : ModeloBase, IModuloCalculadoraContrato
+    public class Teste : ModuloBase, IModuloCalculadoraContrato
     {
         public Teste(IGerenciador gerenciador) : base(gerenciador)
         {
