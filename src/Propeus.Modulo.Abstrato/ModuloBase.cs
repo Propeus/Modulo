@@ -3,7 +3,7 @@ using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
+using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato
 {

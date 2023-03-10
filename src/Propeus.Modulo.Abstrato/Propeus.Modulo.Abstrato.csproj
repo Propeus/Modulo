@@ -9,6 +9,4 @@
     <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
   </ItemGroup>
 
-  <Import Project="..\Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.projitems" Label="Shared" />
-
 </Project>

@@ -141,9 +141,9 @@ namespace Propeus.Modulo.Core
         {
             IEnumerable<Type> result = nomeModulo.ObterTipos();
             return !result.Any()
-                ? throw new TipoModuloNaoEncontradoException(string.Format(Compartilhado.Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
+                ? throw new TipoModuloNaoEncontradoException(string.Format(Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
                 : result.Count() > 1
-                ? throw new TipoModuloAmbiguoException(string.Format(Compartilhado.Constantes.ERRO_TIPO_AMBIGUO, nomeModulo))
+                ? throw new TipoModuloAmbiguoException(string.Format(Constantes.ERRO_TIPO_AMBIGUO, nomeModulo))
                 : Criar(result.First());
         }
         ///<inheritdoc/>
@@ -268,7 +268,7 @@ namespace Propeus.Modulo.Core
 
             if (!modulo.IsInterface && !modulo.IsClass)
             {
-                throw new TipoModuloInvalidoException(Compartilhado.Constantes.ERRO_TIPO_INVALIDO);
+                throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
             }
 
 
@@ -278,14 +278,14 @@ namespace Propeus.Modulo.Core
 
                 if (attr is null)
                 {
-                    throw new ModuloContratoNaoEncontratoException(Compartilhado.Constantes.ERRO_TIPO_NAO_MARCADO);
+                    throw new ModuloContratoNaoEncontratoException(Constantes.ERRO_TIPO_NAO_MARCADO);
                 }
 
 
                 modulo = attr.Tipo ?? attr.Nome.ObterTipo();
                 if (modulo is null)
                 {
-                    throw new TipoModuloNaoEncontradoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
+                    throw new TipoModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
                 }
 
             }
@@ -294,24 +294,24 @@ namespace Propeus.Modulo.Core
             {
                 if (!modulo.Is<IModulo>())
                 {
-                    throw new TipoModuloInvalidoException(Compartilhado.Constantes.ERRO_TIPO_NAO_HERDADO);
+                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_HERDADO);
                 }
 
                 if (modulo.ObterModuloAtributo() is null)
                 {
-                    throw new TipoModuloInvalidoException(Compartilhado.Constantes.ERRO_TIPO_NAO_MARCADO);
+                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_MARCADO);
                 }
             }
 
             if (Cache.ContainsKey(modulo.FullName))
             {
-                throw new ModuloInstanciaUnicaException(Compartilhado.Constantes.ERRO_MODULO_INSTANCIA_UNICA);
+                throw new ModuloInstanciaUnicaException(Constantes.ERRO_MODULO_INSTANCIA_UNICA);
             }
 
             ConstructorInfo ctor = modulo.GetConstructors().MaxBy(x => x.GetParameters().Length);
             if (ctor is null)
             {
-                throw new ModuloConstrutorAusenteException(Compartilhado.Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
+                throw new ModuloConstrutorAusenteException(Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
             }
 
             ParameterInfo[] paramCtor = ctor.GetParameters();
@@ -410,7 +410,7 @@ namespace Propeus.Modulo.Core
                 ModuloContratoAttribute contrato = type.ObterModuloContratoAtributo();
                 if (contrato is null)
                 {
-                    throw new ModuloContratoNaoEncontratoException(Compartilhado.Constantes.ERRO_MODULO_CONTRATO_NAO_ENCONTRADO);
+                    throw new ModuloContratoNaoEncontratoException(Constantes.ERRO_MODULO_CONTRATO_NAO_ENCONTRADO);
                 }
 
                 if (Cache.TryGetValue(contrato.Nome, out string idOuter))
@@ -429,7 +429,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new TipoModuloInvalidoException(Compartilhado.Constantes.ERRO_TIPO_INVALIDO);
+                throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
             }
 
             return result;
@@ -583,12 +583,12 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), message: string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), message: string.Format(Constantes.ARGUMENTO_NULO, nameof(modulo)));
             }
 
             if (!modulo.IsInterface && !modulo.IsClass)
             {
-                throw new TipoModuloInvalidoException(Compartilhado.Constantes.ERRO_TIPO_INVALIDO);
+                throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
             }
 
             IEnumerable<IModuloTipo> info = null;
@@ -599,7 +599,7 @@ namespace Propeus.Modulo.Core
 
                 if (modulo is null)
                 {
-                    throw new ModuloContratoNaoEncontratoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_NAO_ENCONTRADO, contrato.Nome));
+                    throw new ModuloContratoNaoEncontratoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, contrato.Nome));
                 }
             }
 
@@ -620,7 +620,7 @@ namespace Propeus.Modulo.Core
 
             if (info is null || !info.Any())
             {
-                throw new ModuloNaoEncontradoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
+                throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
             }
 
             return info.First();
@@ -731,7 +731,7 @@ namespace Propeus.Modulo.Core
 
             if (!Existe(id))
             {
-                throw new ModuloNaoEncontradoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id));
+                throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id));
             }
 
             return Modulos[id];
@@ -788,7 +788,7 @@ namespace Propeus.Modulo.Core
         public IModulo Obter(Type modulo)
         {
             var result = ObterInfo(modulo);
-            return result.Elimindado ? throw new ModuloDescartadoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_ID_DESCARTADO, result.Nome)) : result.Modulo;
+            return result.Elimindado ? throw new ModuloDescartadoException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, result.Nome)) : result.Modulo;
         }
 
         ///<inheritdoc/>
@@ -892,18 +892,18 @@ namespace Propeus.Modulo.Core
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id), string.Format(Compartilhado.Constantes.ERRO_ARGUMENTO_NULO_OU_VAZIO, nameof(id)));
+                throw new ArgumentNullException(nameof(id), string.Format(Constantes.ERRO_ARGUMENTO_NULO_OU_VAZIO, nameof(id)));
             }
 
             if (!Existe(id))
             {
-                throw new ModuloNaoEncontradoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id));
+                throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id));
             }
 
             IModuloTipo info = Modulos[id];
 
 
-            return info.Elimindado ? throw new ModuloDescartadoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_ID_DESCARTADO, id)) : info.Modulo;
+            return info.Elimindado ? throw new ModuloDescartadoException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, id)) : info.Modulo;
         }
 
         ///<inheritdoc/>
@@ -954,7 +954,7 @@ namespace Propeus.Modulo.Core
         {
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), message: string.Format(Compartilhado.Constantes.ARGUMENTO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo), message: string.Format(Constantes.ARGUMENTO_NULO, nameof(modulo)));
             }
 
             Type t = modulo.GetType();
@@ -1135,7 +1135,7 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new ModuloNaoRegistradoException(Compartilhado.Constantes.ERRO_MODULO_NEW_REINICIAR);
+                throw new ModuloNaoRegistradoException(Constantes.ERRO_MODULO_NEW_REINICIAR);
             }
 
         }
@@ -1210,14 +1210,14 @@ namespace Propeus.Modulo.Core
             {
                 if (Cache.ContainsKey(t.FullName))
                 {
-                    throw new ModuloInstanciaUnicaException(string.Format(Compartilhado.Constantes.ERRO_MODULO_REGISTRADO_CACHE, modulo.Nome, modulo.Id));
+                    throw new ModuloInstanciaUnicaException(string.Format(Constantes.ERRO_MODULO_REGISTRADO_CACHE, modulo.Nome, modulo.Id));
                 }
                 _ = Cache.TryAdd(t.FullName, modulo.Id);
             }
 
             if (Modulos.ContainsKey(modulo.Id))
             {
-                throw new ModuloRegistradoException(string.Format(Compartilhado.Constantes.ERRO_MODULO_REGISTRADO, modulo.Nome, modulo.Id));
+                throw new ModuloRegistradoException(string.Format(Constantes.ERRO_MODULO_REGISTRADO, modulo.Nome, modulo.Id));
             }
 
             IModuloTipo info = new ModuloTipo(modulo);

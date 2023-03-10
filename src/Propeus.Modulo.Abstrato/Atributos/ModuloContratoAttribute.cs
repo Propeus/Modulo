@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
+using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Atributos
 {

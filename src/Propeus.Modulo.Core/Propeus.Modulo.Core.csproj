@@ -16,6 +16,4 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<Import Project="..\Propeus.Modulo.Compartilhado\Propeus.Modulo.Compartilhado.projitems" Label="Shared" />
-
 </Project>

@@ -404,7 +404,7 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            var mthInstancia = modulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(modulo, args);
 
             return modulo;
@@ -489,7 +489,7 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(modulo);
 
-            var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
 
             return iModulo;
@@ -575,7 +575,7 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(Nome);
 
-            var mthInstancia = iModulo.GetType().GetMethod(Compartilhado.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
 
             return iModulo;

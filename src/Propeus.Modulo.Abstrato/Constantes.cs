@@ -1,5 +1,4 @@
-
-namespace Propeus.Modulo.Compartilhado
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Classe para adicionar valores constantes
@@ -44,7 +43,7 @@ namespace Propeus.Modulo.Compartilhado
         public const string VALOR_PADRAO_NAO_ENCONTRADO = "Não foi possível encontrar o valor padrão do parâmetro '{0}'.";
 
         /// <summary>
-        /// O gerenciador informado nao emplementa a interface <see cref="Modulo.Abstrato.Interfaces.IGerenciadorRegistro"/>
+        /// O gerenciador informado nao emplementa a interface <see cref="Interfaces.IGerenciadorRegistro"/>
         /// </summary>
         public const string GERENCIADOR_INVALIDO = "O gerenciador '{0}' não possui a interface IGerenciadorRegistro implentado.";
         /// <summary>
