@@ -10,7 +10,6 @@ using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Util;
-using Propeus.Modulo.Dinamico.Properties;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util.Thread;
@@ -1579,7 +1578,7 @@ namespace Propeus.Modulo.Dinamico
             }
             else
             {
-                arquivos_dll = Directory.GetFiles(DiretorioModulo, Resources.EXT_DLL);
+                arquivos_dll = Directory.GetFiles(DiretorioModulo, "*.dll");
             }
 
             foreach (var dll in arquivos_dll)

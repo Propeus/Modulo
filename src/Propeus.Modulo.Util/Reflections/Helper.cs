@@ -77,6 +77,11 @@ namespace Propeus.Modulo.Util
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
+        /// <summary>
+        /// Gera um hash com bae na assinatura do metodo
+        /// </summary>
+        /// <param name="methodInfo"></param>
+        /// <returns></returns>
         public static string ObterHashMetodo(this MethodInfo methodInfo)
         {
             return $"{methodInfo.ReturnType} {methodInfo.Name} ({string.Join(",", methodInfo.GetParameters().Select(p => p.ParameterType.Name))})".Hash();

@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Linq;
+
 namespace Propeus.Modulo.Util
 {
     /// <summary>

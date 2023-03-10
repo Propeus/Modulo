@@ -55,6 +55,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         {
             gerenciador.Dispose();
             gerenciador = null;
+            Core.Gerenciador.Atual.Dispose();
         }
 
         #region Proxy para Propeus.Modulo.Core.Gerenciador

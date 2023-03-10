@@ -1,81 +1,16 @@
-﻿# Propeus.Modulo
+﻿Licença de Software de Uso Não-Comercial e Atribuição (LSUNCA)
 
-Este projeto tem como objetivo criar e gerenciar módulos .NET dinamicamente, permitindo que sejam modificados, melhorados ou removidos em tempo de execução, sem a necessidade de realizar um CI/CD ou mesmo paralisar um sistema para realizar o deploy. Em poucas palavras, este projeto tem como objetivo ser um "Docker" para .NET.
+Copyright (c) 2023 Propeus
 
-O projeto não requer instalação, pois é adicionado como componente e inicializado junto com a aplicação web, console ou worker service.
+Este software é fornecido pelo autor e pode ser utilizado, copiado, modificados e distribuídos 
+gratuitamente para fins não-comerciais, desde que esta licença seja incluída e que o autor seja creditado.
 
-## Licença
+Permite-se a distribuição do software, código-fonte ou suas modificações com o nome da empresa, mas a venda do software, código-fonte 
+ou suas modificações é expressamente proibida.
 
-Os projetos Propeus.Modulo.Abstrato e Propeus.Modulo.Util possuem a licença MIT, que permite que qualquer pessoa possa usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do software, sem restrições.
+O uso do nome deste software, código-fonte ou suas modificações para promover outros produtos é permitido, desde que tal promoção 
+não viole a cláusula de não comercialização acima.
 
-Já os projetos Propeus.Modulo.Core e Propeus.Modulo.Dinamico possuem a licença LSUNCA, que permite que qualquer empresa, usuário ou desenvolvedor possa vender seus módulos, desde que os gerenciadores sejam fornecidos gratuitamente. Além disso, a licença permite que qualquer pessoa possa desenvolver seus próprios gerenciadores e distribuí-los gratuitamente, garantindo a liberdade da livre concorrência sobre um produto proprietário.
-
-Essas condições foram estabelecidas com o objetivo de permitir que outras empresas, usuários ou desenvolvedores possam criar e distribuir seus próprios gerenciadores para o projeto 'Propeus.Modulo', sem a necessidade de desenvolvê-los a partir do zero. Isso incentivará a livre concorrência e permitirá que todos possam contribuir para o projeto. 
-
-Adicionalmente, a licença LSUNCA também permite que qualquer empresa, usuário ou desenvolvedor possa atribuir outro nome aos projetos 'Propeus.Modulo.Core' e 'Propeus.Modulo.Dinamico', vincular sua marca, realizar propaganda de outros produtos, como os módulos atrelados a esses projetos ou ao projeto 'Propeus.Modulo'.
-
-## Como Contribuir
-
-Para contribuir com este projeto, siga as instruções abaixo:
-
-1. Faça um fork deste repositório
-2. Crie uma branch para suas alterações (`git checkout -b feature/nome-da-feature`)
-3. Faça suas alterações e adicione seus commits (`git commit -am 'Adicionando uma nova feature'`)
-4. Faça um push para a branch (`git push origin feature/nome-da-feature`)
-5. Abra um pull request para a branch `master` deste repositório
-
-## Estado do Projeto
-
-Este projeto está em fase de prova de conceito (PoC) e pode ser testado usando o projeto "Propeus.Modulo.Playgroud". Estamos trabalhando para desenvolver o projeto e testá-lo completamente antes de disponibilizá-lo para uso. Fique à vontade para contribuir e nos ajudar a torná-lo uma realidade!
-
-## Exemplos
-
-Aqui estão alguns exemplos de como usar o projeto "Propeus.Modulo.Core":
-
-### Exemplo para criar um módulo e inicializar uma instância dele
-
-Crie uma interface de contrato:
-
-```cs
-[ModuloContrato(typeof(ModuloSimples))]
-public interface IModuloContrato : IModulo
-{
-    string OlaMundo();
-}
-```
-Crie uma classe que herde de ModuloBase e da interface de contrato:
-
-```cs
-[Modulo]
-public class ModuloSimples : ModuloBase, IModuloContrato
-{
-    public ModuloSimples(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
-    {
-    }
-
-    public string OlaMundo()
-    {
-        return "Ola Mundo";
-    }
-
-    public override string ToString()
-    {
-        return this.OlaMundo();
-    }
-}
-```
-
-Crie uma instância do módulo pelo gerenciador e chame o método .ToString() do objeto:
-```cs
-var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContrato>();
-Console.WriteLine(modulo.ToString());
-```
-
-### Exemplo para remover um módulo
-Para remover um módulo, basta usar o método Remover<T>() do gerenciador de módulos. Por exemplo, para remover o módulo ModuloSimples criado no exemplo anterior, você pode fazer o seguinte:
-
-```cs
-Propeus.Modulo.Core.Gerenciador.Atual.Remover<ModuloSimples>();
-```
-
-Lembre-se de que, se o módulo estiver em uso, você deve parar de usá-lo antes de removê-lo
+O software é fornecido "AS IS", sem garantia expressa ou implícita de qualquer tipo, incluindo, mas não se limitando a 
+garantias de adequação a uma finalidade específica e de não infração. Em nenhum caso o autor será responsável por qualquer dano, 
+incluindo danos diretos, indiretos, incidentais, especiais ou consequenciais decorrentes do uso deste software.

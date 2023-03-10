@@ -1336,6 +1336,12 @@ namespace Propeus.Modulo.Core
                     {
                         yield return modulo.Value.Modulo;
                     }
+#if DEBUG
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"{modulo.Value} elimindado");
+                    }
+#endif
                 }
             }
         }

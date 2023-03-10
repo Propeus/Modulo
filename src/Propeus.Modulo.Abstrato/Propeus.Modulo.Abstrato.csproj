@@ -1,12 +1,34 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net7.0</TargetFramework>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
-  </ItemGroup>
+		<Product>Propeus.Modulo.Abstrato</Product>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Componente com classes e interfaces para implementacao de modulos</Description>
+
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>Propeus Net Modulo Abstrato</PackageTags>
+		<PackageId>Propeus.Modulo.Abstrato</PackageId>
+
+		<AssemblyName>Propeus.Modulo.Abstrato</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Abstrato</RootNamespace>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
+	</ItemGroup>
 
 </Project>
