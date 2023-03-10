@@ -14,7 +14,7 @@ namespace Propeus.Modulo.Console
     /// </summary>
     [Modulo]
     [ModuloAutoInicializavel]
-    public class ConsoleModulo : ModeloBase
+    public class ConsoleModulo : ModuloBase
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         Task tarefa;
