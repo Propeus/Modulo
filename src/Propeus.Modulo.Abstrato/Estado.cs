@@ -19,11 +19,7 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Define que durante a execução do modulo acionado alguma <see cref="Exception"/>
         /// </summary>
-        Erro,
-        /// <summary>
-        /// Define que durante o desligamento do modulo houve alguma exceção
-        /// </summary>
-        DesligamentoForcado = Desligado | Erro
+        Erro
 
     }
 }

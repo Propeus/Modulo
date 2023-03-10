@@ -16,7 +16,7 @@ namespace Propeus.Modulo.Dinamico
     /// <summary>
     /// Modelo para obter informações do binario do modulo
     /// </summary>
-    public class ModuloBinario : BaseModelo, IModuloBinario
+    public class ModuloBinario : ModeloBase, IModuloBinario
     {
         /// <summary>
         /// Inicializa o modulo carregando o binario em memoria

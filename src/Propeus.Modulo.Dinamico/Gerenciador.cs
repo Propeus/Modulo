@@ -14,6 +14,7 @@ using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util.Thread;
 using Propeus.Modulo.Abstrato.Exceptions;
+using System.Reflection;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -406,6 +407,9 @@ namespace Propeus.Modulo.Dinamico
             var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(modulo, args);
 
+            var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            mthConfiguracao?.Invoke(modulo,Array.Empty<object>());
+
             return modulo;
 
         }
@@ -490,6 +494,9 @@ namespace Propeus.Modulo.Dinamico
 
             var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
+
+            var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            mthConfiguracao?.Invoke(modulo, Array.Empty<object>());
 
             return iModulo;
 
@@ -576,6 +583,9 @@ namespace Propeus.Modulo.Dinamico
 
             var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             mthInstancia?.Invoke(iModulo, args);
+
+            var mthConfiguracao = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            mthConfiguracao?.Invoke(iModulo, Array.Empty<object>());
 
             return iModulo;
         }

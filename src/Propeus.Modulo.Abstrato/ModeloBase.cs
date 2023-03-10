@@ -8,13 +8,13 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Classe com o modelo base para todo o projeto
     /// </summary>
-    public class BaseModelo : IBaseModelo
+    public class ModeloBase : IBaseModelo
     {
 
         /// <summary>
         /// Inicia um modelo basico
         /// </summary>
-        public BaseModelo()
+        public ModeloBase()
         {
             Nome = GetType().Name;
             Estado = Estado.Inicializado;
@@ -25,7 +25,7 @@ namespace Propeus.Modulo.Abstrato
         /// Inicia um modelo com um nome customizado
         /// </summary>
         /// <param name="nome">Nome do modelo</param>
-        public BaseModelo(string nome)
+        public ModeloBase(string nome)
         {
             Nome = nome;
             Estado = Estado.Inicializado;

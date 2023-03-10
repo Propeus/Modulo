@@ -9,7 +9,7 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    public class ModuloTipo : BaseModelo, IModuloTipo
+    public class ModuloTipo : ModeloBase, IModuloTipo
     {
 
         /// <summary>

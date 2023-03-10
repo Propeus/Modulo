@@ -10,7 +10,7 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Classe base para o modulo
     /// </summary>
-    public class ModuloBase : BaseModelo, IModulo
+    public class ModuloBase : ModeloBase, IModulo
     {
         /// <summary>
         /// Inicializa um modulo

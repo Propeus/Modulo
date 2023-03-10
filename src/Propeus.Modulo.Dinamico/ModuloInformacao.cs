@@ -17,7 +17,7 @@ namespace Propeus.Modulo.Dinamico
     /// <summary>
     /// Modelo para detalhar informações sobre o modulo
     /// </summary>
-    public class ModuloInformacao : BaseModelo, IModuloInformacao
+    public class ModuloInformacao : ModeloBase, IModuloInformacao
     {
         /// <summary>
         /// Inicializa o objeto obtendo as informacoes sobre o tipo informado

@@ -31,11 +31,10 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
 	  <ProjectReference Include="..\Propeus.Modulo.IL\Propeus.Modulo.IL.csproj" />
-	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -14,14 +14,14 @@ namespace Propeus.Modulo.Console
     /// </summary>
     [Modulo]
     [ModuloAutoInicializavel]
-    public class ConsoleModulo : ModuloBase
+    public class ConsoleModulo : ModeloBase
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         Task tarefa;
         IModulo modulo;
 
         /// <summary>
-        /// Construtor padrao do <see cref="ModuloBase"/>
+        /// Construtor padrao do <see cref="ModeloBase"/>
         /// </summary>
         /// <param name="gerenciador"></param>
         /// <param name="instanciaUnica"></param>

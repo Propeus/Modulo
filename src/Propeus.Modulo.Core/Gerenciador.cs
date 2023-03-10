@@ -21,7 +21,7 @@ namespace Propeus.Modulo.Core
     /// <summary>
     /// Controlador de modulos
     /// </summary>
-    public sealed class Gerenciador : BaseModelo, IGerenciador, IGerenciadorRegistro, IGerenciadorInformacao, IGerenciadorDiagnostico
+    public sealed class Gerenciador : ModeloBase, IGerenciador, IGerenciadorRegistro, IGerenciadorInformacao, IGerenciadorDiagnostico
     {
         /// <summary>
         /// Inicializa o gerenciador de modulos
