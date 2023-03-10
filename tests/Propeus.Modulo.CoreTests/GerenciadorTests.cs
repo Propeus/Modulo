@@ -2,15 +2,8 @@
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
-using Propeus.Modulo.Core.Exceptions;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Core.Tests
 {
