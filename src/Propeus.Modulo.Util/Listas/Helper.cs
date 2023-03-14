@@ -123,8 +123,8 @@ namespace Propeus.Modulo.Util
             IDictionary<T, bool> join = new Dictionary<T, bool>();
             foreach (T ia in esquerda)
             {
-                join.Add(ia, true);
-            }
+                    join.Add(ia, true);
+                }
             foreach (T ib in direita)
             {
                 if (!join.ContainsKey(ib))
@@ -158,25 +158,26 @@ namespace Propeus.Modulo.Util
             }
 
             IDictionary<MethodInfo, bool> join = new Dictionary<MethodInfo, bool>();
-            IDictionary<string, bool> joinhash = new Dictionary<string, bool>();
+            IDictionary<string, MethodInfo> joinKV = new Dictionary<string, MethodInfo>();
 
             foreach (MethodInfo ia in esquerda)
             {
-                if (!joinhash.ContainsKey(ia.ObterHashMetodo()))
+                if (!joinKV.ContainsKey(ia.HashMetodo()))
                 {
                     join.Add(ia, true);
-                    joinhash.Add(ia.ObterHashMetodo(), true);
+                    joinKV.Add(ia.HashMetodo(), ia);
+                }
+            }
+            foreach (MethodInfo ib in direita)
+            {
+                if (!joinKV.ContainsKey(ib.HashMetodo()))
+                {
+                    join.Add(ib, false);
+                    joinKV.Add(ib.HashMetodo(), ib);
                 }
             }
 
-            foreach (MethodInfo ib in direita)
-            {
-                if (joinhash.ContainsKey(ib.ObterHashMetodo()))
-                    continue;
-
-                join.Add(ib, false);
-            }
-            joinhash.Clear();
+            joinKV.Clear();
 
             return join;
         }

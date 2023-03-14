@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Propeus.Modulo.Playground": {
+      "commandName": "Project",
+      "commandLineArgs": "help"
+    }
+  }
+}

@@ -16,6 +16,7 @@ namespace Propeus.Modulo.IL.Helpers
     public static class ClasseHelpers
     {
 
+        //Criar metodo para criar proxy de um provider existente
         public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null)
         {
             if (iLGerador is null)
@@ -52,10 +53,13 @@ namespace Propeus.Modulo.IL.Helpers
             #endregion
 
             #region Metodos
-            var mthInterfaces = interfaces.SelectMany(i => i.GetMethods()).ToDictionary((k=> k), (v => true));
-            //var mths = tClasse.GetMethods();
+            //var mthInterfaces = interfaces.SelectMany(i => i.GetMethods()).ToDictionary((k=> k), (v => true));
+            //var mths = tClasse.GetMethods().ToDictionary((k=> k),(v=> false));
 
-            var methods= mthInterfaces;
+            var mthInterfaces = interfaces.SelectMany(i => i.GetMethods());
+            var mths = tClasse.GetMethods();
+
+            var methods= mthInterfaces.FullJoinDictionaryMethodInfo(mths);
 
             foreach (var metodoKP in methods)
             {

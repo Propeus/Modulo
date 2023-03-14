@@ -224,6 +224,7 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentNullException(nameof(modulo));
             }
 
+            //TODO: Obter construtor de maior quantidade de parametros
             var ctors = modulo.GetConstructors();
             foreach (var ctor in ctors)
             {
@@ -232,7 +233,7 @@ namespace Propeus.Modulo.Dinamico
                 {
                     if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                     {
-                        _ = ResoverContratos(param.ParameterType);
+                        this.ResoverContratos(param.ParameterType);
                     }
                 }
             }
@@ -404,11 +405,19 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            mthInstancia?.Invoke(modulo, args);
+            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA);
+
+            if (args.GetType() == typeof(string[]))
+            {
+                mthInstancia?.Invoke(modulo, new object[] { args });
+            }
+            else
+            {
+                mthInstancia?.Invoke(modulo, args);
+            }
 
             var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            mthConfiguracao?.Invoke(modulo,Array.Empty<object>());
+            mthConfiguracao?.Invoke(modulo, Array.Empty<object>());
 
             return modulo;
 
@@ -1853,7 +1862,7 @@ namespace Propeus.Modulo.Dinamico
                 IModuloInformacao moduloInfo;
                 ILClasseProvider provider;
 
-                var attr = contrato.ObterAtributo<ModuloContratoAttribute>();
+                ModuloContratoAttribute attr = contrato.ObterAtributo<ModuloContratoAttribute>();
                 if (attr.Tipo is not null)
                 {
                     moduloInfo = new ModuloInformacao(attr.Tipo);
@@ -1866,8 +1875,7 @@ namespace Propeus.Modulo.Dinamico
                     }
                     else
                     {
-                        //TODO: Achar outra forma de obter o tipo pelo nome
-                        moduloInfo = new ModuloInformacao(attr.Nome.ObterTipo());
+                        moduloInfo = new ModuloInformacao(TypeProvider.Get(attr.Nome));
                     }
 
 
@@ -1894,13 +1902,15 @@ namespace Propeus.Modulo.Dinamico
                     moduloInfo.Dispose();
                 }
 
+                TypeProvider.AddOrUpdate(contrato);
+
                 return contrato;
 
 
             }
             else
             {
-                //Interface nao mapeada
+                //TODO: Interface nao mapeada
                 throw new InvalidCastException();
             }
         }

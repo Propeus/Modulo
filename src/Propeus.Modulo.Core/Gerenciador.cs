@@ -91,7 +91,6 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloAmbiguoException">Mais um tipo de mesmo nome</exception>
         ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
         ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
         ///<example>
@@ -139,12 +138,10 @@ namespace Propeus.Modulo.Core
         ///</example>
         public IModulo Criar(string nomeModulo)
         {
-            IEnumerable<Type> result = nomeModulo.ObterTipos();
-            return !result.Any()
+            Type result = TypeProvider.Get(nomeModulo);
+            return result == null
                 ? throw new TipoModuloNaoEncontradoException(string.Format(Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
-                : result.Count() > 1
-                ? throw new TipoModuloAmbiguoException(string.Format(Constantes.ERRO_TIPO_AMBIGUO, nomeModulo))
-                : Criar(result.First());
+                : Criar(result);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -266,42 +263,9 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentNullException(nameof(modulo));
             }
 
-            if (!modulo.IsInterface && !modulo.IsClass)
-            {
-                throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
-            }
 
+            modulo = ResolverContrato(modulo);
 
-            if (modulo.IsInterface)
-            {
-                ModuloContratoAttribute attr = modulo.ObterModuloContratoAtributo();
-
-                if (attr is null)
-                {
-                    throw new ModuloContratoNaoEncontratoException(Constantes.ERRO_TIPO_NAO_MARCADO);
-                }
-
-
-                modulo = attr.Tipo ?? attr.Nome.ObterTipo();
-                if (modulo is null)
-                {
-                    throw new TipoModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
-                }
-
-            }
-
-            if (modulo.IsClass)
-            {
-                if (!modulo.Is<IModulo>())
-                {
-                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_HERDADO);
-                }
-
-                if (modulo.ObterModuloAtributo() is null)
-                {
-                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_MARCADO);
-                }
-            }
 
             if (Cache.ContainsKey(modulo.FullName))
             {
@@ -591,18 +555,9 @@ namespace Propeus.Modulo.Core
                 throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
             }
 
-            IEnumerable<IModuloTipo> info = null;
-            if (modulo.IsInterface)
-            {
-                ModuloContratoAttribute contrato = modulo.ObterModuloContratoAtributo();
-                modulo = contrato.Tipo ?? contrato.Nome.ObterTipo();
+            modulo = ResolverContrato(modulo);
 
-                if (modulo is null)
-                {
-                    throw new ModuloContratoNaoEncontratoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, contrato.Nome));
-                }
-            }
-
+            IModuloTipo info = null;
 
             if (modulo.IsClass)
             {
@@ -610,20 +565,20 @@ namespace Propeus.Modulo.Core
                 {
                     if (Modulos.TryGetValue(idOuter, out IModuloTipo infoOuter))
                     {
-                        info = new IModuloTipo[] { infoOuter };
+                        info = infoOuter;
                     }
                 }
 
-                info ??= Modulos.Values.Where(x => x.TipoModulo == modulo);
+                info ??= Modulos.Values.FirstOrDefault(x => x.TipoModulo == modulo);
             }
 
 
-            if (info is null || !info.Any())
+            if (info is null)
             {
                 throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
             }
 
-            return info.First();
+            return info;
         }
 
         ///<inheritdoc/>
@@ -1193,7 +1148,6 @@ namespace Propeus.Modulo.Core
             return Criar(modulo.GetType());
         }
 
-
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
@@ -1357,6 +1311,49 @@ namespace Propeus.Modulo.Core
         {
             Atual.Dispose();
         }
+
+        ///<inheritdoc/>
+        private static Type ResolverContrato(Type modulo)
+        {
+            if (!modulo.IsInterface && !modulo.IsClass)
+            {
+                throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_INVALIDO);
+            }
+
+            if (modulo.IsInterface)
+            {
+                ModuloContratoAttribute attr = modulo.ObterModuloContratoAtributo();
+
+                if (attr is null)
+                {
+                    throw new ModuloContratoNaoEncontratoException(Constantes.ERRO_TIPO_NAO_MARCADO);
+                }
+
+
+                modulo = attr.Tipo ?? TypeProvider.Get(attr.Nome);
+                if (modulo is null)
+                {
+                    throw new TipoModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.Nome));
+                }
+
+            }
+
+            if (modulo.IsClass)
+            {
+                if (!modulo.Is<IModulo>())
+                {
+                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_HERDADO);
+                }
+
+                if (modulo.ObterModuloAtributo() is null)
+                {
+                    throw new TipoModuloInvalidoException(Constantes.ERRO_TIPO_NAO_MARCADO);
+                }
+            }
+
+            return modulo;
+        }
+
 
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)

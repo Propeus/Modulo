@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>net7.0</TargetFrameworks>
+
+	  <Product>Propeus.Modulo.CLI</Product>
+	  <VersionPrefix>0.1.0</VersionPrefix>
+	  <Description>Modulo para controle do gerenciador por linha de comando</Description>
+
+	  <Authors>Propeus</Authors>
+	  <Company>Propeus</Company>
+
+	  <RepositoryType>GIT</RepositoryType>
+	  <RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+
+	  <PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageTags>Propeus Net Modulo CLI</PackageTags>
+	  <PackageId>Propeus.Modulo.CLI</PackageId>
+
+	  <AssemblyName>Propeus.Modulo.CLI</AssemblyName>
+	  <RootNamespace>Propeus.Modulo.CLI</RootNamespace>
+
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <IncludeSymbols>true</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+  </ItemGroup>
+
+</Project>

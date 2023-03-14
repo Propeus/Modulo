@@ -25,6 +25,7 @@ namespace Propeus.Modulo.Dinamico
         public ModuloBinario(string caminho)
         {
             Caminho = caminho;
+            //TODO: Evitar de sempre ficar carregando a lista de binarios e limitar somente o do diretorio
             var assem = AppDomain.CurrentDomain.GetAssemblies().Select(asm => asm.Location).ToArray();
             //Nao pode carregaar em memoria um modulo que esta em execucao
             if (!assem.Contains(caminho))

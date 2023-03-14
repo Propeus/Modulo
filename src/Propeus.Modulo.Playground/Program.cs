@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.CLI;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
@@ -50,8 +51,8 @@ namespace Propeus.Modulo.IL.Playground
 
         public void CriarInstancia(int a, string txt)
         {
-            Console.WriteLine(txt);
-            Console.WriteLine(a);
+            System.Console.WriteLine(txt);
+            System.Console.WriteLine(a);
         }
     }
 
@@ -91,7 +92,7 @@ namespace Propeus.Modulo.IL.Playground
         }
     }
 
-
+   
     internal class Program
     {
 
@@ -115,11 +116,17 @@ namespace Propeus.Modulo.IL.Playground
             //var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContratoB>();
             //Console.WriteLine(modulo.ToString());
             //return;
-            var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual,new Dinamico.GerenciadorConfiguracao { CarregamentoRapido = false });
-            //TODO: Esta dando ruim de cast do mesmo tipo???
-            var modulo = genv2.Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
-            Console.WriteLine(modulo.ToString());
-            //genv2.ManterVivoAsync().Wait();
+
+            //foreach (string arg in args)
+            //{
+            //    Console.WriteLine(arg);
+            //}
+            using (var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual, new Dinamico.GerenciadorConfiguracao { CarregamentoRapido = false }))
+            {
+                //genv2.Criar<ICLIModuloContrato>(args);
+                genv2.ManterVivoAsync().Wait();
+            }
+
             return;
 
             //using (ILGerador iLGerador = new ILGerador())

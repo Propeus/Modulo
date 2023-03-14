@@ -34,25 +34,7 @@ namespace Propeus.Modulo.Util
             return arr;
         }
 
-        /// <summary>
-        /// Obtem o tipo pelo nome 
-        /// </summary>
-        /// <param name="nomeTipo">Nome do tipo</param>
-        /// <returns>Retorna o <see cref="Type"/></returns>
-        public static Type ObterTipo(this string nomeTipo)
-        {
-            //TODO:Otimizar este metodo, muito pessado em caso de muitos modulos
-            foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                Type type = item.GetTypes().SingleOrDefault(x => x.Name.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase));
-                if (type != null)
-                {
-                    return type;
-                }
-            }
-
-            return null;
-        }
+       
 
         /// <summary>
         /// Obtem o tipo pelo nome 

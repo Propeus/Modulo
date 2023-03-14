@@ -205,11 +205,14 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public Type CarregarTipoModulo(string nomeModulo)
         {
-            if (Modulos.ContainsKey(nomeModulo))
+            var typeProvider = TypeProvider.Get(nomeModulo);
+
+            if (typeProvider == null && Modulos.ContainsKey(nomeModulo))
             {
                 return Assembly.GetTypes().Single(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>() && x.Name == nomeModulo);
             }
-            return null;
+            
+            return typeProvider;
         }
         ///<inheritdoc/>
         public override string ToString()

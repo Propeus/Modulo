@@ -267,6 +267,9 @@ namespace Propeus.Modulo.Util
         }
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
 
-
+        public static string HashMetodo(this MethodInfo methodInfo)
+        {
+            return $"{methodInfo.ReturnType.FullName} {methodInfo.Name}({string.Join(',', methodInfo.GetParameters().Select(x => x.ParameterType.Name))})".Hash();
+        }
     }
 }

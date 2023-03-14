@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
 namespace Propeus.Modulo.Util
 {
+
     /// <summary>
     /// Classe de ajuda para o tipo <see cref="Type"/>
     /// </summary>
@@ -152,6 +154,6 @@ namespace Propeus.Modulo.Util
         {
             return obj is null ? throw new ArgumentNullException(nameof(obj)) : (IEnumerable<Type>)obj.GetInterfaces();
         }
-     
+
     }
 }
