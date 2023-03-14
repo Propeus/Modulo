@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Propeus.Modulo.CLI\Propeus.Modulo.CLI.csproj" />
     <ProjectReference Include="..\Propeus.Modulo.Console\Propeus.Modulo.Console.csproj" />
     <ProjectReference Include="..\Propeus.Modulo.Core\Propeus.Modulo.Core.csproj" />
     <ProjectReference Include="..\Propeus.Modulo.Dinamico\Propeus.Modulo.Dinamico.csproj" />

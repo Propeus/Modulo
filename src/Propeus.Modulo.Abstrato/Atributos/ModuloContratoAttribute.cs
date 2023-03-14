@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-
+using Propeus.Modulo.Abstrato.Proveders;
 using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Atributos

@@ -15,6 +15,7 @@ using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util.Thread;
 using Propeus.Modulo.Abstrato.Exceptions;
 using System.Reflection;
+using Propeus.Modulo.Abstrato.Proveders;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -31,7 +32,7 @@ namespace Propeus.Modulo.Dinamico
         /// <param name="configuracao">Configuracao do gerenciador atual</param>
         public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao = null) : base(gerenciador, true)
         {
-            Binarios = new ConcurrentDictionary<string, IModuloBinario>();
+
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             DataInicio = DateTime.Now;
             _scheduler = new TaskJob(3);
@@ -61,8 +62,6 @@ namespace Propeus.Modulo.Dinamico
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
         public int ModulosInicializados => ((Gerenciador is IGerenciadorDiagnostico) ? (Gerenciador as IGerenciadorDiagnostico).ModulosInicializados : -1);
-
-        private ConcurrentDictionary<string, IModuloBinario> Binarios { get; }
         private Dictionary<string, ILClasseProvider> ModuloProvider { get; }
 
 
@@ -312,15 +311,7 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModulo Criar(string nomeModulo)
         {
-            if (Binarios.Any(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)))
-            {
-                var binM = Binarios.Single(x => x.Value.ModuloInformacao.PossuiModulo(nomeModulo)).Value;
-                return Criar(binM.ModuloInformacao.CarregarTipoModulo(nomeModulo));
-            }
-            else
-            {
-                return Gerenciador.Criar(nomeModulo);
-            }
+            return Criar(ModuleProvider.ObterTipoModuloAtual(nomeModulo));
         }
 
 
@@ -405,7 +396,7 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA);
+            MethodInfo mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA);
 
             if (args.GetType() == typeof(string[]))
             {
@@ -1548,11 +1539,8 @@ namespace Propeus.Modulo.Dinamico
             _ = stringBuilder.Append("Tempo em execução: ").Append(DateTime.Now - DataInicio).AppendLine();
             _ = stringBuilder.Append("Jobs em execucao: ").Append(_scheduler.EmExecucao).AppendLine();
 
-
-            //_ = stringBuilder.Append("ModuloInformacao Carregados: ").Append(modulosCarregados ? "Sim" : "Não").AppendLine();
-            //_ = stringBuilder.Append("ModuloInformacao em atualização: ").Append(emAtualizacao ? "Sim" : "Não").AppendLine();
             _ = stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
-            _ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(Binarios.Count).AppendLine();
+            _ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(ModuleProvider.ModulosDllCarregados).AppendLine();
             _ = stringBuilder.Append("Quantidade de caminho_modulos inicializados: ").Append(ModulosInicializados).AppendLine();
             //_ = stringBuilder.Append("Tempo de atualização dos caminho_modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
 
@@ -1561,73 +1549,26 @@ namespace Propeus.Modulo.Dinamico
 
         private void AUTO_INICIALIZAR_MODULO_JOB(object cancelationToken)
         {
-            foreach (var moduloBin in Binarios)
+            //Como autoinicialziar agora?
+            foreach (var modulo in TypeProvider.ObterAutoInicializavel())
             {
-
-                var modulos = moduloBin.Value.ModuloInformacao.Assembly.GetTypes().Where(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>() && x.PossuiAtributo<ModuloAutoInicializavelAttribute>()).ToArray();
-                foreach (var modulo in modulos)
+                if (!Existe(modulo))
                 {
-                    if (!Existe(modulo))
-                    {
-                        Criar(modulo);
-                    }
-                    else
-                    {
-                        string oldVer = (Gerenciador as IGerenciadorInformacao).ObterInfo(modulo).Versao;
-                        string newVer = moduloBin.Value.ModuloInformacao.Versao;
-                        if (oldVer != newVer)
-                        {
-                            var iModulo = Obter(modulo);
-                            Remover(iModulo);
-                            Criar(modulo);
-
-                        }
-                    }
+                    Criar(modulo);
                 }
             }
+
         }
         private void CARREGAR_MODULO_JOB(object cancelationToken)
         {
-            HashSet<string> caminho_modulos = new HashSet<string>();
-            string[] arquivos_dll = Array.Empty<string>();
-            if (Configuracao.CarregamentoRapido && cancelationToken == null && File.Exists(Configuracao.CaminhoArquivoModulos))
+            if (cancelationToken == null)
             {
-                caminho_modulos = Configuracao.CaminhoArquivoModulos.LoadFilePathsAsHashSet();
-                arquivos_dll = caminho_modulos.ToArray();
+                ModuleProvider.RecarregmentoCompleto();
             }
             else
             {
-                arquivos_dll = Directory.GetFiles(DiretorioModulo, "*.dll");
+                ModuleProvider.Recarregamento();
             }
-
-            foreach (var dll in arquivos_dll)
-            {
-                var moduloBinario = new ModuloBinario(dll);
-                if (moduloBinario.BinarioValido)
-                {
-                    if (!Binarios.ContainsKey(dll))
-                    {
-                        caminho_modulos.Add(dll);
-                        Binarios.TryAdd(dll, moduloBinario);
-                    }
-                    else
-                    {
-                        if (Binarios[dll].Hash != moduloBinario.Hash)
-                        {
-                            Binarios.TryRemove(dll, out IModuloBinario moduloBin);
-                            moduloBin.Dispose();
-                            Binarios.TryAdd(dll, moduloBinario);
-                        }
-
-                    }
-                }
-                else
-                {
-                    moduloBinario.Dispose();
-                }
-            }
-
-            Configuracao.CaminhoArquivoModulos.SaveFilePathsToFile(caminho_modulos);
         }
 
         ///<inheritdoc/>
@@ -1859,48 +1800,27 @@ namespace Propeus.Modulo.Dinamico
             if (contrato.PossuiAtributo<ModuloContratoAttribute>())
             {
                 Type tipoImplementacao;
-                IModuloInformacao moduloInfo;
                 ILClasseProvider provider;
 
                 ModuloContratoAttribute attr = contrato.ObterAtributo<ModuloContratoAttribute>();
-                if (attr.Tipo is not null)
-                {
-                    moduloInfo = new ModuloInformacao(attr.Tipo);
-                }
-                else
-                {
-                    if (Binarios.Any(x => x.Value.ModuloInformacao.PossuiModulo(attr.Nome)))
-                    {
-                        moduloInfo = Binarios.Single(bin => bin.Value.ModuloInformacao.PossuiModulo(attr.Nome)).Value.ModuloInformacao;
-                    }
-                    else
-                    {
-                        moduloInfo = new ModuloInformacao(TypeProvider.Get(attr.Nome));
-                    }
+                
+                tipoImplementacao = attr.Tipo ?? ModuleProvider.ObterTipoModuloAtual(attr.Nome);
 
 
-                }
-                tipoImplementacao = moduloInfo.CarregarTipoModulo(attr.Nome);
+                TypeProvider.AdicionarContrato(tipoImplementacao, contrato);
 
-
-                moduloInfo.AdicionarContrato(tipoImplementacao.Name, contrato);
                 if (!ModuloProvider.ContainsKey(tipoImplementacao.Name))
                 {
-                    provider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(tipoImplementacao, moduloInfo.ObterContratos(tipoImplementacao.Name).ToArray());
+                    provider = GeradorHelper.ObterModuloGenerico().CriarProxyClasse(tipoImplementacao, TypeProvider.ObterContratos(tipoImplementacao).ToArray());
                     ModuloProvider.Add(tipoImplementacao.Name, provider);
                 }
                 else
                 {
-                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: moduloInfo.ObterContratos(tipoImplementacao.Name).ToArray());
+                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: TypeProvider.ObterContratos(tipoImplementacao).ToArray());
                 }
 
                 ModuloProvider[tipoImplementacao.Name].Executar();
                 contrato = ModuloProvider[tipoImplementacao.Name].ObterTipoGerado();
-
-                if (attr.Tipo is not null)
-                {
-                    moduloInfo.Dispose();
-                }
 
                 TypeProvider.AddOrUpdate(contrato);
 
