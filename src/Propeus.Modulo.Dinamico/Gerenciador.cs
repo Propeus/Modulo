@@ -1554,7 +1554,6 @@ namespace Propeus.Modulo.Dinamico
             RemoverTodos();
             this._scheduler.Dispose();
             base.Dispose(disposing);
-            Gerenciador.Dispose();
         }
 
         ///<inheritdoc/>
