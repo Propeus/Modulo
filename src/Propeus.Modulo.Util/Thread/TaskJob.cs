@@ -13,7 +13,7 @@ namespace Propeus.Modulo.Util.Thread
     /// </summary>
     public class TaskJob : IDisposable
     {
-        private const string NOME_JOB_COLETOR = "_coletor_taks_completados";
+        private const string NOME_JOB_COLETOR = "__COLETOR_TAKS_COMPLETADOS";
         private LimitedConcurrencyLevelTaskScheduler _scheduler;
         private TaskFactory _taskFactory;
         private CancellationTokenSource _cancellationTokenSource;
@@ -97,7 +97,7 @@ namespace Propeus.Modulo.Util.Thread
         /// <param name="period">Periodo de intervalo entre as execucoes</param>
         /// <param name="nomeJob">Nome da task</param>
         /// <returns>Retorna a task</returns>
-        public Task AddTask(Action<object> action, TimeSpan period, string nomeJob = null)
+        public Task AddTask(Action<object> action, TimeSpan? period = null, string nomeJob = null)
         {
             if (string.IsNullOrEmpty(nomeJob))
             {
@@ -105,30 +105,44 @@ namespace Propeus.Modulo.Util.Thread
             }
 
             var cts = new CancellationTokenSource();
-            var task = _taskFactory.StartNew((innerState) =>
+            if (period.HasValue)
             {
-                CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)innerState;
+                var task = _taskFactory.StartNew((innerState) =>
+                {
+                    CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)innerState;
 
 
-                while (!cancellationTokenSource.IsCancellationRequested)
+                    while (!cancellationTokenSource.IsCancellationRequested)
+                    {
+                        action.Invoke(innerState);
+                        try
+                        {
+                            Task.Delay(period.Value, cancellationTokenSource.Token).Wait(cancellationTokenSource.Token);
+                        }
+                        catch
+                        {
+                            //Continua o jogo e foda-se
+                        }
+
+                    }
+
+
+                }, cts, _cancellationTokenSource.Token);
+                _tasks.TryAdd(nomeJob, task);
+                _tasksTokenSource.TryAdd(nomeJob, cts);
+                return task;
+            }
+            else
+            {
+                var task = _taskFactory.StartNew((innerState) =>
                 {
                     action.Invoke(innerState);
-                    try
-                    {
-                        Task.Delay(period, cancellationTokenSource.Token).Wait(cancellationTokenSource.Token);
-                    }
-                    catch
-                    {
-                        //Continua o jogo e foda-se
-                    }
+                }, cts, _cancellationTokenSource.Token);
+                _tasks.TryAdd(nomeJob, task);
+                _tasksTokenSource.TryAdd(nomeJob, cts);
+                return task;
+            }
 
-                }
-
-
-            }, cts, _cancellationTokenSource.Token);
-            _tasks.TryAdd(nomeJob, task);
-            _tasksTokenSource.TryAdd(nomeJob, cts);
-            return task;
         }
 
         private bool disposedValue;

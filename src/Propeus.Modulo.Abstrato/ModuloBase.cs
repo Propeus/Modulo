@@ -3,17 +3,17 @@ using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
+using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Classe base para o modulo
     /// </summary>
-    public class ModuloBase : BaseModelo, IModulo
+    public class ModuloBase : ModeloBase, IModulo
     {
         /// <summary>
-        /// Inicia um modulo com um gerenciador
+        /// Inicializa um modulo
         /// </summary>
         /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>

@@ -1,16 +1,21 @@
-﻿Licença de Software de Uso Não-Comercial e Atribuição (LSUNCA)
+﻿MIT License
 
-Copyright (c) 2023 Propeus
+Copyright (c) 2019 Propeus
 
-Este software é fornecido pelo autor e pode ser utilizado, copiado, modificados e distribuídos 
-gratuitamente para fins não-comerciais, desde que esta licença seja incluída e que o autor seja creditado.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Permite-se a distribuição do software, código-fonte ou suas modificações com o nome da empresa, mas a venda do software, código-fonte 
-ou suas modificações é expressamente proibida.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-O uso do nome deste software, código-fonte ou suas modificações para promover outros produtos é permitido, desde que tal promoção 
-não viole a cláusula de não comercialização acima.
-
-O software é fornecido "AS IS", sem garantia expressa ou implícita de qualquer tipo, incluindo, mas não se limitando a 
-garantias de adequação a uma finalidade específica e de não infração. Em nenhum caso o autor será responsável por qualquer dano, 
-incluindo danos diretos, indiretos, incidentais, especiais ou consequenciais decorrentes do uso deste software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

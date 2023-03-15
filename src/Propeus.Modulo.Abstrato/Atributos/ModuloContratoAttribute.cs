@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-
-using static Propeus.Modulo.Compartilhado.Constantes;
+using Propeus.Modulo.Abstrato.Proveders;
+using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Atributos
 {
@@ -45,6 +45,12 @@ namespace Propeus.Modulo.Abstrato.Atributos
         /// Nome do modulo
         /// </summary>
         public string Nome { get; }
-
+        /// <summary>
+        /// Tipo do modulo
+        /// </summary>
+        /// <remarks>
+        /// Esta propriedade e opcional e sera preenchida somente quando o tipo for informado no construtor do atributo
+        /// </remarks>
+        public Type Tipo => TypeProvider.Get(Nome);
     }
 }

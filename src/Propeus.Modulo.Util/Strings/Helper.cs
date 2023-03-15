@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
 
 namespace Propeus.Modulo.Util
 {
@@ -18,9 +19,9 @@ namespace Propeus.Modulo.Util
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static byte[] ToArrayByte(this string obj)
         {
-            if (obj.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(obj))
             {
-                throw new ArgumentNullException(nameof(obj), ARGUMENTO_NULO_OU_VAZIO);
+                throw new ArgumentNullException(nameof(obj));
             }
 
             byte[] arr = new byte[obj.Length];
@@ -33,24 +34,28 @@ namespace Propeus.Modulo.Util
             return arr;
         }
 
-        /// <summary>
-        /// Verifica se a string esta vazia ou nula
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty(this string str)
-        {
-            return string.IsNullOrEmpty(str);
-        }
+       
 
         /// <summary>
         /// Obtem o tipo pelo nome 
         /// </summary>
         /// <param name="nomeTipo">Nome do tipo</param>
         /// <returns>Retorna o <see cref="Type"/></returns>
-        public static Type ObterTipo(this string nomeTipo)
+        public static IEnumerable<Type> ObterTipos(this string nomeTipo)
         {
-           return Assembly.GetExecutingAssembly().GetType(nomeTipo);
+            foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var typeAssembly in item.GetTypes())
+                {
+                    if (typeAssembly.Name.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
+                        yield return typeAssembly;
+
+                    if (typeAssembly.FullName.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
+                        yield return typeAssembly;
+                }
+
+            }
+
         }
 
     }

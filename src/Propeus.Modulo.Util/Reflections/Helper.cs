@@ -6,8 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using static Propeus.Modulo.Compartilhado.Constantes;
-
 namespace Propeus.Modulo.Util
 {
     /// <summary>
@@ -30,10 +28,10 @@ namespace Propeus.Modulo.Util
             {
                 ctor = type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0);
 
-                if (ctor == null)
-                {
-                    throw new Exception("Nao existem construtores sem parametro para este tipo");
-                }
+                //if (ctor == null)
+                //{
+                //    throw new Exception("Nao existem construtores sem parametro para este tipo");
+                //}
             }
             else
             {
@@ -43,10 +41,10 @@ namespace Propeus.Modulo.Util
                                     return tParametros.ContainsAll(parametros);
                                 });
 
-                if (ctor == null)
-                {
-                    throw new Exception("Nao existem construtores com os parametros informado");
-                }
+                //if (ctor == null)
+                //{
+                //    throw new Exception("Nao existem construtores com os parametros informado");
+                //}
             }
 
 
@@ -62,7 +60,7 @@ namespace Propeus.Modulo.Util
         public static IEnumerable<Type> ObterTipoParametros(this ConstructorInfo action)
         {
             return action is null
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(action))
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
         }
 
@@ -75,8 +73,18 @@ namespace Propeus.Modulo.Util
         public static IEnumerable<Type> ObterTipoParametros(this MethodInfo action)
         {
             return action is null
-                ? throw new ArgumentNullException(nameof(action), ARGUMENTO_NULO)
+                ? throw new ArgumentNullException(nameof(action))
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
+        }
+
+        /// <summary>
+        /// Gera um hash com bae na assinatura do metodo
+        /// </summary>
+        /// <param name="methodInfo"></param>
+        /// <returns></returns>
+        public static string ObterHashMetodo(this MethodInfo methodInfo)
+        {
+            return $"{methodInfo.ReturnType} {methodInfo.Name} ({string.Join(",", methodInfo.GetParameters().Select(p => p.ParameterType.Name))})".Hash();
         }
 
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
@@ -259,6 +267,9 @@ namespace Propeus.Modulo.Util
         }
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
 
-
+        public static string HashMetodo(this MethodInfo methodInfo)
+        {
+            return $"{methodInfo.ReturnType.FullName} {methodInfo.Name}({string.Join(',', methodInfo.GetParameters().Select(x => x.ParameterType.Name))})".Hash();
+        }
     }
 }
