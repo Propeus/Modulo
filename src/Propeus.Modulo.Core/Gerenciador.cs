@@ -288,7 +288,26 @@ namespace Propeus.Modulo.Core
                 {
                     if (!Existe(paramCtor[i].ParameterType))
                     {
-                        arr[i] = Criar(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
+                        if (paramCtor[i].IsOptional)
+                        {
+                            try
+                            {
+                                arr[i] = Criar(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
+                            }
+                            catch (ModuloNaoEncontradoException)
+                            {
+                                arr[i] = paramCtor[i].ParameterType.Default();
+                            }
+                            catch (TipoModuloNaoEncontradoException)
+                            {
+                                arr[i] = paramCtor[i].ParameterType.Default();
+                            }
+                        }
+                        else
+                        {
+                            arr[i] = Criar(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
+                        }
+
                     }
                     else
                     {

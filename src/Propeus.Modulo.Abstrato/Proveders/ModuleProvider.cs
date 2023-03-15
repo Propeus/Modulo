@@ -172,6 +172,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             Modulos = new ConcurrentDictionary<string, Modulo>();
             ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
             TipoModulo = new ConcurrentDictionary<string, Modulo>();
+
             DiretorioAtual = Directory.GetCurrentDirectory();
         }
 

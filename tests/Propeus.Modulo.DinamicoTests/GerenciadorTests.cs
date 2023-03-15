@@ -730,6 +730,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         #endregion
 
         [TestMethod]
+        [TestCategory("Runtime")]
         public void ExecutarModuloEmTempoDeExecucao()
         {
             CarregarModuloDLL("Propeus.Modulo.DinamicoTests.ModuloSoma");

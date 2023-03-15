@@ -232,7 +232,21 @@ namespace Propeus.Modulo.Dinamico
                 {
                     if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                     {
-                        this.ResoverContratos(param.ParameterType);
+                        if (param.IsOptional)
+                        {
+                            try
+                            {
+                                this.ResoverContratos(param.ParameterType);
+                            }
+                            catch (ModuloNaoEncontradoException)
+                            {
+                                //Ignora erro neste caso
+                            }
+                        }
+                        else
+                        {
+                            this.ResoverContratos(param.ParameterType);
+                        }
                     }
                 }
             }
@@ -1561,14 +1575,9 @@ namespace Propeus.Modulo.Dinamico
         }
         private void CARREGAR_MODULO_JOB(object cancelationToken)
         {
-            if (cancelationToken == null)
-            {
-                ModuleProvider.RecarregmentoCompleto();
-            }
-            else
-            {
-                ModuleProvider.Recarregamento();
-            }
+
+            ModuleProvider.RecarregmentoCompleto();
+
         }
 
         ///<inheritdoc/>
@@ -1803,9 +1812,12 @@ namespace Propeus.Modulo.Dinamico
                 ILClasseProvider provider;
 
                 ModuloContratoAttribute attr = contrato.ObterAtributo<ModuloContratoAttribute>();
-                
-                tipoImplementacao = attr.Tipo ?? ModuleProvider.ObterTipoModuloAtual(attr.Nome);
 
+                tipoImplementacao = attr.Tipo ?? ModuleProvider.ObterTipoModuloAtual(attr.Nome);
+                if (tipoImplementacao == null)
+                {
+                    throw new ModuloNaoEncontradoException("Modulo nao encontrado");
+                }
 
                 TypeProvider.AdicionarContrato(tipoImplementacao, contrato);
 
@@ -1816,7 +1828,7 @@ namespace Propeus.Modulo.Dinamico
                 }
                 else
                 {
-                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: TypeProvider.ObterContratos(tipoImplementacao).ToArray());
+                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: TypeProvider.ObterContratos(tipoImplementacao).ToArray()).CriarProxyClasse(tipoImplementacao,TypeProvider.ObterContratos(tipoImplementacao).ToArray());
                 }
 
                 ModuloProvider[tipoImplementacao.Name].Executar();

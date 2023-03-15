@@ -42,7 +42,7 @@ namespace Propeus.Modulo.Console
         /// <param name="gerenciador"></param>
         /// <param name="moduloCLI"></param>
         /// <param name="instanciaUnica"></param>
-        public ConsoleModulo(IGerenciador gerenciador, IModuloCLIContrato moduloCLI) : base(gerenciador, true)
+        public ConsoleModulo(IGerenciador gerenciador, IModuloCLIContrato moduloCLI = null) : base(gerenciador, true)
         {
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
             //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
@@ -60,24 +60,38 @@ namespace Propeus.Modulo.Console
         private Task IniciarProcesso()
         {
             IGerenciador gerenciador = modulo as IGerenciador;
-            System.Console.Clear();
-            System.Console.WriteLine("Console modulo " + "v" + Versao);
+
+            if (moduloCLI != null)
+            {
+                moduloCLI.ExecutarCLI(new string[] { "help" });
+            }
+            else
+            {
+                System.Console.Clear();
+                System.Console.WriteLine("Console modulo " + "v" + Versao);
+            }
+
+
             while (!cancellationTokenSource.IsCancellationRequested)
             {
 
-                try
+                if (moduloCLI != null)
                 {
                     System.Console.Write("Digite o comando: ");
-                    var cmd = Util.Console.Console.ReadLine(cancellationTokenSource.Token).Split(' ');
+                    var cmd = System.Console.ReadLine().Split(' ');
                     System.Console.Clear();
-                    System.Console.WriteLine("Console modulo " + "v" + Versao);
+                    moduloCLI.ExecutarCLI(cmd);
+                }
+                else
+                {
+                    try
+                    {
+                        System.Console.Write("Digite o comando: ");
+                        var cmd = System.Console.ReadLine().Split(' ');
+                        System.Console.Clear();
+                        System.Console.WriteLine("Console modulo " + "v" + Versao);
 
-                    if (moduloCLI != null)
-                    {
-                        moduloCLI.ExecutarCLI(cmd);
-                    }
-                    else
-                    {
+
                         switch (cmd[0])
                         {
                             case "-a":
@@ -87,6 +101,7 @@ namespace Propeus.Modulo.Console
                                 System.Console.WriteLine("-o ou --obter [id]: Obtem um modulo em execucao pelo id ou nome");
                                 System.Console.WriteLine("-e ou --existe [id]: Verifica se o modulo esta em execucao");
                                 System.Console.WriteLine("-r ou --reciclar [id]: Recicla um modulo");
+                                System.Console.WriteLine("-cp [-s|--source] path [-d|--destination] path : Copia um modulo para um destino");
                                 System.Console.WriteLine("-rm ou --remover [ id | all ]: Remove um modulo especifico ou todos");
                                 System.Console.WriteLine("--sair: Finaliza este modulo");
                                 System.Console.WriteLine("-v ou --versao: Obtem a versao do gerenciador atual");
@@ -136,9 +151,40 @@ namespace Propeus.Modulo.Console
                                 break;
                             case "--sair":
                                 cancellationTokenSource.Cancel();
+                                Gerenciador.Remover(this);
                                 break;
                             case "-v":
                             case "--versao":
+                                break;
+                            case "--cp":
+                                switch (cmd[1])
+                                {
+                                    case "--source":
+                                    case "-s":
+                                        switch (cmd[3])
+                                        {
+                                            case "--destination":
+                                            case "-d":
+                                                System.IO.File.Copy(cmd[2], cmd[4], true);
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        gerenciador.Remover(cmd[2]);
+                                        break;
+                                    default:
+                                        switch (cmd[2])
+                                        {
+                                            case "--destination":
+                                            case "-d":
+                                                System.IO.File.Copy(cmd[1], cmd[3], true);
+                                                break;
+                                            default:
+                                                System.IO.File.Copy(cmd[1], cmd[2], true);
+                                                break;
+                                        }
+                                        break;
+                                }
                                 break;
                             case "cls":
                             case "limpar":
@@ -147,15 +193,18 @@ namespace Propeus.Modulo.Console
                             default:
                                 System.Console.WriteLine("Comando invalido");
                                 break;
+
                         }
+
+
                     }
+                    catch (Exception ex)
+                    {
+                        System.Console.WriteLine(ex.Message);
+                    }
+                }
 
 
-                }
-                catch (Exception ex)
-                {
-                    System.Console.WriteLine(ex.Message);
-                }
 
             }
             System.Console.WriteLine("Console finaizado");

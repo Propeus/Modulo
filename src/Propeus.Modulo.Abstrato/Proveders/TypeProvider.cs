@@ -15,7 +15,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
     class TypeInfo
     {
-        Dictionary<string,WeakReference<Type>> contratos;
+        Dictionary<string, WeakReference<Type>> contratos;
 
         public TypeInfo(Type type)
         {
@@ -36,7 +36,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         {
             if (!contratos.ContainsKey(contrato.FullName) && contrato.IsInterface && contrato.PossuiAtributo<ModuloContratoAttribute>())
             {
-                contratos.Add(contrato.FullName,new WeakReference<Type>(contrato));
+                contratos.Add(contrato.FullName, new WeakReference<Type>(contrato));
             }
         }
 
@@ -97,7 +97,10 @@ namespace Propeus.Modulo.Abstrato.Proveders
             {
                 if (item.Value.Referencia.TryGetTarget(out Type target))
                 {
-                    yield return target;
+                    if (target.PossuiAtributo<ModuloAutoInicializavelAttribute>())
+                    {
+                        yield return target;
+                    }
                 }
             }
         }
