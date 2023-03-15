@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	  <TargetFrameworks>net7.0</TargetFrameworks>
@@ -14,7 +14,6 @@
 	  <RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 
 	  <PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageTags>Propeus Net Modulo CLI</PackageTags>
 	  <PackageId>Propeus.Modulo.CLI</PackageId>
 
@@ -25,10 +24,19 @@
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

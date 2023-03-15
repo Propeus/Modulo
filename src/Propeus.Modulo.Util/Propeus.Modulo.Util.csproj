@@ -14,7 +14,6 @@
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>Propeus Net Modulo Util</PackageTags>
 		<PackageId>Propeus.Modulo.Util</PackageId>
 
@@ -25,6 +24,15 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageLicenseFile>Propeus.Modulo.Util.csproj</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="Propeus.Modulo.Util.csproj">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>

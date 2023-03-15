@@ -14,7 +14,6 @@
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 		
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageLicenseExpression>LSUNCA</PackageLicenseExpression>
 		<PackageTags>Propeus Net Modulo Core</PackageTags>
 		<PackageId>Propeus.Modulo.Core</PackageId>
 
@@ -25,6 +24,8 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>

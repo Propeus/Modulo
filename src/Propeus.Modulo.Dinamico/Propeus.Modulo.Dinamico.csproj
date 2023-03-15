@@ -17,8 +17,7 @@
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo Dinamico</PackageTags>
 		<PackageId>Propeus.Modulo.Dinamico</PackageId>
-		<PackageLicenseExpression>LSUNCA</PackageLicenseExpression>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
 		<AssemblyName>Propeus.Modulo.Dinamico</AssemblyName>
