@@ -28,10 +28,10 @@ namespace Propeus.Modulo.Util
             {
                 ctor = type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0);
 
-                if (ctor == null)
-                {
-                    throw new Exception("Nao existem construtores sem parametro para este tipo");
-                }
+                //if (ctor == null)
+                //{
+                //    throw new Exception("Nao existem construtores sem parametro para este tipo");
+                //}
             }
             else
             {
@@ -41,10 +41,10 @@ namespace Propeus.Modulo.Util
                                     return tParametros.ContainsAll(parametros);
                                 });
 
-                if (ctor == null)
-                {
-                    throw new Exception("Nao existem construtores com os parametros informado");
-                }
+                //if (ctor == null)
+                //{
+                //    throw new Exception("Nao existem construtores com os parametros informado");
+                //}
             }
 
 
