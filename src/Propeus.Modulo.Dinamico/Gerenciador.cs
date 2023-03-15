@@ -410,7 +410,7 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            MethodInfo mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA);
+            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
 
             if (args.GetType() == typeof(string[]))
             {
@@ -507,7 +507,14 @@ namespace Propeus.Modulo.Dinamico
             IModulo iModulo = Criar(modulo);
 
             var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            mthInstancia?.Invoke(iModulo, args);
+            if (args.GetType() == typeof(string[]))
+            {
+                mthInstancia?.Invoke(iModulo, new object[] { args });
+            }
+            else
+            {
+                mthInstancia?.Invoke(iModulo, args);
+            }
 
             var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
             mthConfiguracao?.Invoke(modulo, Array.Empty<object>());
@@ -596,7 +603,14 @@ namespace Propeus.Modulo.Dinamico
             IModulo iModulo = Criar(Nome);
 
             var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            mthInstancia?.Invoke(iModulo, args);
+            if (args.GetType() == typeof(string[]))
+            {
+                mthInstancia?.Invoke(iModulo, new object[] { args });
+            }
+            else
+            {
+                mthInstancia?.Invoke(iModulo, args);
+            }
 
             var mthConfiguracao = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
             mthConfiguracao?.Invoke(iModulo, Array.Empty<object>());
@@ -1540,6 +1554,7 @@ namespace Propeus.Modulo.Dinamico
             RemoverTodos();
             this._scheduler.Dispose();
             base.Dispose(disposing);
+            Gerenciador.Dispose();
         }
 
         ///<inheritdoc/>
