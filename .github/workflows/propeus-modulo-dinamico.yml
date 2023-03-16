@@ -1,4 +1,4 @@
-name: SonarCloud
+name: Propeus.Modulo.Dinamico
 on:
   push:
     branches: [ "master", "develop" ]
@@ -42,10 +42,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Propeus_Modulo" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
-          dotnet restore ./src/Modulo.sln
-          dotnet build ./src/Modulo.sln --no-restore
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Ppropeus-modulo-core_propeus-modulo-dinamico" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
+          dotnet restore ./src/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj
+          dotnet build ./src/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj --no-restore
 
           dotnet tool install --global dotnet-coverage
-          dotnet-coverage collect "dotnet test ./src/Modulo.sln" -f xml -o "coverage.xml"
+          dotnet-coverage collect "dotnet test ./tests/Propeus.Modulo.DinamicoTests/Propeus.Modulo.DinamicoTests.csproj" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
