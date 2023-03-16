@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class VersionCLI
+    internal static class VersionCli
     {
         public static void Execute(string[] args, IGerenciador gerenciador)
         {

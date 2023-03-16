@@ -163,18 +163,18 @@ namespace Propeus.Modulo.Util
 
             foreach (MethodInfo ia in esquerda)
             {
-                if (!joinKV.ContainsKey(ia.HashMetodo()))
+                if (!joinKV.ContainsKey(ia.HashMetodoMethodInfo()))
                 {
                     join.Add(ia, true);
-                    joinKV.Add(ia.HashMetodo(), ia);
+                    joinKV.Add(ia.HashMetodoMethodInfo(), ia);
                 }
             }
             foreach (MethodInfo ib in direita)
             {
-                if (!joinKV.ContainsKey(ib.HashMetodo()))
+                if (!joinKV.ContainsKey(ib.HashMetodoMethodInfo()))
                 {
                     join.Add(ib, false);
-                    joinKV.Add(ib.HashMetodo(), ib);
+                    joinKV.Add(ib.HashMetodoMethodInfo(), ib);
                 }
             }
 

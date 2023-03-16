@@ -13,8 +13,8 @@ namespace Propeus.Modulo.Console
     /// <summary>
     /// Interface de contrato para o Propeus.Modulo.CLI.CLIModulo
     /// </summary>
-    [ModuloContrato("CLIModulo")]
-    public interface IModuloCLIContrato : IModulo
+    [ModuloContrato("CliModulo")]
+    public interface IModuloCliContrato : IModulo
     {
         /// <summary>
         /// Executa a CLI do Propeus.Modulo.CLI
@@ -34,14 +34,14 @@ namespace Propeus.Modulo.Console
         private readonly CancellationTokenSource cancellationTokenSource = new();
         private readonly Task tarefa;
         private readonly IModulo modulo;
-        private readonly IModuloCLIContrato moduloCLI;
+        private readonly IModuloCliContrato moduloCLI;
 
         /// <summary>
         /// Construtor padrao do <see cref="ModeloBase"/>
         /// </summary>
         /// <param name="gerenciador"></param>
         /// <param name="moduloCLI"></param>
-        public ConsoleModulo(IGerenciador gerenciador, IModuloCLIContrato moduloCLI = null) : base(gerenciador, true)
+        public ConsoleModulo(IGerenciador gerenciador, IModuloCliContrato moduloCLI = null) : base(gerenciador, true)
         {
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
             //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
@@ -224,160 +224,6 @@ namespace Propeus.Modulo.Console
 
                 //Continua o disposing padrao
                 base.Dispose(disposing);
-            }
-        }
-
-        private void Subcommands(string[] args)
-        {
-            switch (args[0])
-            {
-                case "create":
-                    ObtionsCreate(args);
-                    break;
-                case "image":
-                    break;
-                case "images":
-                    OptionsImages(args);
-                    break;
-                case "attach":
-                    throw new NotImplementedException();
-                    break;
-                case "build":
-                    throw new NotImplementedException();
-                    break;
-                case "builder":
-                    break;
-                case "checkpoint":
-                    break;
-                case "commit":
-                    break;
-                case "config":
-                    break;
-                case "container":
-                    break;
-                case "context":
-                    break;
-                case "cp":
-                    break;
-                case "diff":
-                    break;
-                case "events":
-                    break;
-                case "exec":
-                    break;
-                case "export":
-                    break;
-                case "history":
-                    break;
-                case "import":
-                    break;
-                case "info":
-                    break;
-                case "inspect":
-                    break;
-                case "kill":
-                    break;
-                case "load":
-                    break;
-                case "login":
-                    break;
-                case "logout":
-                    break;
-                case "logs":
-                    break;
-                case "manifest":
-                    break;
-                case "network":
-                    break;
-                case "node":
-                    break;
-                case "pause":
-                    break;
-                case "plugin":
-                    break;
-                case "port":
-                    break;
-                case "ps":
-                    break;
-                case "pull":
-                    break;
-                case "push":
-                    break;
-                case "rename":
-                    break;
-                case "restart":
-                    break;
-                case "rm":
-                    break;
-                case "rmi":
-                    break;
-                case "run":
-                    break;
-                case "save":
-                    break;
-                case "search":
-                    break;
-                case "secret":
-                    break;
-                case "service":
-                    break;
-                case "stack":
-                    break;
-                case "stats":
-                    break;
-                case "stop":
-                    break;
-                case "swarm":
-                    break;
-                case "system":
-                    break;
-                case "tag":
-                    break;
-                case "top":
-                    break;
-                case "trust":
-                    break;
-                case "unpause":
-                    break;
-                case "update":
-                    break;
-                case "version":
-                    break;
-                case "volume":
-                    break;
-                case "wait":
-                    break;
-
-            }
-        }
-
-        private void OptionsImages(string[] args)
-        {
-            System.Console.WriteLine(Gerenciador.Listar());
-        }
-
-        private void ObtionsCreate(string[] args)
-        {
-            switch (args[1])
-            {
-                case "--full-name":
-                case "--name":
-                    if (args.Length > 2)
-                    {
-                        switch (args[3])
-                        {
-                            case "--args":
-                                _ = (Gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        _ = Gerenciador.Criar(args[2]);
-                    }
-                    break;
             }
         }
     }

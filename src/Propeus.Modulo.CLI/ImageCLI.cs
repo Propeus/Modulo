@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class ImageCLI
+    internal static class ImageCli
     {
 
         public static void ExecuteImage(string[] args, IGerenciador gerenciador)
@@ -11,6 +11,9 @@ namespace Propeus.Modulo.CLI
             {
                 case "--id":
                     _ = gerenciador.Obter(args[2]);
+                    break;
+                case "help":
+                    OptionsCreateHelp(args);
                     break;
             }
         }
@@ -23,7 +26,7 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        private static void ObtionsCreateHelp(string[] args, IGerenciador gerenciador)
+        private static void OptionsCreateHelp(string[] args)
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

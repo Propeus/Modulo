@@ -89,7 +89,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         private void AssemblyLoadContext_Unloading(AssemblyLoadContext obj)
         {
-            //TODO: Adicionar evento?
+            this.NotificarAviso(obj.Name + " foi descarregado da aplicacao");
         }
         private Assembly ObterModulo(string location)
         {
@@ -125,23 +125,14 @@ namespace Propeus.Modulo.Abstrato.Proveders
                     AssemblyLoadContext.Unload();
                     Modulos.Clear();
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~Modulo()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
-
+     
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
@@ -150,22 +141,13 @@ namespace Propeus.Modulo.Abstrato.Proveders
     public static class ModuleProvider
     {
 
-        static ModuleProvider()
-        {
-            Modulos = new ConcurrentDictionary<string, Modulo>();
-            ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
-            TipoModulo = new ConcurrentDictionary<string, Modulo>();
-
-            DiretorioAtual = Directory.GetCurrentDirectory();
-        }
-
-        public static string DiretorioAtual { get; private set; }
+        public static string DiretorioAtual { get; private set; } = Directory.GetCurrentDirectory();
         public static int ModulosCarregados => TipoModulo.Count;
         public static int ModulosDllCarregados => Modulos.Count;
 
-        private static readonly ConcurrentDictionary<string, Modulo> Modulos;
-        private static readonly ConcurrentDictionary<string, Modulo> ModulosIgnorados;
-        private static readonly ConcurrentDictionary<string, Modulo> TipoModulo;
+        private static readonly ConcurrentDictionary<string, Modulo> Modulos = new ConcurrentDictionary<string, Modulo>();
+        private static readonly ConcurrentDictionary<string, Modulo> ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
+        private static readonly ConcurrentDictionary<string, Modulo> TipoModulo = new ConcurrentDictionary<string, Modulo>();
 
         public static Type ObterTipoModuloAtual(string name)
         {

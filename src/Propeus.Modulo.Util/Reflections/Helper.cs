@@ -76,7 +76,7 @@ namespace Propeus.Modulo.Util
         /// Este metodo e necessario para evitar vazamentos de memoria
         /// </remarks>
         /// <param name="tb">A instancia do <see cref="TypeBuilder"/></param>
-        public static void Dispose(this TypeBuilder tb)
+        public static void DisposeTypeBuilder(this TypeBuilder tb)
         {
             if (tb == null)
             {
@@ -84,6 +84,8 @@ namespace Propeus.Modulo.Util
             }
 
             Type tbType = typeof(TypeBuilder);
+
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo tbMbList = tbType.GetField("m_listMethods", BindingFlags.Instance | BindingFlags.NonPublic); //List<MethodBuilder>
             FieldInfo tbDecType = tbType.GetField("m_DeclaringType", BindingFlags.Instance | BindingFlags.NonPublic);//TypeBuilder
             FieldInfo tbGenType = tbType.GetField("m_genTypeDef", BindingFlags.Instance | BindingFlags.NonPublic);//TypeBuilder
@@ -91,19 +93,20 @@ namespace Propeus.Modulo.Util
             FieldInfo tbMbCurMeth = tbType.GetField("m_currentMethod", BindingFlags.Instance | BindingFlags.NonPublic);//MethodBuilder
             _ = tbType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic);//ModuleBuilder
             FieldInfo tbGenTypeParArr = tbType.GetField("m_inst", BindingFlags.Instance | BindingFlags.NonPublic); //GenericTypeParameterBuilder[] 
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
 
             TypeBuilder tempDecType = tbDecType.GetValue(tb) as TypeBuilder;
-            tempDecType.Dispose();
+            tempDecType.DisposeTypeBuilder();
             tbDecType.SetValue(tb, null);
             tempDecType = tbGenType.GetValue(tb) as TypeBuilder;
-            tempDecType.Dispose();
+            tempDecType.DisposeTypeBuilder();
             tbDecType.SetValue(tb, null);
 
             MethodBuilder tempMeth = tbDeclMeth.GetValue(tb) as MethodBuilder;
-            tempMeth.Dispose();
+            tempMeth.DisposeMethod();
             tbDeclMeth.SetValue(tb, null);
             tempMeth = tbMbCurMeth?.GetValue(tb) as MethodBuilder;
-            tempMeth.Dispose();
+            tempMeth.DisposeMethod();
             tbMbCurMeth?.SetValue(tb, null);
 
             if (tbMbList.GetValue(tb) is IList mbList)
@@ -111,15 +114,12 @@ namespace Propeus.Modulo.Util
                 for (int i = 0; i < mbList.Count; i++)
                 {
                     tempMeth = mbList[i] as MethodBuilder;
-                    tempMeth.Dispose();
+                    tempMeth.DisposeMethod();
                     mbList[i] = null;
                 }
                 mbList.Clear();
                 tbMbList.SetValue(tb, null);
             }
-            //ModuleBuilder tempMod = tbMod.GetValue(tb) as ModuleBuilder;
-            //tempMod.Dispose();
-            //tbMod.SetValue(tb, null);
 
             tbGenTypeParArr.SetValue(tb, null);
         }
@@ -130,7 +130,7 @@ namespace Propeus.Modulo.Util
         /// Este metodo e necessario para evitar vazamentos de memoria
         /// </remarks>
         /// <param name="mb">A instancia do <see cref="MethodBuilder"/></param>
-        public static void Dispose(this MethodBuilder mb)
+        public static void DisposeMethod(this MethodBuilder mb)
         {
             if (mb == null)
             {
@@ -138,23 +138,21 @@ namespace Propeus.Modulo.Util
             }
 
             Type mbType = typeof(MethodBuilder);
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo mbILGen = mbType.GetField("m_ilGenerator", BindingFlags.Instance | BindingFlags.NonPublic);
-            //FieldInfo mbIAttr = mbType.GetField("m_iAttributes", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo mbMod = mbType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic); //ModuleBuilder 
             FieldInfo mbContType = mbType.GetField("m_containingType", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo mbLocSigHelp = mbType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
             FieldInfo mbSigHelp = mbType.GetField("m_signature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
 
             ILGenerator tempIlGen = mbILGen.GetValue(mb) as ILGenerator;
-            tempIlGen.Dispose();
+            tempIlGen.DisposeILGenerator();
             SignatureHelper tempmbSigHelp = mbLocSigHelp.GetValue(mb) as SignatureHelper;
-            tempmbSigHelp.Dispose();
+            tempmbSigHelp.DisposeSignature();
             tempmbSigHelp = mbSigHelp.GetValue(mb) as SignatureHelper;
-            tempmbSigHelp.Dispose();
+            tempmbSigHelp.DisposeSignature();
 
-            //ModuleBuilder tempMod = mbMod.GetValue(mb) as ModuleBuilder;
-            //tempMod.Dispose();
-            //mbMod.SetValue(mb, null);
 
             mbILGen.SetValue(mb, null);
             mbContType.SetValue(mb, null);
@@ -169,7 +167,7 @@ namespace Propeus.Modulo.Util
         /// Este metodo e necessario para evitar vazamentos de memoria
         /// </remarks>
         /// <param name="sh">A instancia do <see cref="SignatureHelper"/></param>
-        public static void Dispose(this SignatureHelper sh)
+        public static void DisposeSignature(this SignatureHelper sh)
         {
             if (sh == null)
             {
@@ -177,10 +175,10 @@ namespace Propeus.Modulo.Util
             }
 
             Type shType = typeof(SignatureHelper);
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo shModule = shType.GetField("m_module", BindingFlags.Instance | BindingFlags.NonPublic);
-            //FieldInfo shSig = shType.GetField("m_signature", BindingFlags.Instance | BindingFlags.NonPublic);
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             shModule.SetValue(sh, null);
-            //shSig.SetValue(sh, null);
         }
         /// <summary>
         /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.ILGenerator"/>
@@ -189,7 +187,7 @@ namespace Propeus.Modulo.Util
         /// Este metodo e necessario para evitar vazamentos de memoria
         /// </remarks>
         /// <param name="ilGen">A instancia do <see cref="ILGenerator"/></param>
-        public static void Dispose(this ILGenerator ilGen)
+        public static void DisposeILGenerator(this ILGenerator ilGen)
         {
             if (ilGen == null)
             {
@@ -197,9 +195,11 @@ namespace Propeus.Modulo.Util
             }
 
             Type ilGenType = typeof(ILGenerator);
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo ilSigHelp = ilGenType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             SignatureHelper sigTemp = ilSigHelp.GetValue(ilGen) as SignatureHelper;
-            sigTemp.Dispose();
+            sigTemp.DisposeSignature();
             ilSigHelp.SetValue(ilGen, null);
         }
         /// <summary>
@@ -210,7 +210,7 @@ namespace Propeus.Modulo.Util
         /// </remarks>
         /// <param name="modBuild">A instancia do <see cref="ModuleBuilder"/></param>
         /// <param name="nome">Nome do tipo que possui o metodo</param>
-        public static void Dispose(this ModuleBuilder modBuild, string nome = null)
+        public static void DisposeModuleBuilder(this ModuleBuilder modBuild, string nome = null)
         {
             if (modBuild == null)
             {
@@ -218,7 +218,9 @@ namespace Propeus.Modulo.Util
             }
 
             Type modBuildType = typeof(ModuleBuilder);
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo modTypeBuildList = modBuildType.GetField("_typeBuilderDict", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
 
             if (modTypeBuildList.GetValue(modBuild) is Dictionary<string, Type> modTypeList)
             {
@@ -227,7 +229,7 @@ namespace Propeus.Modulo.Util
                 {
                     foreach (KeyValuePair<string, Type> item in modTypeList)
                     {
-                        (item.Value as TypeBuilder).Dispose();
+                        (item.Value as TypeBuilder).DisposeTypeBuilder();
                     }
                     modTypeList.Clear();
 
@@ -237,7 +239,7 @@ namespace Propeus.Modulo.Util
                 {
                     if (modTypeList.ContainsKey(nome))
                     {
-                        (modTypeList[nome] as TypeBuilder).Dispose();
+                        (modTypeList[nome] as TypeBuilder).DisposeTypeBuilder();
                         _ = modTypeList.Remove(nome);
                     }
                 }
@@ -248,7 +250,7 @@ namespace Propeus.Modulo.Util
         }
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
 
-        public static string HashMetodo(this MethodInfo methodInfo)
+        public static string HashMetodoMethodInfo(this MethodInfo methodInfo)
         {
             return $"{methodInfo.ReturnType.FullName} {methodInfo.Name}({string.Join(',', methodInfo.GetParameters().Select(x => x.ParameterType.Name))})".Hash();
         }

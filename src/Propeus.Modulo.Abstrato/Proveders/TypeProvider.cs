@@ -92,12 +92,9 @@ namespace Propeus.Modulo.Abstrato.Proveders
         {
             foreach (KeyValuePair<string, TypeInfo> item in Types)
             {
-                if (item.Value.Referencia.TryGetTarget(out Type target))
+                if (item.Value.Referencia.TryGetTarget(out Type target) && target.PossuiAtributo<ModuloAutoInicializavelAttribute>())
                 {
-                    if (target.PossuiAtributo<ModuloAutoInicializavelAttribute>())
-                    {
-                        yield return target;
-                    }
+                    yield return target;
                 }
             }
         }

@@ -20,8 +20,7 @@ namespace Propeus.Modulo.IL.Geradores
     {
 
         private bool disposedValue;
-        private bool _Executado;
-
+        
         public ILParametro(string nomeMetodo, Type tipo, bool opcional = false, object defaultValue = null, string nome = Constantes.CONST_NME_VARIAVEL)
         {
             if (nome == Constantes.CONST_NME_VARIAVEL)
@@ -56,11 +55,9 @@ namespace Propeus.Modulo.IL.Geradores
 
             tipo ??= typeof(object);
 
-            //_variavelBuilder = builderProxy.DeclareLocal(tipo);
 
             Nome = nome;
             Tipo = tipo;
-            //Indice = _variavelBuilder.LocalIndex;
         }
 
         public Type Tipo { get; private set; }
@@ -75,44 +72,24 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 throw new ObjectDisposedException(GetType().Name);
             }
-
-            _Executado = true;
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects)
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
+            {      
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~ILParametro()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
+       
 
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
-
-        //public static implicit operator Type(ILParametro obj)
-        //{
-        //    return obj.ToType();
-        //}
         public static explicit operator Type(ILParametro obj)
         {
             return obj.ToType();

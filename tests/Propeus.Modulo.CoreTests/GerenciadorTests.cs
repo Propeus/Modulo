@@ -14,7 +14,6 @@ namespace Propeus.Modulo.CoreTests
     [Modulo]
     public class TesteInstanciaUnicaModulo : ModuloBase
     {
-        //TODO: Existe uma falha no construtor onde o valor defult esta vindo diferente do que foi definido no parametro
         public TesteInstanciaUnicaModulo(IGerenciador gerenciador) : base(gerenciador, true)
         {
         }
@@ -405,7 +404,7 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-                IModulo modulo = gerenciador.Obter(Guid.NewGuid().ToString());
+                _= gerenciador.Obter(Guid.NewGuid().ToString());
             });
 
         }
@@ -490,7 +489,7 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-                IModuloTipo modulo = (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
+                _= (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
             });
 
         }
@@ -669,7 +668,7 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-                IModulo modulov2 = gerenciador.Reciclar(Guid.NewGuid().ToString());
+               _= gerenciador.Reciclar(Guid.NewGuid().ToString());
             });
 
         }

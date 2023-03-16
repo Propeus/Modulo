@@ -22,12 +22,12 @@ namespace Propeus.Modulo.Dinamico
     /// Modulo responsável por administrar modulos em tempo de execução
     /// </summary>
     [Modulo]
-    public class Gerenciador : ModuloBase, IGerenciador, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro, IGerenciadorInformacao
+    public class Gerenciador : ModuloBase, IGerenciadorArgumentos, IGerenciadorDiagnostico, IGerenciadorRegistro, IGerenciadorInformacao
     {
         /// <summary>
         /// Inicializa o gerenciador
         /// </summary>
-        /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
+        /// <param name="gerenciador">Gerenciador que irá controlar o type</param>
         /// <param name="configuracao">Configuracao do gerenciador atual</param>
         public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao = null) : base(gerenciador, true)
         {
@@ -52,7 +52,7 @@ namespace Propeus.Modulo.Dinamico
         /// </summary>
         public GerenciadorConfiguracao Configuracao { get; }
         /// <summary>
-        /// Diretório atual do modulo
+        /// Diretório atual do type
         /// </summary>
         public string DiretorioModulo { get; set; } = Directory.GetCurrentDirectory();
         ///<inheritdoc/>
@@ -69,15 +69,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -125,8 +125,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&gt;ICalculadoraModuloContrato&lt;();
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar&gt;ICalculadoraModuloContrato&lt;();
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -141,15 +141,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -197,8 +197,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -222,32 +222,30 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentNullException(nameof(modulo));
             }
 
-            //TODO: Obter construtor de maior quantidade de parametros
-            ConstructorInfo[] ctors = modulo.GetConstructors();
-            foreach (ConstructorInfo ctor in ctors)
+            ConstructorInfo ctor = modulo.GetConstructors().MaxBy(cto => cto.GetParameters().Length);
+
+            ParameterInfo[] @params = ctor.GetParameters();
+            foreach (ParameterInfo @param in @params)
             {
-                ParameterInfo[] @params = ctor.GetParameters();
-                foreach (ParameterInfo @param in @params)
+                if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                 {
-                    if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
+                    if (param.IsOptional)
                     {
-                        if (param.IsOptional)
-                        {
-                            try
-                            {
-                                _ = ResoverContratos(param.ParameterType);
-                            }
-                            catch (ModuloNaoEncontradoException)
-                            {
-                                //Ignora erro neste caso
-                            }
-                        }
-                        else
+                        try
                         {
                             _ = ResoverContratos(param.ParameterType);
                         }
+                        catch (ModuloNaoEncontradoException)
+                        {
+                            //Ignora erro neste caso
+                        }
+                    }
+                    else
+                    {
+                        _ = ResoverContratos(param.ParameterType);
                     }
                 }
+
             }
 
             return Gerenciador.Criar(modulo);
@@ -258,15 +256,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -314,8 +312,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -332,15 +330,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -366,7 +364,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -395,8 +393,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar&gt;ICalculadoraModuloContrato&lt;(new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar&gt;ICalculadoraModuloContrato&lt;(new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -409,12 +407,7 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            MethodInfo mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-
-            _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
-
-            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
+            InvocarInstanciaConfiguracao(args, modulo);
 
             return modulo;
 
@@ -423,15 +416,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -457,7 +450,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -486,8 +479,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -498,13 +491,7 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(modulo);
 
-            MethodInfo mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            _ = args.GetType() == typeof(string[])
-                ? (mthInstancia?.Invoke(iModulo, new object[] { args }))
-                : (mthInstancia?.Invoke(iModulo, args));
-
-            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
+            InvocarInstanciaConfiguracao(args, iModulo);
 
             return iModulo;
 
@@ -514,15 +501,15 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao herdado de <see cref="IModulo"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo nao possui o atributo <see cref="ModuloAttribute"/></exception>
-        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um modulo valido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao herdado de <see cref="IModulo"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type nao possui o atributo <see cref="ModuloAttribute"/></exception>
+        ///<exception cref="TipoModuloInvalidoException">Parametro do construtor nao e um type valido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo nao encontrado pelo nome no atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<exception cref="TipoModuloNaoEncontradoException">Tipo ausente no atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no modulo</exception>
+        ///<exception cref="ModuloInstanciaUnicaException">Criacao de mais de uma instancia de type definido como instancia unica</exception>
+        ///<exception cref="ModuloConstrutorAusenteException">Construtor ausente no type</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -548,7 +535,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -577,8 +564,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///            }
         ///        }
         ///    }
@@ -589,13 +576,7 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(Nome);
 
-            MethodInfo mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            _ = args.GetType() == typeof(string[])
-                ? (mthInstancia?.Invoke(iModulo, new object[] { args }))
-                : (mthInstancia?.Invoke(iModulo, args));
-
-            MethodInfo mthConfiguracao = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            _ = (mthConfiguracao?.Invoke(iModulo, Array.Empty<object>()));
+            InvocarInstanciaConfiguracao(args, iModulo);
 
             return iModulo;
         }
@@ -627,7 +608,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -656,9 +637,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                gerenciador.Remover(modulo);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                gerenciador.Remover(type);
         ///            }
         ///        }
         ///    }
@@ -671,8 +652,8 @@ namespace Propeus.Modulo.Dinamico
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
-        ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi inicializado</exception>
+        ///<exception cref="ModuloDescartadoException">Instancia do type foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -698,7 +679,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -727,9 +708,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                gerenciador.Remover(modulo.Id);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                gerenciador.Remover(type.Id);
         ///            }
         ///        }
         ///    }
@@ -766,7 +747,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -795,8 +776,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///                gerenciador.RemoverTodos();
         ///            }
         ///        }
@@ -838,7 +819,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -867,9 +848,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                gerenciador.Recilcar(modulo);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                gerenciador.Recilcar(type);
         ///            }
         ///        }
         ///    }
@@ -883,8 +864,8 @@ namespace Propeus.Modulo.Dinamico
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
-        ///<exception cref="ModuloDescartadoException">Instancia do modulo foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi inicializado</exception>
+        ///<exception cref="ModuloDescartadoException">Instancia do type foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuloNaoRegistradoException">Modulos criados fora do gerenciador</exception>
@@ -913,7 +894,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -942,9 +923,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Recilcar(modulo.Id);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Recilcar(type.Id);
         ///            }
         ///        }
         ///    }
@@ -958,9 +939,9 @@ namespace Propeus.Modulo.Dinamico
 
 
         ///<inheritdoc/>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi inicializado</exception>
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuloNaoRegistradoException">Modulos criados fora do gerenciador</exception>
@@ -989,7 +970,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1018,9 +999,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Obter&gt;ICalculadoraModuloContrato&lt;();
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Obter&gt;ICalculadoraModuloContrato&lt;();
         ///            }
         ///        }
         ///    }
@@ -1060,7 +1041,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1089,22 +1070,22 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Obter(typeof(ICalculadoraModuloContrato));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Obter(typeof(ICalculadoraModuloContrato));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
         ///</example>
-        public IModulo Obter(Type modulo)
+        public IModulo Obter(Type type)
         {
-            return Gerenciador.Obter(modulo);
+            return Gerenciador.Obter(type);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi inicializado</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -1130,7 +1111,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1159,9 +1140,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Obter(modulo.Id);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Obter(type.Id);
         ///            }
         ///        }
         ///    }
@@ -1175,7 +1156,7 @@ namespace Propeus.Modulo.Dinamico
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -1205,7 +1186,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1234,18 +1215,18 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Existe(typeof(ICalculadoraModuloContrato));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Existe(typeof(ICalculadoraModuloContrato));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
         ///</example>
-        public bool Existe(Type modulo)
+        public bool Existe(Type type)
         {
-            return Gerenciador.Existe(modulo);
+            return Gerenciador.Existe(type);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -1274,7 +1255,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1303,9 +1284,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Existe(modulo);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Existe(type);
         ///            }
         ///        }
         ///    }
@@ -1343,7 +1324,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1372,9 +1353,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  gerenciador.Existe(modulo.Id);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                type =  gerenciador.Existe(type.Id);
         ///            }
         ///        }
         ///    }
@@ -1412,7 +1393,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1441,8 +1422,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///                IEnumerable&gt;IModulo&lt; =  gerenciador.Listar();
         ///            }
         ///        }
@@ -1481,7 +1462,7 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
@@ -1510,8 +1491,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///                gerenciador.ManterVivoAsync().Wait();
         ///            }
         ///        }
@@ -1552,7 +1533,6 @@ namespace Propeus.Modulo.Dinamico
             _ = stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
             _ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(ModuleProvider.ModulosDllCarregados).AppendLine();
             _ = stringBuilder.Append("Quantidade de caminho_modulos inicializados: ").Append(ModulosInicializados).AppendLine();
-            //_ = stringBuilder.Append("Tempo de atualização dos caminho_modulos: ").Append(_tempoAtualziacaoModulo).Append(" segundos").AppendLine();
 
             return stringBuilder.ToString();
         }
@@ -1577,9 +1557,9 @@ namespace Propeus.Modulo.Dinamico
         }
 
         ///<inheritdoc/>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi inicializado</exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi inicializado</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -1605,14 +1585,14 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
         ///    }
         ///}
         ///</code>
-        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do modulo
+        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do type
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
@@ -1634,8 +1614,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///                gerenciador.ObterInfo&gt;ICalculadoraModuloContrato&lt;();
         ///            }
         ///        }
@@ -1650,9 +1630,9 @@ namespace Propeus.Modulo.Dinamico
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="TipoModuloInvalidoException">Tipo do modulo invalido</exception>
+        ///<exception cref="TipoModuloInvalidoException">Tipo do type invalido</exception>
         ///<exception cref="ModuloContratoNaoEncontratoException">Tipo da interface de contrato nao possui o atributo <see cref="ModuloContratoAttribute"/></exception>
-        ///<exception cref="ModuloNaoEncontradoException">Instancia do modulo nao foi encontrado</exception>
+        ///<exception cref="ModuloNaoEncontradoException">Instancia do type nao foi encontrado</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
@@ -1678,14 +1658,14 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
         ///    }
         ///}
         ///</code>
-        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do modulo
+        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do type
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
@@ -1707,8 +1687,8 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
         ///                gerenciador.ObterInfo(typeof(ICalculadoraModuloContrato));
         ///            }
         ///        }
@@ -1747,14 +1727,14 @@ namespace Propeus.Modulo.Dinamico
         ///        
         ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
         ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o type.
         ///          //Caso contrario, este metodo nao será invocado
         ///        }
         ///        
         ///    }
         ///}
         ///</code>
-        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do modulo
+        ///No projeto principal, adicione uma interface de contrato e depois obtenha as informacoes basicas do type
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Abstrato.Atributos;
@@ -1776,9 +1756,9 @@ namespace Propeus.Modulo.Dinamico
         ///        {
         ///            using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                gerenciador.ObterInfo(modulo.Id);
+        ///                ICalculadoraModuloContrato type = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(type.Calcular(1,1));
+        ///                gerenciador.ObterInfo(type.Id);
         ///            }
         ///        }
         ///    }
@@ -1840,9 +1820,17 @@ namespace Propeus.Modulo.Dinamico
             }
             else
             {
-                //TODO: Interface nao mapeada
-                throw new InvalidCastException();
+                throw new ModuloContratoNaoEncontratoException("Atributo nao encontrado no tipo informado");
             }
         }
+        private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModulo
+        {
+            MethodInfo mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
+
+            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
+        }
+
     }
 }

@@ -26,7 +26,7 @@ namespace Propeus.Modulo.WorkerService
         /// </summary>
         /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
-        public BackgroundServiceModulo(IGerenciador gerenciador, bool instanciaUnica = false)
+        protected BackgroundServiceModulo(IGerenciador gerenciador, bool instanciaUnica = false)
         {
             Nome = GetType().Name;
             Estado = Estado.Inicializado;
@@ -133,10 +133,8 @@ namespace Propeus.Modulo.WorkerService
         ///<inheritdoc/>
         public override void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza em Dispose(bool disposing) acima.
+            // Não altere este código. Coloque o código de limpeza em DisposeMethod(bool disposing) acima.
             Dispose(true);
-            // TODO: remover marca de comentário da linha a seguir se o finalizador for substituído acima.
-            //GC.SuppressFinalize(this);
         }
         #endregion
     }

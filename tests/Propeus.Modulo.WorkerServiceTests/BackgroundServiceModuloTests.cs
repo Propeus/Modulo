@@ -50,7 +50,6 @@ namespace Propeus.Modulo.WorkerServiceTests
         [TestMethod()]
         public void BackgroundServiceModuloTest()
         {
-            //TODO: Adicionar 'Exception' no IModulo
             _ = gerenciador.Criar<ModuloTesteWorker>();
             ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
             Assert.AreEqual(Abstrato.Estado.Inicializado, worker.Estado);

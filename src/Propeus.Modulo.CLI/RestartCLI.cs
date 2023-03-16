@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class RestartCLI
+    internal static class RestartCli
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)

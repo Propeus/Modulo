@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class KillCLI
+    internal static class KillCli
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)
@@ -15,12 +15,15 @@ namespace Propeus.Modulo.CLI
                 case "--all":
                     gerenciador.RemoverTodos();
                     break;
+                case "help":
+                    OptionsCreateHelp();
+                    break;
             }
         }
 
 
 
-        private static void ObtionsCreateHelp(string[] args, IGerenciador gerenciador)
+        private static void OptionsCreateHelp()
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

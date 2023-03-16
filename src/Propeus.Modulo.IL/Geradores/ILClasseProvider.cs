@@ -127,7 +127,7 @@ namespace Propeus.Modulo.IL.Geradores
             if (versao - 1 >= _versoes.Length)
             {
                 string nome = _versoes[0].Namespace + "." + _versoes[0].Nome;
-                Proxy.ObterBuilder<ModuleBuilder>().Dispose(nome);
+                Proxy.ObterBuilder<ModuleBuilder>().DisposeModuleBuilder(nome);
                 _versoes[0].Dispose();
                 _versoes[0] = null;
 
@@ -179,24 +179,14 @@ namespace Propeus.Modulo.IL.Geradores
                     Proxy = null;
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~ILClasseProvider()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
-
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
     }

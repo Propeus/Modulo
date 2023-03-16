@@ -109,7 +109,6 @@ namespace Propeus.Modulo.IL.Geradores
             for (int i = 0; i < parametros.Length; i++)
             {
                 parametros[i].Indice = i + 1;
-                //TODO: Fazer implemnentacao de parametro opcional
                 if (parametros[i].Opcional)
                 {
                     if (parametros[i].DefaultValue is null)
@@ -166,7 +165,7 @@ namespace Propeus.Modulo.IL.Geradores
             foreach (Token item in Acessadores)
             {
                 _ = sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(' ');
-            };
+            }
 
             _ = sb.Append("instance ")
              .Append(Retorno.Name.ToLower(CultureInfo.CurrentCulture))
@@ -193,12 +192,7 @@ namespace Propeus.Modulo.IL.Geradores
                 _ = sb.Append("() ");
             }
 
-            //TODO: Preciso exibir o runtime managed
-            //foreach (MethodImplAttributes item in _metodoBuilder.GetMethodImplementationFlags().ObterEnumsConcatenadoBitaBit())
-            //{
-            //    _ = sb.Append(' ').Append(item.ToString());
-            //}
-
+        
             _ = sb.AppendLine()
             .Append('\t')
             .Append('{')
@@ -235,8 +229,6 @@ namespace Propeus.Modulo.IL.Geradores
                 }
             }
 
-            //sb.Append(Proxy.ToString());
-
             _ = sb.Append('\t')
                 .AppendLine("}");
 
@@ -251,7 +243,6 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
-                    //Proxy.Dispose();
 
                     foreach (IILPilha item in PilhaExecucao)
                     {
@@ -271,24 +262,14 @@ namespace Propeus.Modulo.IL.Geradores
                     _metodoBuilder = null;
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~ILMetodo()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
-
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
     }

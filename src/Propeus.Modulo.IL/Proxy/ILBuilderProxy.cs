@@ -193,7 +193,6 @@ namespace Propeus.Modulo.IL.Proxy
             }
             else
             {
-                //TODO: Adicionar uma mensagem aqui
                 throw new InvalidCastException();
             }
         }
@@ -346,48 +345,36 @@ namespace Propeus.Modulo.IL.Proxy
                     {
                         if (builder.Key == typeof(TypeBuilder))
                         {
-                            (builder.Value as TypeBuilder)?.Dispose();
+                            (builder.Value as TypeBuilder)?.DisposeTypeBuilder();
                         }
                         else if (builder.Key == typeof(MethodBuilder))
                         {
-                            (builder.Value as MethodBuilder)?.Dispose();
+                            (builder.Value as MethodBuilder)?.DisposeMethod();
                         }
                         else if (builder.Key == typeof(SignatureHelper))
                         {
-                            (builder.Value as SignatureHelper)?.Dispose();
+                            (builder.Value as SignatureHelper)?.DisposeSignature();
                         }
                         else if (builder.Key == typeof(ILGenerator))
                         {
-                            (builder.Value as ILGenerator)?.Dispose();
+                            (builder.Value as ILGenerator)?.DisposeILGenerator();
                         }
-                        //else if (builder.Key == typeof(ModuleBuilder))
-                        //{
-                        //    (builder.Value as ModuleBuilder)?.Dispose();
-                        //}
+                     
                     }
 
                     Builders.Clear();
                     Stack.Clear();
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~ILBuilderProxy()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
 
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
 

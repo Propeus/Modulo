@@ -14,7 +14,6 @@ namespace Propeus.Modulo.Util.Thread
     public class TaskJob : IDisposable
     {
         private const string NOME_JOB_COLETOR = "__COLETOR_TAKS_COMPLETADOS";
-        private readonly LimitedConcurrencyLevelTaskScheduler _scheduler;
         private readonly TaskFactory _taskFactory;
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly ConcurrentDictionary<string, Task> _tasks;
@@ -45,7 +44,7 @@ namespace Propeus.Modulo.Util.Thread
         public TaskJob(int threads = 2)
         {
 
-            _scheduler = new LimitedConcurrencyLevelTaskScheduler(threads);
+            var _scheduler = new LimitedConcurrencyLevelTaskScheduler(threads);
             _taskFactory = new TaskFactory(_scheduler);
             _cancellationTokenSource = new CancellationTokenSource();
             _tasks = new ConcurrentDictionary<string, Task>();
@@ -121,7 +120,7 @@ namespace Propeus.Modulo.Util.Thread
                         }
                         catch
                         {
-                            //Continua o jogo e foda-se
+                            //Suprime timeout
                         }
 
                     }
@@ -142,7 +141,7 @@ namespace Propeus.Modulo.Util.Thread
 
         }
 
-        private bool disposedValue;
+
 
         /// <summary>
         /// Retorna o resumo das tasks em execucao, completados e em espera, alem da lista de tasks em execucao
@@ -180,6 +179,8 @@ namespace Propeus.Modulo.Util.Thread
             return sb.ToString();
         }
 
+        private bool disposedValue;
+
         /// <summary>
         /// Cancela todas as tasks e limpa a lista
         /// </summary>
@@ -200,8 +201,7 @@ namespace Propeus.Modulo.Util.Thread
                     _tasksTokenSource.Clear();
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
+
                 disposedValue = true;
             }
         }
@@ -211,7 +211,7 @@ namespace Propeus.Modulo.Util.Thread
         /// </summary>
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

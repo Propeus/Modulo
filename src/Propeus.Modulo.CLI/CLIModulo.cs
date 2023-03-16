@@ -11,13 +11,13 @@ namespace Propeus.Modulo.CLI
     /// </summary>
     [Modulo]
     //[ModuloAutoInicializavel]
-    public class CLIModulo : ModuloBase
+    public class CliModulo : ModuloBase
     {
         /// <summary>
         /// Construtor padrao do <see cref="ModeloBase"/>
         /// </summary>
         /// <param name="gerenciador"></param>
-        public CLIModulo(IGerenciador gerenciador) : base(gerenciador, true)
+        public CliModulo(IGerenciador gerenciador) : base(gerenciador, true)
         {
 
         }
@@ -49,31 +49,31 @@ namespace Propeus.Modulo.CLI
                     ObtionsHelp(args);
                     break;
                 case "create":
-                    CreateCLI.Execute(args, Gerenciador);
+                    CreateCli.Execute(args, Gerenciador);
                     break;
                 case "image":
-                    ImageCLI.ExecuteImage(args, Gerenciador);
+                    ImageCli.ExecuteImage(args, Gerenciador);
                     break;
                 case "images":
-                    ImageCLI.ExecuteImages(args, Gerenciador);
+                    ImageCli.ExecuteImages(args, Gerenciador);
                     break;
                 case "info":
                     System.Console.WriteLine(Gerenciador);
                     break;
                 case "kill":
-                    KillCLI.Execute(args, Gerenciador);
+                    KillCli.Execute(args, Gerenciador);
                     break;
                 case "restart":
-                    RestartCLI.Execute(args, Gerenciador);
+                    RestartCli.Execute(args, Gerenciador);
                     break;
                 case "rm":
-                    RemoveCLI.Execute(args, Gerenciador);
+                    RemoveCli.Execute(args, Gerenciador);
                     break;
                 case "version":
-                    VersionCLI.Execute(args, Gerenciador);
+                    VersionCli.Execute(args, Gerenciador);
                     break;
                 case "cp":
-                    CpCLI.Execute(args, Gerenciador);
+                    CpCli.Execute(args, Gerenciador);
                     break;
                 default:
                     throw new NotImplementedException("Argumento");

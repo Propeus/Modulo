@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class RemoveCLI
+    internal static class RemoveCli
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)

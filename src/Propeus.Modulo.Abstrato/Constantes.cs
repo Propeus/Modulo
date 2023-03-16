@@ -55,7 +55,7 @@ namespace Propeus.Modulo.Abstrato
         /// </summary>
         public const string PARAMETRO_NULO_OU_VAZIO = "O parametro  '{0}' não pode ser nulo ou vazio";
 
-        //TODO:Adicionar as funcoes no gerenciador dinamico
+        
         /// <summary>
         /// Metodo que o gerenciador irá chamar para realizar as configurações
         /// </summary>

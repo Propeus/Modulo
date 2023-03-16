@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.CLI
 {
-    internal static class CreateCLI
+    internal static class CreateCli
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)

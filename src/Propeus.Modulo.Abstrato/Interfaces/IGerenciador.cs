@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Propeus.Modulo.Abstrato.Interfaces
 {
 
-    //TODO: Mudar o nome da interface
+   
     /// <summary>
     /// Interface para criar instancias de modulo passando argumentos
     /// </summary>

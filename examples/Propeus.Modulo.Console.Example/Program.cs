@@ -132,7 +132,7 @@ namespace Propeus.Modulo.Console.Example
             /**
              * Estes são alguns meios e funcionalidades do Propeus.Modulo.Dinamico, entretanto deve levar em consideração alguns pontos
              * 
-             * 1 - Evite a criação e substituição de modulos a todo momento, pois o custo de processamento é elevado por conta da construção do proxy e suas validações em tempo de execução
+             * 1 - Evite a criação e substituição de modulos a qualuqer momento, pois o custo de processamento é elevado por conta da construção do proxy e suas validações em tempo de execução
              * 2 - Assim como o Propeus.Modulo.Core, este gerenciador te permite uma infinidade de possibilidades com um modulo, pois este gerenciador é um modulo que gerencia outros modulos
              * aplicando a suas regras
              * 3 - Assim como o Propeus.Modulo.Core, o uso do using limita o seu tempo de vida à aquele escopo, uma vez que chega ao seu fim, o Propeus.Modulo.Core e Propeus.Modulo.Dinamico são eliminados

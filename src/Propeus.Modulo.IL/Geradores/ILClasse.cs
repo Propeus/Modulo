@@ -199,7 +199,7 @@ namespace Propeus.Modulo.IL.Geradores
             foreach (Token item in GetAcessadores())
             {
                 _ = sb.Append(item.ObterDescricaoEnum().ToLower(CultureInfo.CurrentCulture)).Append(" ");
-            };
+            }
 
             _ = sb.Append("auto ")
              .Append("ansi ")
@@ -285,7 +285,7 @@ namespace Propeus.Modulo.IL.Geradores
             {
                 if (disposing)
                 {
-                    Proxy.ObterBuilder<TypeBuilder>().Dispose();
+                    Proxy.ObterBuilder<TypeBuilder>().DisposeTypeBuilder();
                     Proxy.Dispose();
 
                     foreach (ILCampo campo in Campos)
@@ -322,24 +322,16 @@ namespace Propeus.Modulo.IL.Geradores
                     _acessadores = null;
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~ILClasse()
-        // {
-        //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-        //     Dispose(disposing: false);
-        // }
+     
 
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
             Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
     }
 }

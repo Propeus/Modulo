@@ -6,7 +6,7 @@ using Propeus.Modulo.Abstrato.Interfaces;
 namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
-    /// Classe com o modelo base para todo o projeto
+    /// Classe com o modelo base para o projeto
     /// </summary>
     public class ModeloBase : IBaseModelo
     {
@@ -90,10 +90,8 @@ namespace Propeus.Modulo.Abstrato
         ///<inheritdoc/>
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza em Dispose(bool disposing) acima.
             Dispose(true);
-            // TODO: remover marca de comentário da linha a seguir se o finalizador for substituído acima.
-            //GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
 
