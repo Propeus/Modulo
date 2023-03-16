@@ -5,7 +5,7 @@ namespace Propeus.Modulo.Console.Example
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             ExemploPropeusModuloCore();
             System.Console.ResetColor();
@@ -16,7 +16,7 @@ namespace Propeus.Modulo.Console.Example
 
         private static void ExemploPropeusModuloDinamico()
         {
-            System.Console.ForegroundColor = ConsoleColor.Yellow;
+            System.Console.ForegroundColor = System.ConsoleColor.Yellow;
             System.Console.WriteLine("Exemplo de uso do Propeus.Modulo.Dinamico");
 
             /**
@@ -153,7 +153,7 @@ namespace Propeus.Modulo.Console.Example
 
         static void ExemploPropeusModuloCore()
         {
-            System.Console.ForegroundColor = ConsoleColor.Green;
+            System.Console.ForegroundColor = System.ConsoleColor.Green;
             System.Console.WriteLine("Exemplo de uso do Propeus.Modulo.Core");
 
             /**

@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Linq;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
@@ -300,7 +303,6 @@ namespace Propeus.Modulo.Core.Tests
             gerenciador.RemoverTodos();
             Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
 
-            modulos.All(m => m.Estado == Estado.Desligado);
 
         }
         [TestMethod()]

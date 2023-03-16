@@ -45,5 +45,5 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Propeus_Modulo" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore ./src/Modulo.sln
           dotnet build ./src/Modulo.sln --no-restore
-          dotnet test ./src/Modulo.sln --no-build --verbosity normal
+          dotnet test ./src/Modulo.sln --no-build --verbosity normal --collect "Code Coverage"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
