@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -23,31 +22,13 @@ namespace Propeus.Modulo.Util
         /// <exception cref="Exception">Caso nao existe o contrutor com os parametros informado</exception>
         public static ConstructorInfo ObterConstrutor(this Type type, Type[] parametros = null)
         {
-            ConstructorInfo ctor = null;
-            if (parametros is null || !parametros.Any())
-            {
-                ctor = type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0);
-
-                //if (ctor == null)
-                //{
-                //    throw new Exception("Nao existem construtores sem parametro para este tipo");
-                //}
-            }
-            else
-            {
-                ctor = type.GetConstructors().FirstOrDefault(ct =>
+            ConstructorInfo ctor = parametros is null || !parametros.Any()
+                ? type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0)
+                : type.GetConstructors().FirstOrDefault(ct =>
                                 {
                                     IEnumerable<Type> tParametros = ct.ObterTipoParametros();
                                     return tParametros.ContainsAll(parametros);
                                 });
-
-                //if (ctor == null)
-                //{
-                //    throw new Exception("Nao existem construtores com os parametros informado");
-                //}
-            }
-
-
             return ctor;
         }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,19 +17,19 @@ namespace Propeus.Modulo.Util.Console
         /// <returns>Texto inserido no console</returns>
         public static string ReadLine(CancellationToken cancellationToken)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             Task.Run(() =>
             {
                 try
                 {
                     ConsoleKeyInfo keyInfo;
-                    var startingLeft = System.Console.CursorLeft;
-                    var startingTop = System.Console.CursorTop;
-                    var currentIndex = 0;
+                    int startingLeft = System.Console.CursorLeft;
+                    int startingTop = System.Console.CursorTop;
+                    int currentIndex = 0;
                     do
                     {
-                        var previousLeft = System.Console.CursorLeft;
-                        var previousTop = System.Console.CursorTop;
+                        int previousLeft = System.Console.CursorLeft;
+                        int previousTop = System.Console.CursorTop;
                         while (!System.Console.KeyAvailable)
                         {
                             cancellationToken.ThrowIfCancellationRequested();
@@ -105,13 +103,13 @@ namespace Propeus.Modulo.Util.Console
                             case ConsoleKey.OemMinus:
                             case ConsoleKey.OemPeriod:
                             case ConsoleKey.OemPlus:
-                                stringBuilder.Insert(currentIndex, keyInfo.KeyChar);
+                                _ = stringBuilder.Insert(currentIndex, keyInfo.KeyChar);
                                 currentIndex++;
                                 if (currentIndex < stringBuilder.Length)
                                 {
-                                    var left = System.Console.CursorLeft;
-                                    var top = System.Console.CursorTop;
-                                    System.Console.Write(stringBuilder.ToString().Substring(currentIndex));
+                                    int left = System.Console.CursorLeft;
+                                    int top = System.Console.CursorTop;
+                                    System.Console.Write(stringBuilder.ToString()[currentIndex..]);
                                     System.Console.SetCursorPosition(left, top);
                                 }
                                 break;
@@ -119,16 +117,16 @@ namespace Propeus.Modulo.Util.Console
                                 if (currentIndex > 0)
                                 {
                                     currentIndex--;
-                                    stringBuilder.Remove(currentIndex, 1);
-                                    var left = System.Console.CursorLeft;
-                                    var top = System.Console.CursorTop;
+                                    _ = stringBuilder.Remove(currentIndex, 1);
+                                    int left = System.Console.CursorLeft;
+                                    int top = System.Console.CursorTop;
                                     if (left == previousLeft)
                                     {
                                         left = System.Console.BufferWidth - 1;
                                         top--;
                                         System.Console.SetCursorPosition(left, top);
                                     }
-                                    System.Console.Write(stringBuilder.ToString().Substring(currentIndex) + " ");
+                                    System.Console.Write(stringBuilder.ToString()[currentIndex..] + " ");
                                     System.Console.SetCursorPosition(left, top);
                                 }
                                 else
@@ -139,20 +137,23 @@ namespace Propeus.Modulo.Util.Console
                             case ConsoleKey.Delete:
                                 if (stringBuilder.Length > currentIndex)
                                 {
-                                    stringBuilder.Remove(currentIndex, 1);
+                                    _ = stringBuilder.Remove(currentIndex, 1);
                                     System.Console.SetCursorPosition(previousLeft, previousTop);
-                                    System.Console.Write(stringBuilder.ToString().Substring(currentIndex) + " ");
+                                    System.Console.Write(stringBuilder.ToString()[currentIndex..] + " ");
                                     System.Console.SetCursorPosition(previousLeft, previousTop);
                                 }
                                 else
+                                {
                                     System.Console.SetCursorPosition(previousLeft, previousTop);
+                                }
+
                                 break;
                             case ConsoleKey.LeftArrow:
                                 if (currentIndex > 0)
                                 {
                                     currentIndex--;
-                                    var left = System.Console.CursorLeft - 2;
-                                    var top = System.Console.CursorTop;
+                                    int left = System.Console.CursorLeft - 2;
+                                    int top = System.Console.CursorTop;
                                     if (left < 0)
                                     {
                                         left = System.Console.BufferWidth + left;
@@ -169,7 +170,10 @@ namespace Propeus.Modulo.Util.Console
                                 {
                                     System.Console.SetCursorPosition(startingLeft, startingTop);
                                     if (stringBuilder.Length > 0)
+                                    {
                                         System.Console.Write(stringBuilder[0]);
+                                    }
+
                                     System.Console.SetCursorPosition(startingLeft, startingTop);
                                 }
                                 break;
@@ -199,8 +203,8 @@ namespace Propeus.Modulo.Util.Console
                                 {
                                     System.Console.SetCursorPosition(previousLeft, previousTop);
                                     System.Console.Write(stringBuilder[currentIndex]);
-                                    var left = previousLeft + stringBuilder.Length - currentIndex;
-                                    var top = previousTop;
+                                    int left = previousLeft + stringBuilder.Length - currentIndex;
+                                    int top = previousTop;
                                     while (left > System.Console.BufferWidth)
                                     {
                                         left -= System.Console.BufferWidth;
@@ -210,7 +214,10 @@ namespace Propeus.Modulo.Util.Console
                                     System.Console.SetCursorPosition(left, top);
                                 }
                                 else
+                                {
                                     System.Console.SetCursorPosition(previousLeft, previousTop);
+                                }
+
                                 break;
                             default:
                                 System.Console.SetCursorPosition(previousLeft, previousTop);
@@ -222,7 +229,7 @@ namespace Propeus.Modulo.Util.Console
                 catch
                 {
                     //MARK: Change this based on your need. See description below.
-                    stringBuilder.Clear();
+                    _ = stringBuilder.Clear();
                 }
             }).Wait();
             return stringBuilder.ToString();

@@ -124,7 +124,7 @@ namespace Propeus.Modulo.Util
                 throw new ArgumentException(nameof(@enum));
             }
         }
-      
+
         /// <summary>
         /// Obtém a descrição do enum
         /// </summary>

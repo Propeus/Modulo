@@ -11,7 +11,7 @@ using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 
-namespace Propeus.Modulo.IL.Playground
+namespace Propeus.Modulo.Playground
 {
 
     [ModuloContrato(typeof(ModuloTesteA))]
@@ -91,7 +91,7 @@ namespace Propeus.Modulo.IL.Playground
         }
     }
 
-   
+
     internal class Program
     {
 
@@ -120,11 +120,9 @@ namespace Propeus.Modulo.IL.Playground
             //{
             //    Console.WriteLine(arg);
             //}
-            using (var genv2 = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual, new Dinamico.GerenciadorConfiguracao { CarregamentoRapido = false }))
-            {
-                //genv2.Criar<ICLIModuloContrato>(args);
-                genv2.ManterVivoAsync().Wait();
-            }
+            using Dinamico.Gerenciador genv2 = new(Core.Gerenciador.Atual, new Dinamico.GerenciadorConfiguracao { CarregamentoRapido = false });
+            //genv2.Criar<ICLIModuloContrato>(args);
+            genv2.ManterVivoAsync().Wait();
 
             return;
 
@@ -144,13 +142,13 @@ namespace Propeus.Modulo.IL.Playground
 
         private static void GerenciadorDeTask()
         {
-            ConcurrentDictionary<int, int> keyValuePairs = new ConcurrentDictionary<int, int>();
+            ConcurrentDictionary<int, int> keyValuePairs = new();
 
-            Util.Thread.TaskJob cronTask = new Util.Thread.TaskJob(10);
+            Util.Thread.TaskJob cronTask = new(10);
 
-            Parallel.For(0, 9999, (i) =>
+            _ = Parallel.For(0, 9999, (i) =>
             {
-                cronTask.AddTask((state) =>
+                _ = cronTask.AddTask((state) =>
                 {
                     CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)state;
                     if (!keyValuePairs.TryAdd(i, 0))
@@ -161,7 +159,7 @@ namespace Propeus.Modulo.IL.Playground
                     if (keyValuePairs[i] >= 3)
                     {
                         cancellationTokenSource.Cancel();
-                        keyValuePairs.TryRemove(i, out int _);
+                        _ = keyValuePairs.TryRemove(i, out _);
                     }
                     //System.Console.WriteLine(i);
                 }, TimeSpan.FromSeconds(1), "JOB - " + i);
@@ -183,7 +181,7 @@ namespace Propeus.Modulo.IL.Playground
         {
             foreach (object o in args)
             {
-                global::System.Console.WriteLine(o.ToString());
+                System.Console.WriteLine(o.ToString());
             }
         }
 

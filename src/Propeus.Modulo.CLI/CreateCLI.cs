@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
-    static class CreateCLI
+    internal static class CreateCLI
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)
@@ -22,7 +16,7 @@ namespace Propeus.Modulo.CLI
                         switch (args[3])
                         {
                             case "--args":
-                                (gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
+                                _ = (gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
                                 break;
                             default:
                                 break;
@@ -30,7 +24,7 @@ namespace Propeus.Modulo.CLI
                     }
                     else
                     {
-                        gerenciador.Criar(args[2]);
+                        _ = gerenciador.Criar(args[2]);
                     }
                     break;
                 case "help":

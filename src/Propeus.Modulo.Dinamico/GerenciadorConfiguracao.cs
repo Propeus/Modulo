@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Propeus.Modulo.Dinamico
+﻿namespace Propeus.Modulo.Dinamico
 {
     /// <summary>
     /// Classe de configuracao do <see cref="Gerenciador"/>

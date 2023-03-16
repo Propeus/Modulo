@@ -1,18 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Dinamico;
 using Propeus.Modulo.WorkerService;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Propeus.Modulo.WorkerService.Tests
+namespace Propeus.Modulo.WorkerServiceTests
 {
     [Modulo]
     public class ModuloTesteWorker : BackgroundServiceModulo
@@ -25,7 +22,7 @@ namespace Propeus.Modulo.WorkerService.Tests
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                System.Console.WriteLine("Worker running at: {0}", DateTimeOffset.Now);
+                Console.WriteLine("Worker running at: {0}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
         }
@@ -54,24 +51,24 @@ namespace Propeus.Modulo.WorkerService.Tests
         public void BackgroundServiceModuloTest()
         {
             //TODO: Adicionar 'Exception' no IModulo
-            gerenciador.Criar<ModuloTesteWorker>();
-            var worker = gerenciador.Obter<ModuloTesteWorker>();
+            _ = gerenciador.Criar<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
             Assert.AreEqual(Abstrato.Estado.Inicializado, worker.Estado);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            gerenciador.Criar<ModuloTesteWorker>();
-            var worker = gerenciador.Obter<ModuloTesteWorker>();
+            _ = gerenciador.Criar<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
             Assert.IsNotNull(worker.ToString());
         }
 
         [TestMethod()]
         public void DisposeTest()
         {
-            gerenciador.Criar<ModuloTesteWorker>();
-            var worker = gerenciador.Obter<ModuloTesteWorker>();
+            _ = gerenciador.Criar<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
             Assert.AreEqual(Abstrato.Estado.Inicializado, worker.Estado);
             gerenciador.Remover(worker);
             Assert.AreEqual(Abstrato.Estado.Desligado, worker.Estado);

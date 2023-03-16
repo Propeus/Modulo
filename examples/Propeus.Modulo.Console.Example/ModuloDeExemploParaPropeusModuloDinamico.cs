@@ -1,7 +1,6 @@
 ﻿using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Console.Example
 {
@@ -77,7 +76,9 @@ namespace Propeus.Modulo.Console.Example
         public void EscreverOlaMundo()
         {
             if (outroModulo is not null)
+            {
                 outroModulo.EscreverOlaMundo();
+            }
             else
             {
                 System.Console.WriteLine("Olá mundo!");
@@ -113,10 +114,7 @@ namespace Propeus.Modulo.Console.Example
 
         public void CriarConfigurcao()
         {
-            if(mensagem is null)
-            {
-                mensagem = "O valor da some é...";
-            }
+            mensagem ??= "O valor da some é...";
         }
 
         //Implemente os metodos e propriedades que o modulo deve possuir.
@@ -157,10 +155,7 @@ namespace Propeus.Modulo.Console.Example
 
         public void CriarConfiguracao()
         {
-            if (mensagem is null)
-            {
-                mensagem = "O valor da some é...";
-            }
+            mensagem ??= "O valor da some é...";
         }
 
         //Implemente os metodos e propriedades que o modulo deve possuir.

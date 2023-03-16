@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Runtime.Loader;
-using System.Text;
-using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -16,8 +12,7 @@ using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
-
-    class Modulo : IDisposable
+    internal class Modulo : IDisposable
     {
         public Modulo(string filePath)
         {
@@ -27,17 +22,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             CarregarDll();
         }
 
-        public Type this[string name]
-        {
-            get
-            {
-                if (Modulos.Contains(name))
-                {
-                    return TypeProvider.Get(name);
-                }
-                return null;
-            }
-        }
+        public Type this[string name] => Modulos.Contains(name) ? TypeProvider.Get(name) : null;
 
         public void Recarregar()
         {
@@ -58,7 +43,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
 
             string nHash = null;
-            using (MemoryStream reader = new MemoryStream())
+            using (MemoryStream reader = new())
             {
                 using (FileStream arquivo = new(Local, FileMode.Open, FileAccess.Read))
                 {
@@ -75,15 +60,15 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
             if (Hash != nHash)
             {
-                if (this.AssemblyLoadContext != null)
+                if (AssemblyLoadContext != null)
                 {
-                    this.AssemblyLoadContext.Unload();
+                    AssemblyLoadContext.Unload();
                     CurrentAssembly.SetTarget(ObterModulo(Local));
                 }
                 else
                 {
-                    this.AssemblyLoadContext = new AssemblyLoadContext(null, true);
-                    this.AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
+                    AssemblyLoadContext = new AssemblyLoadContext(null, true);
+                    AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
                     CurrentAssembly = new WeakReference<Assembly>(ObterModulo(Local));
                 }
             }
@@ -108,20 +93,18 @@ namespace Propeus.Modulo.Abstrato.Proveders
         }
         private Assembly ObterModulo(string location)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using MemoryStream ms = new();
+            using (FileStream arquivo = new(location, FileMode.Open, FileAccess.Read))
             {
-                using (FileStream arquivo = new(location, FileMode.Open, FileAccess.Read))
+                using (BinaryReader binario = new(arquivo))
                 {
-                    using (BinaryReader binario = new(arquivo))
-                    {
-                        binario.BaseStream.CopyTo(ms);
-                        binario.Close();
-                    }
-                    arquivo.Close();
+                    binario.BaseStream.CopyTo(ms);
+                    binario.Close();
                 }
-                _ = ms.Seek(0, SeekOrigin.Begin);
-                return this.AssemblyLoadContext.LoadFromStream(ms);
+                arquivo.Close();
             }
+            _ = ms.Seek(0, SeekOrigin.Begin);
+            return AssemblyLoadContext.LoadFromStream(ms);
         }
         public bool Valido { get; private set; }
         public DateTime? UltimaModificacao { get; private set; }
@@ -204,11 +187,11 @@ namespace Propeus.Modulo.Abstrato.Proveders
             CarregarModulos(dlls);
         }
 
-        static void CarregarModulos(string[] dlls)
+        private static void CarregarModulos(string[] dlls)
         {
 
             //Possivel tratamento de descarregamento de assembly para evitar vazamento de memoria
-            foreach (var dll in dlls)
+            foreach (string dll in dlls)
             {
                 if (ModulosIgnorados.ContainsKey(dll) || Modulos.ContainsKey(dll))
                 {
@@ -217,13 +200,13 @@ namespace Propeus.Modulo.Abstrato.Proveders
                         target.Recarregar();
                         if (!target.Valido)
                         {
-                            Modulos.TryRemove(dll, out _);
-                            ModulosIgnorados.TryAdd(dll, target);
+                            _ = Modulos.TryRemove(dll, out _);
+                            _ = ModulosIgnorados.TryAdd(dll, target);
 
-                            var keys = TipoModulo.Where(x => x.Value == target).Select(x => x.Key);
-                            foreach (var item in keys)
+                            IEnumerable<string> keys = TipoModulo.Where(x => x.Value == target).Select(x => x.Key);
+                            foreach (string item in keys)
                             {
-                                TipoModulo.TryRemove(item, out _);
+                                _ = TipoModulo.TryRemove(item, out _);
                             }
                         }
 
@@ -234,31 +217,31 @@ namespace Propeus.Modulo.Abstrato.Proveders
                         targetIgnored.Recarregar();
                         if (targetIgnored.Valido)
                         {
-                            ModulosIgnorados.TryRemove(dll, out _);
-                            Modulos.TryAdd(dll, targetIgnored);
-                            foreach (var item in targetIgnored.Modulos)
+                            _ = ModulosIgnorados.TryRemove(dll, out _);
+                            _ = Modulos.TryAdd(dll, targetIgnored);
+                            foreach (string item in targetIgnored.Modulos)
                             {
-                                TipoModulo.TryAdd(item, targetIgnored);
+                                _ = TipoModulo.TryAdd(item, targetIgnored);
                             }
                         }
                     }
                     continue;
                 }
 
-                var modulo = new Modulo(dll);
+                Modulo modulo = new(dll);
                 if (modulo.Valido)
                 {
                     if (Modulos.TryAdd(dll, modulo))
                     {
-                        foreach (var moduleName in modulo.Modulos)
+                        foreach (string moduleName in modulo.Modulos)
                         {
-                            TipoModulo.TryAdd(moduleName, modulo);
+                            _ = TipoModulo.TryAdd(moduleName, modulo);
                         }
                     }
                 }
                 else
                 {
-                    ModulosIgnorados.TryAdd(dll, modulo);
+                    _ = ModulosIgnorados.TryAdd(dll, modulo);
                 }
             }
         }

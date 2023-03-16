@@ -1,15 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.Util;
 using Propeus.Modulo.IL.Enums;
-
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Proxy;
-using Propeus.Modulo.IL.API;
-using System.Collections.Generic;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.IL.Helpers
 {
@@ -22,7 +20,7 @@ namespace Propeus.Modulo.IL.Helpers
                 throw new ArgumentNullException(nameof(iLGerador));
             }
 
-            Type tClasse = classe;           
+            Type tClasse = classe;
 
             ILClasseProvider cls = iLGerador;
 
@@ -52,14 +50,14 @@ namespace Propeus.Modulo.IL.Helpers
             //var mthInterfaces = interfaces.SelectMany(i => i.GetMethods()).ToDictionary((k=> k), (v => true));
             //var mths = tClasse.GetMethods().ToDictionary((k=> k),(v=> false));
 
-            var mthInterfaces = interfaces.SelectMany(i => i.GetMethods());
-            var mths = tClasse.GetMethods();
+            IEnumerable<MethodInfo> mthInterfaces = interfaces.SelectMany(i => i.GetMethods());
+            MethodInfo[] mths = tClasse.GetMethods();
 
-            var methods = mthInterfaces.FullJoinDictionaryMethodInfo(mths);
+            IDictionary<MethodInfo, bool> methods = mthInterfaces.FullJoinDictionaryMethodInfo(mths);
 
-            foreach (var metodoKP in methods)
+            foreach (KeyValuePair<MethodInfo, bool> metodoKP in methods)
             {
-                var metodo = metodoKP.Key;
+                MethodInfo metodo = metodoKP.Key;
 
                 if (metodo.Name.Contains("get_") || metodo.Name.Contains("set_"))
                 {
@@ -68,10 +66,10 @@ namespace Propeus.Modulo.IL.Helpers
                 Token[] _acessadores;
                 if (metodoKP.Value)
                 {
-                    var _acessadoresL = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>().ToList();
-                    _acessadoresL.Remove(Token.Abstrato);
-                    _acessadoresL.Remove(Token.ReusoSlot);
-                    _acessadoresL.Remove(Token.VtableLayoutMask);
+                    List<Token> _acessadoresL = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>().ToList();
+                    _ = _acessadoresL.Remove(Token.Abstrato);
+                    _ = _acessadoresL.Remove(Token.ReusoSlot);
+                    _ = _acessadoresL.Remove(Token.VtableLayoutMask);
                     _acessadoresL.Add(Token.Final);
                     _acessadoresL.Add(Token.NovoSlot);
                     _acessadores = _acessadoresL.ToArray();
@@ -97,7 +95,7 @@ namespace Propeus.Modulo.IL.Helpers
                 {
                     API.MetodoAPI.CarregarArgumento(mth, i);
                 }
-                var cmpMetodo = tClasse.GetMethod(metodo.Name);
+                MethodInfo cmpMetodo = tClasse.GetMethod(metodo.Name);
                 API.MetodoAPI.ChamarFuncao(mth, cmpMetodo);
                 API.MetodoAPI.CriarRetorno(mth);
             }
@@ -161,13 +159,13 @@ namespace Propeus.Modulo.IL.Helpers
 
             #region Atributos
             //Gera somente atributos com construtores padrao (sem parametros)
-            var attrs = tClasse.GetCustomAttributes();
-            foreach (var attr in attrs)
+            IEnumerable<Attribute> attrs = tClasse.GetCustomAttributes();
+            foreach (Attribute attr in attrs)
             {
-                var ctor = attr.GetType().ObterConstrutor();
+                ConstructorInfo ctor = attr.GetType().ObterConstrutor();
                 if (ctor != null)
                 {
-                    CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor, Array.Empty<object>());
+                    CustomAttributeBuilder attributeBuilder = new(ctor, Array.Empty<object>());
                     cls.Atual.Proxy.ObterBuilder<TypeBuilder>().SetCustomAttribute(attributeBuilder);
                 }
 
@@ -216,14 +214,14 @@ namespace Propeus.Modulo.IL.Helpers
             //var mthInterfaces = interfaces.SelectMany(i => i.GetMethods()).ToDictionary((k=> k), (v => true));
             //var mths = tClasse.GetMethods().ToDictionary((k=> k),(v=> false));
 
-            var mthInterfaces = interfaces.SelectMany(i => i.GetMethods());
-            var mths = tClasse.GetMethods();
+            IEnumerable<MethodInfo> mthInterfaces = interfaces.SelectMany(i => i.GetMethods());
+            MethodInfo[] mths = tClasse.GetMethods();
 
-            var methods= mthInterfaces.FullJoinDictionaryMethodInfo(mths);
+            IDictionary<MethodInfo, bool> methods = mthInterfaces.FullJoinDictionaryMethodInfo(mths);
 
-            foreach (var metodoKP in methods)
+            foreach (KeyValuePair<MethodInfo, bool> metodoKP in methods)
             {
-                var metodo = metodoKP.Key;
+                MethodInfo metodo = metodoKP.Key;
 
                 if (metodo.Name.Contains("get_") || metodo.Name.Contains("set_"))
                 {
@@ -232,10 +230,10 @@ namespace Propeus.Modulo.IL.Helpers
                 Token[] _acessadores;
                 if (metodoKP.Value)
                 {
-                    var _acessadoresL = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>().ToList();
-                    _acessadoresL.Remove(Token.Abstrato);
-                    _acessadoresL.Remove(Token.ReusoSlot);
-                    _acessadoresL.Remove(Token.VtableLayoutMask);
+                    List<Token> _acessadoresL = metodo.Attributes.DividirEnum().ParseEnum<MethodAttributes, Token>().ToList();
+                    _ = _acessadoresL.Remove(Token.Abstrato);
+                    _ = _acessadoresL.Remove(Token.ReusoSlot);
+                    _ = _acessadoresL.Remove(Token.VtableLayoutMask);
                     _acessadoresL.Add(Token.Final);
                     _acessadoresL.Add(Token.NovoSlot);
                     _acessadores = _acessadoresL.ToArray();
@@ -251,7 +249,7 @@ namespace Propeus.Modulo.IL.Helpers
                 }
                 else
                 {
-                    API.ClasseAPI.CriarMetodo(cls.Atual, _acessadores, metodo.ReturnType, metodo.Name, metodo.GetParameters().Select(p => new ILParametro(metodo.Name, p.ParameterType,p.IsOptional,p.DefaultValue,p.Name)).ToArray());
+                    API.ClasseAPI.CriarMetodo(cls.Atual, _acessadores, metodo.ReturnType, metodo.Name, metodo.GetParameters().Select(p => new ILParametro(metodo.Name, p.ParameterType, p.IsOptional, p.DefaultValue, p.Name)).ToArray());
                 }
 
                 ILMetodo mth = cls.Atual.Metodos.Last();
@@ -261,7 +259,7 @@ namespace Propeus.Modulo.IL.Helpers
                 {
                     API.MetodoAPI.CarregarArgumento(mth, i);
                 }
-                var cmpMetodo = tClasse.GetMethod(metodo.Name);
+                MethodInfo cmpMetodo = tClasse.GetMethod(metodo.Name);
                 API.MetodoAPI.ChamarFuncao(mth, cmpMetodo);
                 API.MetodoAPI.CriarRetorno(mth);
             }
@@ -325,13 +323,13 @@ namespace Propeus.Modulo.IL.Helpers
 
             #region Atributos
             //Gera somente atributos com construtores padrao (sem parametros)
-            var attrs = tClasse.GetCustomAttributes();
-            foreach (var attr in attrs)
+            IEnumerable<Attribute> attrs = tClasse.GetCustomAttributes();
+            foreach (Attribute attr in attrs)
             {
-                var ctor = attr.GetType().ObterConstrutor();
+                ConstructorInfo ctor = attr.GetType().ObterConstrutor();
                 if (ctor != null)
                 {
-                    CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor, Array.Empty<object>());
+                    CustomAttributeBuilder attributeBuilder = new(ctor, Array.Empty<object>());
                     cls.Atual.Proxy.ObterBuilder<TypeBuilder>().SetCustomAttribute(attributeBuilder);
                 }
 

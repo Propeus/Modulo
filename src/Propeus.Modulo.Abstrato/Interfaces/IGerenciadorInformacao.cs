@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Interfaces
 {
@@ -12,7 +8,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
     /// </summary>
     public interface IGerenciadorInformacao
     {
-       
+
 
         /// <summary>
         /// Obtem o <see cref="IModuloTipo"/> de <typeparamref name="T"/> caso exista

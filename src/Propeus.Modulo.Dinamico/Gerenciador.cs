@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Util;
+using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
+using Propeus.Modulo.Util;
 using Propeus.Modulo.Util.Thread;
-using Propeus.Modulo.Abstrato.Exceptions;
-using System.Reflection;
-using Propeus.Modulo.Abstrato.Proveders;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -41,12 +40,12 @@ namespace Propeus.Modulo.Dinamico
 
             CARREGAR_MODULO_JOB(null);
 
-            _scheduler.AddTask(CARREGAR_MODULO_JOB, TimeSpan.FromSeconds(1), "CARREGAR_MODULO_JOB");
-            _scheduler.AddTask(AUTO_INICIALIZAR_MODULO_JOB, TimeSpan.FromSeconds(1), "AUTO_INICIALIZAR_MODULO_JOB");
+            _ = _scheduler.AddTask(CARREGAR_MODULO_JOB, TimeSpan.FromSeconds(1), "CARREGAR_MODULO_JOB");
+            _ = _scheduler.AddTask(AUTO_INICIALIZAR_MODULO_JOB, TimeSpan.FromSeconds(1), "AUTO_INICIALIZAR_MODULO_JOB");
 
         }
 
-        private TaskJob _scheduler;
+        private readonly TaskJob _scheduler;
 
         /// <summary>
         /// Configuracoes do gerenciador
@@ -61,7 +60,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
-        public int ModulosInicializados => ((Gerenciador is IGerenciadorDiagnostico) ? (Gerenciador as IGerenciadorDiagnostico).ModulosInicializados : -1);
+        public int ModulosInicializados => (Gerenciador is IGerenciadorDiagnostico) ? (Gerenciador as IGerenciadorDiagnostico).ModulosInicializados : -1;
         private Dictionary<string, ILClasseProvider> ModuloProvider { get; }
 
 
@@ -224,11 +223,11 @@ namespace Propeus.Modulo.Dinamico
             }
 
             //TODO: Obter construtor de maior quantidade de parametros
-            var ctors = modulo.GetConstructors();
-            foreach (var ctor in ctors)
+            ConstructorInfo[] ctors = modulo.GetConstructors();
+            foreach (ConstructorInfo ctor in ctors)
             {
-                var @params = ctor.GetParameters();
-                foreach (var @param in @params)
+                ParameterInfo[] @params = ctor.GetParameters();
+                foreach (ParameterInfo @param in @params)
                 {
                     if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuloContratoAttribute>())
                     {
@@ -236,7 +235,7 @@ namespace Propeus.Modulo.Dinamico
                         {
                             try
                             {
-                                this.ResoverContratos(param.ParameterType);
+                                _ = ResoverContratos(param.ParameterType);
                             }
                             catch (ModuloNaoEncontradoException)
                             {
@@ -245,7 +244,7 @@ namespace Propeus.Modulo.Dinamico
                         }
                         else
                         {
-                            this.ResoverContratos(param.ParameterType);
+                            _ = ResoverContratos(param.ParameterType);
                         }
                     }
                 }
@@ -410,19 +409,12 @@ namespace Propeus.Modulo.Dinamico
 
             T modulo = (T)Criar(typeof(T));
 
-            var mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            MethodInfo mthInstancia = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
 
-            if (args.GetType() == typeof(string[]))
-            {
-                mthInstancia?.Invoke(modulo, new object[] { args });
-            }
-            else
-            {
-                mthInstancia?.Invoke(modulo, args);
-            }
+            _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
 
-            var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            mthConfiguracao?.Invoke(modulo, Array.Empty<object>());
+            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
 
             return modulo;
 
@@ -506,18 +498,13 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(modulo);
 
-            var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            if (args.GetType() == typeof(string[]))
-            {
-                mthInstancia?.Invoke(iModulo, new object[] { args });
-            }
-            else
-            {
-                mthInstancia?.Invoke(iModulo, args);
-            }
+            MethodInfo mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            _ = args.GetType() == typeof(string[])
+                ? (mthInstancia?.Invoke(iModulo, new object[] { args }))
+                : (mthInstancia?.Invoke(iModulo, args));
 
-            var mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            mthConfiguracao?.Invoke(modulo, Array.Empty<object>());
+            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
 
             return iModulo;
 
@@ -602,18 +589,13 @@ namespace Propeus.Modulo.Dinamico
         {
             IModulo iModulo = Criar(Nome);
 
-            var mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            if (args.GetType() == typeof(string[]))
-            {
-                mthInstancia?.Invoke(iModulo, new object[] { args });
-            }
-            else
-            {
-                mthInstancia?.Invoke(iModulo, args);
-            }
+            MethodInfo mthInstancia = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+            _ = args.GetType() == typeof(string[])
+                ? (mthInstancia?.Invoke(iModulo, new object[] { args }))
+                : (mthInstancia?.Invoke(iModulo, args));
 
-            var mthConfiguracao = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
-            mthConfiguracao?.Invoke(iModulo, Array.Empty<object>());
+            MethodInfo mthConfiguracao = iModulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            _ = (mthConfiguracao?.Invoke(iModulo, Array.Empty<object>()));
 
             return iModulo;
         }
@@ -1552,7 +1534,7 @@ namespace Propeus.Modulo.Dinamico
         protected override void Dispose(bool disposing)
         {
             RemoverTodos();
-            this._scheduler.Dispose();
+            _scheduler.Dispose();
             base.Dispose(disposing);
         }
 
@@ -1578,11 +1560,11 @@ namespace Propeus.Modulo.Dinamico
         private void AUTO_INICIALIZAR_MODULO_JOB(object cancelationToken)
         {
             //Como autoinicialziar agora?
-            foreach (var modulo in TypeProvider.ObterAutoInicializavel())
+            foreach (Type modulo in TypeProvider.ObterAutoInicializavel())
             {
                 if (!Existe(modulo))
                 {
-                    Criar(modulo);
+                    _ = Criar(modulo);
                 }
             }
 
@@ -1818,7 +1800,9 @@ namespace Propeus.Modulo.Dinamico
         private Type ResoverContratos(Type contrato)
         {
             if (!contrato.IsInterface)
+            {
                 throw new ArgumentException("O tipo nao e uma interface");
+            }
 
             if (contrato.PossuiAtributo<ModuloContratoAttribute>())
             {
@@ -1842,7 +1826,7 @@ namespace Propeus.Modulo.Dinamico
                 }
                 else
                 {
-                    ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: TypeProvider.ObterContratos(tipoImplementacao).ToArray()).CriarProxyClasse(tipoImplementacao,TypeProvider.ObterContratos(tipoImplementacao).ToArray());
+                    _ = ModuloProvider[tipoImplementacao.Name].NovaVersao(interfaces: TypeProvider.ObterContratos(tipoImplementacao).ToArray()).CriarProxyClasse(tipoImplementacao, TypeProvider.ObterContratos(tipoImplementacao).ToArray());
                 }
 
                 ModuloProvider[tipoImplementacao.Name].Executar();

@@ -1,11 +1,10 @@
 ﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.Console.Example
 {
     internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             ExemploPropeusModuloCore();
             System.Console.ResetColor();
@@ -24,7 +23,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Para inicializar ele é necessario passar um gerenciador "nativo" ou de nivel superior
              * **/
-            using(IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.Criar<IInterfaceDeContratoDeExemploParaPropeusModuloDinamico>();
@@ -151,7 +150,7 @@ namespace Propeus.Modulo.Console.Example
 
         }
 
-        static void ExemploPropeusModuloCore()
+        private static void ExemploPropeusModuloCore()
         {
             System.Console.ForegroundColor = System.ConsoleColor.Green;
             System.Console.WriteLine("Exemplo de uso do Propeus.Modulo.Core");

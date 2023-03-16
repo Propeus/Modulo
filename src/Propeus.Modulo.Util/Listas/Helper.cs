@@ -19,13 +19,11 @@ namespace Propeus.Modulo.Util
         /// <param name="filePaths">Lista caminhos de arquivos a serem salvos</param>
         public static void SaveFilePathsToFile(this string filePath, HashSet<string> filePaths)
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using StreamWriter writer = new(filePath);
+            foreach (string path in filePaths)
             {
-                foreach (string path in filePaths)
-                {
-                    writer.Write(path);
-                    writer.Write('\t');
-                }
+                writer.Write(path);
+                writer.Write('\t');
             }
         }
 
@@ -37,24 +35,27 @@ namespace Propeus.Modulo.Util
         /// <returns>Retorna a lista de <see cref="HashSet{T}"/></returns>
         public static HashSet<string> LoadFilePathsAsHashSet(this string filePath, int blockSize = 4096)
         {
-            HashSet<string> filePathHashSet = new HashSet<string>();
+            HashSet<string> filePathHashSet = new();
 
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (StreamReader reader = new StreamReader(fileStream))
+            using (FileStream fileStream = new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (StreamReader reader = new(fileStream))
             {
                 char[] buffer = new char[blockSize];
                 int bytesRead;
 
                 while ((bytesRead = reader.ReadBlock(buffer, 0, blockSize)) > 0)
                 {
-                    string block = new string(buffer, 0, bytesRead);
+                    string block = new(buffer, 0, bytesRead);
                     string[] paths = block.Split('\t');
 
                     foreach (string path in paths)
                     {
-                        if (string.IsNullOrEmpty(path)) continue;
+                        if (string.IsNullOrEmpty(path))
+                        {
+                            continue;
+                        }
 
-                        filePathHashSet.Add(path);
+                        _ = filePathHashSet.Add(path);
                     }
                 }
             }
@@ -117,14 +118,14 @@ namespace Propeus.Modulo.Util
 
             if (direita is null)
             {
-                return esquerda.ToDictionary((k => k), (v => false));
+                return esquerda.ToDictionary(k => k, v => false);
             }
 
             IDictionary<T, bool> join = new Dictionary<T, bool>();
             foreach (T ia in esquerda)
             {
-                    join.Add(ia, true);
-                }
+                join.Add(ia, true);
+            }
             foreach (T ib in direita)
             {
                 if (!join.ContainsKey(ib))
@@ -154,7 +155,7 @@ namespace Propeus.Modulo.Util
 
             if (direita is null)
             {
-                return esquerda.ToDictionary((k => k), (v => false));
+                return esquerda.ToDictionary(k => k, v => false);
             }
 
             IDictionary<MethodInfo, bool> join = new Dictionary<MethodInfo, bool>();

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,10 +10,9 @@ using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
-
-    class TypeInfo
+    internal class TypeInfo
     {
-        Dictionary<string, WeakReference<Type>> contratos;
+        private readonly Dictionary<string, WeakReference<Type>> contratos;
 
         public TypeInfo(Type type)
         {
@@ -74,26 +71,26 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// </summary>
     public static class TypeProvider
     {
-        static ConcurrentDictionary<string, TypeInfo> Types = new ConcurrentDictionary<string, TypeInfo>();
+        private static readonly ConcurrentDictionary<string, TypeInfo> Types = new();
         static TypeProvider()
         {
-            var dir = Directory.GetCurrentDirectory();
+            string dir = Directory.GetCurrentDirectory();
 
-            var ls = AppDomain.CurrentDomain
+            IEnumerable<Type> ls = AppDomain.CurrentDomain
                .GetAssemblies()
                .Where(x => x.Location.Contains(dir))//Filtrar para obter dll de um determinado diretorio
                .SelectMany(x => x.GetTypes())
                .Where(x => x.GetCustomAttribute<ModuloAttribute>() != null);
 
-            foreach (var item in ls)
+            foreach (Type item in ls)
             {
-                Types.TryAdd(item.Name, new TypeInfo(item));
+                _ = Types.TryAdd(item.Name, new TypeInfo(item));
             }
         }
 
         public static IEnumerable<Type> ObterAutoInicializavel()
         {
-            foreach (var item in Types)
+            foreach (KeyValuePair<string, TypeInfo> item in Types)
             {
                 if (item.Value.Referencia.TryGetTarget(out Type target))
                 {
@@ -107,20 +104,12 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         public static IEnumerable<Type> ObterContratos(string name)
         {
-            if (Types.ContainsKey(name))
-            {
-                return Types[name].ObterContratos();
-            }
-            return null;
+            return Types.ContainsKey(name) ? Types[name].ObterContratos() : null;
         }
 
         public static IEnumerable<Type> ObterContratos(Type tipo)
         {
-            if (Types.ContainsKey(tipo.Name))
-            {
-                return Types[tipo.Name].ObterContratos();
-            }
-            return null;
+            return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : null;
         }
 
         public static void AdicionarCntrato(string name, Type contrato)
@@ -142,7 +131,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         public static void AddOrUpdate(Type type)
         {
 
-            Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (o, n) =>
+            _ = Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (o, n) =>
             {
                 if (Types.ContainsKey(o))
                 {
@@ -166,12 +155,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         public static Type Get(string name)
         {
-            if (Types.ContainsKey(name))
-            {
-                return Types[name].GetReference();
-            }
-
-            return null;
+            return Types.ContainsKey(name) ? Types[name].GetReference() : null;
         }
 
         public static int GetCount(string name)
@@ -182,7 +166,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         public static void Remove(string name)
         {
-            Types.TryRemove(name, out _);
+            _ = Types.TryRemove(name, out _);
         }
     }
 }

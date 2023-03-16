@@ -1,11 +1,11 @@
-﻿using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Interfaces;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Console
 {
@@ -31,9 +31,9 @@ namespace Propeus.Modulo.Console
     [ModuloAutoInicializavel]
     public class ConsoleModulo : ModuloBase
     {
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        Task tarefa;
-        IModulo modulo;
+        private readonly CancellationTokenSource cancellationTokenSource = new();
+        private readonly Task tarefa;
+        private readonly IModulo modulo;
         private readonly IModuloCLIContrato moduloCLI;
 
         /// <summary>
@@ -41,7 +41,6 @@ namespace Propeus.Modulo.Console
         /// </summary>
         /// <param name="gerenciador"></param>
         /// <param name="moduloCLI"></param>
-        /// <param name="instanciaUnica"></param>
         public ConsoleModulo(IGerenciador gerenciador, IModuloCLIContrato moduloCLI = null) : base(gerenciador, true)
         {
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
@@ -78,7 +77,7 @@ namespace Propeus.Modulo.Console
                 if (moduloCLI != null)
                 {
                     System.Console.Write("Digite o comando: ");
-                    var cmd = System.Console.ReadLine().Split(' ');
+                    string[] cmd = System.Console.ReadLine().Split(' ');
                     System.Console.Clear();
                     moduloCLI.ExecutarCLI(cmd);
                 }
@@ -87,7 +86,7 @@ namespace Propeus.Modulo.Console
                     try
                     {
                         System.Console.Write("Digite o comando: ");
-                        var cmd = System.Console.ReadLine().Split(' ');
+                        string[] cmd = System.Console.ReadLine().Split(' ');
                         System.Console.Clear();
                         System.Console.WriteLine("Console modulo " + "v" + Versao);
 
@@ -116,7 +115,7 @@ namespace Propeus.Modulo.Console
                                         System.Console.WriteLine(gerenciador);
                                         break;
                                     case "modulo":
-                                        foreach (var item in gerenciador.Listar())
+                                        foreach (IModulo item in gerenciador.Listar())
                                         {
                                             System.Console.WriteLine(item);
                                         }
@@ -210,6 +209,7 @@ namespace Propeus.Modulo.Console
             System.Console.WriteLine("Console finaizado");
             return Task.CompletedTask;
         }
+        /// <inheritdoc/>
 
         protected override void Dispose(bool disposing)
         {
@@ -367,7 +367,7 @@ namespace Propeus.Modulo.Console
                         switch (args[3])
                         {
                             case "--args":
-                                (Gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
+                                _ = (Gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
                                 break;
                             default:
                                 break;
@@ -375,7 +375,7 @@ namespace Propeus.Modulo.Console
                     }
                     else
                     {
-                        Gerenciador.Criar(args[2]);
+                        _ = Gerenciador.Criar(args[2]);
                     }
                     break;
             }

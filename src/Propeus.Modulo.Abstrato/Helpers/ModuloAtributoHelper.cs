@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Util;

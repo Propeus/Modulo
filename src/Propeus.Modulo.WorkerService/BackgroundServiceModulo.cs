@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using System;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Microsoft.Extensions.Hosting;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
-
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Propeus.Modulo.WorkerService
 {
@@ -17,9 +17,9 @@ namespace Propeus.Modulo.WorkerService
     [Modulo]
     public abstract class BackgroundServiceModulo : BackgroundService, IModulo
     {
-        private CancellationTokenSource cancellationTokenSource;
-        private CancellationTokenSource cancellationTokenSourceCancelKeyPress;
-        private Task _worker;
+        private readonly CancellationTokenSource cancellationTokenSource;
+        private readonly CancellationTokenSource cancellationTokenSourceCancelKeyPress;
+        private readonly Task _worker;
 
         /// <summary>
         /// Inicializa um modulo
@@ -60,7 +60,7 @@ namespace Propeus.Modulo.WorkerService
 
         private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
-            StopAsync(cancellationTokenSourceCancelKeyPress.Token);
+            _ = StopAsync(cancellationTokenSourceCancelKeyPress.Token);
         }
 
         /// <summary>

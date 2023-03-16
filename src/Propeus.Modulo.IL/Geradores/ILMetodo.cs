@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-using Propeus.Modulo.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.IL.Geradores
 {
@@ -114,17 +114,17 @@ namespace Propeus.Modulo.IL.Geradores
                 {
                     if (parametros[i].DefaultValue is null)
                     {
-                        _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
+                        _ = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
                     }
                     else
                     {
-                        var paramBuilder = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
+                        ParameterBuilder paramBuilder = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In | ParameterAttributes.Optional | ParameterAttributes.HasDefault, parametros[i].Nome);
                         paramBuilder.SetConstant(parametros[i].DefaultValue);
                     }
                 }
                 else
                 {
-                    _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In, parametros[i].Nome);
+                    _ = _metodoBuilder.DefineParameter(parametros[i].Indice, ParameterAttributes.In, parametros[i].Nome);
                 }
             }
             PilhaExecucao = new List<IILPilha>();

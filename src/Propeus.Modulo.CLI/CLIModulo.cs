@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;

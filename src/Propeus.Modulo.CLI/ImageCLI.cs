@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
-    static class ImageCLI
+    internal static class ImageCLI
     {
 
         public static void ExecuteImage(string[] args, IGerenciador gerenciador)
@@ -16,14 +10,14 @@ namespace Propeus.Modulo.CLI
             switch (args[1])
             {
                 case "--id":
-                    gerenciador.Obter(args[2]);
+                    _ = gerenciador.Obter(args[2]);
                     break;
             }
         }
 
         public static void ExecuteImages(string[] args, IGerenciador gerenciador)
         {
-            foreach (var item in gerenciador.Listar())
+            foreach (IModulo item in gerenciador.Listar())
             {
                 System.Console.WriteLine(item);
             }

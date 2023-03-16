@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Propeus.Modulo.Util;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
+using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.IL.Helpers
 {

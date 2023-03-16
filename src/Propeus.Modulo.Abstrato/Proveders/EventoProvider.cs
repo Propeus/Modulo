@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
@@ -14,9 +10,9 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         public delegate void Evento(Type fonte, string mensagem, Exception exception);
 
-        static event Evento OnInfo;
-        static event Evento OnAviso;
-        static event Evento OnErro;
+        private static event Evento OnInfo;
+        private static event Evento OnAviso;
+        private static event Evento OnErro;
 
         public static void NotificarInformacao(this object fonte, string mensagem)
         {
@@ -27,7 +23,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
             else
             {
-                OnInfo?.Invoke((fonte as Type), mensagem, null);
+                OnInfo?.Invoke(fonte as Type, mensagem, null);
             }
         }
         public static void NotificarAviso(this object fonte, string mensagem)
@@ -39,10 +35,10 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
             else
             {
-                OnAviso?.Invoke((fonte as Type), mensagem, null);
+                OnAviso?.Invoke(fonte as Type, mensagem, null);
             }
         }
-        public static void NotificarErro(this object fonte, string mensagem,Exception exception)
+        public static void NotificarErro(this object fonte, string mensagem, Exception exception)
         {
             Type type = fonte.GetType();
             if (type != typeof(Type))
@@ -51,7 +47,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
             else
             {
-                OnErro?.Invoke((fonte as Type), mensagem, exception);
+                OnErro?.Invoke(fonte as Type, mensagem, exception);
             }
         }
 

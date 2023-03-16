@@ -36,17 +36,17 @@ namespace Propeus.Modulo.Core
             Console.CancelKeyPress += Console_CancelKeyPress;
             AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
 
-            Workers.AddTask((cts) =>
+            _ = Workers.AddTask((cts) =>
             {
 
                 CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)cts;
 
-                foreach (var key in Modulos.Keys)
+                foreach (string key in Modulos.Keys)
                 {
                     if (Modulos[key].Elimindado)
                     {
-                        Cache.TryRemove(key, out string _);
-                        Modulos.TryRemove(key, out IModuloTipo _);
+                        _ = Cache.TryRemove(key, out _);
+                        _ = Modulos.TryRemove(key, out _);
                     }
                 }
             }, TimeSpan.FromSeconds(1), "LIMPEZA_AUTOMATICA_WORKER");
@@ -316,13 +316,15 @@ namespace Propeus.Modulo.Core
                 }
                 else if (paramCtor[i].ParameterType.Is<IGerenciador>())
                 {
-                    var gen = Modulos.FirstOrDefault(x => x.Value.Modulo is IGerenciador).Value;
+                    IModuloTipo gen = Modulos.FirstOrDefault(x => x.Value.Modulo is IGerenciador).Value;
                     arr[i] = (gen?.Modulo as IGerenciador) ?? this;
                 }
                 else
                 {
                     if (paramCtor[i].IsOptional)
+                    {
                         continue;
+                    }
 
                     throw new TipoModuloInvalidoException($"O tipo '{paramCtor[i].ParameterType.Name}' nao e um Modulo, Contrato ou Gerenciador");
                 }
@@ -409,7 +411,7 @@ namespace Propeus.Modulo.Core
                     result = Modulos.ContainsKey(idOuter);
                 }
 
-                result = this.Modulos.Values.Any(t => t.TipoModulo == type);
+                result = Modulos.Values.Any(t => t.TipoModulo == type);
             }
             else
             {
@@ -593,12 +595,9 @@ namespace Propeus.Modulo.Core
             }
 
 
-            if (info is null)
-            {
-                throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name));
-            }
-
-            return info;
+            return info is null
+                ? throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, modulo.Name))
+                : info;
         }
 
         ///<inheritdoc/>
@@ -699,17 +698,11 @@ namespace Propeus.Modulo.Core
         ///</example>
         public IModuloTipo ObterInfo(string id)
         {
-            if (id is null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-
-            if (!Existe(id))
-            {
-                throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id));
-            }
-
-            return Modulos[id];
+            return id is null
+                ? throw new ArgumentNullException(nameof(id))
+                : !Existe(id)
+                ? throw new ModuloNaoEncontradoException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, id))
+                : Modulos[id];
         }
 
         ///<inheritdoc/>
@@ -762,7 +755,7 @@ namespace Propeus.Modulo.Core
         ///</example>
         public IModulo Obter(Type modulo)
         {
-            var result = ObterInfo(modulo);
+            IModuloTipo result = ObterInfo(modulo);
             return result.Elimindado ? throw new ModuloDescartadoException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, result.Nome)) : result.Modulo;
         }
 
@@ -1103,7 +1096,7 @@ namespace Propeus.Modulo.Core
         ///</example>
         public T Reciclar<T>(T modulo) where T : IModulo
         {
-            if (this.Modulos.ContainsKey(modulo.Id))
+            if (Modulos.ContainsKey(modulo.Id))
             {
                 Remover(modulo);
                 return (T)Criar(modulo.GetType());
@@ -1391,7 +1384,7 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public override string ToString()
         {
-            StringBuilder stringBuilder = new StringBuilder(base.ToString());
+            StringBuilder stringBuilder = new(base.ToString());
             _ = stringBuilder.Append("Ultima atualização: ").Append(UltimaAtualizacao).AppendLine();
             _ = stringBuilder.Append("Modulos inicializados: ").Append(ModulosInicializados).AppendLine();
             return stringBuilder.ToString();

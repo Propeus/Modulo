@@ -60,7 +60,7 @@ namespace Propeus.Modulo.Abstrato
 
             if (Modulo != null)
             {
-                sb.Append(Modulo).AppendLine();
+                _ = sb.Append(Modulo).AppendLine();
             }
             _ = sb.Append("Coletado pelo G.C.: ").Append(Coletado).AppendLine();
             _ = sb.Append("Objeto eliminado: ").Append(Elimindado).AppendLine();

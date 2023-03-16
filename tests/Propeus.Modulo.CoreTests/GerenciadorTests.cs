@@ -7,8 +7,9 @@ using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
 
-namespace Propeus.Modulo.Core.Tests
+namespace Propeus.Modulo.CoreTests
 {
     [Modulo]
     public class TesteInstanciaUnicaModulo : ModuloBase
@@ -74,7 +75,7 @@ namespace Propeus.Modulo.Core.Tests
 
             IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
             });
@@ -120,7 +121,7 @@ namespace Propeus.Modulo.Core.Tests
 
             IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
             });
@@ -165,7 +166,7 @@ namespace Propeus.Modulo.Core.Tests
 
             IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
             });
@@ -315,7 +316,7 @@ namespace Propeus.Modulo.Core.Tests
             gerenciador.Remover(modulo.Id);
 
             Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 gerenciador.Remover(modulo.Id);
             });
@@ -402,7 +403,7 @@ namespace Propeus.Modulo.Core.Tests
         public void ObterModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModulo modulo = gerenciador.Obter(Guid.NewGuid().ToString());
             });
@@ -487,7 +488,7 @@ namespace Propeus.Modulo.Core.Tests
         public void ObterInfoModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModuloTipo modulo = (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
             });
@@ -666,7 +667,7 @@ namespace Propeus.Modulo.Core.Tests
         public void ReiniciarModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModulo modulov2 = gerenciador.Reciclar(Guid.NewGuid().ToString());
             });

@@ -1,15 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato;
-
-using System;
-using System.Linq;
+﻿using System;
 using System.IO;
-using Propeus.Modulo.Abstrato.Exceptions;
+using System.Linq;
 
-namespace Propeus.Modulo.Dinamico.Tests
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Exceptions;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Dinamico;
+
+namespace Propeus.Modulo.DinamicoTests
 {
     [Modulo]
     public class TesteInstanciaUnicaModulo : ModuloBase
@@ -47,7 +48,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = true });
+            gerenciador = new Gerenciador(Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = true });
         }
 
         [TestCleanup]
@@ -78,7 +79,7 @@ namespace Propeus.Modulo.Dinamico.Tests
 
             IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
             });
@@ -124,7 +125,7 @@ namespace Propeus.Modulo.Dinamico.Tests
 
             IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
             });
@@ -169,7 +170,7 @@ namespace Propeus.Modulo.Dinamico.Tests
 
             IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
             Assert.IsNotNull(modulo);
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
             {
                 modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
             });
@@ -307,7 +308,7 @@ namespace Propeus.Modulo.Dinamico.Tests
             gerenciador.RemoverTodos();
             Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
 
-            modulos.All(m => m.Estado == Estado.Desligado);
+            _ = modulos.All(m => m.Estado == Estado.Desligado);
 
         }
         [TestMethod()]
@@ -320,7 +321,7 @@ namespace Propeus.Modulo.Dinamico.Tests
             gerenciador.Remover(modulo.Id);
 
             Assert.AreEqual(1, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 gerenciador.Remover(modulo.Id);
             });
@@ -407,7 +408,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         public void ObterModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModulo modulo = gerenciador.Obter(Guid.NewGuid().ToString());
             });
@@ -527,7 +528,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         public void ObterInfoModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModuloTipo modulo = (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
             });
@@ -706,7 +707,7 @@ namespace Propeus.Modulo.Dinamico.Tests
         public void ReiniciarModuloInstanciaPorIdInexistente_ArgumentException()
         {
 
-            Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 IModulo modulov2 = gerenciador.Reciclar(Guid.NewGuid().ToString());
             });
@@ -739,7 +740,7 @@ namespace Propeus.Modulo.Dinamico.Tests
             gerenciador = null;
             gerenciador = new Gerenciador(Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = false });
 
-            var CalculadoraSoma = (gerenciador as IGerenciadorArgumentos).Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
+            IModuloCalculadoraContrato CalculadoraSoma = (gerenciador as IGerenciadorArgumentos).Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
             Assert.AreEqual(2, CalculadoraSoma.Calcular(1, 1));
             DescarregarModuloDLL("Propeus.Modulo.DinamicoTests.ModuloSoma");
         }

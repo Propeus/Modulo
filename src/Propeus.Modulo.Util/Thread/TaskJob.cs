@@ -14,11 +14,11 @@ namespace Propeus.Modulo.Util.Thread
     public class TaskJob : IDisposable
     {
         private const string NOME_JOB_COLETOR = "__COLETOR_TAKS_COMPLETADOS";
-        private LimitedConcurrencyLevelTaskScheduler _scheduler;
-        private TaskFactory _taskFactory;
-        private CancellationTokenSource _cancellationTokenSource;
-        private ConcurrentDictionary<string, Task> _tasks;
-        private ConcurrentDictionary<string, CancellationTokenSource> _tasksTokenSource;
+        private readonly LimitedConcurrencyLevelTaskScheduler _scheduler;
+        private readonly TaskFactory _taskFactory;
+        private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly ConcurrentDictionary<string, Task> _tasks;
+        private readonly ConcurrentDictionary<string, CancellationTokenSource> _tasksTokenSource;
 
 
         /// <summary>
@@ -51,14 +51,14 @@ namespace Propeus.Modulo.Util.Thread
             _tasks = new ConcurrentDictionary<string, Task>();
             _tasksTokenSource = new ConcurrentDictionary<string, CancellationTokenSource>();
 
-            AddTask((state) =>
+            _ = AddTask((state) =>
             {
-                foreach (var item in _tasks)
+                foreach (KeyValuePair<string, Task> item in _tasks)
                 {
                     if (item.Value.IsCompleted || item.Value.IsCanceled || item.Value.IsCompletedSuccessfully || item.Value.IsFaulted)
                     {
-                        _tasks.TryRemove(item);
-                        _tasksTokenSource.TryRemove(item.Key, out _);
+                        _ = _tasks.TryRemove(item);
+                        _ = _tasksTokenSource.TryRemove(item.Key, out _);
                     }
                 }
 
@@ -74,7 +74,7 @@ namespace Propeus.Modulo.Util.Thread
         /// <returns>Retorna uma <see cref="Task"/> que sera concluida quando todas as tarafas forem finalizadas</returns>
         public Task WaitAll()
         {
-            var arrTasks = _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Select(x => x.Value).ToArray();
+            Task[] arrTasks = _tasks.Where(x => x.Key != NOME_JOB_COLETOR).Select(x => x.Value).ToArray();
             return Task.WhenAll(arrTasks);
         }
 
@@ -104,10 +104,10 @@ namespace Propeus.Modulo.Util.Thread
                 nomeJob = Guid.NewGuid().ToString();
             }
 
-            var cts = new CancellationTokenSource();
+            CancellationTokenSource cts = new();
             if (period.HasValue)
             {
-                var task = _taskFactory.StartNew((innerState) =>
+                Task task = _taskFactory.StartNew((innerState) =>
                 {
                     CancellationTokenSource cancellationTokenSource = (CancellationTokenSource)innerState;
 
@@ -128,18 +128,15 @@ namespace Propeus.Modulo.Util.Thread
 
 
                 }, cts, _cancellationTokenSource.Token);
-                _tasks.TryAdd(nomeJob, task);
-                _tasksTokenSource.TryAdd(nomeJob, cts);
+                _ = _tasks.TryAdd(nomeJob, task);
+                _ = _tasksTokenSource.TryAdd(nomeJob, cts);
                 return task;
             }
             else
             {
-                var task = _taskFactory.StartNew((innerState) =>
-                {
-                    action.Invoke(innerState);
-                }, cts, _cancellationTokenSource.Token);
-                _tasks.TryAdd(nomeJob, task);
-                _tasksTokenSource.TryAdd(nomeJob, cts);
+                Task task = _taskFactory.StartNew(action.Invoke, cts, _cancellationTokenSource.Token);
+                _ = _tasks.TryAdd(nomeJob, task);
+                _ = _tasksTokenSource.TryAdd(nomeJob, cts);
                 return task;
             }
 
@@ -153,15 +150,15 @@ namespace Propeus.Modulo.Util.Thread
         /// <returns></returns>
         public string ToStringRunning()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            sb.Append("Jobs em espera: ").AppendLine(Aguardando.ToString());
-            sb.Append("Jobs em execucao: ").AppendLine(EmExecucao.ToString());
-            sb.Append("Jobs finalizados: ").AppendLine(Completado.ToString());
-            sb.AppendLine("=== JOBS === ");
-            foreach (var item in _tasks.Where(x => x.Value.Status == TaskStatus.Running))
+            _ = sb.Append("Jobs em espera: ").AppendLine(Aguardando.ToString());
+            _ = sb.Append("Jobs em execucao: ").AppendLine(EmExecucao.ToString());
+            _ = sb.Append("Jobs finalizados: ").AppendLine(Completado.ToString());
+            _ = sb.AppendLine("=== JOBS === ");
+            foreach (KeyValuePair<string, Task> item in _tasks.Where(x => x.Value.Status == TaskStatus.Running))
             {
-                sb.Append("Job: ").Append(item.Key).Append(" - ").AppendLine(item.Value.Status.ToString());
+                _ = sb.Append("Job: ").Append(item.Key).Append(" - ").AppendLine(item.Value.Status.ToString());
             }
 
             return sb.ToString();
@@ -173,11 +170,11 @@ namespace Propeus.Modulo.Util.Thread
         /// <returns>Retorna a lista de tasks e seu estado atual</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            foreach (var item in _tasks)
+            foreach (KeyValuePair<string, Task> item in _tasks)
             {
-                sb.Append("Job: ").Append(item.Key).Append(" - ").AppendLine(item.Value.Status.ToString());
+                _ = sb.Append("Job: ").Append(item.Key).Append(" - ").AppendLine(item.Value.Status.ToString());
             }
 
             return sb.ToString();
@@ -196,7 +193,7 @@ namespace Propeus.Modulo.Util.Thread
                     _cancellationTokenSource.Dispose();
                     _tasks.Clear();
 
-                    foreach (var task in _tasksTokenSource)
+                    foreach (KeyValuePair<string, CancellationTokenSource> task in _tasksTokenSource)
                     {
                         task.Value.Dispose();
                     }

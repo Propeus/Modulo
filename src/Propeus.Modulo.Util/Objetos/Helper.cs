@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
@@ -265,6 +262,6 @@ namespace Propeus.Modulo.Util
         public static string Hash(this object obj)
         {
             return Helper.Hash(obj.Serializar());
-        }      
+        }
     }
 }

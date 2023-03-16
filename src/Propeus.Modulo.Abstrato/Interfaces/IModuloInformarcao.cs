@@ -67,6 +67,6 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <returns>Retorna <see langword="true"/> caso ache o modulo, caso contrario retorna <see langword="false"/></returns>
         bool PossuiModulo(string nomeModulo);
 
-       
+
     }
 }

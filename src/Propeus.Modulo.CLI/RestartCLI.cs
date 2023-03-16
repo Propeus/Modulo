@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
-    static class RestartCLI
+    internal static class RestartCLI
     {
 
         public static void Execute(string[] args, IGerenciador gerenciador)
@@ -16,7 +10,7 @@ namespace Propeus.Modulo.CLI
             switch (args[1])
             {
                 case "--id":
-                    (gerenciador as IGerenciadorArgumentos).Reciclar(args[2]);
+                    _ = (gerenciador as IGerenciadorArgumentos).Reciclar(args[2]);
                     break;
                 case "help":
                     ObtionsCreateHelp(args, gerenciador);
