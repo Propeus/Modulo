@@ -42,7 +42,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"Ppropeus-modulo-core_propeus-modulo-il" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"propeus-modulo-core_propeus-modulo-il" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
           dotnet restore ./src/Propeus.Modulo.IL/Propeus.Modulo.IL.csproj
           dotnet build ./src/Propeus.Modulo.IL/Propeus.Modulo.IL.csproj --no-restore
 
