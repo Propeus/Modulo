@@ -37,6 +37,9 @@ namespace Propeus.Modulo.Abstrato.Proveders
         //K:id
         HashSet<string> cache = new HashSet<string>();
 
+        public int ModulosRegistrados => modules.Count;
+        public int ModulosAtivos => Get().Count();
+
         /// <summary>
         /// Verifica se o tipo informado esta em cache
         /// </summary>
@@ -110,12 +113,16 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
             else if (modulo.InstanciaUnica)
             {
-                throw new InvalidOperationException("Modulo ja registrado");
+                var ex = new InvalidOperationException("Modulo ja registrado");
+                this.NotificarErro($"Modulo {modulo.Nome} ja possui uma instancia ativa", ex);
+                throw ex;
             }
 
             if (!modules.ContainsKey(modulo.Id))
+            {
                 modules.TryAdd(modulo.Id, new ModuloTipo(modulo));
-
+                this.NotificarInformacao($"Modulo {modulo.Id} registrado");
+            }
         }
 
         /// <summary>
@@ -128,9 +135,17 @@ namespace Propeus.Modulo.Abstrato.Proveders
         public IModulo Create(Type type, object[] args)
         {
             if (!cache.Contains(type.Name))
-                return (IModulo)Activator.CreateInstance(type, args);
+            {
+
+                var modulo = (IModulo)Activator.CreateInstance(type, args);
+                this.NotificarInformacao($"Modulo {modulo.Id} criado com sucesso");
+                return modulo;
+            }
             else
+            {
+                this.NotificarInformacao("Ja existe uma instancia do modulo em execucao");
                 throw new ModuloInstanciaUnicaException("Ja existe um modulo de mesmo nome");
+            }
         }
         /// <summary>
         /// Desliga e remove o modulo do provedor
@@ -143,8 +158,10 @@ namespace Propeus.Modulo.Abstrato.Proveders
             {
                 target.Dispose();
                 cache.Remove(modulo.Nome);
+                this.NotificarInformacao($"Modulo {modulo.Nome}::{modulo.Id} removido com sucesso");
                 return true;
             }
+            this.NotificarAviso($"Modulo {modulo.Nome}::{modulo.Id} nao foi encontrado no provedor");
             return false;
         }
         /// <summary>
@@ -154,12 +171,14 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <returns>Retorna <see langword="true"/> caso tenha sido removido com sucesso, caso contrario <see langword="false"/></returns>
         public bool RemoveById(string id)
         {
-            if (modules.TryRemove(id, out IModuloTipo target) && !target.Coletado)
+            if (modules.TryRemove(id, out IModuloTipo target) && !target.Elimindado)
             {
-                cache.Remove((target.WeakReference.Target as IModulo).Nome);
+                cache.Remove(target.Modulo.Nome);
                 target.Dispose();
+                this.NotificarInformacao($"Modulo {target.Nome}::{target.Id} removido com sucesso");
                 return true;
             }
+            this.NotificarAviso($"Modulo {id} nao foi encontrado no provedor");
             return false;
         }
 
@@ -173,6 +192,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         {
             foreach (var item in modules.Where(x => !x.Value.Coletado))
             {
+                this.NotificarInformacao($"Modulo {item.Value.Modulo.Nome}::{item.Value.Modulo.Id} removido com sucesso");
                 item.Value.Dispose();
             }
 

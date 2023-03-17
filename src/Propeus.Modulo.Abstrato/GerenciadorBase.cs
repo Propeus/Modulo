@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,14 +17,14 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Controlador de modulos
     /// </summary>
-    public abstract class GerenciadorBase : ModeloBase, IGerenciador, IGerenciadorDiagnostico
+    public abstract class GerenciadorBase : ModeloBase, IGerenciador
     {
         ///<inheritdoc/>
         public abstract DateTime DataInicio { get; }
         ///<inheritdoc/>
         public virtual DateTime UltimaAtualizacao { get; } = DateTime.Now;
         ///<inheritdoc/>
-        public virtual int ModulosInicializados => InstanciaProvider.Provider.Get().Count();
+        public virtual int ModulosInicializados => InstanciaProvider.Provider.ModulosRegistrados;
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -171,7 +172,6 @@ namespace Propeus.Modulo.Abstrato
                         {
                             arr[i] = Criar(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
                         }
-
                     }
                     else
                     {

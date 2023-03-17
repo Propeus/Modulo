@@ -23,7 +23,7 @@ namespace Propeus.Modulo.Dinamico
     /// Modulo responsável por administrar modulos em tempo de execução
     /// </summary>
     [Modulo]
-    public class Gerenciador : ModuloBase, IGerenciadorArgumentos, IGerenciadorDiagnostico
+    public class Gerenciador : ModuloBase, IGerenciadorArgumentos
     {
         /// <summary>
         /// Inicializa o _gerenciador
@@ -63,7 +63,7 @@ namespace Propeus.Modulo.Dinamico
         ///<inheritdoc/>
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
-        public int ModulosInicializados => (_gerenciador is IGerenciadorDiagnostico) ? (_gerenciador as IGerenciadorDiagnostico).ModulosInicializados : -1;
+        public int ModulosInicializados => _gerenciador.ModulosInicializados;
         private Dictionary<string, ILClasseProvider> ModuloProvider { get; }
 
 

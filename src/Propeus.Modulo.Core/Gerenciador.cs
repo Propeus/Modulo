@@ -125,7 +125,7 @@ namespace Propeus.Modulo.Core
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id), string.Format(Constantes.ERRO_ARGUMENTO_NULO_OU_VAZIO, nameof(id)));
+                throw new ArgumentException($"'{nameof(id)}' não pode ser nulo nem vazio.", nameof(id));
             }
 
             if (!Existe(id))

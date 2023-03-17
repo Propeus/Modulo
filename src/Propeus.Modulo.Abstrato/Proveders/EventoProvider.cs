@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
+
+using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
@@ -26,14 +29,13 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <param name="mensagem">Conteudo</param>
         public static void NotificarInformacao(this object fonte, string mensagem)
         {
-            Type type = fonte.GetType();
-            if (type != typeof(Type))
+            if (OnInfo != null)
             {
-                OnInfo?.Invoke(type, mensagem, null);
-            }
-            else
-            {
-                OnInfo?.Invoke(fonte as Type, mensagem, null);
+                Type type = fonte.GetType();
+                Task.Run(() =>
+                {
+                    OnInfo.Invoke(type, mensagem, null);
+                });
             }
         }
         /// <summary>
@@ -43,15 +45,15 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <param name="mensagem">Conteudo</param>
         public static void NotificarAviso(this object fonte, string mensagem)
         {
-            Type type = fonte.GetType();
-            if (type != typeof(Type))
+            if (OnAviso != null)
             {
-                OnAviso?.Invoke(type, mensagem, null);
+                Type type = fonte.GetType();
+                Task.Run(() =>
+                {
+                    OnAviso.Invoke(type, mensagem, null);
+                });
             }
-            else
-            {
-                OnAviso?.Invoke(fonte as Type, mensagem, null);
-            }
+
         }
 
         /// <summary>
@@ -62,15 +64,15 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <param name="exception">Excecao se houver</param>
         public static void NotificarErro(this object fonte, string mensagem, Exception exception)
         {
-            Type type = fonte.GetType();
-            if (type != typeof(Type))
+            if (OnErro != null)
             {
-                OnErro?.Invoke(type, mensagem, exception);
+                Type type = fonte.GetType();
+                Task.Run(() =>
+                {
+                    OnErro.Invoke(type, mensagem, exception);
+                });
             }
-            else
-            {
-                OnErro?.Invoke(fonte as Type, mensagem, exception);
-            }
+
         }
         /// <summary>
         /// Registra um ouvinte para o evento atual

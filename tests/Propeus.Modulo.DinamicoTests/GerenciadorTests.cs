@@ -306,7 +306,7 @@ namespace Propeus.Modulo.DinamicoTests
             }
 
             gerenciador.RemoverTodos();
-            Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
+            Assert.AreEqual(0, gerenciador.ModulosInicializados);
 
             _ = modulos.All(m => m.Estado == Estado.Desligado);
 
@@ -320,7 +320,7 @@ namespace Propeus.Modulo.DinamicoTests
             Assert.IsNotNull(modulo);
             gerenciador.Remover(modulo.Id);
 
-            Assert.AreEqual(1, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
+            Assert.AreEqual(1, gerenciador.ModulosInicializados);
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 gerenciador.Remover(modulo.Id);

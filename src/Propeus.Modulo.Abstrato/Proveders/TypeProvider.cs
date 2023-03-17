@@ -151,11 +151,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo que sera obtido os contratos</param>
         /// <returns>Lista de contratos</returns>
-        public IEnumerable<Type> ObterContratos(string name)
-        {
-            return Types.ContainsKey(name) ? Types[name].ObterContratos() : Array.Empty<Type>();
-        }
-
+       
         /// <summary>
         /// Obtem todos os contratos pelo tipo informado
         /// </summary>
@@ -166,19 +162,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : Array.Empty<Type>();
         }
 
-        /// <summary>
-        /// Adiciona uma nova interface de contrato no tipo informado
-        /// </summary>
-        /// <param name="name">Nome do tipo que ira receber o contrato</param>
-        /// <param name="contrato">Interface de contrato</param>
-        public void AdicionarCntrato(string name, Type contrato)
-        {
-            if (Types.ContainsKey(name))
-            {
-                Types[name].AdicionarContrato(contrato);
-            }
-        }
-
+       
         /// <summary>
         /// Adiciona uma nova interface de contrato no tipo informado
         /// </summary>
@@ -229,27 +213,6 @@ namespace Propeus.Modulo.Abstrato.Proveders
         public Type Get(string name)
         {
             return Types.TryGetValue(name, out TypeInfo value) ? value.GetReference() : null;
-        }
-
-        /// <summary>
-        /// Obtem a quantidade de vezes que o tipo foi solicitado
-        /// </summary>
-        /// <param name="name">Nome do tipo</param>
-        /// <returns>Quantidade de vezes que o tipo foi solicitado</returns>
-        public int GetCount(string name)
-        {
-            return Types[name].QuantidadeReferencia;
-
-        }
-
-        /// <summary>
-        /// Remove um tipo do provedor
-        /// </summary>
-        /// <param name="name">Nome do tipo</param>
-        public void Remove(string name)
-        {
-            _ = Types.TryRemove(name, out TypeInfo target);
-            target.Dispose();
         }
 
         private bool disposedValue;

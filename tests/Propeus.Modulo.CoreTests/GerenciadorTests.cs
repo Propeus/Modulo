@@ -8,6 +8,7 @@ using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.CoreTests
@@ -46,7 +47,33 @@ namespace Propeus.Modulo.CoreTests
         [TestInitialize]
         public void Begin()
         {
+            //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
+            //EventoProvider.RegistrarOuvinteErro(TesteLog);
+            //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
             gerenciador = Gerenciador.Atual;
+        }
+
+        private void TesteLogAviso(Type fonte, string mensagem, Exception exception)
+        {
+            System.Console.ForegroundColor = ConsoleColor.Yellow;
+            System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
+            System.Console.ResetColor();
+        }
+
+        private void TesteLog(Type fonte, string mensagem, Exception exception)
+        {
+            if (exception == null)
+            {
+
+                System.Console.ForegroundColor = ConsoleColor.Green;
+                System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
+            }
+            else
+            {
+                System.Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem} | {exception.Message}");
+            }
+            System.Console.ResetColor();
         }
 
         [TestCleanup]
@@ -253,7 +280,7 @@ namespace Propeus.Modulo.CoreTests
             }
 
             gerenciador.RemoverTodos();
-            Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
+            Assert.AreEqual(0, gerenciador.ModulosInicializados);
 
 
         }
@@ -266,7 +293,7 @@ namespace Propeus.Modulo.CoreTests
             Assert.IsNotNull(modulo);
             gerenciador.Remover(modulo.Id);
 
-            Assert.AreEqual(0, (gerenciador as IGerenciadorDiagnostico).ModulosInicializados);
+            Assert.AreEqual(0, gerenciador.ModulosInicializados);
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
                 gerenciador.Remover(modulo.Id);
@@ -361,7 +388,7 @@ namespace Propeus.Modulo.CoreTests
 
         }
 
-   
+
         //Existe
         [TestMethod()]
         [TestCategory("Existe")]
@@ -548,13 +575,15 @@ namespace Propeus.Modulo.CoreTests
         [TestCategory("Listar")]
         public void ListarModulos_loop()
         {
-
+            IModulo m = null;
             for (int i = 0; i < 100; i++)
             {
-                _ = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
+                var auxm = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
+                Assert.AreNotEqual(m, auxm);
+                m = auxm;
             }
 
-            Assert.AreEqual(100, gerenciador.Listar().Count());
+            Assert.AreEqual(100, gerenciador.ModulosInicializados);
 
         }
 
@@ -759,7 +788,7 @@ namespace Propeus.Modulo.CoreTests
                 gerenciador.Obter(m.Id);
             });
 
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsException<ArgumentException>(() =>
             {
                 gerenciador.Obter(default(string));
             });

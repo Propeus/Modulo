@@ -20,7 +20,7 @@ namespace Propeus.Modulo.Abstrato.Atributos
         {
             if (string.IsNullOrEmpty(nome))
             {
-                throw new ArgumentException(string.Format(PARAMETRO_NULO_OU_VAZIO, nameof(nome)), nameof(nome));
+                throw new ArgumentException($"'{nameof(nome)}' não pode ser nulo nem vazio.", nameof(nome));
             }
 
             Nome = nome;
@@ -33,10 +33,9 @@ namespace Propeus.Modulo.Abstrato.Atributos
         /// <param name="modulo">Tipo do modulo</param>
         public ModuloContratoAttribute(Type modulo)
         {
-
             if (modulo is null)
             {
-                throw new ArgumentNullException(nameof(modulo), string.Format(PARAMETRO_NULO, nameof(modulo)));
+                throw new ArgumentNullException(nameof(modulo));
             }
 
             Nome = modulo.Name;

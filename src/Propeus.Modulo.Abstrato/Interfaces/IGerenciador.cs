@@ -40,6 +40,23 @@ namespace Propeus.Modulo.Abstrato.Interfaces
     public interface IGerenciador : IBaseModelo
     {
         /// <summary>
+        /// Retorna data e hora que o gerenciador iniciou
+        /// </summary>
+        DateTime DataInicio { get; }
+        /// <summary>
+        /// Data e hora do ultimo evento realizado no gerenciador
+        /// </summary>
+        /// <remarks>
+        /// Os eventos sao o CRUD (Criar, Reiniciar, Atualizar ou Remover) do genreciador
+        /// </remarks>
+        DateTime UltimaAtualizacao { get; }
+
+        /// <summary>
+        /// Indica a quantidade de modulos inicializados pelo gerenciador
+        /// </summary>
+        int ModulosInicializados { get; }
+
+        /// <summary>
         /// Cria uma nova instancia do modulo <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModulo"/></typeparam>
