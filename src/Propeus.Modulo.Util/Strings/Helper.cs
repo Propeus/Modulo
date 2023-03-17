@@ -32,34 +32,5 @@ namespace Propeus.Modulo.Util
 
             return arr;
         }
-
-
-
-        /// <summary>
-        /// Obtem o tipo pelo nome 
-        /// </summary>
-        /// <param name="nomeTipo">Nome do tipo</param>
-        /// <returns>Retorna o <see cref="Type"/></returns>
-        public static IEnumerable<Type> ObterTipos(this string nomeTipo)
-        {
-            foreach (Assembly item in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type typeAssembly in item.GetTypes())
-                {
-                    if (typeAssembly.Name.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        yield return typeAssembly;
-                    }
-
-                    if (typeAssembly.FullName.Equals(nomeTipo, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        yield return typeAssembly;
-                    }
-                }
-
-            }
-
-        }
-
     }
 }

@@ -15,7 +15,7 @@ namespace Propeus.Modulo.DinamicoTests
     [Modulo]
     public class TesteInstanciaUnicaModulo : ModuloBase
     {
-        public TesteInstanciaUnicaModulo(IGerenciador gerenciador) : base(gerenciador, true)
+        public TesteInstanciaUnicaModulo() : base(true)
         {
         }
 
@@ -28,7 +28,7 @@ namespace Propeus.Modulo.DinamicoTests
     [Modulo]
     public class TesteInstanciaMultiplaModulo : ModuloBase
     {
-        public TesteInstanciaMultiplaModulo(IGerenciador gerenciador) : base(gerenciador, false)
+        public TesteInstanciaMultiplaModulo() : base(false)
         {
         }
 

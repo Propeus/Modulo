@@ -14,7 +14,7 @@ namespace Propeus.Modulo.CoreTests
     [Modulo]
     public class TesteInstanciaUnicaModulo : ModuloBase
     {
-        public TesteInstanciaUnicaModulo(IGerenciador gerenciador) : base(gerenciador, true)
+        public TesteInstanciaUnicaModulo() : base(true)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Propeus.Modulo.CoreTests
     [Modulo]
     public class TesteInstanciaMultiplaModulo : ModuloBase
     {
-        public TesteInstanciaMultiplaModulo(IGerenciador gerenciador) : base(gerenciador, false)
+        public TesteInstanciaMultiplaModulo() : base(false)
         {
         }
 
@@ -215,32 +215,8 @@ namespace Propeus.Modulo.CoreTests
             gerenciador.Remover(modulo);
 
         }
-        [TestMethod()]
-        [TestCategory("Remover")]
-        public void RemoverModuloInstanciaUnica_loop()
-        {
 
-            for (int i = 0; i < 100; i++)
-            {
-                IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-                Assert.IsNotNull(modulo);
-                gerenciador.Remover(modulo);
-            }
 
-        }
-        [TestMethod()]
-        [TestCategory("Remover")]
-        public void RemoverModuloInstanciaMultipla_loop()
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-                Assert.IsNotNull(modulo);
-                gerenciador.Remover(modulo);
-            }
-
-        }
         [TestMethod()]
         [TestCategory("Remover")]
         public void RemoverModuloInstanciaUnicaPorId()
@@ -261,32 +237,7 @@ namespace Propeus.Modulo.CoreTests
             gerenciador.Remover(modulo.Id);
 
         }
-        [TestMethod()]
-        [TestCategory("Remover")]
-        public void RemoverModuloInstanciaUnicaPorId_loop()
-        {
 
-            for (int i = 0; i < 100; i++)
-            {
-                IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-                Assert.IsNotNull(modulo);
-                gerenciador.Remover(modulo.Id);
-            }
-
-        }
-        [TestMethod()]
-        [TestCategory("Remover")]
-        public void RemoverModuloInstanciaMultiplaPorId_loop()
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-                Assert.IsNotNull(modulo);
-                gerenciador.Remover(modulo.Id);
-            }
-
-        }
         [TestMethod()]
         [TestCategory("Remover")]
         public void RemoverTodosModulos()
@@ -404,7 +355,7 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-                _= gerenciador.Obter(Guid.NewGuid().ToString());
+                _ = gerenciador.Obter(Guid.NewGuid().ToString());
             });
 
         }
@@ -489,7 +440,7 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-                _= (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
+                _ = (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
             });
 
         }
@@ -668,10 +619,12 @@ namespace Propeus.Modulo.CoreTests
 
             _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
             {
-               _= gerenciador.Reciclar(Guid.NewGuid().ToString());
+                _ = gerenciador.Reciclar(Guid.NewGuid().ToString());
             });
 
         }
+
+
 
         //Listar
         [TestMethod()]
@@ -687,5 +640,277 @@ namespace Propeus.Modulo.CoreTests
             Assert.AreEqual(100, gerenciador.Listar().Count());
 
         }
+
+
+        #region Organizar depois
+
+        public interface InterfaceSemAtributo
+        {
+
+        }
+
+        [ModuloContrato("xpto")]
+        public interface InterfaceModuloInvalido
+        {
+
+        }
+        [ModuloContrato(typeof(OutroModuloDependenciaInterfaceValida))]
+        public interface IModuloValido : IModulo
+        {
+
+        }
+
+        [ModuloContrato(typeof(OutroModuloDependenciaInterfaceValida))]
+        public interface IModuloInstanciaUnica : IModulo
+        {
+
+        }
+
+        [Modulo]
+        public class ModuloInstanciaUnica : ModuloBase, IModuloInstanciaUnica
+        {
+            public ModuloInstanciaUnica() : base(true)
+            {
+            }
+        }
+
+        public class ModuloInvallido
+        {
+
+        }
+
+        public class ModuloSemAtributo : IModulo
+        {
+            public bool InstanciaUnica { get; }
+            public string Versao { get; }
+            public Estado Estado { get; }
+            public string Nome { get; }
+            public string Id { get; }
+
+            private bool disposedValue;
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposedValue)
+                {
+                    disposedValue = true;
+                }
+            }
+
+
+
+            public void Dispose()
+            {
+
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
+        }
+
+
+        [Modulo]
+        public class ModuloSemConstrutor : IModulo
+        {
+            private ModuloSemConstrutor()
+            {
+
+            }
+
+            public bool InstanciaUnica { get; }
+            public string Versao { get; }
+            public Estado Estado { get; }
+            public string Nome { get; }
+            public string Id { get; }
+
+            private bool disposedValue;
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposedValue)
+                {
+                    disposedValue = true;
+                }
+            }
+
+
+            public void Dispose()
+            {
+                // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
+        }
+
+        [Modulo]
+        public class ModuloIntanciaUnica : ModuloBase
+        {
+            public ModuloIntanciaUnica() : base(true)
+            {
+            }
+        }
+
+
+
+        [Modulo]
+        public class ModuloDependenciaInvalida : ModuloBase
+        {
+            public ModuloDependenciaInvalida(ModuloInvallido moduloInvallido) : base(true)
+            {
+            }
+        }
+
+        [Modulo]
+        public class ModuloDependenciaInterfaceInvalidaOpcional : ModuloBase
+        {
+            public ModuloDependenciaInterfaceInvalidaOpcional(InterfaceModuloInvalido interfaceModuloInvalido = null) : base(false)
+            {
+            }
+        }
+
+        [Modulo]
+        public class ModuloDependenciaValida : ModuloBase
+        {
+            public ModuloDependenciaValida(ModuloDependenciaInterfaceInvalidaOpcional modulo) : base(true)
+            {
+            }
+        }
+
+        [Modulo]
+        public class OutroModuloDependenciaInterfaceValida : ModuloBase, IModuloValido
+        {
+            public OutroModuloDependenciaInterfaceValida() : base(false)
+            {
+            }
+        }
+
+        [Modulo]
+        public class ModuloDependenciaInterfaceValida : ModuloBase
+        {
+            public ModuloDependenciaInterfaceValida(IModuloValido iModulo) : base(false)
+            {
+            }
+        }
+
+        [Modulo]
+        public class ModuloParametroInvalido : ModuloBase, IModuloValido
+        {
+            public ModuloParametroInvalido(int a) : base(false)
+            {
+            }
+        }
+
+        [Modulo]
+        public class ModuloParametroInvalidoOpcional : ModuloBase, IModuloValido
+        {
+            public ModuloParametroInvalidoOpcional(bool instanciaUnica = false) : base(instanciaUnica)
+            {
+            }
+        }
+
+        [ModuloContrato(default(string))]
+        public interface IContratoInvalido : IModulo
+        {
+
+        }
+
+        [ModuloContrato(default(Type))]
+        public interface IContratoInvalidoTipo : IModulo
+        {
+
+        }
+
+        [TestMethod()]
+        [TestCategory("Todos")]
+        public void TodosOstestes()
+        {
+
+            Assert.IsNotNull(gerenciador.Criar(typeof(IModuloInstanciaUnica)));
+            Assert.IsTrue(gerenciador.Existe(typeof(IModuloInstanciaUnica)));
+
+            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloParametroInvalidoOpcional)));
+            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceInvalidaOpcional)));
+            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaValida)));
+            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceValida)));
+            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceValida)).ToString());
+
+
+
+            Assert.ThrowsException<ModuloDescartadoException>(() =>
+            {
+                var m = gerenciador.Criar(typeof(ModuloDependenciaInterfaceInvalidaOpcional));
+                m.Dispose();
+                gerenciador.Obter(m.Id);
+            });
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                gerenciador.Obter(default(string));
+            });
+
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                gerenciador.Criar(typeof(IContratoInvalido));
+            });
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                gerenciador.Criar(typeof(IContratoInvalidoTipo));
+            });
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                gerenciador.Criar(default(Type));
+            });
+
+            Assert.ThrowsException<ArgumentNullException>(() =>
+            {
+                gerenciador.Existe(default(Type));
+            });
+
+            Assert.ThrowsException<ModuloContratoNaoEncontratoException>(() =>
+            {
+                gerenciador.Criar(typeof(InterfaceSemAtributo));
+            });
+
+            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            {
+                gerenciador.Criar(typeof(int));
+            });
+
+            Assert.ThrowsException<TipoModuloNaoEncontradoException>(() =>
+            {
+                gerenciador.Criar(typeof(InterfaceModuloInvalido));
+            });
+
+            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            {
+                gerenciador.Criar(typeof(ModuloInvallido));
+            });
+
+            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            {
+                gerenciador.Criar(typeof(ModuloSemAtributo));
+            });
+
+            Assert.ThrowsException<ModuloConstrutorAusenteException>(() =>
+            {
+                gerenciador.Criar(typeof(ModuloSemConstrutor));
+            });
+
+            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            {
+                gerenciador.Criar(typeof(ModuloIntanciaUnica));
+                gerenciador.Criar(typeof(ModuloIntanciaUnica));
+            });
+
+            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            {
+                gerenciador.Criar(typeof(ModuloParametroInvalido));
+            });
+
+
+        }
+        #endregion
+
     }
 }

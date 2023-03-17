@@ -17,7 +17,7 @@ namespace Propeus.Modulo.Console.Example
         //Sempre será necessario que o construtor possua o parametro IGerenciador para que o gerenciador possa gerenciar a instancia dele
         //O parametro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilziando uma unica instancia quando houver.
         //Por padrao o valor para instanciaUnica é false
-        public ModuloDeExemploParaPropeusModuloDinamico(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloDeExemploParaPropeusModuloDinamico() : base(false)
         {
         }
 
@@ -50,7 +50,7 @@ namespace Propeus.Modulo.Console.Example
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IGerenciador gerenciador, IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base(gerenciador, false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base(false)
         {
             this.outroModulo = outroModulo;
         }
@@ -67,7 +67,7 @@ namespace Propeus.Modulo.Console.Example
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(IGerenciador gerenciador, bool instanciaUnica = false, IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base(gerenciador, instanciaUnica)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(bool instanciaUnica = false, IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base(instanciaUnica)
         {
             this.outroModulo = outroModulo;
         }
@@ -94,7 +94,7 @@ namespace Propeus.Modulo.Console.Example
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base(false)
         {
 
         }
@@ -135,7 +135,7 @@ namespace Propeus.Modulo.Console.Example
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao() : base(false)
         {
 
         }

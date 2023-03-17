@@ -141,17 +141,5 @@ namespace Propeus.Modulo.Util
 
             throw new InvalidCastException();
         }
-
-        /// <summary>
-        /// Obtem as interfaces do tipo selecionado
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static IEnumerable<Type> ObterInterfaces(this Type obj)
-        {
-            return obj is null ? throw new ArgumentNullException(nameof(obj)) : (IEnumerable<Type>)obj.GetInterfaces();
-        }
-
     }
 }

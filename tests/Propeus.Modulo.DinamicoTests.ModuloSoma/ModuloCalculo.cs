@@ -7,7 +7,7 @@ namespace Propeus.Modulo.DinamicoTests.ModuloSoma
     [Modulo]
     public class ModuloCalculo : ModuloBase
     {
-        public ModuloCalculo(IGerenciador gerenciador) : base(gerenciador)
+        public ModuloCalculo() : base()
         {
         }
 

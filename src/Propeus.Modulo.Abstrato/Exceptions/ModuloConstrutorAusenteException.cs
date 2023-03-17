@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para quando o modulo nao possuir nenhum construtor publico
     /// </summary>
-    [Serializable]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3925:\"ISerializable\" should be implemented correctly", Justification = "<Pendente>")]
     public class ModuloConstrutorAusenteException : ModuloException
     {
 
@@ -16,7 +17,5 @@ namespace Propeus.Modulo.Abstrato.Exceptions
         public ModuloConstrutorAusenteException(string message) : base(message)
         {
         }
-
-
     }
 }

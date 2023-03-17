@@ -82,12 +82,12 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <returns><typeparamref name="T"/></returns>
         T Obter<T>() where T : IModulo;
         /// <summary>
-        /// Obtem a instancia de <paramref name="type"/> caso exista
+        /// Obtem a instancia de <paramref name="modulo"/> caso exista
         /// <para>Caso exista mais de uma instancia do mesmo tipo, o primeiro modulo sempre será retornado</para>
         /// </summary>
-        /// <param name="type">Qualquer tipo herdado de IModulo</param>
+        /// <param name="modulo">Qualquer tipo herdado de IModulo</param>
         /// <returns><see cref="IModulo"/></returns>
-        IModulo Obter(Type type);
+        IModulo Obter(Type modulo);
         /// <summary>
         /// Obtem a instancia do modulo pelo id
         /// </summary>
@@ -104,9 +104,9 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <summary>
         /// Verifica se existe alguma instancia do tipo no gerenciador
         /// </summary>
-        /// <param name="type">Tipo da instancia do modulo a ser verificado</param>
+        /// <param name="modulo">Tipo da instancia do modulo a ser verificado</param>
         /// <returns><see cref="bool"/></returns>
-        bool Existe(Type type);
+        bool Existe(Type modulo);
         /// <summary>
         /// Verifica se existe alguma instancia com o id no gerenciador
         /// </summary>

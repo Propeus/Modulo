@@ -13,25 +13,35 @@ namespace Propeus.Modulo.CLI
     //[ModuloAutoInicializavel]
     public class CliModulo : ModuloBase
     {
+        private IGerenciador Gerenciador { get; }
+
         /// <summary>
         /// Construtor padrao do <see cref="ModeloBase"/>
         /// </summary>
         /// <param name="gerenciador"></param>
-        public CliModulo(IGerenciador gerenciador) : base(gerenciador, true)
+        public CliModulo(IGerenciador gerenciador) : base(true)
         {
-
+            Gerenciador = gerenciador;
         }
 
+        /// <summary>
+        /// Exibe CLI para criar uma nova instancia
+        /// </summary>
+        /// <param name="args">Lista de argumentos</param>
         public void CriarInstancia(string[] args)
         {
             Subcommands(args);
         }
-
+        /// <summary>
+        /// Exibe CLI para criar uma nova instancia
+        /// </summary>
+        /// <param name="args">Lista de argumentos</param>
         public void ExecutarCLI(string[] args)
         {
             Subcommands(args);
         }
 
+        ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (!disposing)
@@ -46,7 +56,7 @@ namespace Propeus.Modulo.CLI
             switch (args[0])
             {
                 case "help":
-                    ObtionsHelp(args);
+                    ObtionsHelp();
                     break;
                 case "create":
                     CreateCli.Execute(args, Gerenciador);
@@ -81,7 +91,7 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        private void ObtionsHelp(string[] args)
+        private static void ObtionsHelp()
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

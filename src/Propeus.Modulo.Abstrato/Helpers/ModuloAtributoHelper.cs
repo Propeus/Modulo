@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Util;
@@ -20,7 +21,7 @@ namespace Propeus.Modulo.Abstrato.Helpers
         /// <exception cref="InvalidOperationException"><see cref="ModuloAttribute"/> não encontrado</exception>
         public static ModuloAttribute ObterModuloAtributo(this Type objeto)
         {
-            return objeto.ObterAtributo<ModuloAttribute>();
+           return objeto.GetCustomAttribute<ModuloAttribute>();
         }
 
 
@@ -34,7 +35,7 @@ namespace Propeus.Modulo.Abstrato.Helpers
         /// <exception cref="InvalidOperationException"><see cref="ModuloContratoAttribute"/> não encontrado</exception>
         public static ModuloContratoAttribute ObterModuloContratoAtributo(this Type objeto)
         {
-            return objeto.ObterAtributo<ModuloContratoAttribute>();
+            return objeto.GetCustomAttribute<ModuloContratoAttribute>();
         }
 
     }

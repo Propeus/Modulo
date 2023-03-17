@@ -10,7 +10,10 @@ using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
-    internal class TypeInfo
+    /// <summary>
+    /// Informacoes do tipo
+    /// </summary>
+    internal class TypeInfo : IDisposable
     {
         private readonly Dictionary<string, WeakReference<Type>> contratos;
 
@@ -64,6 +67,30 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
             return null;
         }
+
+        private bool disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this.Referencia = null;
+                    this.QuantidadeReferencia = -1;
+                    this.UltimaModificacao = DateTime.Now;
+                    contratos.Clear();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 
     /// <summary>
@@ -88,6 +115,10 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
         }
 
+        /// <summary>
+        /// Obtem todos os tipos que estao marcados com o atributo <see cref="ModuloAutoInicializavelAttribute"/>
+        /// </summary>
+        /// <returns>Lista de tipos auto inicializavel</returns>
         public static IEnumerable<Type> ObterAutoInicializavel()
         {
             foreach (KeyValuePair<string, TypeInfo> item in Types)
@@ -98,17 +129,31 @@ namespace Propeus.Modulo.Abstrato.Proveders
                 }
             }
         }
-
+        /// <summary>
+        /// Obtem todos os contratos pelo nome do tipo informado
+        /// </summary>
+        /// <param name="name">Nome do tipo que sera obtido os contratos</param>
+        /// <returns>Lista de contratos</returns>
         public static IEnumerable<Type> ObterContratos(string name)
         {
-            return Types.ContainsKey(name) ? Types[name].ObterContratos() : null;
+            return Types.ContainsKey(name) ? Types[name].ObterContratos() : Array.Empty<Type>();
         }
 
+        /// <summary>
+        /// Obtem todos os contratos pelo tipo informado
+        /// </summary>
+        /// <param name="tipo">Tipo que sera obtido os contratos</param>
+        /// <returns>Lista de contratos</returns>
         public static IEnumerable<Type> ObterContratos(Type tipo)
         {
-            return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : null;
+            return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : Array.Empty<Type>();
         }
 
+        /// <summary>
+        /// Adiciona uma nova interface de contrato no tipo informado
+        /// </summary>
+        /// <param name="name">Nome do tipo que ira receber o contrato</param>
+        /// <param name="contrato">Interface de contrato</param>
         public static void AdicionarCntrato(string name, Type contrato)
         {
             if (Types.ContainsKey(name))
@@ -117,6 +162,11 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
         }
 
+        /// <summary>
+        /// Adiciona uma nova interface de contrato no tipo informado
+        /// </summary>
+        /// <param name="tipo">Tipo que ira receber o contrato</param>
+        /// <param name="contrato">Interface de contrato</param>
         public static void AdicionarContrato(Type tipo, Type contrato)
         {
             if (Types.ContainsKey(tipo.Name))
@@ -125,12 +175,16 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
         }
 
+        /// <summary>
+        /// Adiciona ou subistitui um tipo existente
+        /// </summary>
+        /// <param name="type">Tipo a ser adicionado ou atualizado</param>
         public static void AddOrUpdate(Type type)
         {
 
             _ = Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (o, n) =>
             {
-                if (Types.ContainsKey(o))
+                if (Types.TryGetValue(o, out TypeInfo value))
                 {
 
                     if (Types[o].GetReference() == type)
@@ -138,7 +192,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
                         return n;
                     }
 
-                    Types[o].AtualizarReferencia(type);
+                    value.AtualizarReferencia(type);
                     return Types[o];
                 }
                 else
@@ -150,20 +204,35 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
         }
 
+        /// <summary>
+        /// Retorna o tipo pelo nome
+        /// </summary>
+        /// <param name="name">Nome do tipo</param>
+        /// <returns>Retorna o tipo do modulo se houver, caso contrario, <see langword="null"/></returns>
         public static Type Get(string name)
         {
-            return Types.ContainsKey(name) ? Types[name].GetReference() : null;
+            return Types.TryGetValue(name, out TypeInfo value) ? value.GetReference() : null;
         }
 
+        /// <summary>
+        /// Obtem a quantidade de vezes que o tipo foi solicitado
+        /// </summary>
+        /// <param name="name">Nome do tipo</param>
+        /// <returns>Quantidade de vezes que o tipo foi solicitado</returns>
         public static int GetCount(string name)
         {
             return Types[name].QuantidadeReferencia;
 
         }
 
+        /// <summary>
+        /// Remove um tipo do provedor
+        /// </summary>
+        /// <param name="name">Nome do tipo</param>
         public static void Remove(string name)
         {
-            _ = Types.TryRemove(name, out _);
+            _ = Types.TryRemove(name, out TypeInfo target);
+            target.Dispose();
         }
     }
 }

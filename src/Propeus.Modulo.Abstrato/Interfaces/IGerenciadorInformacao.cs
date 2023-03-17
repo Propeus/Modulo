@@ -18,12 +18,12 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <returns><see cref="IModuloTipo"/></returns>
         IModuloTipo ObterInfo<T>() where T : IModulo;
         /// <summary>
-        /// Obtem o <see cref="IModuloTipo"/> de <paramref name="type"/> caso exista
+        /// Obtem o <see cref="IModuloTipo"/> de <paramref name="modulo"/> caso exista
         /// <para>Caso exista mais de uma instancia do mesmo tipo, o primeiro <see cref="IModuloTipo"/> sempre será retornado</para>
         /// </summary>
-        /// <param name="type">Qualquer tipo herdado de <see cref="IModulo"/></param>
+        /// <param name="modulo">Qualquer tipo herdado de <see cref="IModulo"/></param>
         /// <returns><see cref="IModuloTipo"/></returns>
-        IModuloTipo ObterInfo(Type type);
+        IModuloTipo ObterInfo(Type modulo);
         /// <summary>
         /// Obtem  o <see cref="IModuloTipo"/> do modulo pelo id
         /// </summary>

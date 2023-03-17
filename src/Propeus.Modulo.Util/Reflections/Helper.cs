@@ -13,24 +13,7 @@ namespace Propeus.Modulo.Util
     public static partial class Helper
     {
 
-        /// <summary>
-        /// Obtem o construtor que possua os mesmos tipos de parametro
-        /// </summary>
-        /// <param name="type">Tipo que sera obtido o construtor</param>
-        /// <param name="parametros">Os tipos do parametro do construtor</param>
-        /// <returns>Retorna o <see cref="ConstructorInfo"/> caso encontrado</returns>
-        /// <exception cref="Exception">Caso nao existe o contrutor com os parametros informado</exception>
-        public static ConstructorInfo ObterConstrutor(this Type type, Type[] parametros = null)
-        {
-            ConstructorInfo ctor = parametros is null || !parametros.Any()
-                ? type.GetConstructors().FirstOrDefault(ct => ct.GetParameters().Length == 0)
-                : type.GetConstructors().FirstOrDefault(ct =>
-                                {
-                                    IEnumerable<Type> tParametros = ct.ObterTipoParametros();
-                                    return tParametros.ContainsAll(parametros);
-                                });
-            return ctor;
-        }
+     
 
         /// <summary>
         /// Obtem os tipos dos parametros do construtor selecionado
@@ -56,16 +39,6 @@ namespace Propeus.Modulo.Util
             return action is null
                 ? throw new ArgumentNullException(nameof(action))
                 : (IEnumerable<Type>)action.GetParameters().Select(x => x.ParameterType).ToList();
-        }
-
-        /// <summary>
-        /// Gera um hash com bae na assinatura do metodo
-        /// </summary>
-        /// <param name="methodInfo"></param>
-        /// <returns></returns>
-        public static string ObterHashMetodo(this MethodInfo methodInfo)
-        {
-            return $"{methodInfo.ReturnType} {methodInfo.Name} ({string.Join(",", methodInfo.GetParameters().Select(p => p.ParameterType.Name))})".Hash();
         }
 
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup

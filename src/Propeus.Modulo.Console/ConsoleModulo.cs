@@ -41,7 +41,7 @@ namespace Propeus.Modulo.Console
         /// </summary>
         /// <param name="gerenciador"></param>
         /// <param name="moduloCLI"></param>
-        public ConsoleModulo(IGerenciador gerenciador, IModuloCliContrato moduloCLI = null) : base(gerenciador, true)
+        public ConsoleModulo(IGerenciador gerenciador, IModuloCliContrato moduloCLI = null) : base(true)
         {
             modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
             //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
@@ -150,7 +150,7 @@ namespace Propeus.Modulo.Console
                                 break;
                             case "--sair":
                                 cancellationTokenSource.Cancel();
-                                Gerenciador.Remover(this);
+                                gerenciador.Remover(this);
                                 break;
                             case "-v":
                             case "--versao":

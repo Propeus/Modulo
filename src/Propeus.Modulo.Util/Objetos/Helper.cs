@@ -24,7 +24,7 @@ namespace Propeus.Modulo.Util
                 throw new ArgumentNullException(nameof(obj));
             }
 
-            if (obj.Is<string>())
+            if (obj is string)
             {
                 return obj.ToString().ToArrayByte();
             }
@@ -55,58 +55,7 @@ namespace Propeus.Modulo.Util
                 : obj is Type ? Helper.Herdado(obj as Type, comparacao) : Helper.Herdado(obj.GetType(), comparacao);
         }
 
-        /// <summary>
-        /// Verifica se o objeto é herdado do tipo passado no tipo <typeparamref name="T" /></summary>
-        /// <param name="obj">Classe a ser verificado</param>
-        /// <typeparam name="T">Tipo a ser comparado</typeparam>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static bool Herdado<T>(this object obj)
-        {
-            return Herdado(obj, typeof(T));
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é struct
-        /// </summary>
-        /// <param name="obj">Qualquer objeto a ser analisado</param>
-        /// <returns></returns>
-        public static bool IsStruct(this object obj)
-        {
-            if (obj is null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
-            Type type = obj.GetType();
-            return type.IsValueType && !type.IsPrimitive;
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é do tipo <typeparamref name="T" /></summary>
-        /// <typeparam name="T">Tipo a ser validado</typeparam>
-        /// <param name="obj">Objeto a ser verificado</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool Is<T>(this object obj)
-        {
-            return !obj.IsStruct() && obj.IsNullOrDefault()
-                ? throw new ArgumentNullException(nameof(obj))
-                : obj is Type ? obj.Is(typeof(T)) : Helper.Is(obj.GetType(), typeof(T));
-        }
-
-        /// <summary>
-        /// Verifica se o objeto <paramref name="obj" /> é igual ou herdado de <paramref name="comparacao" /></summary>
-        /// <param name="comparacao">Tipo a ser validado</param>
-        /// <param name="obj">Objeto a ser verificado</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static bool Is(this object obj, Type comparacao)
-        {
-            return obj.IsNullOrDefault() ? throw new ArgumentNullException(nameof(obj)) : Helper.Is(obj.GetType(), comparacao);
-        }
-
+     
         /// <summary>
         /// Converte qualquer objeto para o tipo desejado
         /// </summary>
@@ -118,6 +67,7 @@ namespace Propeus.Modulo.Util
         /// <exception cref="OverflowException"></exception>
         public static T To<T>(this object obj)
         {
+            //Tentei remover essa macumba, porem, de alguma forma ele funciona melhor que o Convert e Cast juntos
             return (T)obj.To(typeof(T));
         }
 
@@ -137,12 +87,12 @@ namespace Propeus.Modulo.Util
             {
                 throw new ArgumentNullException(nameof(obj));
             }
-            if (obj.Is<Type>())
+            if (obj is Type)
             {
                 throw new InvalidCastException();
             }
 
-            if (para.IsNullOrDefault())
+            if ( obj is not Type ? obj.Equals(obj.GetType().Default()) : obj.Equals(((Type)obj).Default()))
             {
                 throw new ArgumentNullException(nameof(para));
             }
@@ -180,78 +130,7 @@ namespace Propeus.Modulo.Util
                 : throw new InvalidCastException();
         }
 
-        /// <summary>
-        /// Tenta converter o parâmetro <paramref name="obj" /> em <typeparamref name="T" />, caso não consiga será retornado o valor padrão de <typeparamref name="T" /> ou o valor passado no parametro <paramref name="padrao" /></summary>
-        /// <typeparam name="T">Tipo a ser convertido</typeparam>
-        /// <param name="obj">Objeto a ser convertido em <typeparamref name="T" /></param>
-        /// <param name="padrao">Valor padrão em caso de erro.</param>
-        /// <returns>
-        ///   <typeparamref name="T" /> ou <paramref name="padrao" /></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static T As<T>(this object obj, T padrao = default)
-        {
-            return (T)obj.As(typeof(T), padrao);
-        }
-
-        /// <summary>
-        /// Tenta converter o <paramref name="obj" /> em <paramref name="como" />, caso não consiga será retornado nulo ou o valor passado no parametro <paramref name="padrao" /></summary>
-        /// <param name="como">Tipo a ser convertido</param>
-        /// <param name="obj">Objeto a ser convertido no tipo do parametro <paramref name="como" /></param>
-        /// <param name="padrao">Valor padrão em caso de erro.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static object As(this object obj, Type como, object padrao = default)
-        {
-            if (obj is null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
-
-            if (como.IsNullOrDefault())
-            {
-                throw new ArgumentNullException(nameof(como));
-            }
-
-            object result;
-            try
-            {
-                result = obj.To(como);
-            }
-            catch
-            {
-                result = padrao;
-                //Em todos os casos ignora erro e retorna o valor padrão
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Verifica se o objeto é nulo ou possui um valor padrão
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool IsNullOrDefault(this object obj)
-        {
-            return obj is null || obj.IsDefault();
-        }
-
-        /// <summary>
-        /// Verifica se o objeto possui o valor padrão
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        public static bool IsDefault(this object obj)
-        {
-            return obj is null
-                ? throw new ArgumentNullException(nameof(obj))
-                : obj is not Type ? obj.Equals(obj.GetType().Default()) : obj.Equals(((Type)obj).Default());
-        }
-
+            
         /// <summary>
         /// Obtem o hash de um objeto serializavel
         /// </summary>

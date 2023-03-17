@@ -138,31 +138,58 @@ namespace Propeus.Modulo.Abstrato.Proveders
         }
     }
 
+    /// <summary>
+    /// Provedor de modulos (DLL)
+    /// </summary>
     public static class ModuleProvider
     {
-
+        /// <summary>
+        /// Indica o diretorio que esta sendo observado
+        /// </summary>
+        /// <value>Diretorio do programa em execucao</value>
         public static string DiretorioAtual { get; private set; } = Directory.GetCurrentDirectory();
+        /// <summary>
+        /// Quantidade de modulos mapeados
+        /// </summary>
         public static int ModulosCarregados => TipoModulo.Count;
+        /// <summary>
+        /// Quantidade de DLLs carregados
+        /// </summary>
         public static int ModulosDllCarregados => Modulos.Count;
 
         private static readonly ConcurrentDictionary<string, Modulo> Modulos = new ConcurrentDictionary<string, Modulo>();
         private static readonly ConcurrentDictionary<string, Modulo> ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
         private static readonly ConcurrentDictionary<string, Modulo> TipoModulo = new ConcurrentDictionary<string, Modulo>();
 
+        /// <summary>
+        /// Obtem o tipo do modulo atual
+        /// </summary>
+        /// <param name="name">Nome do tipo</param>
+        /// <returns></returns>
         public static Type ObterTipoModuloAtual(string name)
         {
             return TypeProvider.Get(name);
         }
 
+        /// <summary>
+        /// Recarrega todos os tipos validos
+        /// </summary>
         public static void RecarregamentoRapido()
         {
             CarregarModulos(Modulos.Keys.ToArray());
         }
+        /// <summary>
+        /// Recarrega todos os tipos validos e invalidos, garantindo que o tipo invalido foi corrigido e vice e versa
+        /// </summary>
         public static void Recarregamento()
         {
             CarregarModulos(Modulos.Keys.ToArray());
             CarregarModulos(ModulosIgnorados.Keys.ToArray());
         }
+
+        /// <summary>
+        /// Carrega todas as DLLs incluindo as validas e invalidas
+        /// </summary>
         public static void RecarregmentoCompleto()
         {
             string[] dlls = Directory.GetFiles(DiretorioAtual, "*.dll");

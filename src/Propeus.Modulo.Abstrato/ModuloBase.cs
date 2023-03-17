@@ -2,6 +2,7 @@
 using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Proveders;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
@@ -15,33 +16,19 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Inicializa um modulo
         /// </summary>
-        /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
-        public ModuloBase(IGerenciador gerenciador, bool instanciaUnica = false)
+        public ModuloBase(bool instanciaUnica = false)
         {
-            Gerenciador = gerenciador ?? throw new ArgumentNullException(nameof(gerenciador));
             InstanciaUnica = instanciaUnica;
-            if (gerenciador is IGerenciadorRegistro)
-            {
-                (gerenciador as IGerenciadorRegistro).Registrar(this);
-            }
-            else
-            {
-                throw new ArgumentException(string.Format(GERENCIADOR_INVALIDO, nameof(gerenciador)), nameof(gerenciador));
-            }
-
             Nome = GetType().Name;
+
+            InstanciaProvider.Register(this);
         }
 
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
         public bool InstanciaUnica { get; }
-
-        /// <summary>
-        /// Gerenciador que está manipulando o modulo
-        /// </summary>
-        public IGerenciador Gerenciador { get; }
 
         /// <summary>
         /// Exibe informacoes basicas sobre o modulo

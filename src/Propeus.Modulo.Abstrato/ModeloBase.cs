@@ -21,18 +21,6 @@ namespace Propeus.Modulo.Abstrato
             Id = Guid.NewGuid().ToString();
         }
 
-        /// <summary>
-        /// Inicia um modelo com um nome customizado
-        /// </summary>
-        /// <param name="nome">Nome do modelo</param>
-        public ModeloBase(string nome)
-        {
-            Nome = nome;
-            Estado = Estado.Inicializado;
-            Id = Guid.NewGuid().ToString();
-        }
-
-
         ///<inheritdoc/>
         public virtual string Versao
         {

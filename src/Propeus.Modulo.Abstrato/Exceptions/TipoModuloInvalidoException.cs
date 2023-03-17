@@ -5,7 +5,7 @@ namespace Propeus.Modulo.Abstrato.Exceptions
     /// <summary>
     /// Excecao para quando o modulo nao seguir os padroes de implementacao
     /// </summary>
-    [Serializable]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3925:\"ISerializable\" should be implemented correctly", Justification = "<Pendente>")]
     public class TipoModuloInvalidoException : Exception
     {
         /// <summary>

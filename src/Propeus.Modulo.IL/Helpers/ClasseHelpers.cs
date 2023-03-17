@@ -151,7 +151,7 @@ namespace Propeus.Modulo.IL.Helpers
             IEnumerable<Attribute> attrs = tClasse.GetCustomAttributes();
             foreach (Attribute attr in attrs)
             {
-                ConstructorInfo ctor = attr.GetType().ObterConstrutor();
+                ConstructorInfo ctor = attr.GetType().GetConstructors().MinBy(x=> x.GetParameters().Length);
                 if (ctor != null)
                 {
                     CustomAttributeBuilder attributeBuilder = new(ctor, Array.Empty<object>());

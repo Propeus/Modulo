@@ -73,28 +73,6 @@ namespace Propeus.Modulo.Util
         }
 
         /// <summary>
-        /// Semelhante ao metodo <see cref="DividirEnum{TEnum}(TEnum)"/>, este metodo realiza a divisao utilizando a comparacao bit a bit
-        /// </summary>
-        /// <typeparam name="TEnum">Tipo do enum que sera dividido</typeparam>
-        /// <param name="enum">Valor do enum a ser dividido</param>
-        /// <returns>Array de enum</returns>
-        public static TEnum[] ObterEnumsConcatenadoBitaBit<TEnum>(this TEnum @enum) where TEnum : Enum
-        {
-            ulong valorConcatenadoInteiro = Convert.ToUInt64(@enum);
-            List<TEnum> enums = new();
-            foreach (string nome in Enum.GetNames(typeof(TEnum)))
-            {
-                TEnum valor = (TEnum)Enum.Parse(typeof(TEnum), nome);
-                ulong valorInteiro = Convert.ToUInt64(valor);
-                if ((valorInteiro & valorConcatenadoInteiro) == valorInteiro)
-                {
-                    enums.Add(valor);
-                }
-            }
-            return enums.ToArray();
-        }
-
-        /// <summary>
         /// Concatena um array de enum em um único Enum
         /// </summary>
         /// <remarks>

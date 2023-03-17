@@ -15,7 +15,7 @@
         }
 
         /// <summary>
-        /// Pemite inicializar o gerenciador mais rapidamente, entretanto os novos modulos demorarao a ser encontrados
+        /// Pemite inicializar o _gerenciador mais rapidamente, entretanto os novos modulos demorarao a ser encontrados
         /// </summary>
         /// <value>Por padrao o valor e <see langword="false"/></value>
         public bool CarregamentoRapido { get; set; }

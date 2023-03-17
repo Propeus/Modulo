@@ -44,7 +44,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         public ILParametro[] Parametros { get; private set; }
         public Token[] Acessadores { get; private set; }
-        public MethodInfo MethodInfo => _metodoBuilder.ReflectedType?.GetMethod(Nome, Parametros.Converter<Type>().ToArray());
+        public MethodInfo MethodInfo => _metodoBuilder.ReflectedType?.GetMethod(Nome, Parametros.Cast<Type>().ToArray());
 
 
         internal List<IILPilha> PilhaExecucao { get; private set; }
