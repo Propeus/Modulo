@@ -52,6 +52,6 @@ namespace Propeus.Modulo.Abstrato.Atributos
         /// <remarks>
         /// Esta propriedade e opcional e sera preenchida somente quando o tipo for informado no construtor do atributo
         /// </remarks>
-        public Type Tipo => TypeProvider.Get(Nome);
+        public Type Tipo => TypeProvider.Provider.Get(Nome);
     }
 }

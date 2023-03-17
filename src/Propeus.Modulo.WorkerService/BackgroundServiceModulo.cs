@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Abstrato.Proveders;
 
 namespace Propeus.Modulo.WorkerService
 {
@@ -15,127 +17,94 @@ namespace Propeus.Modulo.WorkerService
     /// Modulo para inicializar um <see cref="BackgroundService"/>
     /// </summary>
     [Modulo]
-    public abstract class BackgroundServiceModulo : BackgroundService, IModulo
+    public abstract class BackgroundServiceModulo : ModuloBase, IHostedService
     {
-        private readonly CancellationTokenSource cancellationTokenSource;
-        private readonly CancellationTokenSource cancellationTokenSourceCancelKeyPress;
-        private readonly Task _worker;
 
-        /// <summary>
-        /// Inicializa um modulo
-        /// </summary>
-        /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
-        /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
-        protected BackgroundServiceModulo(IGerenciador gerenciador, bool instanciaUnica = false)
+        ///<inheritdoc/>
+        protected BackgroundServiceModulo(bool instanciaUnica = false) : base(instanciaUnica)
         {
-            Nome = GetType().Name;
-            Estado = Estado.Inicializado;
-            Id = Guid.NewGuid().ToString();
-
-            Gerenciador = gerenciador ?? throw new ArgumentNullException(nameof(gerenciador));
-            InstanciaUnica = instanciaUnica;
-            if (gerenciador is IGerenciadorRegistro)
-            {
-                (gerenciador as IGerenciadorRegistro).Registrar(this);
-            }
-            else
-            {
-                throw new ArgumentException(string.Format(Constantes.GERENCIADOR_INVALIDO, nameof(gerenciador)), nameof(gerenciador));
-            }
-
-            cancellationTokenSource = new CancellationTokenSource();
-            cancellationTokenSourceCancelKeyPress = new CancellationTokenSource();
-
-            System.Console.CancelKeyPress += Console_CancelKeyPress;
-
-            _worker = StartAsync(cancellationTokenSource.Token);
-            if (_worker.IsFaulted)
-            {
-                Estado = Estado.Erro;
-                Erros = _worker.Exception;
-                _worker = null;
-            }
 
         }
 
-        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+
+        private Task _executeTask;
+        private CancellationTokenSource _stoppingCts;
+
+        /// <summary>
+        /// Inicializa o servico
+        /// </summary>
+        public void CriarInstancia()
         {
-            _ = StopAsync(cancellationTokenSourceCancelKeyPress.Token);
+            StartAsync(new CancellationTokenSource().Token);
         }
 
         /// <summary>
-        /// Gerenciador que está manipulando o modulo
+        /// Gets the Task that executes the background operation.
         /// </summary>
-        public IGerenciador Gerenciador { get; }
-        ///<inheritdoc/>
-        public bool InstanciaUnica { get; }
-        ///<inheritdoc/>
-        public virtual string Versao
-        {
-            get
-            {
-                Version ver = GetType().Assembly.GetName().Version;
-                return $"{ver.Major}.{ver.Minor}.{ver.Build}";
-            }
-        }
-        ///<inheritdoc/>
-        public Estado Estado { get; private set; }
-        /// <summary>
-        /// Caso o estado seja <see cref="Estado.Erro"/>, a excecao será adicionado aqui
-        /// </summary>
-        public AggregateException Erros { get; }
+        /// <remarks>
+        /// Will return null if the background operation hasn't started.
+        /// </remarks>
+        public virtual Task ExecuteTask => _executeTask;
 
-        ///<inheritdoc/>
-        public string Nome { get; }
-        ///<inheritdoc/>
-        public string Id { get; }
 
         /// <summary>
-        /// Exibe informações basicas sobre o modelo
+        /// This method is called when the <see cref="Microsoft.Extensions.Hosting.IHostedService"/> starts.
+        /// The implementation should return a task that represents the lifetime of the long running operation(s) being performed.
         /// </summary>
+        /// <remarks>
+        /// See Worker Services in .NET for implementation guidelines.
+        /// </remarks>
+        /// <param name="stoppingToken">Triggered when <see cref="Microsoft.Extensions.Hosting.IHostedService.StopAsync(System.Threading.CancellationToken)"/> </param>
+        /// <returns>A System.Threading.Tasks.Task that represents the long running operations.</returns>
+        protected abstract Task ExecuteAsync(CancellationToken stoppingToken);
+
+        /// <summary>
+        /// Triggered when the application host is ready to start the service.
+        /// </summary>
+        /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
         /// <returns></returns>
-        public override string ToString()
+        public virtual Task StartAsync(CancellationToken cancellationToken)
         {
-            StringBuilder sb = new();
+            _stoppingCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            _executeTask = ExecuteAsync(_stoppingCts.Token);
+            if (_executeTask.IsCompleted)
+            {
+                return _executeTask;
+            }
 
-            _ = sb.Append("Nome: ").Append(Nome).AppendLine();
-            _ = sb.Append("Estado: ").Append(Estado).AppendLine();
-            _ = sb.Append("Id: ").Append(Id).AppendLine();
-            _ = sb.Append("Versao: ").Append(Versao).AppendLine();
-            _ = sb.AppendLine($"Instancia Unica: {InstanciaUnica}");
-
-
-            return sb.ToString();
+            Estado = Estado.Inicializado;
+            return Task.CompletedTask;
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // Para detectar chamadas redundantes
-
         /// <summary>
-        /// Libera os objetos deste modelo e altera o estado dele para <see cref="Estado.Desligado"/>
+        ///  Triggered when the application host is performing a graceful shutdown.
         /// </summary>
-        /// <param name="disposing">Indica se deve alterar o estado do objeto para <see cref="Estado.Desligado"/></param>
-        protected virtual void Dispose(bool disposing)
+        /// <param name="cancellationToken">Indicates that the shutdown process should no longer be graceful.</param>
+        /// <returns></returns>
+        public virtual async Task StopAsync(CancellationToken cancellationToken)
         {
-            if (!disposedValue)
+            if (_executeTask != null)
             {
-                if (disposing)
+                try
                 {
-                    Estado = Estado.Desligado;
-                    _worker?.Wait(cancellationTokenSourceCancelKeyPress.Token);
-                    cancellationTokenSource.Cancel();
+                    _stoppingCts.Cancel();
                 }
-
-                disposedValue = true;
+                finally
+                {
+                    await Task.WhenAny(_executeTask, Task.Delay(-1, cancellationToken)).ConfigureAwait(continueOnCapturedContext: false);
+                }
             }
+
+            Estado = Estado.Desligado;
         }
 
         ///<inheritdoc/>
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            // Não altere este código. Coloque o código de limpeza em DisposeMethod(bool disposing) acima.
-            Dispose(true);
+            _stoppingCts?.Cancel();
+            base.Dispose(disposing);
         }
-        #endregion
+
+
     }
 }

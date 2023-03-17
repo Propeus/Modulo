@@ -6,23 +6,23 @@ using Propeus.Modulo.Abstrato.Proveders;
 
 using static Propeus.Modulo.Abstrato.Constantes;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Modulo.Abstrato.Modulos
 {
     /// <summary>
     /// Classe base para o modulo
     /// </summary>
-    public class ModuloBase : ModeloBase, IModulo
+    public abstract class ModuloBase : ModeloBase, IModulo
     {
         /// <summary>
         /// Inicializa um modulo
         /// </summary>
         /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
-        public ModuloBase(bool instanciaUnica = false)
+        protected ModuloBase(bool instanciaUnica = false) : base()
         {
             InstanciaUnica = instanciaUnica;
             Nome = GetType().Name;
 
-            InstanciaProvider.Register(this);
+            InstanciaProvider.Provider.Register(this);
         }
 
         /// <summary>

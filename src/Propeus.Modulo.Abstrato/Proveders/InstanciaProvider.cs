@@ -16,19 +16,33 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// <remarks>
     /// Com grandes poderes ha grandes merdas
     /// </remarks>
-    public static class InstanciaProvider
+    internal class InstanciaProvider : IDisposable
     {
+        static InstanciaProvider _provider;
+        public static InstanciaProvider Provider
+        {
+            get
+            {
+                if (_provider is null || _provider.disposedValue)
+                {
+                    _provider = new InstanciaProvider();
+                }
+
+                return _provider;
+            }
+        }
+
         //K:Id | V:modulo
-        static ConcurrentDictionary<string, IModuloTipo> modules = new ConcurrentDictionary<string, IModuloTipo>();
+        ConcurrentDictionary<string, IModuloTipo> modules = new ConcurrentDictionary<string, IModuloTipo>();
         //K:id
-        static HashSet<string> cache = new HashSet<string>();
+        HashSet<string> cache = new HashSet<string>();
 
         /// <summary>
         /// Verifica se o tipo informado esta em cache
         /// </summary>
         /// <param name="name">Nome do modulo</param>
         /// <returns><see langword="true"/> caso exista</returns>
-        public static bool HasCache(string name)
+        public bool HasCache(string name)
         {
             return cache.Contains(name);
         }
@@ -38,7 +52,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do modulo</param>
         /// <returns><see langword="true"/> caso exista</returns>
-        public static bool HasByName(string name)
+        public bool HasByName(string name)
         {
             return cache.Contains(name) || modules.Values.Any(x => x.TipoModulo.Name == name);
         }
@@ -48,7 +62,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="id">Id do modulo</param>
         /// <returns><see langword="true"/> caso exista</returns>
-        public static bool HasById(string id)
+        public bool HasById(string id)
         {
             return cache.Contains(id) || modules.ContainsKey(id);
         }
@@ -58,7 +72,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="id">Id do modulo</param>
         /// <returns><see cref="IModuloTipo"/> caso exista senao retorna <see langword="null"/></returns>
-        public static IModuloTipo GetById(string id)
+        public IModuloTipo GetById(string id)
         {
             modules.TryGetValue(id, out var tipo);
             return tipo;
@@ -69,7 +83,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do modulo</param>
         /// <returns><see cref="IModuloTipo"/> caso exista senao retorna <see langword="null"/></returns>
-        public static IModuloTipo GetByName(string name)
+        public IModuloTipo GetByName(string name)
         {
             return modules.Values.FirstOrDefault(x => x.TipoModulo.Name == name && !x.Coletado);
         }
@@ -78,9 +92,9 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// Retorna todos os modulos ativos
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<IModuloTipo> Get()
+        public IEnumerable<IModuloTipo> Get()
         {
-            return modules.Where(x => !x.Value.Coletado).Select(x => x.Value);
+            return modules.Where(x => !x.Value.Elimindado).Select(x => x.Value);
         }
 
         /// <summary>
@@ -88,7 +102,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="modulo">Instancia do modulo</param>
         /// <exception cref="InvalidOperationException">Caso ja exista um registro de um mesmo modulo marcado como instancia unica</exception>
-        public static void Register(IModulo modulo)
+        public void Register(IModulo modulo)
         {
             if (!cache.Contains(modulo.Nome) && modulo.InstanciaUnica)
             {
@@ -111,7 +125,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <param name="args">Argumentos para o construtor do modulo</param>
         /// <returns>Instancia do modulo</returns>
         /// <exception cref="ModuloInstanciaUnicaException">Caso ja exista um mesmo tipo como instancia unica</exception>
-        public static IModulo Create(Type type, object[] args)
+        public IModulo Create(Type type, object[] args)
         {
             if (!cache.Contains(type.Name))
                 return (IModulo)Activator.CreateInstance(type, args);
@@ -123,7 +137,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="modulo">Instancia do modulo</param>
         /// <returns>Retorna <see langword="true"/> caso tenha sido removido com sucesso, caso contrario <see langword="false"/></returns>
-        public static bool Remove(IModulo modulo)
+        public bool Remove(IModulo modulo)
         {
             if (modules.TryRemove(modulo.Id, out IModuloTipo target) && !target.Coletado)
             {
@@ -138,7 +152,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="id">Id do modulo em execucao</param>
         /// <returns>Retorna <see langword="true"/> caso tenha sido removido com sucesso, caso contrario <see langword="false"/></returns>
-        public static bool RemoveById(string id)
+        public bool RemoveById(string id)
         {
             if (modules.TryRemove(id, out IModuloTipo target) && !target.Coletado)
             {
@@ -155,7 +169,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <remarks>
         /// Use com sabedoria
         /// </remarks>
-        public static void Flush()
+        public void Flush()
         {
             foreach (var item in modules.Where(x => !x.Value.Coletado))
             {
@@ -164,6 +178,32 @@ namespace Propeus.Modulo.Abstrato.Proveders
 
             modules.Clear();
             cache.Clear();
+        }
+
+        private bool disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Flush();
+                    modules.Clear();
+                    cache.Clear();
+                }
+
+                modules = null;
+                cache = null;
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

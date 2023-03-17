@@ -13,7 +13,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// <summary>
     /// Informacoes do tipo
     /// </summary>
-    internal class TypeInfo : IDisposable
+    class TypeInfo : IDisposable
     {
         private readonly Dictionary<string, WeakReference<Type>> contratos;
 
@@ -96,10 +96,27 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// <summary>
     /// Gerecia todas os tipos da aplicacao
     /// </summary>
-    public static class TypeProvider
+    public class TypeProvider : IDisposable
     {
-        private static readonly ConcurrentDictionary<string, TypeInfo> Types = new();
-        static TypeProvider()
+        static TypeProvider _provider;
+        /// <summary>
+        /// Obtem um provedor de tipos existente ou cria um novo
+        /// </summary>
+        public static TypeProvider Provider
+        {
+            get
+            {
+                if (_provider is null || _provider.disposedValue)
+                {
+                    _provider = new TypeProvider();
+                }
+
+                return _provider;
+            }
+        }
+
+        private ConcurrentDictionary<string, TypeInfo> Types = new();
+        TypeProvider()
         {
             string dir = Directory.GetCurrentDirectory();
 
@@ -119,7 +136,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// Obtem todos os tipos que estao marcados com o atributo <see cref="ModuloAutoInicializavelAttribute"/>
         /// </summary>
         /// <returns>Lista de tipos auto inicializavel</returns>
-        public static IEnumerable<Type> ObterAutoInicializavel()
+        public IEnumerable<Type> ObterAutoInicializavel()
         {
             foreach (KeyValuePair<string, TypeInfo> item in Types)
             {
@@ -134,7 +151,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo que sera obtido os contratos</param>
         /// <returns>Lista de contratos</returns>
-        public static IEnumerable<Type> ObterContratos(string name)
+        public IEnumerable<Type> ObterContratos(string name)
         {
             return Types.ContainsKey(name) ? Types[name].ObterContratos() : Array.Empty<Type>();
         }
@@ -144,7 +161,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="tipo">Tipo que sera obtido os contratos</param>
         /// <returns>Lista de contratos</returns>
-        public static IEnumerable<Type> ObterContratos(Type tipo)
+        public IEnumerable<Type> ObterContratos(Type tipo)
         {
             return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : Array.Empty<Type>();
         }
@@ -154,7 +171,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo que ira receber o contrato</param>
         /// <param name="contrato">Interface de contrato</param>
-        public static void AdicionarCntrato(string name, Type contrato)
+        public void AdicionarCntrato(string name, Type contrato)
         {
             if (Types.ContainsKey(name))
             {
@@ -167,7 +184,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="tipo">Tipo que ira receber o contrato</param>
         /// <param name="contrato">Interface de contrato</param>
-        public static void AdicionarContrato(Type tipo, Type contrato)
+        public void AdicionarContrato(Type tipo, Type contrato)
         {
             if (Types.ContainsKey(tipo.Name))
             {
@@ -179,7 +196,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// Adiciona ou subistitui um tipo existente
         /// </summary>
         /// <param name="type">Tipo a ser adicionado ou atualizado</param>
-        public static void AddOrUpdate(Type type)
+        public void AddOrUpdate(Type type)
         {
 
             _ = Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (o, n) =>
@@ -209,7 +226,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo</param>
         /// <returns>Retorna o tipo do modulo se houver, caso contrario, <see langword="null"/></returns>
-        public static Type Get(string name)
+        public Type Get(string name)
         {
             return Types.TryGetValue(name, out TypeInfo value) ? value.GetReference() : null;
         }
@@ -219,7 +236,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo</param>
         /// <returns>Quantidade de vezes que o tipo foi solicitado</returns>
-        public static int GetCount(string name)
+        public int GetCount(string name)
         {
             return Types[name].QuantidadeReferencia;
 
@@ -229,10 +246,45 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// Remove um tipo do provedor
         /// </summary>
         /// <param name="name">Nome do tipo</param>
-        public static void Remove(string name)
+        public void Remove(string name)
         {
             _ = Types.TryRemove(name, out TypeInfo target);
             target.Dispose();
+        }
+
+        private bool disposedValue;
+
+        /// <summary>
+        /// Remove todos os tipo carregados em memoria
+        /// </summary>
+        /// <param name="disposing">Indica se deve ser liberado os objetos gerenciaveis da memoria</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    foreach (var item in Types.Values)
+                    {
+                        item.Dispose();
+                    }
+
+                    Types.Clear();
+                }
+
+                Types = null;
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Remove todos os tipos carregados em memoria
+        /// </summary>
+        public void Dispose()
+        {
+            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

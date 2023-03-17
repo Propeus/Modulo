@@ -12,7 +12,7 @@ using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
-    internal class Modulo : IDisposable
+    class Modulo : IDisposable
     {
         public Modulo(string filePath)
         {
@@ -22,7 +22,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             CarregarDll();
         }
 
-        public Type this[string name] => Modulos.Contains(name) ? TypeProvider.Get(name) : null;
+        public Type this[string name] => Modulos.Contains(name) ? TypeProvider.Provider.Get(name) : null;
 
         public void Recarregar()
         {
@@ -80,7 +80,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
                 foreach (Type item in lsAux)
                 {
                     Modulos.Add(item.Name);
-                    TypeProvider.AddOrUpdate(item);
+                    TypeProvider.Provider.AddOrUpdate(item);
                 }
                 Valido = Modulos.Any();
             }
@@ -129,7 +129,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
         }
 
-     
+
         public void Dispose()
         {
             // Não altere este código. Coloque o código de limpeza no método 'DisposeMethod(bool disposing)'
@@ -141,47 +141,65 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// <summary>
     /// Provedor de modulos (DLL)
     /// </summary>
-    public static class ModuleProvider
+    public class ModuleProvider : IDisposable
     {
+        static ModuleProvider _provider;
+        /// <summary>
+        /// Obtem um provedor de modulos existente ou cria um novo
+        /// </summary>
+        public static ModuleProvider Provider
+        {
+            get
+            {
+                if (_provider is null || _provider.disposedValue)
+                {
+                    _provider = new ModuleProvider();
+                }
+
+                return _provider;
+            }
+
+        }
+
         /// <summary>
         /// Indica o diretorio que esta sendo observado
         /// </summary>
         /// <value>Diretorio do programa em execucao</value>
-        public static string DiretorioAtual { get; private set; } = Directory.GetCurrentDirectory();
+        public string DiretorioAtual { get; private set; } = Directory.GetCurrentDirectory();
         /// <summary>
         /// Quantidade de modulos mapeados
         /// </summary>
-        public static int ModulosCarregados => TipoModulo.Count;
+        public int ModulosCarregados => TipoModulo?.Count ?? 0;
         /// <summary>
         /// Quantidade de DLLs carregados
         /// </summary>
-        public static int ModulosDllCarregados => Modulos.Count;
+        public int ModulosDllCarregados => Modulos?.Count ?? 0;
 
-        private static readonly ConcurrentDictionary<string, Modulo> Modulos = new ConcurrentDictionary<string, Modulo>();
-        private static readonly ConcurrentDictionary<string, Modulo> ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
-        private static readonly ConcurrentDictionary<string, Modulo> TipoModulo = new ConcurrentDictionary<string, Modulo>();
+        private ConcurrentDictionary<string, Modulo> Modulos = new ConcurrentDictionary<string, Modulo>();
+        private ConcurrentDictionary<string, Modulo> ModulosIgnorados = new ConcurrentDictionary<string, Modulo>();
+        private ConcurrentDictionary<string, Modulo> TipoModulo = new ConcurrentDictionary<string, Modulo>();
 
         /// <summary>
         /// Obtem o tipo do modulo atual
         /// </summary>
         /// <param name="name">Nome do tipo</param>
         /// <returns></returns>
-        public static Type ObterTipoModuloAtual(string name)
+        public Type ObterTipoModuloAtual(string name)
         {
-            return TypeProvider.Get(name);
+            return TypeProvider.Provider.Get(name);
         }
 
         /// <summary>
         /// Recarrega todos os tipos validos
         /// </summary>
-        public static void RecarregamentoRapido()
+        public void RecarregamentoRapido()
         {
             CarregarModulos(Modulos.Keys.ToArray());
         }
         /// <summary>
         /// Recarrega todos os tipos validos e invalidos, garantindo que o tipo invalido foi corrigido e vice e versa
         /// </summary>
-        public static void Recarregamento()
+        public void Recarregamento()
         {
             CarregarModulos(Modulos.Keys.ToArray());
             CarregarModulos(ModulosIgnorados.Keys.ToArray());
@@ -190,13 +208,13 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <summary>
         /// Carrega todas as DLLs incluindo as validas e invalidas
         /// </summary>
-        public static void RecarregmentoCompleto()
+        public void RecarregmentoCompleto()
         {
             string[] dlls = Directory.GetFiles(DiretorioAtual, "*.dll");
             CarregarModulos(dlls);
         }
 
-        private static void CarregarModulos(string[] dlls)
+        private void CarregarModulos(string[] dlls)
         {
 
             //Possivel tratamento de descarregamento de assembly para evitar vazamento de memoria
@@ -255,5 +273,57 @@ namespace Propeus.Modulo.Abstrato.Proveders
             }
         }
 
+        private bool disposedValue;
+
+        /// <summary>
+        /// Remove todos os modulos carregados em memoria
+        /// </summary>
+        /// <param name="disposing">Indica se deve ser liberado os objetos gerenciaveis da memoria</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    foreach (var item in Modulos.Values)
+                    {
+                        item.Dispose();
+                    }
+
+                    foreach (var item in ModulosIgnorados.Values)
+                    {
+                        item.Dispose();
+                    }
+
+                    foreach (var item in TipoModulo.Values)
+                    {
+                        item.Dispose();
+                    }
+
+
+                    Modulos.Clear();
+                    ModulosIgnorados.Clear();
+                    TipoModulo.Clear();
+
+                }
+
+                Modulos = null;
+                ModulosIgnorados = null;
+                TipoModulo = null;
+
+                disposedValue = true;
+            }
+        }
+
+
+        /// <summary>
+        /// Remove todos os modulos carregados em memoria
+        /// </summary>
+        public void Dispose()
+        {
+            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

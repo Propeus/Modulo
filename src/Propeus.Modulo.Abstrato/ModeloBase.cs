@@ -8,13 +8,13 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Classe com o modelo base para o projeto
     /// </summary>
-    public class ModeloBase : IBaseModelo
+    public abstract class ModeloBase : IBaseModelo
     {
 
         /// <summary>
         /// Inicia um modelo basico
         /// </summary>
-        public ModeloBase()
+        protected ModeloBase()
         {
             Nome = GetType().Name;
             Estado = Estado.Inicializado;
@@ -56,7 +56,10 @@ namespace Propeus.Modulo.Abstrato
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // Para detectar chamadas redundantes
+        /// <summary>
+        /// Para detectar chamadas redundantes
+        /// </summary>
+        protected bool disposedValue = false; 
 
         /// <summary>
         /// Libera os objetos deste modelo e altera o estado dele para <see cref="Estado.Desligado"/>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.Console
 {

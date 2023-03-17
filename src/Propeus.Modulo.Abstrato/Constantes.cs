@@ -43,10 +43,6 @@ namespace Propeus.Modulo.Abstrato
         public const string VALOR_PADRAO_NAO_ENCONTRADO = "Não foi possível encontrar o valor padrão do parâmetro '{0}'.";
 
         /// <summary>
-        /// O gerenciador informado nao emplementa a interface <see cref="Interfaces.IGerenciadorRegistro"/>
-        /// </summary>
-        public const string GERENCIADOR_INVALIDO = "O gerenciador '{0}' não possui a interface IGerenciadorRegistro implentado.";
-        /// <summary>
         /// O parametro deve ser preenchido
         /// </summary>
         public const string PARAMETRO_NULO = "O parametro  '{0}' não pode ser nulo";

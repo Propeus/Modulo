@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Dinamico;
 using Propeus.Modulo.WorkerService;
 
@@ -14,7 +15,7 @@ namespace Propeus.Modulo.WorkerServiceTests
     [Modulo]
     public class ModuloTesteWorker : BackgroundServiceModulo
     {
-        public ModuloTesteWorker(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
+        public ModuloTesteWorker(bool instanciaUnica = false) : base()
         {
         }
 

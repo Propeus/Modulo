@@ -7,6 +7,7 @@ using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.CoreTests
@@ -360,91 +361,7 @@ namespace Propeus.Modulo.CoreTests
 
         }
 
-        //ObterInfo
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaUnicaPorTipo()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            IModuloTipo modulov2 = (gerenciador as IGerenciadorInformacao).ObterInfo<TesteInstanciaUnicaModulo>();
-            Assert.AreEqual(modulo, modulov2.Modulo);
-
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaMultiplaPorTipo()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModuloTipo modulov2 = (gerenciador as IGerenciadorInformacao).ObterInfo<TesteInstanciaMultiplaModulo>();
-            Assert.AreEqual(modulo, modulov2.Modulo);
-
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaMultipla_MultiplosModulosPorTipo()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            IModuloTipo modulov3 = (gerenciador as IGerenciadorInformacao).ObterInfo<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov3.Modulo);
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaUnicaPorId()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            IModuloTipo modulov2 = (gerenciador as IGerenciadorInformacao).ObterInfo(modulo.Id);
-            Assert.AreEqual(modulo, modulov2.Modulo);
-
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaMultiplaPorId()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModuloTipo modulov2 = (gerenciador as IGerenciadorInformacao).ObterInfo<TesteInstanciaMultiplaModulo>();
-            Assert.AreEqual(modulo.Id, modulov2.Modulo.Id);
-
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaMultipla_MultiplosModulosPorId()
-        {
-
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            IModuloTipo modulov3 = (gerenciador as IGerenciadorInformacao).ObterInfo(modulov2.Id);
-            Assert.IsNotNull(modulov3);
-            Assert.AreEqual(modulov2, modulov3.Modulo);
-
-        }
-        [TestMethod()]
-        [TestCategory("ObterInfo")]
-        public void ObterInfoModuloInstanciaPorIdInexistente_ArgumentException()
-        {
-
-            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
-            {
-                _ = (gerenciador as IGerenciadorInformacao).ObterInfo(Guid.NewGuid().ToString());
-            });
-
-        }
-
+   
         //Existe
         [TestMethod()]
         [TestCategory("Existe")]

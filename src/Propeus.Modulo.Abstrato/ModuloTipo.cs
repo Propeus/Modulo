@@ -9,7 +9,7 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    public class ModuloTipo : ModeloBase, IModuloTipo
+    class ModuloTipo : ModeloBase, IModuloTipo
     {
 
         /// <summary>
@@ -19,11 +19,6 @@ namespace Propeus.Modulo.Abstrato
         /// <exception cref="ArgumentNullException">Modulo nao pode ser nulo</exception>
         public ModuloTipo(IModulo modulo)
         {
-            if (modulo is null)
-            {
-                throw new ArgumentNullException(nameof(modulo));
-            }
-
             WeakReference = new WeakReference(modulo);
             InstanciaUnica = modulo.InstanciaUnica;
             IdModulo = modulo.Id;
