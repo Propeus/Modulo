@@ -16,7 +16,7 @@ namespace Propeus.Modulo.Abstrato.Helpers
         /// Obtem o atributo <see cref="ModuloAttribute"/> de um objeto
         /// </summary>
         /// <param name="objeto">Qualquer objeto do tipo <see cref="Type"/></param>
-        /// <returns></returns>
+        /// <returns>Retorna o atributo ou <see langword="null"/></returns>
         /// <exception cref="ArgumentException">Argumeto obj vazio ou nulo</exception>
         /// <exception cref="InvalidOperationException"><see cref="ModuloAttribute"/> não encontrado</exception>
         public static ModuloAttribute ObterModuloAtributo(this Type objeto)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 
 using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Proveders
@@ -133,14 +134,14 @@ namespace Propeus.Modulo.Abstrato.Proveders
         }
 
         /// <summary>
-        /// Obtem todos os tipos que estao marcados com o atributo <see cref="ModuloAutoInicializavelAttribute"/>
+        /// Obtem todos os tipos que estao marcados com o atributo <see cref="ModuloAttribute.AutoInicializavel"/>
         /// </summary>
         /// <returns>Lista de tipos auto inicializavel</returns>
         public IEnumerable<Type> ObterAutoInicializavel()
         {
             foreach (KeyValuePair<string, TypeInfo> item in Types)
             {
-                if (item.Value.Referencia.TryGetTarget(out Type target) && target.PossuiAtributo<ModuloAutoInicializavelAttribute>())
+                if (item.Value.Referencia.TryGetTarget(out Type target) && (target.ObterModuloAtributo()?.AutoInicializavel ?? false))
                 {
                     yield return target;
                 }
@@ -151,7 +152,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         /// <param name="name">Nome do tipo que sera obtido os contratos</param>
         /// <returns>Lista de contratos</returns>
-       
+
         /// <summary>
         /// Obtem todos os contratos pelo tipo informado
         /// </summary>
@@ -162,7 +163,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
             return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : Array.Empty<Type>();
         }
 
-       
+
         /// <summary>
         /// Adiciona uma nova interface de contrato no tipo informado
         /// </summary>

@@ -27,5 +27,17 @@ namespace Propeus.Modulo.Util
 
             return string.Concat(md5String);
         }
+
+        public static string Hash(this ReadOnlySpan<byte> bytes)
+        {
+            if (bytes.Length > 0)
+            {
+                return MD5.HashData(bytes).AsSpan().ToString();
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+        }
     }
 }

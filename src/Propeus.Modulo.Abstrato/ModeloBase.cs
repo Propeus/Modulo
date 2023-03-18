@@ -19,6 +19,7 @@ namespace Propeus.Modulo.Abstrato
             Nome = GetType().Name;
             Estado = Estado.Inicializado;
             Id = Guid.NewGuid().ToString();
+            IdManifesto = this.GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
         }
 
         ///<inheritdoc/>
@@ -38,6 +39,8 @@ namespace Propeus.Modulo.Abstrato
         public string Nome { get; protected set; }
         ///<inheritdoc/>
         public string Id { get; }
+        ///<inheritdoc/>
+        public string IdManifesto { get; }
 
         /// <summary>
         /// Exibe informações basicas sobre o modelo

@@ -28,8 +28,7 @@ namespace Propeus.Modulo.Console
     /// <summary>
     /// Exemplo de modulo auto inicializavel e funcional
     /// </summary>
-    [Modulo]
-    [ModuloAutoInicializavel]
+    [Modulo(AutoInicializavel = true)]
     public class ConsoleModulo : ModuloBase
     {
         private readonly CancellationTokenSource cancellationTokenSource = new();

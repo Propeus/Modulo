@@ -23,7 +23,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Para inicializar ele é necessario passar um gerenciador "nativo" ou de nivel superior
              * **/
-            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador =  Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.Criar<IInterfaceDeContratoDeExemploParaPropeusModuloDinamico>();
@@ -35,7 +35,7 @@ namespace Propeus.Modulo.Console.Example
              * Assim como o Propeus.Modulo.Core, este gerenciador não exige que tenha uma interface de contrato para que possa criar novos modulos.
              * Portanto que o modulo seja valido, ele pode ser criado diretamente no gerenciador
              * **/
-            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador =  Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 ModuloDeExemploParaPropeusModuloDinamico modulo = gerenciador.Criar<ModuloDeExemploParaPropeusModuloDinamico>();
@@ -46,7 +46,7 @@ namespace Propeus.Modulo.Console.Example
             /**
              * Um modulo não necessariamente pode ter somente um unico contrato, cada contrato pode possuir os metodos e propriedades que serão necessarios para o seu uso
              * **/
-            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador = Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.Criar<IInterfaceDeContratoDeExemploParaPropeusModuloDinamico>();
@@ -68,7 +68,7 @@ namespace Propeus.Modulo.Console.Example
              * Existem cenarios onde não haverá o tipo do modulo para ser passado para o atributo ModuloContrato, neste caso é possivel utilizar
              * o campo 'nome' do atributo para obter o tipo dele.
              * */
-            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador = Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf modulo = gerenciador.Criar<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf>();
@@ -85,7 +85,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Para definir um modulo ocional, basta definir o parametro como opcional (tipo nome = null)
              * **/
-            using (IGerenciador gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciador gerenciador = Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria moduloComDependenciaObrigatoria = gerenciador.Criar<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria>();
@@ -105,7 +105,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * O usuario pode criar quantos 'CriarInstancia' quiser, portanto que nao tenha a mesma assinatura dos outros.
              * **/
-            using (IGerenciadorArgumentos gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciadorArgumentos gerenciador = Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
 
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia modulo = gerenciador.Criar<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia>(new object[] { "O resultado da soma é", 15, 20 });
@@ -122,7 +122,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Não é obrigatorio o uso destes metodos, entretanto pode facilitar alguns fluxos de processos aonde se depende de outros modulos e/ou dados simultaneamente
              * */
-            using (IGerenciadorArgumentos gerenciador = new Propeus.Modulo.Dinamico.Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+            using (IGerenciadorArgumentos gerenciador = Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
             {
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao modulo = gerenciador.Criar<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao>(new object[] { 15, 20 });
                 modulo.EscreverOlaMundo();

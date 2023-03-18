@@ -14,7 +14,6 @@ namespace Propeus.Modulo.Console.Example
     [Modulo]
     public class ModuloDeExemploParaPropeusModuloDinamico : ModuloBase
     {
-        //Sempre será necessario que o construtor possua o parametro IGerenciador para que o gerenciador possa gerenciar a instancia dele
         //O parametro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilziando uma unica instancia quando houver.
         //Por padrao o valor para instanciaUnica é false
         public ModuloDeExemploParaPropeusModuloDinamico() : base(false)

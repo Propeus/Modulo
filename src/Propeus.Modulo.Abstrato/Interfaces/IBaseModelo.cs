@@ -27,5 +27,9 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// Representação alfanumerica e unica do objeto.
         /// </summary>
         string Id { get; }
+        /// <summary>
+        /// <see cref="Guid"/> do <see cref="System.Reflection.Assembly" /> atual
+        /// </summary>
+        string IdManifesto { get; }
     }
 }

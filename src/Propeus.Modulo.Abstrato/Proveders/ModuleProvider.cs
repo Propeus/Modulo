@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.PortableExecutable;
 using System.Runtime.Loader;
+using System.Security.Cryptography;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -41,28 +43,22 @@ namespace Propeus.Modulo.Abstrato.Proveders
                 return;
             }
 
+            var auxTamanho = FileLength(Local);
+            var auxHash = HashFile(Local);
 
-            string nHash = null;
-            using (MemoryStream reader = new())
+            if (Tamanho == 0
+                || Tamanho != auxTamanho
+                || Hash is null
+                || Hash != auxHash)
             {
-                using (FileStream arquivo = new(Local, FileMode.Open, FileAccess.Read))
-                {
-                    using (BinaryReader binario = new(arquivo))
-                    {
-                        binario.BaseStream.CopyTo(reader);
-                        binario.Close();
-                    }
-                    arquivo.Close();
-                }
-                _ = reader.Seek(0, SeekOrigin.Begin);
-                nHash = reader.ToArray().Hash();
-            }
+                Tamanho = auxTamanho;
+                Hash = auxHash;
 
-            if (Hash != nHash)
-            {
                 if (AssemblyLoadContext != null)
                 {
+                    this.NotificarAviso($"Descarregamento de modulo acionado. {Hash}=>{auxHash}");
                     AssemblyLoadContext.Unload();
+                    AssemblyLoadContext = new AssemblyLoadContext(null, true);
                     CurrentAssembly.SetTarget(ObterModulo(Local));
                 }
                 else
@@ -71,20 +67,40 @@ namespace Propeus.Modulo.Abstrato.Proveders
                     AssemblyLoadContext.Unloading += AssemblyLoadContext_Unloading;
                     CurrentAssembly = new WeakReference<Assembly>(ObterModulo(Local));
                 }
-            }
 
-            if (CurrentAssembly.TryGetTarget(out Assembly target))
-            {
-                Modulos.Clear();
-                IEnumerable<Type> lsAux = target.GetTypes().Where(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>());
-                foreach (Type item in lsAux)
+                if (CurrentAssembly.TryGetTarget(out Assembly target))
                 {
-                    Modulos.Add(item.Name);
-                    TypeProvider.Provider.AddOrUpdate(item);
+                    Modulos.Clear();
+                    IEnumerable<Type> lsAux = target.GetTypes().Where(x => x.Herdado<IModulo>() && x.PossuiAtributo<ModuloAttribute>());
+                    foreach (Type item in lsAux)
+                    {
+                        Modulos.Add(item.Name);
+                        TypeProvider.Provider.AddOrUpdate(item);
+                    }
+                    Valido = Modulos.Any();
                 }
-                Valido = Modulos.Any();
             }
 
+
+
+
+        }
+
+        private long FileLength(string filename)
+        {
+            var fi = new FileInfo(filename);
+            return fi.Length;
+
+        }
+
+        private string HashFile(string filename)
+        {
+
+            using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                var fsh = MD5.Create().ComputeHash(fs);
+                return BitConverter.ToString(fsh);
+            }
         }
 
         private void AssemblyLoadContext_Unloading(AssemblyLoadContext obj)
@@ -94,9 +110,9 @@ namespace Propeus.Modulo.Abstrato.Proveders
         private Assembly ObterModulo(string location)
         {
             using MemoryStream ms = new();
-            using (FileStream arquivo = new(location, FileMode.Open, FileAccess.Read))
+            using (FileStream arquivo = new FileStream(location, FileMode.Open, FileAccess.Read))
             {
-                using (BinaryReader binario = new(arquivo))
+                using (BinaryReader binario = new BinaryReader(arquivo))
                 {
                     binario.BaseStream.CopyTo(ms);
                     binario.Close();
@@ -106,13 +122,17 @@ namespace Propeus.Modulo.Abstrato.Proveders
             _ = ms.Seek(0, SeekOrigin.Begin);
             return AssemblyLoadContext.LoadFromStream(ms);
         }
+
         public bool Valido { get; private set; }
         public DateTime? UltimaModificacao { get; private set; }
         public string Local { get; private set; }
         public string Hash { get; private set; }
+        public long Tamanho { get; private set; }
         public AssemblyLoadContext AssemblyLoadContext { get; private set; }
         public WeakReference<Assembly> CurrentAssembly { get; private set; }
         public ICollection<string> Modulos { get; private set; }
+
+        private MemoryStream MemoryStreamms;
 
         private bool disposedValue;
 
@@ -165,7 +185,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// Indica o diretorio que esta sendo observado
         /// </summary>
         /// <value>Diretorio do programa em execucao</value>
-        public string DiretorioAtual { get; private set; } = Directory.GetCurrentDirectory();
+        public string DiretorioAtual { get; private set; } = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
         /// <summary>
         /// Quantidade de modulos mapeados
         /// </summary>

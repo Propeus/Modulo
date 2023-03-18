@@ -48,7 +48,7 @@ namespace Propeus.Modulo.DinamicoTests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = new Gerenciador(Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = true });
+            gerenciador =  Gerenciador.Atual(Core.Gerenciador.Atual);
         }
 
         [TestCleanup]
@@ -618,7 +618,7 @@ namespace Propeus.Modulo.DinamicoTests
 
             gerenciador.Dispose();
             gerenciador = null;
-            gerenciador = new Gerenciador(Core.Gerenciador.Atual, new GerenciadorConfiguracao() { CarregamentoRapido = false });
+            gerenciador = Gerenciador.Atual(Core.Gerenciador.Atual);
 
             IModuloCalculadoraContrato CalculadoraSoma = (gerenciador as IGerenciadorArgumentos).Criar<IModuloCalculadoraContrato>(new object[] { 1, "Ola mundo" });
             Assert.AreEqual(2, CalculadoraSoma.Calcular(1, 1));

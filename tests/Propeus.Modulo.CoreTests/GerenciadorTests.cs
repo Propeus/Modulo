@@ -47,9 +47,9 @@ namespace Propeus.Modulo.CoreTests
         [TestInitialize]
         public void Begin()
         {
-            //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
-            //EventoProvider.RegistrarOuvinteErro(TesteLog);
-            //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
+            EventoProvider.RegistrarOuvinteInformacao(TesteLog);
+            EventoProvider.RegistrarOuvinteErro(TesteLog);
+            EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
             gerenciador = Gerenciador.Atual;
         }
 
@@ -651,6 +651,8 @@ namespace Propeus.Modulo.CoreTests
                 Dispose(disposing: true);
                 GC.SuppressFinalize(this);
             }
+
+            public string IdManifesto { get; }
         }
 
 
@@ -685,6 +687,8 @@ namespace Propeus.Modulo.CoreTests
                 Dispose(disposing: true);
                 GC.SuppressFinalize(this);
             }
+
+            public string IdManifesto { get; }
         }
 
         [Modulo]

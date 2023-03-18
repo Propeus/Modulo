@@ -21,6 +21,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         private static event Evento OnInfo;
         private static event Evento OnAviso;
         private static event Evento OnErro;
+                
 
         /// <summary>
         /// Envia uma informacao para os ouvintes

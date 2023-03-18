@@ -57,7 +57,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <returns><see langword="true"/> caso exista</returns>
         public bool HasByName(string name)
         {
-            return cache.Contains(name) || modules.Values.Any(x => x.TipoModulo.Name == name);
+            return cache.Contains(name) || modules.Values.Any(x => !x.Coletado && x.TipoModulo.Name == name);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <returns><see cref="IModuloTipo"/> caso exista senao retorna <see langword="null"/></returns>
         public IModuloTipo GetByName(string name)
         {
-            return modules.Values.FirstOrDefault(x => x.TipoModulo.Name == name && !x.Coletado);
+            return modules.Values.FirstOrDefault(x => !x.Elimindado && x.TipoModulo.Name == name);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </remarks>
         public void Flush()
         {
-            foreach (var item in modules.Where(x => !x.Value.Coletado))
+            foreach (KeyValuePair<string, IModuloTipo> item in modules.Where(x => !x.Value.Coletado))
             {
                 this.NotificarInformacao($"Modulo {item.Value.Modulo.Nome}::{item.Value.Modulo.Id} removido com sucesso");
                 item.Value.Dispose();

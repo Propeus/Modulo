@@ -38,7 +38,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = new Gerenciador(Core.Gerenciador.Atual);
+            gerenciador = Gerenciador.Atual(Core.Gerenciador.Atual);
         }
 
         [TestCleanup]

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Exceptions;
+using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Abstrato.Proveders;
@@ -25,19 +26,35 @@ namespace Propeus.Modulo.Dinamico
     [Modulo]
     public class Gerenciador : ModuloBase, IGerenciadorArgumentos
     {
+        static Gerenciador _atual;
+        /// <summary>
+        /// Obtem a instancia atual ou cria um novo
+        /// </summary>
+        /// <param name="gerenciador">Gerenciador base ou herdado de <see cref="Abstrato.GerenciadorBase"/> </param>
+        /// <returns>Instancia do gerenciador</returns>
+        public static Gerenciador Atual(IGerenciador gerenciador)
+        {
+
+            if (_atual is null || _atual.disposedValue)
+            {
+                _atual = new Gerenciador(gerenciador);
+            }
+
+            return _atual;
+        }
+
         /// <summary>
         /// Inicializa o _gerenciador
         /// </summary>
         /// <param name="gerenciador">Gerenciador que irá controlar o modulo</param>
-        /// <param name="configuracao">Configuracao do _gerenciador atual</param>
-        public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao = null) : base(true)
+        private Gerenciador(IGerenciador gerenciador) : base(true)
         {
 
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             DataInicio = DateTime.Now;
             _scheduler = new TaskJob(3);
             _gerenciador = gerenciador;
-            Configuracao = configuracao ?? new GerenciadorConfiguracao();
+
 
 
             CARREGAR_MODULO_JOB(null);
@@ -50,10 +67,6 @@ namespace Propeus.Modulo.Dinamico
         private readonly TaskJob _scheduler;
         private readonly IGerenciador _gerenciador;
 
-        /// <summary>
-        /// Configuracoes do _gerenciador
-        /// </summary>
-        public GerenciadorConfiguracao Configuracao { get; }
         /// <summary>
         /// Diretório atual do modulo
         /// </summary>
@@ -1525,21 +1538,33 @@ namespace Propeus.Modulo.Dinamico
 
         private void AUTO_INICIALIZAR_MODULO_JOB(object cancelationToken)
         {
+
             //Como autoinicialziar agora?
             foreach (Type modulo in TypeProvider.Provider.ObterAutoInicializavel())
             {
                 if (!Existe(modulo))
                 {
-                    _ = Criar(modulo);
+                    _ = Criar(modulo, Array.Empty<object>());
                 }
+                else
+                {
+                    IModulo moduloAtual = Obter(modulo);
+                    if (modulo.ObterModuloAtributo().AutoAtualizavel && modulo.Assembly.ManifestModule.ModuleVersionId.ToString() != moduloAtual.IdManifesto)
+                    {
+                        Remover(moduloAtual);
+                        if (modulo.ObterModuloAtributo().AutoInicializavel)
+                        {
+                            _ = Criar(modulo,Array.Empty<object>());
+                        }
+                    }
+                }
+
             }
 
         }
         private void CARREGAR_MODULO_JOB(object cancelationToken)
         {
-
             ModuleProvider.Provider.RecarregmentoCompleto();
-
         }
 
         /// <summary>
