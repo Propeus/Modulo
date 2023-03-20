@@ -16,7 +16,7 @@ using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.Util;
 using Propeus.Modulo.Util.Thread;
-
+using Propeus.Modulo.Util.Tipos;
 
 namespace Propeus.Modulo.Core
 {

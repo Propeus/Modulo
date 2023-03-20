@@ -3,8 +3,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 
+using Propeus.Modulo.Util.Strings;
+using Propeus.Modulo.Util.Tipos;
 
-namespace Propeus.Modulo.Util
+namespace Propeus.Modulo.Util.Objetos
 {
     /// <summary>
     /// Classe de ajuda para tipos variados

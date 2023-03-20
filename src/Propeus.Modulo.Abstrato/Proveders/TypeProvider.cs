@@ -5,9 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+using Microsoft.VisualBasic;
+
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Atributos;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {
@@ -99,6 +102,16 @@ namespace Propeus.Modulo.Abstrato.Proveders
     /// </summary>
     public class TypeProvider : IDisposable
     {
+        public delegate void Update(Type antigo, Type novo);
+        public delegate void Register(Type novo);
+        public delegate void Remove(Type novo);
+
+
+        public event Update OnUpdate;
+        public event Register OnRegister;
+        public event Remove OnRemove;
+
+
         static TypeProvider _provider;
         /// <summary>
         /// Obtem um provedor de tipos existente ou cria um novo
@@ -134,7 +147,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         }
 
         /// <summary>
-        /// Obtem todos os tipos que estao marcados com o atributo <see cref="ModuloAttribute.AutoInicializavel"/>
+        /// Obtem todos os tipos que estao marcados com chave atributo <see cref="ModuloAttribute.AutoInicializavel"/>
         /// </summary>
         /// <returns>Lista de tipos auto inicializavel</returns>
         public IEnumerable<Type> ObterAutoInicializavel()
@@ -147,11 +160,6 @@ namespace Propeus.Modulo.Abstrato.Proveders
                 }
             }
         }
-        /// <summary>
-        /// Obtem todos os contratos pelo nome do tipo informado
-        /// </summary>
-        /// <param name="name">Nome do tipo que sera obtido os contratos</param>
-        /// <returns>Lista de contratos</returns>
 
         /// <summary>
         /// Obtem todos os contratos pelo tipo informado
@@ -167,7 +175,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// <summary>
         /// Adiciona uma nova interface de contrato no tipo informado
         /// </summary>
-        /// <param name="tipo">Tipo que ira receber o contrato</param>
+        /// <param name="tipo">Tipo que ira receber chave contrato</param>
         /// <param name="contrato">Interface de contrato</param>
         public void AdicionarContrato(Type tipo, Type contrato)
         {
@@ -184,33 +192,51 @@ namespace Propeus.Modulo.Abstrato.Proveders
         public void AddOrUpdate(Type type)
         {
 
-            _ = Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (o, n) =>
+            if (Types.TryGetValue(type.Name, out TypeInfo target))
             {
-                if (Types.TryGetValue(o, out TypeInfo value))
+                if (target.Referencia.TryGetTarget(out Type tTarget))
                 {
-
-                    if (Types[o].GetReference() == type)
-                    {
-                        return n;
-                    }
-
-                    value.AtualizarReferencia(type);
-                    return Types[o];
+                    OnUpdate?.Invoke(tTarget, type);
                 }
                 else
                 {
-                    return new TypeInfo(type);
+                    OnRegister?.Invoke(type);
                 }
-            });
+                target.AtualizarReferencia(type);
+            }
+            else
+            {
+                OnRegister?.Invoke(type);
+                Types.TryAdd(type.Name, new TypeInfo(type));
+            }
+
+            //_ = Types.AddOrUpdate(type.Name, new TypeInfo(type), updateValueFactory: (chave, antigo) =>
+            //{
+            //    if (Types.TryGetValue(chave, out TypeInfo value))
+            //    {
+
+            //        if (Types[chave].GetReference() == type)
+            //        {
+            //            return antigo;
+            //        }
+
+            //        value.AtualizarReferencia(type);
+            //        return Types[chave];
+            //    }
+            //    else
+            //    {
+            //        return new TypeInfo(type);
+            //    }
+            //});
 
 
         }
 
         /// <summary>
-        /// Retorna o tipo pelo nome
+        /// Retorna chave tipo pelo nome
         /// </summary>
         /// <param name="name">Nome do tipo</param>
-        /// <returns>Retorna o tipo do modulo se houver, caso contrario, <see langword="null"/></returns>
+        /// <returns>Retorna chave tipo do modulo se houver, caso contrario, <see langword="null"/></returns>
         public Type Get(string name)
         {
             return Types.TryGetValue(name, out TypeInfo value) ? value.GetReference() : null;
@@ -246,7 +272,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         /// </summary>
         public void Dispose()
         {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            // Não altere este código. Coloque chave código de limpeza no método 'Dispose(bool disposing)'
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

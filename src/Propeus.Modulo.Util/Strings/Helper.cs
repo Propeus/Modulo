@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 
-namespace Propeus.Modulo.Util
+namespace Propeus.Modulo.Util.Strings
 {
     /// <summary>
     /// Classe de ajuda para string

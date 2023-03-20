@@ -11,6 +11,9 @@ using System.Security.Cryptography;
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Atributos;
+using Propeus.Modulo.Util.Objetos;
+using Propeus.Modulo.Util.Tipos;
 
 namespace Propeus.Modulo.Abstrato.Proveders
 {

@@ -10,6 +10,8 @@ using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Interfaces;
 using Propeus.Modulo.IL.Proxy;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Enumerados;
+using Propeus.Modulo.Util.Listas;
 
 namespace Propeus.Modulo.IL.Geradores
 {

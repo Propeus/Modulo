@@ -7,6 +7,8 @@ using System.Reflection.Emit;
 using System.Text;
 
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Objetos;
+using Propeus.Modulo.Util.Reflections;
 
 namespace Propeus.Modulo.IL.Proxy
 {

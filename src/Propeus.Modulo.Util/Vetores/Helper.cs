@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Propeus.Modulo.Util
+namespace Propeus.Modulo.Util.Vetores
 {
     /// <summary>
     /// Classe de ajuda para vetores

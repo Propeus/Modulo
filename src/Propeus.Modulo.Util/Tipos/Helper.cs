@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Propeus.Modulo.Util
+namespace Propeus.Modulo.Util.Tipos
 {
 
     /// <summary>

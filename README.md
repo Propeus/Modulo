@@ -1,6 +1,6 @@
 # Propeus.Modulo
 
-[![.NET](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml) [![SonarCloud analysis](https://github.com/Propeus/Modulo/actions/workflows/sonarcloud.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/sonarcloud.yml)
+[![.NET](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/dotnet.yml)
 
 Este projeto tem como objetivo criar e gerenciar módulos .NET dinamicamente, permitindo que sejam modificados, melhorados ou removidos em tempo de execução, sem a necessidade de realizar um CI/CD ou mesmo paralisar um sistema para realizar o deploy. Em poucas palavras, este projeto tem como objetivo ser um "Docker" para .NET.
 
@@ -8,7 +8,19 @@ O projeto não requer instalação, pois é adicionado como componente e inicializad
 
 ## Licença
 
-Este projeto é licenciado sob a licença LSUNCA (Licença de Software de Uso Não-Comercial e Atribuição). Consulte o arquivo LICENSE para obter mais informações.
+|            Projeto           | Licenca |
+|:----------------------------:|:-------:|
+| Propeus.Modulo.Util          |   MIT   |
+| Propeus.Modulo.Abstrato      |   MIT   |
+| Propeus.Modulo.Core          |  LSUNCA |
+| Propeus.Modulo.Dinamico      |  LSUNCA |
+| Propeus.Modulo.IL            |   MIT   |
+| Propeus.Modulo.WorkerService |   MIT   |
+| Propeus.Modulo.Console       |   MIT   |
+| Propeus.Modulo.CLI           |   MIT   |
+
+### Porque alguns projetos possuem licença diferente?
+A minha intenção com este projeto e permitir a livre concorrência, por este motivo eu desejo que qualquer um possa criar, distribuir e vender seus módulos, entretanto o núcleo que gerencia eles (Propeus.Modulo.Core e Propeus.Modulo.Dinamico) e suas modificações devem ser distribuídos de forma totalmente gratuita.
 
 ## Como Contribuir
 
@@ -22,56 +34,24 @@ Para contribuir com este projeto, siga as instruções abaixo:
 
 ## Estado do Projeto
 
-Este projeto está em fase de prova de conceito (PoC) e pode ser testado usando o projeto "Propeus.Modulo.Playgroud". Estamos trabalhando para desenvolver o projeto e testá-lo completamente antes de disponibilizá-lo para uso. Fique à vontade para contribuir e nos ajudar a torná-lo uma realidade!
+Este projeto está em fase de MVP (Minimum Viable Product) e pode ser testado usando os projetos na pasta "examples". O projeto segue a seguinte estrutura de pastas:
+
+ - src (Código-fonte) 
+ - examples (Exemplos funcionais) 
+ - test (Projetos de teste unitário) 
+ - docs (Documentação do projeto)
+
+Estamos trabalhando para desenvolver o projeto e testá-lo completamente antes de disponibilizá-lo para uso. Fique à vontade para contribuir e nos ajudar a torná-lo uma realidade!
 
 ## Exemplos
+Os exemplos podem ser encontrados dentro da pasta 'example', nele você encontrara exemplos de uso em console e workservice
 
-Aqui estão alguns exemplos de como usar o projeto "Propeus.Modulo.Core":
+## Proximos passos
+Estes são os próximos passos do projeto
 
-### Exemplo para criar um módulo e inicializar uma instância dele
-
-Crie uma interface de contrato:
-
-```cs
-[ModuloContrato(typeof(ModuloSimples))]
-public interface IModuloContrato : IModulo
-{
-    string OlaMundo();
-}
-```
-Crie uma classe que herde de ModuloBase e da interface de contrato:
-
-```cs
-[Modulo]
-public class ModuloSimples : ModuloBase, IModuloContrato
-{
-    public ModuloSimples(IGerenciador gerenciador, bool instanciaUnica = false) : base(gerenciador, instanciaUnica)
-    {
-    }
-
-    public string OlaMundo()
-    {
-        return "Ola Mundo";
-    }
-
-    public override string ToString()
-    {
-        return this.OlaMundo();
-    }
-}
-```
-
-Crie uma instância do módulo pelo gerenciador e chame o método .ToString() do objeto:
-```cs
-var modulo = Propeus.Modulo.Core.Gerenciador.Atual.Criar<IModuloContrato>();
-Console.WriteLine(modulo.ToString());
-```
-
-### Exemplo para remover um módulo
-Para remover um módulo, basta usar o método Remover<T>() do gerenciador de módulos. Por exemplo, para remover o módulo ModuloSimples criado no exemplo anterior, você pode fazer o seguinte:
-
-```cs
-Propeus.Modulo.Core.Gerenciador.Atual.Remover<ModuloSimples>();
-```
-
-Lembre-se de que, se o módulo estiver em uso, você deve parar de usá-lo antes de removê-lo
+ 1. Adicionar integração com a Injeção de dependência do .NET
+ 2. Criar integracao com projetos ASP.NET
+ 3. Adicionar o projeto no nuget.org
+ 4. Padronizar linguagem do codigo para o ingles (classes, metodos, documentacoes etc)
+ 5. Criar novos testes para o projeto Propeus.Modulo.IL 
+ 6. Alterar forma como e gerado os módulos dinamicamente (de proxy para espelhamento da classe) 

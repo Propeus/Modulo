@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 
 
-namespace Propeus.Modulo.Util
+namespace Propeus.Modulo.Util.Enumerados
 {
     /// <summary>
     /// Classe de ajuda para <see cref="Enum"/>

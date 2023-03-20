@@ -6,6 +6,7 @@ using System.Reflection.Emit;
 
 using Propeus.Modulo.IL.Proxy;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Reflections;
 
 namespace Propeus.Modulo.IL.Pilhas
 {

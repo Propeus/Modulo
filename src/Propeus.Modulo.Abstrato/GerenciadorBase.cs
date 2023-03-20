@@ -11,6 +11,9 @@ using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Atributos;
+using Propeus.Modulo.Util.Objetos;
+using Propeus.Modulo.Util.Tipos;
 
 namespace Propeus.Modulo.Abstrato
 {

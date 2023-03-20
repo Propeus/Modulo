@@ -16,6 +16,7 @@ using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Dinamico

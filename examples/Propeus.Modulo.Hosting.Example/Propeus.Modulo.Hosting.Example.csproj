@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Propeus.Modulo.Core\Propeus.Modulo.Core.csproj" />
+    <ProjectReference Include="..\..\src\Propeus.Modulo.Dinamico\Propeus.Modulo.Dinamico.csproj" />
+    <ProjectReference Include="..\..\src\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
+  </ItemGroup>
+
+</Project>

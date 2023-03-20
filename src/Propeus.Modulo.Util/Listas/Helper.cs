@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Propeus.Modulo.Util
+using Propeus.Modulo.Util.Objetos;
+using Propeus.Modulo.Util.Reflections;
+
+namespace Propeus.Modulo.Util.Listas
 {
     /// <summary>
     /// Classe de ajuda para listas

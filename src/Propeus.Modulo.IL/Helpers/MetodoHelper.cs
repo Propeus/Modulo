@@ -6,6 +6,8 @@ using System.Reflection;
 using Propeus.Modulo.IL.Enums;
 using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.Util;
+using Propeus.Modulo.Util.Enumerados;
+using Propeus.Modulo.Util.Reflections;
 
 namespace Propeus.Modulo.IL.Helpers
 {

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Propeus.Modulo.Util
+using Propeus.Modulo.Util.Objetos;
+
+namespace Propeus.Modulo.Util.Reflections
 {
     /// <summary>
     /// Classe de ajuda para reflection
