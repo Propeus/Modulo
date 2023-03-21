@@ -10,12 +10,13 @@ using System.Security.Cryptography;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Proveders;
 using Propeus.Modulo.Util;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
 using Propeus.Modulo.Util.Tipos;
 
-namespace Propeus.Modulo.Abstrato.Proveders
+namespace Propeus.Modulo.Dinamico
 {
     class Modulo : IDisposable
     {
@@ -23,7 +24,7 @@ namespace Propeus.Modulo.Abstrato.Proveders
         {
             Valido = false;
             Local = filePath;
-            Modulos = new System.Collections.Generic.HashSet<string>();
+            Modulos = new HashSet<string>();
             CarregarDll();
         }
 
