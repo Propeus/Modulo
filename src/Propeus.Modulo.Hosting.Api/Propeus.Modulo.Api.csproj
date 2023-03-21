@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Views\Modulo\Index.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Views\Modulo\Index.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Modules\" />
+		<Folder Include="Models\" />
+	</ItemGroup>
+
+</Project>

@@ -36,7 +36,7 @@ namespace Propeus.Modulo.Hosting
 
 
     [Modulo]
-    public class ControllerBase : ModuloBase
+    public class ModuloControllerBase : ModuloBase
     {
         #region ControllerBase
         private ControllerContext _controllerContext;
@@ -4004,7 +4004,7 @@ namespace Propeus.Modulo.Hosting
 
 
     [Modulo]
-    public class ModuloController : ControllerBase, IActionFilter, IAsyncActionFilter
+    public class ModuloController : ModuloControllerBase, IActionFilter, IAsyncActionFilter
     {
 
         #region Controller

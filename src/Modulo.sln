@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Example", "..\examples\Propeus.Modulo.Hosting.Example\Propeus.Modulo.Hosting.Example.csproj", "{1CEFC4E1-D92D-4E41-AA9B-0D22804A84A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.Hosting.Example.DLL", "..\examples\Propeus.Modulo.Hosting.Example.DLL\Propeus.Modulo.Hosting.Example.DLL.csproj", "{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Example.DLL", "..\examples\Propeus.Modulo.Hosting.Example.DLL\Propeus.Modulo.Hosting.Example.DLL.csproj", "{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.Api", "Propeus.Modulo.Hosting.Api\Propeus.Modulo.Api.csproj", "{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -285,6 +287,18 @@ Global
 		{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}.Release|x64.Build.0 = Release|Any CPU
 		{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}.Release|x86.ActiveCfg = Release|Any CPU
 		{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}.Release|x86.Build.0 = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|x64.Build.0 = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Debug|x86.Build.0 = Debug|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|x64.ActiveCfg = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|x64.Build.0 = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|x86.ActiveCfg = Release|Any CPU
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -303,6 +317,7 @@ Global
 		{D78BEF6C-BD49-4222-9BC1-7D6A5AC0DD90} = {B648346E-A6FF-42D9-B433-540A26000811}
 		{1CEFC4E1-D92D-4E41-AA9B-0D22804A84A5} = {B648346E-A6FF-42D9-B433-540A26000811}
 		{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6} = {B648346E-A6FF-42D9-B433-540A26000811}
+		{105B36C2-1CB0-4366-B564-C27AE7AFEAEB} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {709E8BF4-605B-43D3-84C0-A0C0EC4E58C0}

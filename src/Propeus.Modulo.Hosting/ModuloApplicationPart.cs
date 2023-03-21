@@ -47,18 +47,19 @@ namespace Propeus.Modulo.Hosting
 
         private void Init()
         {
-            var assm = Assembly.GetExecutingAssembly().GetTypes().Where(type => typeof(Controller).IsAssignableFrom(type)
-            || typeof(Propeus.Modulo.Hosting.ModuloController).IsAssignableFrom(type));
+            
+
+            var assm = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assm => assm.GetTypes())
+                .Where(type => typeof(Controller).IsAssignableFrom(type)
+                || typeof(ControllerBase).IsAssignableFrom(type) 
+                || typeof(Propeus.Modulo.Hosting.ModuloControllerBase).IsAssignableFrom(type)
+                || typeof(Propeus.Modulo.Hosting.ModuloController).IsAssignableFrom(type));
 
             foreach (var controller in TypeProvider.Provider.ObterModuoController())
             {
                 if (!assm.Contains(controller))
                 {
                     Provider_OnRegister(controller);
-                }
-                else
-                {
-
                 }
             }
 
