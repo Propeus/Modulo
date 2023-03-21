@@ -162,6 +162,22 @@ namespace Propeus.Modulo.Abstrato.Proveders
         }
 
         /// <summary>
+        /// Obtem todos os tipos que sao controllers
+        /// </summary>
+        /// <returns>Lista de controllers</returns>
+        public IEnumerable<Type> ObterModuoController()
+        {
+            foreach (KeyValuePair<string, TypeInfo> item in Types)
+            {
+                if (item.Value.Referencia.TryGetTarget(out Type target) && (target.GetCustomAttribute<ModuloAttribute>() != null
+                    && target.Name.Contains("Controller")))
+                {
+                    yield return target;
+                }
+            }
+        }
+
+        /// <summary>
         /// Obtem todos os contratos pelo tipo informado
         /// </summary>
         /// <param name="tipo">Tipo que sera obtido os contratos</param>
@@ -171,6 +187,8 @@ namespace Propeus.Modulo.Abstrato.Proveders
             return Types.ContainsKey(tipo.Name) ? Types[tipo.Name].ObterContratos() : Array.Empty<Type>();
         }
 
+
+      
 
         /// <summary>
         /// Adiciona uma nova interface de contrato no tipo informado

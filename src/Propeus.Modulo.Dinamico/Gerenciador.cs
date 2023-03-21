@@ -17,6 +17,7 @@ using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Helpers;
 using Propeus.Modulo.Util;
 using Propeus.Modulo.Util.Atributos;
+using Propeus.Modulo.Util.Enumerados;
 using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Dinamico
@@ -78,7 +79,7 @@ namespace Propeus.Modulo.Dinamico
         public DateTime UltimaAtualizacao { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
         public int ModulosInicializados => _gerenciador.ModulosInicializados;
-        private Dictionary<string, ILClasseProvider> ModuloProvider { get; }
+        private Dictionary<string, ILClasseProvider> ModuloProvider { get; set; }
 
 
 
@@ -1517,6 +1518,14 @@ namespace Propeus.Modulo.Dinamico
                 Estado = Estado.Desligado;
                 _scheduler.Dispose();
                 RemoverTodos();
+
+                foreach (var item in this.ModuloProvider)
+                {
+                    item.Value.Dispose();
+                }
+                ModuloProvider.Clear();
+                ModuloProvider = null;
+
             }
             base.Dispose(disposing);
         }

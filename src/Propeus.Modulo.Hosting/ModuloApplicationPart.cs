@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Primitives;
@@ -26,7 +28,7 @@ namespace Propeus.Modulo.Hosting
         }
     }
 
-    //TODO: Dar um jeito de chamar os modulos ja carregados antes da aplicacao iniciar
+    
     internal class ModuloApplicationPart
     {
         Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
@@ -39,6 +41,27 @@ namespace Propeus.Modulo.Hosting
             TypeProvider.Provider.OnUpdate += Provider_OnUpdate;
             TypeProvider.Provider.OnRegister += Provider_OnRegister;
             TypeProvider.Provider.OnRemove += Provider_OnRemove;
+
+            Init();
+        }
+
+        private void Init()
+        {
+            var assm = Assembly.GetExecutingAssembly().GetTypes().Where(type => typeof(Controller).IsAssignableFrom(type)
+            || typeof(Propeus.Modulo.Hosting.ModuloController).IsAssignableFrom(type));
+
+            foreach (var controller in TypeProvider.Provider.ObterModuoController())
+            {
+                if (!assm.Contains(controller))
+                {
+                    Provider_OnRegister(controller);
+                }
+                else
+                {
+
+                }
+            }
+
         }
 
         private void Provider_OnRemove(Type novo)
@@ -58,8 +81,8 @@ namespace Propeus.Modulo.Hosting
             if (appOld != null)
             {
                 this.ApplicationPart.ApplicationParts.Remove(appOld);
-                ModuleActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
             }
+            ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
 
         }
 
@@ -69,7 +92,7 @@ namespace Propeus.Modulo.Hosting
                 return;
 
             this.ApplicationPart.ApplicationParts.Add(new AssemblyPart(novo.Assembly));
-            ModuleActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+            ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
         }
 
         private void Provider_OnUpdate(Type antigo, Type novo)
@@ -91,7 +114,7 @@ namespace Propeus.Modulo.Hosting
                 this.ApplicationPart.ApplicationParts.Remove(appOld);
             }
             this.ApplicationPart.ApplicationParts.Add(new AssemblyPart(novo.Assembly));
-            ModuleActionDescriptorChangeProvider.Instance.TokenSource.Cancel();
+            ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
         }
 
     }
