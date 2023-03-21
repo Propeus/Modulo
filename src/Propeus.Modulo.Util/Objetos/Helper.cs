@@ -28,7 +28,7 @@ namespace Propeus.Modulo.Util.Objetos
 
             if (obj is string)
             {
-                return obj.ToString().ToArrayByte();
+                return (obj as string).ToArrayByte();
             }
 
             int size = Marshal.SizeOf(obj);
@@ -40,23 +40,6 @@ namespace Propeus.Modulo.Util.Objetos
 
             return bytes;
         }
-
-        /// <summary>
-        /// Verifica se o objeto é herdado do tipo passado no parametro <paramref name="comparacao" /></summary>
-        /// <param name="obj">Classe a ser verificado</param>
-        /// <param name="comparacao">Tipo a ser comparado</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">Argumento nulo</exception>
-        /// <exception cref="ArgumentException">Argumento invalido</exception>
-        public static bool Herdado(this object obj, Type comparacao)
-        {
-            return obj is null
-                ? throw new ArgumentNullException(nameof(obj))
-                : comparacao is null
-                ? throw new ArgumentNullException(nameof(comparacao))
-                : obj is Type ? Helper.Herdado(obj as Type, comparacao) : Helper.Herdado(obj.GetType(), comparacao);
-        }
-
      
         /// <summary>
         /// Converte qualquer objeto para o tipo desejado
@@ -105,7 +88,7 @@ namespace Propeus.Modulo.Util.Objetos
                 return obj;
             }
 
-            if (obj.Herdado(para))
+            if (obj.GetType().IsAssignableTo(para))
             {
                 return obj;
             }
@@ -142,7 +125,7 @@ namespace Propeus.Modulo.Util.Objetos
         /// <exception cref="SerializationException"></exception>
         public static string Hash(this object obj)
         {
-            return Helper.Hash(obj.Serializar());
+            return Vetores.Helper.Hash(obj.Serializar());
         }
     }
 }

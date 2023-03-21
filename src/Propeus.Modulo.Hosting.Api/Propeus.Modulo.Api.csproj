@@ -7,20 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Views\Modulo\Index.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Views\Modulo\Index.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Modules\" />
 		<Folder Include="Models\" />
+		<Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>
