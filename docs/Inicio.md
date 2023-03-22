@@ -48,7 +48,7 @@ Após este passo, os seguintes passos estão na lista para serem executados:
 
 Existe uma documentação auto-gerado baseado na documentação em codigo.
 
-> Em que fase está este projeto?
+> Em que estado está este projeto?
 
 Atuamente esta na fase de PoC (Prova de Conceito).
 
