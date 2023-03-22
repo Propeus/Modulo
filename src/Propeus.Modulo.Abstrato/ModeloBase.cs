@@ -17,7 +17,7 @@ namespace Propeus.Modulo.Abstrato
         protected ModeloBase()
         {
             Nome = GetType().Name;
-            Estado = Estado.Inicializado;
+            Estado = Estado.Criado;
             Id = Guid.NewGuid().ToString();
             IdManifesto = this.GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
         }

@@ -47,7 +47,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Exam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Example.DLL", "..\examples\Propeus.Modulo.Hosting.Example.DLL\Propeus.Modulo.Hosting.Example.DLL.csproj", "{FD384D5F-5E63-4A03-8438-F28FFAFA0DF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.Api", "Propeus.Modulo.Hosting.Api\Propeus.Modulo.Api.csproj", "{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Api", "Propeus.Modulo.Hosting.Api\Propeus.Modulo.Api.csproj", "{105B36C2-1CB0-4366-B564-C27AE7AFEAEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CB241CDA-7B9C-46BE-87B3-D645C2E14273}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\Gerenciadores.md = ..\docs\Gerenciadores.md
+		..\docs\Inicio.md = ..\docs\Inicio.md
+		..\docs\Modulo.md = ..\docs\Modulo.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
