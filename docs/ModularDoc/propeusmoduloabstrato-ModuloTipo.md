@@ -10,7 +10,8 @@ Informa detalhes sobre o modulo instanciado
   classDef abstractStyle stroke-width:4px
   subgraph Propeus.Modulo.Abstrato
   Propeus.Modulo.Abstrato.ModuloTipo[[ModuloTipo]]
-  Propeus.Modulo.Abstrato.BaseModelo[[BaseModelo]]
+  Propeus.Modulo.Abstrato.ModeloBase[[ModeloBase]]
+  class Propeus.Modulo.Abstrato.ModeloBase abstractStyle;
   end
   subgraph Propeus.Modulo.Abstrato.Interfaces
   Propeus.Modulo.Abstrato.Interfaces.IModuloTipo[[IModuloTipo]]
@@ -24,7 +25,7 @@ System.IDisposable[[IDisposable]]
 Propeus.Modulo.Abstrato.Interfaces.IModuloTipo --> Propeus.Modulo.Abstrato.ModuloTipo
 Propeus.Modulo.Abstrato.Interfaces.IBaseModelo --> Propeus.Modulo.Abstrato.Interfaces.IModuloTipo
 System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
-Propeus.Modulo.Abstrato.BaseModelo --> Propeus.Modulo.Abstrato.ModuloTipo
+Propeus.Modulo.Abstrato.ModeloBase --> Propeus.Modulo.Abstrato.ModuloTipo
 ```
 
 ## Members
@@ -65,8 +66,8 @@ Informa detalhes sobre o modulo instanciado
 ](./propeusmoduloabstratointerfaces-IBaseModelo.md)
  - `IDisposable`
  - [
-`BaseModelo`
-](./propeusmoduloabstrato-BaseModelo.md)
+`ModeloBase`
+](./propeusmoduloabstrato-ModeloBase.md)
 
 ### Constructors
 #### ModuloTipo

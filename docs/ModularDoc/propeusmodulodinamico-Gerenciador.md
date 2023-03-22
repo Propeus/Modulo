@@ -18,27 +18,19 @@ Modulo responsável por administrar modulos em tempo de execução
   class Propeus.Modulo.Abstrato.Interfaces.IGerenciador interfaceStyle;
   Propeus.Modulo.Abstrato.Interfaces.IBaseModelo[[IBaseModelo]]
   class Propeus.Modulo.Abstrato.Interfaces.IBaseModelo interfaceStyle;
-  Propeus.Modulo.Abstrato.Interfaces.IGerenciadorDiagnostico[[IGerenciadorDiagnostico]]
-  class Propeus.Modulo.Abstrato.Interfaces.IGerenciadorDiagnostico interfaceStyle;
-  Propeus.Modulo.Abstrato.Interfaces.IGerenciadorRegistro[[IGerenciadorRegistro]]
-  class Propeus.Modulo.Abstrato.Interfaces.IGerenciadorRegistro interfaceStyle;
-  Propeus.Modulo.Abstrato.Interfaces.IGerenciadorInformacao[[IGerenciadorInformacao]]
-  class Propeus.Modulo.Abstrato.Interfaces.IGerenciadorInformacao interfaceStyle;
   end
   subgraph System
 System.IDisposable[[IDisposable]]
   end
-  subgraph Propeus.Modulo.Abstrato
-  Propeus.Modulo.Abstrato.ModuloBase[[ModuloBase]]
+  subgraph Propeus.Modulo.Abstrato.Modulos
+  Propeus.Modulo.Abstrato.Modulos.ModuloBase[[ModuloBase]]
+  class Propeus.Modulo.Abstrato.Modulos.ModuloBase abstractStyle;
   end
 Propeus.Modulo.Abstrato.Interfaces.IGerenciadorArgumentos --> Propeus.Modulo.Dinamico.Gerenciador
 Propeus.Modulo.Abstrato.Interfaces.IGerenciador --> Propeus.Modulo.Abstrato.Interfaces.IGerenciadorArgumentos
 Propeus.Modulo.Abstrato.Interfaces.IBaseModelo --> Propeus.Modulo.Abstrato.Interfaces.IGerenciador
 System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
-Propeus.Modulo.Abstrato.Interfaces.IGerenciadorDiagnostico --> Propeus.Modulo.Dinamico.Gerenciador
-Propeus.Modulo.Abstrato.Interfaces.IGerenciadorRegistro --> Propeus.Modulo.Dinamico.Gerenciador
-Propeus.Modulo.Abstrato.Interfaces.IGerenciadorInformacao --> Propeus.Modulo.Dinamico.Gerenciador
-Propeus.Modulo.Abstrato.ModuloBase --> Propeus.Modulo.Dinamico.Gerenciador
+Propeus.Modulo.Abstrato.Modulos.ModuloBase --> Propeus.Modulo.Dinamico.Gerenciador
 ```
 
 ## Members
@@ -46,13 +38,17 @@ Propeus.Modulo.Abstrato.ModuloBase --> Propeus.Modulo.Dinamico.Gerenciador
 #### Public  properties
 | Type | Name | Methods |
 | --- | --- | --- |
-| [`GerenciadorConfiguracao`](./propeusmodulodinamico-GerenciadorConfiguracao.md) | [`Configuracao`](#configuracao)<br>Configuracoes do gerenciador | `get` |
 | `DateTime` | [`DataInicio`](#datainicio)<br>Retorna data e hora que o gerenciador iniciou | `get` |
 | `string` | [`DiretorioModulo`](#diretoriomodulo)<br>Diretório atual do modulo | `get, set` |
 | `int` | [`ModulosInicializados`](#modulosinicializados)<br>Indica a quantidade de modulos inicializados pelo gerenciador | `get` |
 | `DateTime` | [`UltimaAtualizacao`](#ultimaatualizacao)<br>Data e hora do ultimo evento realizado no gerenciador | `get` |
 
 ### Methods
+#### Public Static methods
+| Returns | Name |
+| --- | --- |
+| [`Gerenciador`](propeusmodulodinamico-Gerenciador.md) | [`Atual`](#atual)([`IGerenciador`](./propeusmoduloabstratointerfaces-IGerenciador.md) gerenciador)<br>Obtem a instancia atual ou cria um novo |
+
 #### Public  methods
 | Returns | Name |
 | --- | --- |
@@ -62,7 +58,6 @@ Propeus.Modulo.Abstrato.ModuloBase --> Propeus.Modulo.Dinamico.Gerenciador
 | `Task` | [`ManterVivoAsync`](#mantervivoasync)()<br>Mantem o gerenciador vivo durante o uso da aplicação |
 | `T` | [`Obter`](#obter-13)(`...`) |
 | `T` | [`Reciclar`](#reciclar-12)(`...`) |
-| `void` | [`Registrar`](#registrar)([`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md) modulo)<br>Registra o modulo no gerenciador |
 | `void` | [`Remover`](#remover-12)(`...`) |
 | `void` | [`RemoverTodos`](#removertodos)()<br>Remove todos os modulos |
 | `string` | [`ToString`](#tostring)()<br>Exibe informacoes basicas sobre o modulo |
@@ -78,6 +73,9 @@ Modulo responsável por administrar modulos em tempo de execução
 
 ### Inheritance
  - [
+`IGerenciadorArgumentos`
+](./propeusmoduloabstratointerfaces-IGerenciadorArgumentos.md)
+ - [
 `IGerenciador`
 ](./propeusmoduloabstratointerfaces-IGerenciador.md)
  - [
@@ -85,36 +83,25 @@ Modulo responsável por administrar modulos em tempo de execução
 ](./propeusmoduloabstratointerfaces-IBaseModelo.md)
  - `IDisposable`
  - [
-`IGerenciadorArgumentos`
-](./propeusmoduloabstratointerfaces-IGerenciadorArgumentos.md)
- - [
-`IGerenciadorDiagnostico`
-](./propeusmoduloabstratointerfaces-IGerenciadorDiagnostico.md)
- - [
-`IGerenciadorRegistro`
-](./propeusmoduloabstratointerfaces-IGerenciadorRegistro.md)
- - [
-`IGerenciadorInformacao`
-](./propeusmoduloabstratointerfaces-IGerenciadorInformacao.md)
- - [
 `ModuloBase`
-](./propeusmoduloabstrato-ModuloBase.md)
+](./propeusmoduloabstratomodulos-ModuloBase.md)
 
-### Constructors
-#### Gerenciador
+### Methods
+#### Atual
 ```csharp
-public Gerenciador(IGerenciador gerenciador, GerenciadorConfiguracao configuracao)
+public static Gerenciador Atual(IGerenciador gerenciador)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| [`IGerenciador`](./propeusmoduloabstratointerfaces-IGerenciador.md) | gerenciador | Gerenciador que irá controlar o modulo |
-| [`GerenciadorConfiguracao`](./propeusmodulodinamico-GerenciadorConfiguracao.md) | configuracao | Configuracao do gerenciador atual |
+| [`IGerenciador`](./propeusmoduloabstratointerfaces-IGerenciador.md) | gerenciador | Gerenciador base ou herdado de [GerenciadorBase](./propeusmoduloabstrato-GerenciadorBase.md) |
 
 ##### Summary
-Inicializa o gerenciador
+Obtem a instancia atual ou cria um novo
 
-### Methods
+##### Returns
+Instancia do gerenciador
+
 #### Criar [1/6]
 ```csharp
 public virtual T Criar<T>()
@@ -146,7 +133,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -179,9 +166,9 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar(typeof(ICalculadoraModuloContrato));
     Console.WriteLine(modulo.Calcular(1,1));
 }
         }
@@ -234,7 +221,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -267,9 +254,9 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato");
     Console.WriteLine(modulo.Calcular(1,1));
 }
         }
@@ -333,7 +320,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -373,9 +360,9 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
 }
         }
@@ -429,7 +416,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -469,9 +456,9 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
 }
         }
@@ -534,7 +521,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -574,11 +561,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    gerenciador.Remover(modulo.Id);
+    _gerenciador.Remover(modulo.Id);
 }
         }
     }
@@ -613,7 +600,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -653,11 +640,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    gerenciador.RemoverTodos();
+    _gerenciador.RemoverTodos();
 }
         }
     }
@@ -700,7 +687,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -740,11 +727,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Recilcar(modulo.Id);
+    modulo =  _gerenciador.Recilcar(modulo.Id);
 }
         }
     }
@@ -762,7 +749,6 @@ Boolean
 | [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
 | [ModuloDescartadoException](./propeusmoduloabstratoexceptions-ModuloDescartadoException.md) | Instancia do modulo foi coletado pelo GC ou acionou o IDisposable.Dispose |
 | ArgumentNullException | Parametro nulo |
-| [ModuloNaoRegistradoException](./propeusmoduloabstratoexceptions-ModuloNaoRegistradoException.md) | Modulos criados fora do gerenciador |
 
 #### Obter [1/3]
 ```csharp
@@ -777,10 +763,10 @@ public virtual IModulo Obter(Type modulo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | modulo |   |
+| `Type` | modulo | Qualquer tipo herdado de IModulo |
 
 ##### Summary
-Obtem a instancia de `type` caso exista 
+Obtem a instancia de `modulo` caso exista 
 
 
 
@@ -797,7 +783,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -837,11 +823,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Obter(typeof(ICalculadoraModuloContrato));
+    modulo =  _gerenciador.Obter(typeof(ICalculadoraModuloContrato));
 }
         }
     }
@@ -856,7 +842,6 @@ using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.
 | Name | Description |
 | --- | --- |
 | ArgumentNullException | Parametro nulo |
-| [ModuloNaoRegistradoException](./propeusmoduloabstratoexceptions-ModuloNaoRegistradoException.md) | Modulos criados fora do gerenciador |
 
 #### Obter [3/3]
 ```csharp
@@ -883,7 +868,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -923,11 +908,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Obter(modulo.Id);
+    modulo =  _gerenciador.Obter(modulo.Id);
 }
         }
     }
@@ -951,7 +936,7 @@ public virtual bool Existe(Type modulo)
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | modulo |   |
+| `Type` | modulo | Tipo da instancia do modulo a ser verificado |
 
 ##### Summary
 Verifica se existe alguma instancia do tipo no gerenciador
@@ -969,7 +954,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -1009,11 +994,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Existe(typeof(ICalculadoraModuloContrato));
+    modulo =  _gerenciador.Existe(typeof(ICalculadoraModuloContrato));
 }
         }
     }
@@ -1031,7 +1016,6 @@ Boolean
 | [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo invalido |
 | [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
 | ArgumentNullException | Parametro nulo |
-| [ModuloNaoRegistradoException](./propeusmoduloabstratoexceptions-ModuloNaoRegistradoException.md) | Modulos criados fora do gerenciador |
 
 #### Existe [2/3]
 ```csharp
@@ -1058,7 +1042,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -1098,11 +1082,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Existe(modulo);
+    modulo =  _gerenciador.Existe(modulo);
 }
         }
     }
@@ -1143,7 +1127,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -1183,11 +1167,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    modulo =  gerenciador.Existe(modulo.Id);
+    modulo =  _gerenciador.Existe(modulo.Id);
 }
         }
     }
@@ -1223,7 +1207,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -1263,11 +1247,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    IEnumerable>IModulo< =  gerenciador.Listar();
+    IEnumerable>IModulo< =  _gerenciador.Listar();
 }
         }
     }
@@ -1298,7 +1282,7 @@ namespace Propeus.Modulo.Exemplo
     [Modulo]
     public class CalculadoraModulo : ModuloBase
     {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        public ModuloTesteA(IGerenciador _gerenciador) : base(_gerenciador, false)
         {
 
         }
@@ -1318,7 +1302,7 @@ return a+b;
 }
 
 ```
-No projeto principal, adicione uma interface de contrato e depois mantenha vivo a instancia do gerenciador
+No projeto principal, adicione uma interface de contrato e depois mantenha vivo a instancia do _gerenciador
 ```csharp
 using System;
 using Propeus.Modulo.Abstrato.Atributos;
@@ -1338,11 +1322,11 @@ namespace Propeus.Modulo.Exemplo
     {
         private static void Main(string[] args)
         {
-using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
+using(Gerenciador _gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.Atual))
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.Criar("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
     Console.WriteLine(modulo.Calcular(1,1));
-    gerenciador.ManterVivoAsync().Wait();
+    _gerenciador.ManterVivoAsync().Wait();
 }
         }
     }
@@ -1352,18 +1336,6 @@ using(Gerenciador gerenciador = new Gerenciador(Propeus.Modulo.Core.Gerenciador.
 
 ##### Returns
 Task
-
-#### Registrar
-```csharp
-public virtual void Registrar(IModulo modulo)
-```
-##### Arguments
-| Type | Name | Description |
-| --- | --- | --- |
-| [`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md) | modulo | Instancia do modulo |
-
-##### Summary
-Registra o modulo no gerenciador
 
 #### Dispose
 ```csharp
@@ -1385,13 +1357,6 @@ Exibe informacoes basicas sobre o modulo
 
 
 ### Properties
-#### Configuracao
-```csharp
-public GerenciadorConfiguracao Configuracao { get; }
-```
-##### Summary
-Configuracoes do gerenciador
-
 #### DiretorioModulo
 ```csharp
 public string DiretorioModulo { get; set; }

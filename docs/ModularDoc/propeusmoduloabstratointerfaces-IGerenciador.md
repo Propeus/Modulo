@@ -22,6 +22,14 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 ```
 
 ## Members
+### Properties
+#### Public  properties
+| Type | Name | Methods |
+| --- | --- | --- |
+| `DateTime` | [`DataInicio`](#datainicio)<br>Retorna data e hora que o gerenciador iniciou | `get` |
+| `int` | [`ModulosInicializados`](#modulosinicializados)<br>Indica a quantidade de modulos inicializados pelo gerenciador | `get` |
+| `DateTime` | [`UltimaAtualizacao`](#ultimaatualizacao)<br>Data e hora do ultimo evento realizado no gerenciador | `get` |
+
 ### Methods
 #### Public  methods
 | Returns | Name |
@@ -119,15 +127,15 @@ where T : IModulo
 
 #### Obter [2/3]
 ```csharp
-public IModulo Obter(Type type)
+public IModulo Obter(Type modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | type | Qualquer tipo herdado de IModulo |
+| `Type` | modulo | Qualquer tipo herdado de IModulo |
 
 ##### Summary
-Obtem a instancia de `type` caso exista 
+Obtem a instancia de `modulo` caso exista 
 
 
 
@@ -166,12 +174,12 @@ Boolean
 
 #### Existe [2/3]
 ```csharp
-public bool Existe(Type type)
+public bool Existe(Type modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | type | Tipo da instancia do modulo a ser verificado |
+| `Type` | modulo | Tipo da instancia do modulo a ser verificado |
 
 ##### Summary
 Verifica se existe alguma instancia do tipo no gerenciador
@@ -238,5 +246,30 @@ Mantem o gerenciador vivo durante o uso da aplicação
 
 ##### Returns
 Task
+
+### Properties
+#### DataInicio
+```csharp
+public DateTime DataInicio { get; }
+```
+##### Summary
+Retorna data e hora que o gerenciador iniciou
+
+#### UltimaAtualizacao
+```csharp
+public DateTime UltimaAtualizacao { get; }
+```
+##### Summary
+Data e hora do ultimo evento realizado no gerenciador
+
+##### Remarks
+Os eventos sao o CRUD (Criar, Reiniciar, Atualizar ou Remover) do genreciador
+
+#### ModulosInicializados
+```csharp
+public int ModulosInicializados { get; }
+```
+##### Summary
+Indica a quantidade de modulos inicializados pelo gerenciador
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

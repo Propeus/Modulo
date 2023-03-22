@@ -1,4 +1,4 @@
-# Gerenciador `class`
+# GerenciadorBase `class`
 
 ## Description
 Controlador de modulos
@@ -8,41 +8,48 @@ Controlador de modulos
   flowchart LR
   classDef interfaceStyle stroke-dasharray: 5 5;
   classDef abstractStyle stroke-width:4px
-  subgraph Propeus.Modulo.Core
-  Propeus.Modulo.Core.Gerenciador[[Gerenciador]]
-  end
   subgraph Propeus.Modulo.Abstrato
   Propeus.Modulo.Abstrato.GerenciadorBase[[GerenciadorBase]]
   class Propeus.Modulo.Abstrato.GerenciadorBase abstractStyle;
+  Propeus.Modulo.Abstrato.ModeloBase[[ModeloBase]]
+  class Propeus.Modulo.Abstrato.ModeloBase abstractStyle;
   end
-Propeus.Modulo.Abstrato.GerenciadorBase --> Propeus.Modulo.Core.Gerenciador
+  subgraph Propeus.Modulo.Abstrato.Interfaces
+  Propeus.Modulo.Abstrato.Interfaces.IGerenciador[[IGerenciador]]
+  class Propeus.Modulo.Abstrato.Interfaces.IGerenciador interfaceStyle;
+  Propeus.Modulo.Abstrato.Interfaces.IBaseModelo[[IBaseModelo]]
+  class Propeus.Modulo.Abstrato.Interfaces.IBaseModelo interfaceStyle;
+  end
+  subgraph System
+System.IDisposable[[IDisposable]]
+  end
+Propeus.Modulo.Abstrato.Interfaces.IGerenciador --> Propeus.Modulo.Abstrato.GerenciadorBase
+Propeus.Modulo.Abstrato.Interfaces.IBaseModelo --> Propeus.Modulo.Abstrato.Interfaces.IGerenciador
+System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
+Propeus.Modulo.Abstrato.ModeloBase --> Propeus.Modulo.Abstrato.GerenciadorBase
 ```
 
 ## Members
 ### Properties
-#### Public Static properties
-| Type | Name | Methods |
-| --- | --- | --- |
-| [`IGerenciador`](./propeusmoduloabstratointerfaces-IGerenciador.md) | [`Atual`](#atual) | `get` |
-
 #### Public  properties
 | Type | Name | Methods |
 | --- | --- | --- |
 | `DateTime` | [`DataInicio`](#datainicio)<br>Retorna data e hora que o gerenciador iniciou | `get` |
+| `int` | [`ModulosInicializados`](#modulosinicializados)<br>Indica a quantidade de modulos inicializados pelo gerenciador | `get` |
+| `DateTime` | [`UltimaAtualizacao`](#ultimaatualizacao)<br>Data e hora do ultimo evento realizado no gerenciador | `get` |
 
 ### Methods
 #### Public  methods
 | Returns | Name |
 | --- | --- |
 | `T` | [`Criar`](#criar-13)(`...`) |
-| `bool` | [`Existe`](#existe-13)(`...`)<br>Verifica se existe alguma instancia do tipo no gerenciador |
+| `bool` | [`Existe`](#existe-13)(`...`)<br>Verifica se a instancia do modulo existe no genrenciador |
 | `IEnumerable`&lt;[`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md)&gt; | [`Listar`](#listar)()<br>Lista todos os modulos |
 | `Task` | [`ManterVivoAsync`](#mantervivoasync)()<br>Mantem o gerenciador vivo durante o uso da aplicação |
-| [`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md) | [`Obter`](#obter-13)(`...`)<br>Obtem a instancia de `modulo` caso exista <br><br> |
+| `T` | [`Obter`](#obter-13)(`...`) |
 | `T` | [`Reciclar`](#reciclar-12)(`...`) |
-| `void` | [`Remover`](#remover-12)(`...`) |
+| `void` | [`Remover`](#remover-12)(`...`)<br>Remove um modulo pelo seu ID |
 | `void` | [`RemoverTodos`](#removertodos)()<br>Remove todos os modulos |
-| `string` | [`ToString`](#tostring)() |
 
 #### Protected  methods
 | Returns | Name |
@@ -55,92 +62,32 @@ Controlador de modulos
 
 ### Inheritance
  - [
-`GerenciadorBase`
-](./propeusmoduloabstrato-GerenciadorBase.md)
+`IGerenciador`
+](./propeusmoduloabstratointerfaces-IGerenciador.md)
+ - [
+`IBaseModelo`
+](./propeusmoduloabstratointerfaces-IBaseModelo.md)
+ - `IDisposable`
+ - [
+`ModeloBase`
+](./propeusmoduloabstrato-ModeloBase.md)
+
+### Constructors
+#### GerenciadorBase
+```csharp
+protected GerenciadorBase()
+```
 
 ### Methods
 #### Criar [1/3]
 ```csharp
-public override T Criar<T>()
+public abstract T Criar<T>()
 where T : IModulo
 ```
 
 #### Criar [2/3]
 ```csharp
-public override IModulo Criar(string nomeModulo)
-```
-##### Arguments
-| Type | Name | Description |
-| --- | --- | --- |
-| `string` | nomeModulo | Nome do modulo |
-
-##### Summary
-Cria uma nova instancia do modulo buscando o tipo pelo nome
-
-##### Example
-Exemplo para criar um modulo com contrato
-```csharp
-using System;
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Core.Gerenciador;
-
-namespace Propeus.Modulo.Exemplo
-{
-    [Modulo]
-    public class CalculadoraModulo : ICalculadoraModuloContrato
-    {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        {
-
-        }
-        
-        public int Calcular(int a, int b)
-        {
-return a+b;
-        }
-    }
-
-    [ModuloContrato(typeof(CalculadoraModulo))]
-    public interface ICalculadoraModuloContrato : IModulo
-    {
-        public int Calcular(int a, int b);
-    }
-    
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-using(Gerenciador gerenciador = Gereciador.Atual)
-{
-    ICalculadoraModuloContrato modulo =  (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
-    Console.WriteLine(modulo.Calcular(1,1));
-}
-        }
-    }
-}
-
-```
-
-##### Returns
-[IModulo](./propeusmoduloabstratointerfaces-IModulo.md)
-
-##### Exceptions
-| Name | Description |
-| --- | --- |
-| ArgumentNullException | Parametro nulo |
-| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo invalido |
-| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo nao herdado de [IModulo](./propeusmoduloabstratointerfaces-IModulo.md) |
-| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo nao possui o atributo [ModuloAttribute](./propeusmoduloabstratoatributos-ModuloAttribute.md) |
-| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Parametro do construtor nao e um modulo valido |
-| [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
-| [TipoModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-TipoModuloNaoEncontradoException.md) | Tipo nao encontrado pelo nome no atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
-| [TipoModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-TipoModuloNaoEncontradoException.md) | Tipo ausente no atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
-| [ModuloInstanciaUnicaException](./propeusmoduloabstratoexceptions-ModuloInstanciaUnicaException.md) | Criacao de mais de uma instancia de modulo definido como instancia unica |
-| [ModuloConstrutorAusenteException](./propeusmoduloabstratoexceptions-ModuloConstrutorAusenteException.md) | Construtor ausente no modulo |
-
-#### Criar [3/3]
-```csharp
-public override IModulo Criar(Type modulo)
+public virtual IModulo Criar(Type modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -211,83 +158,17 @@ using(Gerenciador gerenciador = Gereciador.Atual)
 | [ModuloInstanciaUnicaException](./propeusmoduloabstratoexceptions-ModuloInstanciaUnicaException.md) | Criacao de mais de uma instancia de modulo definido como instancia unica |
 | [ModuloConstrutorAusenteException](./propeusmoduloabstratoexceptions-ModuloConstrutorAusenteException.md) | Construtor ausente no modulo |
 
-#### Existe [1/3]
+#### Criar [3/3]
 ```csharp
-public override bool Existe(Type modulo)
+public virtual IModulo Criar(string nomeModulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `Type` | modulo | Tipo da instancia do modulo a ser verificado |
+| `string` | nomeModulo | Nome do modulo |
 
 ##### Summary
-Verifica se existe alguma instancia do tipo no gerenciador
-
-##### Example
-Exemplo para verificar um modulo
-```csharp
-using System;
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Core.Gerenciador;
-
-namespace Propeus.Modulo.Exemplo
-{
-    [Modulo]
-    public class CalculadoraModulo : ICalculadoraModuloContrato
-    {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        {
-
-        }
-        
-        public int Calcular(int a, int b)
-        {
-return a+b;
-        }
-    }
-
-    [ModuloContrato(typeof(CalculadoraModulo))]
-    public interface ICalculadoraModuloContrato : IModulo
-    {
-        public int Calcular(int a, int b);
-    }
-    
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-using(Gerenciador gerenciador = Gereciador.Atual)
-{
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-    Console.WriteLine(gerenciador.Existe(typeof(ICalculadoraModuloContrato)));
-}
-        }
-    }
-}
-
-```
-
-##### Returns
-Boolean
-
-##### Exceptions
-| Name | Description |
-| --- | --- |
-| ArgumentNullException | Parametro nulo |
-| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo invalido |
-| [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
-
-#### Existe [2/3]
-```csharp
-public override bool Existe(IModulo modulo)
-```
-##### Arguments
-| Type | Name | Description |
-| --- | --- | --- |
-| [`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md) | modulo | A instancia do modulo |
-
-##### Summary
-Verifica se a instancia do modulo existe no genrenciador
+Cria uma nova instancia do modulo buscando o tipo pelo nome
 
 ##### Example
 Exemplo para criar um modulo com contrato
@@ -324,8 +205,8 @@ return a+b;
         {
 using(Gerenciador gerenciador = Gereciador.Atual)
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-    Console.WriteLine(gerenciador.Existe(modulo));
+    ICalculadoraModuloContrato modulo =  (ICalculadoraModuloContrato)gerenciador.Criar("ICalculadoraModuloContrato");
+    Console.WriteLine(modulo.Calcular(1,1));
 }
         }
     }
@@ -334,16 +215,25 @@ using(Gerenciador gerenciador = Gereciador.Atual)
 ```
 
 ##### Returns
-Boolean
+[IModulo](./propeusmoduloabstratointerfaces-IModulo.md)
 
 ##### Exceptions
 | Name | Description |
 | --- | --- |
 | ArgumentNullException | Parametro nulo |
+| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo invalido |
+| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo nao herdado de [IModulo](./propeusmoduloabstratointerfaces-IModulo.md) |
+| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo nao possui o atributo [ModuloAttribute](./propeusmoduloabstratoatributos-ModuloAttribute.md) |
+| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Parametro do construtor nao e um modulo valido |
+| [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
+| [TipoModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-TipoModuloNaoEncontradoException.md) | Tipo nao encontrado pelo nome no atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
+| [TipoModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-TipoModuloNaoEncontradoException.md) | Tipo ausente no atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
+| [ModuloInstanciaUnicaException](./propeusmoduloabstratoexceptions-ModuloInstanciaUnicaException.md) | Criacao de mais de uma instancia de modulo definido como instancia unica |
+| [ModuloConstrutorAusenteException](./propeusmoduloabstratoexceptions-ModuloConstrutorAusenteException.md) | Construtor ausente no modulo |
 
-#### Existe [3/3]
+#### Remover [1/2]
 ```csharp
-public override bool Existe(string id)
+public virtual void Remover(string id)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -351,7 +241,7 @@ public override bool Existe(string id)
 | `string` | id | Identificação unica do modulo |
 
 ##### Summary
-Verifica se existe alguma instancia com o id no gerenciador
+Remove um modulo pelo seu ID
 
 ##### Example
 ```csharp
@@ -387,8 +277,8 @@ return a+b;
         {
 using(Gerenciador gerenciador = Gereciador.Atual)
 {
-    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
-    Console.WriteLine(gerenciador.Existe(modulo.Id));
+    ICalculadoraModuloContrato modulo = gerenciador.Criar<ICalculadoraModuloContrato>();
+    Console.WriteLine(gerenciador.Remover(modulo.Id));
 }
         }
     }
@@ -396,17 +286,82 @@ using(Gerenciador gerenciador = Gereciador.Atual)
 
 ```
 
-##### Returns
-Boolean
-
 ##### Exceptions
 | Name | Description |
 | --- | --- |
 | ArgumentNullException | Parametro nulo |
+| [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
+| [ModuloDescartadoException](./propeusmoduloabstratoexceptions-ModuloDescartadoException.md) | Instancia do modulo foi coletado pelo G.C ou acionou o IDisposable.Dispose |
+
+#### Remover [2/2]
+```csharp
+public virtual void Remover<T>(T modulo)
+where T : IModulo
+```
+##### Arguments
+| Type | Name | Description |
+| --- | --- | --- |
+| `T` | modulo |   |
+
+#### RemoverTodos
+```csharp
+public virtual void RemoverTodos()
+```
+##### Summary
+Remove todos os modulos
+
+##### Example
+```csharp
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
+
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+
+        }
+        
+        public int Calcular(int a, int b)
+        {
+return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
+    
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+using(Gerenciador gerenciador = Gereciador.Atual)
+{
+    ICalculadoraModuloContrato modulo = gerenciador.Criar<ICalculadoraModuloContrato>();
+    Console.WriteLine(gerenciador.RemoverTodos());
+}
+        }
+    }
+}
+
+```
 
 #### Obter [1/3]
 ```csharp
-public override IModulo Obter(Type modulo)
+public abstract T Obter<T>()
+where T : IModulo
+```
+
+#### Obter [2/3]
+```csharp
+public virtual IModulo Obter(Type modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -473,15 +428,9 @@ using(Gerenciador gerenciador = Gereciador.Atual)
 | [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
 | [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
 
-#### Obter [2/3]
-```csharp
-public override T Obter<T>()
-where T : IModulo
-```
-
 #### Obter [3/3]
 ```csharp
-public override IModulo Obter(string id)
+public virtual IModulo Obter(string id)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -540,23 +489,141 @@ using(Gerenciador gerenciador = Gereciador.Atual)
 ##### Exceptions
 | Name | Description |
 | --- | --- |
-| ArgumentNullException | Parametro nulo |
-| [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
 | [ModuloDescartadoException](./propeusmoduloabstratoexceptions-ModuloDescartadoException.md) | Instancia do modulo foi coletado pelo G.C ou acionou o IDisposable.Dispose |
 
-#### Remover [1/2]
+#### Existe [1/3]
 ```csharp
-public override void Remover<T>(T modulo)
-where T : IModulo
+public abstract bool Existe(IModulo modulo)
 ```
 ##### Arguments
 | Type | Name | Description |
 | --- | --- | --- |
-| `T` | modulo |   |
+| [`IModulo`](./propeusmoduloabstratointerfaces-IModulo.md) | modulo | A instancia do modulo |
 
-#### Remover [2/2]
+##### Summary
+Verifica se a instancia do modulo existe no genrenciador
+
+##### Example
+Exemplo para criar um modulo com contrato
 ```csharp
-public override void Remover(string id)
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
+
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+
+        }
+        
+        public int Calcular(int a, int b)
+        {
+return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
+    
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+using(Gerenciador gerenciador = Gereciador.Atual)
+{
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+    Console.WriteLine(gerenciador.Existe(modulo));
+}
+        }
+    }
+}
+
+```
+
+##### Returns
+Boolean
+
+##### Exceptions
+| Name | Description |
+| --- | --- |
+| ArgumentNullException | Parametro nulo |
+
+#### Existe [2/3]
+```csharp
+public virtual bool Existe(Type modulo)
+```
+##### Arguments
+| Type | Name | Description |
+| --- | --- | --- |
+| `Type` | modulo | Tipo da instancia do modulo a ser verificado |
+
+##### Summary
+Verifica se existe alguma instancia do tipo no gerenciador
+
+##### Example
+Exemplo para verificar um modulo
+```csharp
+using System;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Core.Gerenciador;
+
+namespace Propeus.Modulo.Exemplo
+{
+    [Modulo]
+    public class CalculadoraModulo : ICalculadoraModuloContrato
+    {
+        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
+        {
+
+        }
+        
+        public int Calcular(int a, int b)
+        {
+return a+b;
+        }
+    }
+
+    [ModuloContrato(typeof(CalculadoraModulo))]
+    public interface ICalculadoraModuloContrato : IModulo
+    {
+        public int Calcular(int a, int b);
+    }
+    
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+using(Gerenciador gerenciador = Gereciador.Atual)
+{
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+    Console.WriteLine(gerenciador.Existe(typeof(ICalculadoraModuloContrato)));
+}
+        }
+    }
+}
+
+```
+
+##### Returns
+Boolean
+
+##### Exceptions
+| Name | Description |
+| --- | --- |
+| ArgumentNullException | Parametro nulo |
+| [TipoModuloInvalidoException](./propeusmoduloabstratoexceptions-TipoModuloInvalidoException.md) | Tipo do modulo invalido |
+| [ModuloContratoNaoEncontratoException](./propeusmoduloabstratoexceptions-ModuloContratoNaoEncontratoException.md) | Tipo da interface de contrato nao possui o atributo [ModuloContratoAttribute](./propeusmoduloabstratoatributos-ModuloContratoAttribute.md) |
+
+#### Existe [3/3]
+```csharp
+public virtual bool Existe(string id)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -564,7 +631,7 @@ public override void Remover(string id)
 | `string` | id | Identificação unica do modulo |
 
 ##### Summary
-Remove um modulo pelo seu ID
+Verifica se existe alguma instancia com o id no gerenciador
 
 ##### Example
 ```csharp
@@ -600,75 +667,26 @@ return a+b;
         {
 using(Gerenciador gerenciador = Gereciador.Atual)
 {
-    ICalculadoraModuloContrato modulo = gerenciador.Criar<ICalculadoraModuloContrato>();
-    Console.WriteLine(gerenciador.Remover(modulo.Id));
+    ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.Criar(typeof(ICalculadoraModuloContrato));
+    Console.WriteLine(gerenciador.Existe(modulo.Id));
 }
         }
     }
 }
 
 ```
+
+##### Returns
+Boolean
 
 ##### Exceptions
 | Name | Description |
 | --- | --- |
 | ArgumentNullException | Parametro nulo |
-| [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
-| [ModuloDescartadoException](./propeusmoduloabstratoexceptions-ModuloDescartadoException.md) | Instancia do modulo foi coletado pelo G.C ou acionou o IDisposable.Dispose |
-
-#### RemoverTodos
-```csharp
-public override void RemoverTodos()
-```
-##### Summary
-Remove todos os modulos
-
-##### Example
-```csharp
-using System;
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Core.Gerenciador;
-
-namespace Propeus.Modulo.Exemplo
-{
-    [Modulo]
-    public class CalculadoraModulo : ICalculadoraModuloContrato
-    {
-        public ModuloTesteA(IGerenciador gerenciador) : base(gerenciador, false)
-        {
-
-        }
-        
-        public int Calcular(int a, int b)
-        {
-return a+b;
-        }
-    }
-
-    [ModuloContrato(typeof(CalculadoraModulo))]
-    public interface ICalculadoraModuloContrato : IModulo
-    {
-        public int Calcular(int a, int b);
-    }
-    
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-using(Gerenciador gerenciador = Gereciador.Atual)
-{
-    ICalculadoraModuloContrato modulo = gerenciador.Criar<ICalculadoraModuloContrato>();
-    Console.WriteLine(gerenciador.RemoverTodos());
-}
-        }
-    }
-}
-
-```
 
 #### Reciclar [1/2]
 ```csharp
-public override T Reciclar<T>(T modulo)
+public abstract T Reciclar<T>(T modulo)
 where T : IModulo
 ```
 ##### Arguments
@@ -678,7 +696,7 @@ where T : IModulo
 
 #### Reciclar [2/2]
 ```csharp
-public override IModulo Reciclar(string id)
+public virtual IModulo Reciclar(string id)
 ```
 ##### Arguments
 | Type | Name | Description |
@@ -741,41 +759,9 @@ Boolean
 | [ModuloNaoEncontradoException](./propeusmoduloabstratoexceptions-ModuloNaoEncontradoException.md) | Instancia do modulo nao foi inicializado |
 | [ModuloDescartadoException](./propeusmoduloabstratoexceptions-ModuloDescartadoException.md) | Instancia do modulo foi coletado pelo G.C ou acionou o IDisposable.Dispose |
 
-#### ManterVivoAsync
-```csharp
-public override async Task ManterVivoAsync()
-```
-##### Summary
-Mantem o gerenciador vivo durante o uso da aplicação
-
-##### Example
-Exemplo de como manter o gerenciador em modo interativo
-```csharp
-using System;
-using Propeus.Modulo.Core.Gerenciador
-
-namespace Propeus.Modulo.Exemplo
-{
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-            using(Gerenciador gerenciador = Gereciador.Atual)
-            {
-   gerenciador.ManterVivoAsync().Wait();
-            }
-        }
-    }
-            }
-
-```
-
-##### Returns
-Task
-
 #### Listar
 ```csharp
-public override IEnumerable<IModulo> Listar()
+public virtual IEnumerable<IModulo> Listar()
 ```
 ##### Summary
 Lista todos os modulos
@@ -849,6 +835,38 @@ namespace Propeus.Modulo.Exemplo
 ##### Returns
 IEnumerable&lt;ModularDoc.Elements.Markdown.TextElement&gt;
 
+#### ManterVivoAsync
+```csharp
+public abstract Task ManterVivoAsync()
+```
+##### Summary
+Mantem o gerenciador vivo durante o uso da aplicação
+
+##### Example
+Exemplo de como manter o gerenciador em modo interativo
+```csharp
+using System;
+using Propeus.Modulo.Core.Gerenciador
+
+namespace Propeus.Modulo.Exemplo
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using(Gerenciador gerenciador = Gereciador.Atual)
+            {
+   gerenciador.ManterVivoAsync().Wait();
+            }
+        }
+    }
+            }
+
+```
+
+##### Returns
+Task
+
 #### Dispose
 ```csharp
 protected override void Dispose(bool disposing)
@@ -861,22 +879,29 @@ protected override void Dispose(bool disposing)
 ##### Summary
 Libera os objetos deste modelo e altera o estado dele para [Estado](./propeusmoduloabstrato-Estado.md).[Desligado](#desligado)
 
-#### ToString
-```csharp
-public override string ToString()
-```
-
 ### Properties
-#### Atual
-```csharp
-public static IGerenciador Atual { get; }
-```
-
 #### DataInicio
 ```csharp
-public override DateTime DataInicio { get; }
+public abstract DateTime DataInicio { get; }
 ```
 ##### Summary
 Retorna data e hora que o gerenciador iniciou
+
+#### UltimaAtualizacao
+```csharp
+public virtual DateTime UltimaAtualizacao { get; }
+```
+##### Summary
+Data e hora do ultimo evento realizado no gerenciador
+
+##### Remarks
+Os eventos sao o CRUD (Criar, Reiniciar, Atualizar ou Remover) do genreciador
+
+#### ModulosInicializados
+```csharp
+public virtual int ModulosInicializados { get; }
+```
+##### Summary
+Indica a quantidade de modulos inicializados pelo gerenciador
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

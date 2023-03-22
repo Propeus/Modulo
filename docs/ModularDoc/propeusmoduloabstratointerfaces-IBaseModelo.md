@@ -25,6 +25,7 @@ System.IDisposable --> Propeus.Modulo.Abstrato.Interfaces.IBaseModelo
 | --- | --- | --- |
 | [`Estado`](./propeusmoduloabstrato-Estado.md) | [`Estado`](#estado)<br>Representa o estado do objeto. | `get` |
 | `string` | [`Id`](#id)<br>Representação alfanumerica e unica do objeto. | `get` |
+| `string` | [`IdManifesto`](#idmanifesto)<br>Guid do Assembly atual | `get` |
 | `string` | [`Nome`](#nome)<br>Representação amigavel do ojeto. <br><br> | `get` |
 | `string` | [`Versao`](#versao)<br>Versao do modelo | `get` |
 
@@ -65,5 +66,12 @@ public string Id { get; }
 ```
 ##### Summary
 Representação alfanumerica e unica do objeto.
+
+#### IdManifesto
+```csharp
+public string IdManifesto { get; }
+```
+##### Summary
+Guid do Assembly atual
 
 *Generated with* [*ModularDoc*](https://github.com/hailstorm75/ModularDoc)

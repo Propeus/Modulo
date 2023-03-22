@@ -39,7 +39,7 @@ public static ModuloAttribute ObterModuloAtributo(Type objeto)
 Obtem o atributo [ModuloAttribute](./propeusmoduloabstratoatributos-ModuloAttribute.md) de um objeto
 
 ##### Returns
-
+Retorna o atributo ou
 
 ##### Exceptions
 | Name | Description |
