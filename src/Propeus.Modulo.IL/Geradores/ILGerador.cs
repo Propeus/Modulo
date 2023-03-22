@@ -49,7 +49,7 @@ namespace Propeus.Modulo.IL.Geradores
 
             this.nomeAssembly = nomeAssembly;
 
-            assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new System.Reflection.AssemblyName(nomeAssembly), AssemblyBuilderAccess.RunAndCollect);
+            assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new System.Reflection.AssemblyName(nomeAssembly), AssemblyBuilderAccess.RunAndCollect);            
         }
 
         internal ILModulo Modulo { get; private set; }

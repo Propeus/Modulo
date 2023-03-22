@@ -102,9 +102,9 @@ namespace Propeus.Modulo.IL.Geradores
             }
             else
             {
-                ILBuilderProxy proxy = new(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
+                ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-                ILClasseProvider clsProvider = new(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
+                ILClasseProvider clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores);
                 Classes.Add(@namespace + nomeClasse, clsProvider);
                 return clsProvider;
             }
