@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		
+		<Product>Propeus.Modulo.Dinamico</Product>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Componente para gerenciar modulos em tempo de execução</Description>
+
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo Dinamico</PackageTags>
+		<PackageId>Propeus.Modulo.Dinamico</PackageId>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+		<AssemblyName>Propeus.Modulo.Dinamico</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Dinamico</RootNamespace>
+
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+	  <ProjectReference Include="..\Propeus.Modulo.IL.Core\Propeus.Modulo.IL.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENCE">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
+</Project>

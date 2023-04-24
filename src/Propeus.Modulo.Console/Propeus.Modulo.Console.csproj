@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+
+		<Product>Propeus.Modulo.Console</Product>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Modulo para controle do gerenciador por linha de comando</Description>
+
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo Console</PackageTags>
+		<PackageId>Propeus.Modulo.Console</PackageId>
+
+		<AssemblyName>Propeus.Modulo.Console</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Console</RootNamespace>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>

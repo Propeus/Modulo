@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Modules\" />
+		<Folder Include="Models\" />
+		<Folder Include="Views\" />
+	</ItemGroup>
+
+</Project>
