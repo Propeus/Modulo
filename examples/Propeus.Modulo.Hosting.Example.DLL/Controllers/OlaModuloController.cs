@@ -28,14 +28,14 @@ namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
         public IActionResult OlaMundo()
         {
             Logger.LogInformation("Ola Modulo!!!!!!! - " + Id);
-            return Ok("Ola Modulossss - " + Id);
+            return Ok("Ola mundo - " + Id);
         }
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
 
     }

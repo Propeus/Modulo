@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
 using Propeus.Modulo.Abstrato;
@@ -36,7 +37,6 @@ namespace Propeus.Modulo.Hosting
     internal class ModuloApplicationPart
     {
         Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
-
 
         public ModuloApplicationPart(Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager applicationPart)
         {
@@ -68,6 +68,7 @@ namespace Propeus.Modulo.Hosting
                         ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
                         ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
                     }
+
 
                     //this.ApplicationPart.ApplicationParts.Add(new EmbeddedFileAssemblyPart())
                     break;

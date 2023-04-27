@@ -24,6 +24,12 @@ using Propeus.Modulo.Util.Vetores;
 
 namespace Propeus.Modulo.Abstrato
 {
+    //Mapear toda a dll aqui dentro e gerenciar a remocao e criacao
+    class AssemblyTracker
+    {
+
+    }
+
     public class ModuleProvider : IDisposable
     {
 
@@ -39,8 +45,7 @@ namespace Propeus.Modulo.Abstrato
         ConcurrentHashSet<string> _modules;
 
         private ConcurrentDictionary<string, bool> _pathToReload;
-        private ConcurrentDictionary<string, DateTime> _pathToReloadDate;
-        private ConcurrentDictionary<string, long> _pathToReloadLength;
+        private ConcurrentDictionary<string, string> _pathToReloadGuid;
         private ConcurrentDictionary<string, AssemblyLoadContext> _pathToAssemblyContext;
         private ConcurrentDictionary<string, WeakReference<Assembly>> _pathToAssembly;
         private ConcurrentDictionary<string, string> _typeToPath;
@@ -110,8 +115,7 @@ namespace Propeus.Modulo.Abstrato
             _modules = new ConcurrentHashSet<string>();
 
             _pathToReload = new ConcurrentDictionary<string, bool>();
-            _pathToReloadDate = new ConcurrentDictionary<string, DateTime>();
-            _pathToReloadLength = new ConcurrentDictionary<string, long>();
+            _pathToReloadGuid = new ConcurrentDictionary<string, string>();
             _pathToAssemblyContext = new ConcurrentDictionary<string, AssemblyLoadContext>();
             _pathToAssembly = new ConcurrentDictionary<string, WeakReference<Assembly>>();
 
@@ -126,7 +130,6 @@ namespace Propeus.Modulo.Abstrato
 
             _job.RegisterJob(JOB_LOAD_MODULES_PATH, $"{nameof(ModuleProvider)}::{nameof(JOB_LOAD_MODULES_PATH)}", TimeSpan.FromSeconds(1));
             _job.RegisterJob(JOB_MAP_MODULES, $"{nameof(ModuleProvider)}::{nameof(JOB_MAP_MODULES)}", TimeSpan.FromSeconds(2));
-            _job.RegisterJob(JOB_CHANGE_MODULES, $"{nameof(ModuleProvider)}::{nameof(JOB_CHANGE_MODULES)}", TimeSpan.FromSeconds(1));
             _job.RegisterJob(JOB_RELOAD_MODULES_STREAM, $"{nameof(ModuleProvider)}::{nameof(JOB_RELOAD_MODULES_STREAM)}", TimeSpan.FromSeconds(2));
             _job.RegisterJob(JOB_LOAD_ASSEMBLYES, $"{nameof(ModuleProvider)}::{nameof(JOB_LOAD_ASSEMBLYES)}", TimeSpan.FromSeconds(3));
             _job.RegisterJob(JOB_MAP_TYPES_MODULE, $"{nameof(ModuleProvider)}::{nameof(JOB_MAP_TYPES_MODULE)}", TimeSpan.FromSeconds(3));
@@ -178,7 +181,6 @@ namespace Propeus.Modulo.Abstrato
         {
             LoadModulesPath();
             MapModules();
-            ChangeModules();
             LoadAssemblyes();
             ReloadModulesStream();
             MapTypeModules();
@@ -206,6 +208,20 @@ namespace Propeus.Modulo.Abstrato
                     using (PEReader pEReader = new PEReader(streamReader))
                     {
                         MetadataReader metadataReader = pEReader.GetMetadataReader();
+
+                        var mvidHandle = metadataReader.GetModuleDefinition().Mvid;
+                        var guid = metadataReader.GetGuid(mvidHandle);
+
+                        if(_pathToReload.ContainsKey(modulePath) && _pathToReloadGuid[modulePath] != guid.ToString())
+                        {
+                            _pathToReload[modulePath] = true;
+                            _pathToReloadGuid[modulePath] = guid.ToString();
+                        }
+                        else
+                        {
+                            _pathToReload.TryAdd(modulePath, false);
+                            _pathToReloadGuid.TryAdd(modulePath, guid.ToString());
+                        }
 
                         foreach (var typeHandle in metadataReader.TypeDefinitions)
                         {
@@ -239,30 +255,7 @@ namespace Propeus.Modulo.Abstrato
                 }
             }
         }
-        //3
-        void ChangeModules()
-        {
-            foreach (var modulePath in _modules)
-            {
-                var fileInfo = new FileInfo(modulePath);
-                if (_pathToReload.ContainsKey(modulePath))
-                {
-                    if (_pathToReloadDate[modulePath] != fileInfo.LastWriteTime
-                        || _pathToReloadLength[modulePath] != fileInfo.Length)
-                    {
-                        _pathToReload[modulePath] = true;
-                        _pathToReloadDate[modulePath] = fileInfo.LastWriteTime;
-                        _pathToReloadLength[modulePath] = fileInfo.Length;
-                    }
-                }
-                else
-                {
-                    _pathToReload.TryAdd(modulePath, false);
-                    _pathToReloadDate.TryAdd(modulePath, fileInfo.LastWriteTime);
-                    _pathToReloadLength.TryAdd(modulePath, fileInfo.Length);
-                }
-            }
-        }
+       
         //4
         void LoadAssemblyes()
         {
@@ -286,7 +279,9 @@ namespace Propeus.Modulo.Abstrato
             foreach (var moduleChange in result)
             {
                 _pathToAssemblyContext[moduleChange.Key].Unload();
+                _pathToAssemblyContext.TryRemove(moduleChange.Key,out _);
                 _pathToReload.Remove(moduleChange.Key, out _);
+                _pathToReloadGuid.Remove(moduleChange.Key, out _);
             }
         }
         //6
@@ -454,11 +449,7 @@ namespace Propeus.Modulo.Abstrato
             CancellationToken token = (CancellationToken)cancellationToken;
             MapModules();
         }
-        void JOB_CHANGE_MODULES(object cancellationToken)
-        {
-            CancellationToken token = (CancellationToken)cancellationToken;
-            ChangeModules();
-        }
+      
         void JOB_RELOAD_MODULES_STREAM(object cancellationToken)
         {
             CancellationToken token = (CancellationToken)cancellationToken;
@@ -496,7 +487,6 @@ namespace Propeus.Modulo.Abstrato
                 {
                     _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_LOAD_MODULES_PATH)}");
                     _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_MAP_MODULES)}");
-                    _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_CHANGE_MODULES)}");
                     _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_RELOAD_MODULES_STREAM)}");
                     _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_LOAD_ASSEMBLYES)}");
                     _job.UnregisterJob($"{nameof(ModuleProvider)}::{nameof(JOB_MAP_TYPES_MODULE)}");
@@ -506,8 +496,7 @@ namespace Propeus.Modulo.Abstrato
                     _modulesPath.Clear();
                     _modules.Clear();
                     _pathToReload.Clear();
-                    _pathToReloadDate.Clear();
-                    _pathToReloadLength.Clear();
+                    _pathToReloadGuid.Clear();
                     foreach (var module in _pathToAssemblyContext)
                     {
                         module.Value.Unload();
@@ -522,8 +511,7 @@ namespace Propeus.Modulo.Abstrato
                 _modulesPath = null;
                 _modules = null;
                 _pathToReload = null;
-                _pathToReloadDate = null;
-                _pathToReloadLength = null;
+                _pathToReloadGuid = null;
                 _pathToAssemblyContext = null;
                 _typeToPath = null;
                 _typeToType = null;

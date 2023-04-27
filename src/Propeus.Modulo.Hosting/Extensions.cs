@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
 
 using Propeus.Modulo.Abstrato.Interfaces;
 using Microsoft.Extensions.Hosting;

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Modulos;
-using Propeus.Modulo.Hosting;
+using Propeus.Modulo.Hosting.MS_MVC;
 
 namespace Propeus.Modulo.Api.Controllers
 {
