@@ -70,7 +70,7 @@ namespace Propeus.Modulo.Abstrato
                     assmName.TryGetTarget(out var type);
                     return type;
                 }
-              
+
                 return null;
             }
             set
@@ -157,7 +157,23 @@ namespace Propeus.Modulo.Abstrato
                 }
             }
         }
+        public IEnumerable<Type> GetTypes()
+        {
+            foreach (var proxy in from proxy in _proxyToType
+                                  where proxy.Value.IsAlive
+                                  select proxy)
+            {
+                yield return proxy.Value.Target as Type;
+            }
 
+            foreach (var tp in _typeToType)
+            {
+                if(tp.Value.TryGetTarget(out Type target))
+                {
+                    yield return target;
+                }
+            }
+        }
         public void LoadModules()
         {
             LoadModulesPath();
@@ -266,9 +282,11 @@ namespace Propeus.Modulo.Abstrato
         //5
         void ReloadModulesStream()
         {
-            foreach (var moduleChange in _pathToReload.Where(x => x.Value))
+            var result = _pathToReload.Where(x => x.Value).ToArray();
+            foreach (var moduleChange in result)
             {
                 _pathToAssemblyContext[moduleChange.Key].Unload();
+                _pathToReload.Remove(moduleChange.Key, out _);
             }
         }
         //6

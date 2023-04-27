@@ -8,18 +8,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Primitives;
 
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Proveders;
 
 namespace Propeus.Modulo.Hosting
 {
-    internal class ModuleActionDescriptorChangeProvider : IActionDescriptorChangeProvider
+    public class ModuleActionDescriptorChangeProvider : IActionDescriptorChangeProvider
     {
-        internal static ModuleActionDescriptorChangeProvider Instance { get; } = new ModuleActionDescriptorChangeProvider();
+        public static ModuleActionDescriptorChangeProvider Instance { get; } = new ModuleActionDescriptorChangeProvider();
 
-        internal CancellationTokenSource TokenSource { get; private set; }
+        public CancellationTokenSource TokenSource { get; private set; }
+
+        public bool HasChanged { get; set; }
 
         public IChangeToken GetChangeToken()
         {
@@ -28,7 +32,7 @@ namespace Propeus.Modulo.Hosting
         }
     }
 
-    
+
     internal class ModuloApplicationPart
     {
         Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
@@ -37,18 +41,35 @@ namespace Propeus.Modulo.Hosting
         public ModuloApplicationPart(Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager applicationPart)
         {
             ApplicationPart = applicationPart;
+            LoadTypes();
             EventoProvider.RegistrarOuvinteInformacao(OnTypeLoadUnload);
+        }
+
+        private void LoadTypes()
+        {
+            foreach (var item in ModuleProvider.Provider.GetTypes())
+            {
+                OnTypeLoadUnload(item, "load", null);
+            }
         }
 
         private void OnTypeLoadUnload(Type fonte, string mensagem, Exception exception)
         {
-            switch (mensagem) {
+            switch (mensagem)
+            {
                 case "load":
                     if (!fonte.Name.Contains("Controller"))
                         return;
+                    var app = new AssemblyPart(fonte.Assembly);
 
-                    this.ApplicationPart.ApplicationParts.Add(new AssemblyPart(fonte.Assembly));
-                    ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
+                    if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
+                    {
+                        this.ApplicationPart.ApplicationParts.Add(app);
+                        ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
+                        ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
+                    }
+
+                    //this.ApplicationPart.ApplicationParts.Add(new EmbeddedFileAssemblyPart())
                     break;
                 case "unload":
                     if (!fonte.Name.Contains("Controller"))

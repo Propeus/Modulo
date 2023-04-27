@@ -35,7 +35,7 @@ namespace Propeus.Modulo.Hosting
     }
 
 
-    [Modulo]
+    [Modulo(AutoAtualizavel = true)]
     public class ModuloControllerBase : ModuloBase
     {
         #region ControllerBase

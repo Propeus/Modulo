@@ -9,9 +9,11 @@ using Microsoft.Extensions.Logging;
 
 using Propeus.Modulo.Abstrato.Atributos;
 
-namespace Propeus.Modulo.Hosting.Example.Modules
+namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
 {
     [Modulo]
+    [Controller]
+    [Route("olamundo")]
     public class OlaModuloController : ModuloController
     {
 
@@ -22,11 +24,19 @@ namespace Propeus.Modulo.Hosting.Example.Modules
 
         public ILogger<OlaModuloController> Logger { get; }
 
-        [HttpGet]
+        [HttpGet("olamundo2")]
         public IActionResult OlaMundo()
         {
-            Logger.LogInformation("Ola Modulo!!! - " + this.Id);
-            return Ok("Ola Modulo - " + this.Id);
+            Logger.LogInformation("Ola Modulo!!!!!!! - " + Id);
+            return Ok("Ola Modulossss - " + Id);
         }
+
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return View();
+        //}
+
+
     }
 }

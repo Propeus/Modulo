@@ -34,18 +34,16 @@ namespace Propeus.Modulo.Abstrato.Proveders
             {
                 if (fonte is Type)
                 {
-                    Task.Run(() =>
-                    {
-                        OnInfo.Invoke((fonte as Type), mensagem, null);
-                    });
+
+                    OnInfo.Invoke((fonte as Type), mensagem, null);
+
 
                 }
                 else
                 {
-                    Task.Run(() =>
-                    {
-                        OnInfo.Invoke(fonte.GetType(), mensagem, null);
-                    });
+
+                    OnInfo.Invoke(fonte.GetType(), mensagem, null);
+
                 }
             }
         }
