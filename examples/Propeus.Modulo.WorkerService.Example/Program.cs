@@ -1,7 +1,3 @@
-
-using Propeus.Modulo.Abstrato.Proveders;
-using Propeus.Modulo.WorkerService;
-
 /**
  * Este exemplo serve para mostrar como o sistema de modulo dinamico funciona
  * 
@@ -30,7 +26,6 @@ using Propeus.Modulo.WorkerService;
  * Caso crie um modulo worker 'AutoInicializavel' definindo a propriedade 'PermitirReinicializacao' como false, vai acontecer de o gerenciador nuncar parar 
  * o modulo ate que ele mesmo pare por alguma circustancia que nao seja a atualizacao de modulo.
  * **/
-
 
 IHost host = Host.CreateDefaultBuilder(args)
     //Pode usar a extencao UseGerenciador passando o modulo dinamico

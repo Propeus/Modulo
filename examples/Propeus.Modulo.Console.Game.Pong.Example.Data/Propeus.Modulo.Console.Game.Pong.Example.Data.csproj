@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
-    <ProjectReference Include="..\..\src\modules\Propeus.Modulo.WorkerService\Propeus.Modulo.WorkerService.csproj" />
   </ItemGroup>
 
 </Project>

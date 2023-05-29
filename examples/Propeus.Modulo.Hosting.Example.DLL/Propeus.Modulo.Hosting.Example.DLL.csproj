@@ -1,24 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Views\Index.cshtml" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Views\Index.cshtml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Views\OlaModulo\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Views\OlaModulo\Index.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\modules\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
+	</ItemGroup>
 
 </Project>

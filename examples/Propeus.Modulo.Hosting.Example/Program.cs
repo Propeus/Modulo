@@ -1,46 +1,36 @@
-using System.Runtime.CompilerServices;
-
-using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Hosting;
 
-internal class Program
+namespace Propeus.Modulo.Hosting.Example
 {
-    private static void Main(string[] args)
+    public class Program
     {
-        WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
-
-        var core = Propeus.Modulo.Core.Gerenciador.Atual;
-        var dinamico = Propeus.Modulo.Dinamico.Gerenciador.Atual(core);
-
-        builder.Host.ConfigureGerenciador(dinamico);
-        
-        // Add services to the container.
-        builder.Services.AddControllersWithViews();
-
-        WebApplication? app = builder.Build();
-
-
-        // ConfigureGerenciador the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment())
+        public static void Main(string[] args)
         {
-            app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            //builder.Services.AddControllersWithViews();
+            
+            builder.Host.ConfigureGerenciador(Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual));
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
         }
-
-        app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
-        app.UseAuthorization();
-
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        app.Run();
     }
-
-    
 }

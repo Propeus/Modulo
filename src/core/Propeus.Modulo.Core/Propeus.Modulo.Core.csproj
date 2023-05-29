@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		
+		<Product>Propeus.Modulo.Core</Product>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Componente para gerenciar modulos</Description>
+
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+		
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo Core</PackageTags>
+		<PackageId>Propeus.Modulo.Core</PackageId>
+
+		<AssemblyName>Propeus.Modulo.Core</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Core</RootNamespace>
+		
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="LICENCE">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
+
+</Project>
