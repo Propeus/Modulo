@@ -12,19 +12,19 @@ namespace Propeus.Modulo.Hosting
     public static class Extensions
     {
         /// <summary>
-        /// Anexa o <see cref="IGerenciador"/> como um provedor de Injecao de dependencia secundario
+        /// Anexa o <see cref="IModuleManager"/> como um provedor de Injecao de dependencia secundario
         /// </summary>
         /// <param name="configureHostBuilder">O builder</param>
         /// <param name="gerenciador">O gerenciador a ser anexado na aplicacao</param>
         /// <returns></returns>
-        public static IHostBuilder ConfigureGerenciador(this IHostBuilder configureHostBuilder, IGerenciador gerenciador)
+        public static IHostBuilder ConfigureGerenciador(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
         {
             configureHostBuilder.UseServiceProviderFactory(new ModuloServiceProviderFactory());
             configureHostBuilder.ConfigureServices((ctx, serviceDescriptors) =>
             {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
-                serviceDescriptors.AddSingleton<IGerenciador>(gerenciador);
-                serviceDescriptors.AddSingleton(new ModuloApplicationPart(serviceDescriptors.AddMvcCore().PartManager));
+                serviceDescriptors.AddSingleton<IModuleManager>(gerenciador);
+                serviceDescriptors.AddSingleton(new ModuloApplicationPart(serviceDescriptors.AddMvcCore().PartManager, gerenciador));
                 serviceDescriptors.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
                 {
 

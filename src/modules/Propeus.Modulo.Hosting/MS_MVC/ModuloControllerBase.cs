@@ -9,8 +9,8 @@ using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.Hosting.MS_MVC
 {
-    [Modulo(AutoAtualizavel = true)]
-    public class ModuloControllerBase : ModuloBase
+    [Module(AutoUpdate = true)]
+    public class ModuloControllerBase : BaseModule
     {
         #region ControllerBase
         private Microsoft.AspNetCore.Mvc.ControllerContext? _controllerContext;
@@ -3573,7 +3573,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //   model:
         //     The model instance to update.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3603,7 +3603,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //   prefix:
         //     The prefix to use when looking up values in the current Microsoft.AspNetCore.Mvc.ModelBinding.IValueProvider.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3641,7 +3641,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //     The Microsoft.AspNetCore.Mvc.ModelBinding.IValueProvider used for looking up
         //     values.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3685,7 +3685,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //     System.Linq.Expressions.Expression(s) which represent top-level properties which
         //     need to be included for the current model.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3724,7 +3724,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //   propertyFilter:
         //     A predicate which can be used to filter properties at runtime.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3767,7 +3767,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //     System.Linq.Expressions.Expression(s) which represent top-level properties which
         //     need to be included for the current model.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //
@@ -3813,7 +3813,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         //   propertyFilter:
         //     A predicate which can be used to filter properties at runtime.
         //
-        // Parâmetros de Tipo:
+        // Parâmetros de ModuleType:
         //   TModel:
         //     The type of the model object.
         //

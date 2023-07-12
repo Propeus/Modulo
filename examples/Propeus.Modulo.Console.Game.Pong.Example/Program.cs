@@ -11,8 +11,8 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
     //https://github.com/dotnet/dotnet-console-games/blob/main/Projects/Pong
 
 
-    [ModuloContrato("WindowModule")]
-    public interface IWindowModuleContract : IModulo
+    [ModuleContract("WindowModule")]
+    public interface IWindowModuleContract : IModule
     {
         Task Main();
     }
@@ -25,16 +25,16 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
         static async Task Main(string[] args)
         {
 
-            var gen = Dinamico.Gerenciador.Atual(Core.Gerenciador.Atual);
-            if (!gen.Existe(typeof(IWindowModuleContract)))
+            var gen = Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault());
+            if (!gen.ExistsModule(typeof(IWindowModuleContract)))
             {
-                await gen.Criar<IWindowModuleContract>().Main();
+                await gen.CreateModule<IWindowModuleContract>().Main();
             }
             else
             {
-                await gen.Obter<IWindowModuleContract>().Main();
+                await gen.GetModule<IWindowModuleContract>().Main();
             }
-            await gen.ManterVivoAsync();
+            await gen.KeepAliveAsync();
 
         }
 

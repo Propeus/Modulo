@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
   </ItemGroup>
 
 </Project>

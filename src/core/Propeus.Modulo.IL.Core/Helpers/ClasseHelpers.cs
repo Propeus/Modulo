@@ -223,13 +223,13 @@ namespace Propeus.Modulo.IL.Core.Helpers
 
             return Proxy(iLGerador, classe, interfaces);
         }
-        public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null)
+        public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null, Type[] atributos=null)
         {
             Type tClasse = classe;
 
             interfaces = tClasse.GetInterfaces().FullJoin(interfaces).ToArray();
 
-            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces);
+            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces,null, atributos);
 
             return Proxy(cls, classe, interfaces);
         }

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Hosting;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Modulos;
-using Propeus.Modulo.Abstrato.Proveders;
 
 namespace Propeus.Modulo.WorkerService
 {
     /// <summary>
-    /// Modulo para inicializar um <see cref="BackgroundService"/>
+    /// Module para inicializar um <see cref="BackgroundService"/>
     /// </summary>
-    [Modulo]
-    public abstract class BackgroundServiceModulo : ModuloBase, IHostedService
+    [Module]
+    public abstract class BackgroundServiceModulo : BaseModule, IHostedService
     {
 
         ///<inheritdoc/>
@@ -72,7 +68,7 @@ namespace Propeus.Modulo.WorkerService
                 return _executeTask;
             }
 
-            Estado = Estado.Inicializado;
+            State = State.Initialized;
             return Task.CompletedTask;
         }
 
@@ -95,7 +91,7 @@ namespace Propeus.Modulo.WorkerService
                 }
             }
 
-            Estado = Estado.Desligado;
+            State = State.Off;
         }
 
         ///<inheritdoc/>

@@ -5,28 +5,28 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Informa o estado do modulo
     /// </summary>
-    public enum Estado
+    public enum State
     {
         /// <summary>
         /// Indica que o modulo foi instanciado
         /// </summary>
-        Criado,
+        Created,
         /// <summary>
         /// Indica que o modulo foi instanciado e configurado, porem nao comecou a sua execucao
         /// </summary>
-        Pronto,
+        Ready,
         /// <summary>
         /// Define que o modulo foi inicializado com sucesso.
         /// </summary>
-        Inicializado,
+        Initialized,
         /// <summary>
         /// Define que o modulo foi eliminado pelo gerenciador ou foi chamado o <see cref="IDisposable"/> externamente
         /// </summary>
-        Desligado,
+        Off,
         /// <summary>
         /// Define que durante a execução do modulo acionado alguma <see cref="Exception"/>
         /// </summary>
-        Erro
+        Error
 
     }
 }

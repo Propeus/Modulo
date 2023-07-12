@@ -4,15 +4,15 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
-    /// Excecao para quando for encontrado mais de um modulo de mesmo nome
+    /// Excecao para quando o modulo for criado fora do Gerenciador
     /// </summary>
     [Serializable]
-    public class TipoModuloAmbiguoException : Exception
+    public class ModuleNotRegisteredException : ModuleException
     {
         /// <summary>
         /// Construtor padrao
         /// </summary>
         /// <param name="message">Mensagem do erro</param>
-        public TipoModuloAmbiguoException(string message) : base(message) { }
+        public ModuleNotRegisteredException(string message) : base(message) { }
     }
 }

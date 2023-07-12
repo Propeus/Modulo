@@ -233,7 +233,7 @@ namespace Propeus.Modulo.Hosting
 
         //
         // Resumo:
-        //     Type: '{0}' - Name: '{1}'
+        //     Type: '{0}' - ModuleName: '{1}'
         internal static string ViewComponent_AmbiguousTypeMatch_Item => GetString("ViewComponent_AmbiguousTypeMatch_Item");
 
         //
@@ -669,7 +669,7 @@ namespace Propeus.Modulo.Hosting
 
         //
         // Resumo:
-        //     Type: '{0}' - Name: '{1}'
+        //     Type: '{0}' - ModuleName: '{1}'
         internal static string FormatViewComponent_AmbiguousTypeMatch_Item(object p0, object p1)
         {
             return string.Format(CultureInfo.CurrentCulture, GetString("ViewComponent_AmbiguousTypeMatch_Item"), p0, p1);

@@ -18,20 +18,20 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 {
-    [Modulo(AutoAtualizavel = true, AutoInicializavel = false)]
-    public class WindowModule : ModuloBase
+    [Module(AutoUpdate = true, AutoStartable = false)]
+    public class WindowModule : BaseModule
     {
-        private readonly IGerenciadorArgumentos gerenciador;
+        private readonly IModuleManagerArguments gerenciador;
         private readonly float multiplier;
 
-        public WindowModule(IGerenciador gerenciador) : this(gerenciador, null, null)
+        public WindowModule(IModuleManager gerenciador) : this(gerenciador, null, null)
         {
 
         }
 
-        public WindowModule(IGerenciador gerenciador, int? width, int? height) : base(true)
+        public WindowModule(IModuleManager gerenciador, int? width, int? height) : base(true)
         {
-            this.gerenciador = gerenciador as IGerenciadorArgumentos;
+            this.gerenciador = gerenciador as IModuleManagerArguments;
             multiplier = 1.1f;
 
 
@@ -45,9 +45,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
             System.Console.CursorVisible = false;
 
 
-            PaddleA = this.gerenciador.Criar<PaddleModule>(new object[] { Height });
-            PaddleB = this.gerenciador.Criar<PaddleModule>(new object[] { Height });
-            BallModule = this.gerenciador.Criar<BallModule>(new object[] { Width, Height });
+            PaddleA = this.gerenciador.CreateModule<PaddleModule>(new object[] { Height });
+            PaddleB = this.gerenciador.CreateModule<PaddleModule>(new object[] { Height });
+            BallModule = this.gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
         }
 
         public int Width { get; set; }
@@ -69,10 +69,10 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
         {
             get
             {
-                if (gerenciador.Existe(typeof(RenderModule)))
-                    return gerenciador.Obter<RenderModule>();
+                if (gerenciador.ExistsModule(typeof(RenderModule)))
+                    return gerenciador.GetModule<RenderModule>();
 
-                return gerenciador.Criar<RenderModule>();
+                return gerenciador.CreateModule<RenderModule>();
             }
         }
         #endregion
@@ -97,8 +97,8 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
                 flg_loop = true;
 
-                gerenciador.Remover(BallModule);
-                BallModule = this.gerenciador.Criar<BallModule>(new object[] { Width, Height });
+                gerenciador.RemoveModule(BallModule);
+                BallModule = this.gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
             }
             System.Console.Clear();
             if (PaddleA.Score > PaddleB.Score)

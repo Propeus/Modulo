@@ -13,7 +13,7 @@ namespace Propeus.Modulo.WorkerService
 {
     public static class Extensions
     {
-        public static IHostBuilder UseGerenciador(this IHostBuilder hostBuilder,IGerenciador gerenciador)
+        public static IHostBuilder UseGerenciador(this IHostBuilder hostBuilder,IModuleManager gerenciador)
         {
             _ = hostBuilder.ConfigureServices((ctx, services) =>
             {

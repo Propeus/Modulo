@@ -13,29 +13,29 @@ namespace Propeus.Modulo.Abstrato.Helpers
     {
 
         /// <summary>
-        /// Obtem o atributo <see cref="ModuloAttribute"/> de um objeto
+        /// Obtem o atributo <see cref="ModuleAttribute"/> de um typeModule
         /// </summary>
-        /// <param name="objeto">Qualquer objeto do tipo <see cref="Type"/></param>
+        /// <param name="typeModule">Qualquer typeModule do tipo <see cref="Type"/></param>
         /// <returns>Retorna o atributo ou <see langword="null"/></returns>
-        /// <exception cref="ArgumentException">Argumeto obj vazio ou nulo</exception>
-        /// <exception cref="InvalidOperationException"><see cref="ModuloAttribute"/> não encontrado</exception>
-        public static ModuloAttribute ObterModuloAtributo(this Type objeto)
+        /// <exception cref="ArgumentException">Argumeto typeModule vazio ou nulo</exception>
+        /// <exception cref="InvalidOperationException"><see cref="ModuleAttribute"/> não encontrado</exception>
+        public static ModuleAttribute GetModuleAttribute(this Type typeModule)
         {
-           return objeto.GetCustomAttribute<ModuloAttribute>();
+           return typeModule.GetCustomAttribute<ModuleAttribute>();
         }
 
 
 
         /// <summary>
-        /// Obtem o atributo <see cref="ModuloContratoAttribute"/> de um objeto
+        /// Obtem o atributo <see cref="ModuleContractAttribute"/> de um typeModule
         /// </summary>
-        /// <param name="objeto">Qualquer objeto do tipo <see cref="Type"/></param>
+        /// <param name="typeModule">Qualquer typeModule do tipo <see cref="Type"/></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException">Argumeto obj vazio ou nulo</exception>
-        /// <exception cref="InvalidOperationException"><see cref="ModuloContratoAttribute"/> não encontrado</exception>
-        public static ModuloContratoAttribute ObterModuloContratoAtributo(this Type objeto)
+        /// <exception cref="ArgumentException">Argumeto typeModule vazio ou nulo</exception>
+        /// <exception cref="InvalidOperationException"><see cref="ModuleContractAttribute"/> não encontrado</exception>
+        public static ModuleContractAttribute GetAttributeContractModule(this Type typeModule)
         {
-            return objeto.GetCustomAttribute<ModuloContratoAttribute>();
+            return typeModule.GetCustomAttribute<ModuleContractAttribute>();
         }
 
     }

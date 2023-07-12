@@ -4,14 +4,14 @@ using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.DinamicoTests.ModuloSoma
 {
-    [ModuloContrato("ModuloCalculo")]
-    public interface ModuloCalculoContrato: IModulo
+    [ModuleContract("ModuloCalculo")]
+    public interface ModuloCalculoContrato: IModule
     {
         int Calcular(int a, int b);
     }
 
-    [Modulo]
-    public class ModuloCalculo : ModuloBase
+    [Module]
+    public class ModuloCalculo : BaseModule
     {
         public ModuloCalculo() : base()
         {

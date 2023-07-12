@@ -1,17 +1,17 @@
 /**
  * Este exemplo serve para mostrar como o sistema de modulo dinamico funciona
  * 
- * Observe que na pasta 'examples' existem dois projetos chamado 'Propeus.Modulo.WorkerService.Exmaple' e 'Propeus.Modulo.WorkerService.Exmaple.DLL'.
- * O 'Propeus.Modulo.WorkerService.Exmaple.DLL' e o projeto que contem o worker que sera utilizando em nossos testes.
+ * Observe que na pasta 'examples' existem dois projetos chamado 'Propeus.Module.WorkerService.Exmaple' e 'Propeus.Module.WorkerService.Exmaple.DLL'.
+ * O 'Propeus.Module.WorkerService.Exmaple.DLL' e o projeto que contem o worker que sera utilizando em nossos testes.
  * 
  * Antes de comcear, voce deve realizar o build completo caso tenha somente baixado o projeto.
  * Agora para inicializar a demonstracao, siga os seguintes passos:
  * 
- * 1 - Abra o terminal ou powerhsell no projeto 'Propeus.Modulo.WorkerService.Exmaple.DLL'
- * 2 - Va na pasta 'Propeus.Modulo.WorkerService.Exmaple' e execute o programa 'Propeus.Modulo.WorkerService.Exmaple.exe' para iniciar este programa
- * 3 - Copie a dll atual para dentro do projeto em execucao executando o seguinte comando no terminal do item 1 'cp .\bin\Debug\net7.0\Propeus.Modulo.WorkerService.Exmaple.DLL.dll ..\Propeus.Modulo.WorkerService.Exmaple\bin\Debug\net7.0\' e perceba que o modulo comecou a executar no momento em que foi copiado para dentro da pasta do executavel
- * 4 - Abra o arquivo 'Worker.cs' do projeto 'Propeus.Modulo.WorkerService.Exmaple.DLL' e modifique o texto 'Worker running at time: {0}' para 'Meu novo modulo funcionando no tempo: {0}'
- * 5 - Salve o arquivo e execute os seguintes comandos no terminal do item 1, 'dotnet build' e depois 'cp .\bin\Debug\net7.0\Propeus.Modulo.WorkerService.Exmaple.DLL.dll ..\Propeus.Modulo.WorkerService.Exmaple\bin\Debug\net7.0\'
+ * 1 - Abra o terminal ou powerhsell no projeto 'Propeus.Module.WorkerService.Exmaple.DLL'
+ * 2 - Va na pasta 'Propeus.Module.WorkerService.Exmaple' e execute o programa 'Propeus.Module.WorkerService.Exmaple.exe' para iniciar este programa
+ * 3 - Copie a dll atual para dentro do projeto em execucao executando o seguinte comando no terminal do item 1 'cp .\bin\Debug\net7.0\Propeus.Module.WorkerService.Exmaple.DLL.dll ..\Propeus.Module.WorkerService.Exmaple\bin\Debug\net7.0\' e perceba que o modulo comecou a executar no momento em que foi copiado para dentro da pasta do executavel
+ * 4 - Abra o arquivo 'Worker.cs' do projeto 'Propeus.Module.WorkerService.Exmaple.DLL' e modifique o texto 'Worker running at time: {0}' para 'Meu novo modulo funcionando no tempo: {0}'
+ * 5 - Salve o arquivo e execute os seguintes comandos no terminal do item 1, 'dotnet build' e depois 'cp .\bin\Debug\net7.0\Propeus.Module.WorkerService.Exmaple.DLL.dll ..\Propeus.Module.WorkerService.Exmaple\bin\Debug\net7.0\'
  * 6 - Perceba que o texto antigo parou de ser exibido e o novo comecou em seu lugar.
  * 
  * Resumo:
@@ -29,12 +29,12 @@
 
 IHost host = Host.CreateDefaultBuilder(args)
     //Pode usar a extencao UseGerenciador passando o modulo dinamico
-    //.UseGerenciador(Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual))
+    //.UseGerenciador(Propeus.Module.Dinamico.Gerenciador.Atual(Propeus.Module.Core.Gerenciador.Atual))
     .ConfigureServices(services =>
     {
         /**
          * Ou pode adicionar diretamente na injecao de dependecia do .NET
-         * services.AddSingleton(Propeus.Modulo.Dinamico.Gerenciador.Atual(Propeus.Modulo.Core.Gerenciador.Atual));
+         * services.AddSingleton(Propeus.Module.Dinamico.Gerenciador.Atual(Propeus.Module.Core.Gerenciador.Atual));
          * **/
 
         /**

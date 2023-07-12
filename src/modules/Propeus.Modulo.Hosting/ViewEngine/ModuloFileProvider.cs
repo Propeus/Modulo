@@ -12,14 +12,15 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Hosting.Contracts;
 
 namespace Propeus.Modulo.Hosting.ViewEngine
 {
     internal class ModuloFileProvider : IFileProvider
     {
-        private readonly IGerenciador gerenciador;
+        private readonly IModuleManager gerenciador;
 
-        public ModuloFileProvider(IGerenciador gerenciador)
+        public ModuloFileProvider(IModuleManager gerenciador)
         {
             this.gerenciador = gerenciador;
 
@@ -31,9 +32,9 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             ModuloFileInfo? result;
 
             controllerName = subpath.Split('.')[0];
-            foreach (var item in gerenciador.Listar().Where(x => x.Nome.Contains("Controller")).Cast<ModuloController>())
+            foreach (var item in gerenciador.ListAllModules().Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
-                if (item.Nome.Contains(controllerName))
+                if (item.Name.Contains(controllerName))
                     return new ModuloFileInfo(item, controllerName);
             }
             return new NotFoundFileInfo(subpath);
@@ -50,12 +51,12 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             ModuloController? result = null;
 
             controllerName = filter.Split('.')[0];
-            foreach (ModuloController item in gerenciador.Listar().Where(x => x.Nome.Contains("Controller")).Cast<ModuloController>())
+            foreach (ModuloController item in gerenciador.ListAllModules().Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
-                if (item.Nome.Contains(controllerName))
+                if (item.Name.Contains(controllerName))
                 {
                     result = item;
-                    return new ModuloChangeToken(result);
+                    return new ModuloChangeToken(result,gerenciador.GetModule<IModuleProviderModuleContract>());
                 }
             }
             return null;

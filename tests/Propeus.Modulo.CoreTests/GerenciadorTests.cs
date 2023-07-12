@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Diagnostics;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,16 +8,13 @@ using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Abstrato.Modulos;
-using Propeus.Modulo.Abstrato.Proveders;
-using Propeus.Modulo.Core;
-using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.CoreTests
 {
-    [Modulo]
-    public class TesteInstanciaUnicaModulo : ModuloBase
+    [Module]
+    public class TesteInstanciaUnicaModule : BaseModule
     {
-        public TesteInstanciaUnicaModulo() : base(true)
+        public TesteInstanciaUnicaModule() : base(true)
         {
         }
 
@@ -27,10 +24,10 @@ namespace Propeus.Modulo.CoreTests
         }
     }
 
-    [Modulo]
-    public class TesteInstanciaMultiplaModulo : ModuloBase
+    [Module]
+    public class TesteInstanciaMultiplaModule : BaseModule
     {
-        public TesteInstanciaMultiplaModulo() : base(false)
+        public TesteInstanciaMultiplaModule() : base(false)
         {
         }
 
@@ -43,7 +40,7 @@ namespace Propeus.Modulo.CoreTests
     [TestClass()]
     public class GerenciadorTests
     {
-        private IGerenciador gerenciador;
+        private IModuleManager gerenciador;
 
         [TestInitialize]
         public void Begin()
@@ -51,14 +48,14 @@ namespace Propeus.Modulo.CoreTests
             //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
             //EventoProvider.RegistrarOuvinteErro(TesteLog);
             //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
-            gerenciador = Gerenciador.Atual;
+            gerenciador = Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault();
         }
 
         private void TesteLogAviso(Type fonte, string mensagem, Exception exception)
         {
-            System.Console.ForegroundColor = ConsoleColor.Yellow;
-            System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
-            System.Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
+            Console.ResetColor();
         }
 
         private void TesteLog(Type fonte, string mensagem, Exception exception)
@@ -66,15 +63,15 @@ namespace Propeus.Modulo.CoreTests
             if (exception == null)
             {
 
-                System.Console.ForegroundColor = ConsoleColor.Green;
-                System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
             }
             else
             {
-                System.Console.ForegroundColor = ConsoleColor.Red;
-                System.Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem} | {exception.Message}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem} | {exception.Message}");
             }
-            System.Console.ResetColor();
+            Console.ResetColor();
         }
 
         [TestCleanup]
@@ -88,217 +85,214 @@ namespace Propeus.Modulo.CoreTests
         //Criar
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnica()
+        public void CriarModuleInstanciaUnica()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
 
         }
 
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnica_ArgumentException()
+        public void CriarModuleInstanciaUnica_ArgumentException()
         {
 
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            _ = Assert.ThrowsException<ModuleSingleInstanceException>(() =>
             {
-                modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
+                Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
             });
 
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultipla()
+        public void CriarModuleInstanciaMultipla()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultipla_multiplosModulos()
+        public void CriarModuleInstanciaMultipla_multiplosModules()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.AreNotEqual(modulo.Id, modulov2.Id);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.AreNotEqual(Module.Id, Modulev2.Id);
 
         }
 
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnicaPorTipo()
+        public void CriarModuleInstanciaUnicaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule(typeof(TesteInstanciaUnicaModule));
+            Assert.IsNotNull(Module);
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnicaPorTipo_ArgumentException()
+        public void CriarModuleInstanciaUnicaPorTipo_ArgumentException()
         {
 
-            IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
-            Assert.IsNotNull(modulo);
-            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            IModule Module = gerenciador.CreateModule(typeof(TesteInstanciaUnicaModule));
+            Assert.IsNotNull(Module);
+            _ = Assert.ThrowsException<ModuleSingleInstanceException>(() =>
             {
-                modulo = gerenciador.Criar(typeof(TesteInstanciaUnicaModulo));
+                Module = gerenciador.CreateModule(typeof(TesteInstanciaUnicaModule));
             });
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultiplaPorTipo()
+        public void CriarModuleInstanciaMultiplaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule(typeof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Module);
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultiplaPorTipo_MultiplosModulos()
+        public void CriarModuleInstanciaMultiplaPorTipo_MultiplosModules()
         {
 
-            IModulo modulo = gerenciador.Criar(typeof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar(typeof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.AreNotEqual(modulo.Id, modulov2.Id);
+            IModule Module = gerenciador.CreateModule(typeof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule(typeof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.AreNotEqual(Module.Id, Modulev2.Id);
 
         }
 
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnicaPorNome()
+        public void CriarModuleInstanciaUnicaPorNome()
         {
 
-            IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule(nameof(TesteInstanciaUnicaModule));
+            Assert.IsNotNull(Module);
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaUnicaPorNome_ModuloInstanciaUnicaException()
+        public void CriarModuleInstanciaUnicaPorNome_ModuleInstanciaUnicaException()
         {
 
-            IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
-            Assert.IsNotNull(modulo);
-            _ = Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
+            IModule Module = gerenciador.CreateModule(nameof(TesteInstanciaUnicaModule));
+            Assert.IsNotNull(Module);
+            _ = Assert.ThrowsException<ModuleSingleInstanceException>(() =>
             {
-                modulo = gerenciador.Criar(nameof(TesteInstanciaUnicaModulo));
+                Module = gerenciador.CreateModule(nameof(TesteInstanciaUnicaModule));
             });
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultiplaPorNome()
+        public void CriarModuleInstanciaMultiplaPorNome()
         {
 
-            IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulo);
+            IModule Module = gerenciador.CreateModule(nameof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Module);
 
         }
         [TestMethod()]
         [TestCategory("Criar")]
-        public void CriarModuloInstanciaMultiplaPorNome_MultiplosModulos()
+        public void CriarModuleInstanciaMultiplaPorNome_MultiplosModules()
         {
 
-            IModulo modulo = gerenciador.Criar(nameof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar(nameof(TesteInstanciaMultiplaModulo));
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.AreNotEqual(modulo.Id, modulov2.Id);
+            IModule Module = gerenciador.CreateModule(nameof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule(nameof(TesteInstanciaMultiplaModule));
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.AreNotEqual(Module.Id, Modulev2.Id);
 
         }
 
         //Remover
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverModuloInstanciaUnica()
+        public void RemoverModuleInstanciaUnica()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Gerenciador.Atual.Remover(modulo);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            gerenciador.RemoveModule(Module);
 
         }
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverModuloInstanciaMultipla()
+        public void RemoverModuleInstanciaMultipla()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            gerenciador.Remover(modulo);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            gerenciador.RemoveModule(Module);
 
         }
 
 
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverModuloInstanciaUnicaPorId()
+        public void RemoverModuleInstanciaUnicaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            gerenciador.Remover(modulo.Id);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            gerenciador.RemoveModule(Module.Id);
 
         }
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverModuloInstanciaMultiplaPorId()
+        public void RemoverModuleInstanciaMultiplaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            gerenciador.Remover(modulo.Id);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            gerenciador.RemoveModule(Module.Id);
 
         }
 
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverTodosModulos()
+        public void RemoverTodosModules()
         {
-
-            IModulo[] modulos = new IModulo[100];
+            IModule[] Modules = new IModule[100];
 
             for (int i = 0; i < 100; i++)
             {
-                modulos[i] = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-                Assert.IsNotNull(modulos[i]);
+                Modules[i] = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+                Assert.IsNotNull(Modules[i]);
             }
 
-            gerenciador.RemoverTodos();
-            Assert.AreEqual(0, gerenciador.ModulosInicializados);
-
-
+            gerenciador.RemoveAllModules();
+            Assert.AreEqual(0, gerenciador.InitializedModules);
         }
         [TestMethod()]
         [TestCategory("Remover")]
-        public void RemoverModuloInexistente()
+        public void RemoverModuleInexistente()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            gerenciador.Remover(modulo.Id);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            gerenciador.RemoveModule(Module.Id);
 
-            Assert.AreEqual(0, gerenciador.ModulosInicializados);
-            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            Assert.AreEqual(1, gerenciador.InitializedModules);
+            _ = Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
-                gerenciador.Remover(modulo.Id);
+                gerenciador.RemoveModule(Module.Id);
             });
 
 
@@ -307,85 +301,85 @@ namespace Propeus.Modulo.CoreTests
         //Obter
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaUnicaPorTipo()
+        public void ObterModuleInstanciaUnicaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Obter<TesteInstanciaUnicaModulo>();
-            Assert.AreEqual(modulo, modulov2);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.GetModule<TesteInstanciaUnicaModule>();
+            Assert.AreEqual(Module, Modulev2);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaMultiplaPorTipo()
+        public void ObterModuleInstanciaMultiplaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Obter<TesteInstanciaMultiplaModulo>();
-            Assert.AreEqual(modulo, modulov2);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.GetModule<TesteInstanciaMultiplaModule>();
+            Assert.AreEqual(Module, Modulev2);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaMultipla_MultiplosModulosPorTipo()
+        public void ObterModuleInstanciaMultipla_MultiplosModulesPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            IModulo modulov3 = gerenciador.Obter<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov3);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            IModule Modulev3 = gerenciador.GetModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev3);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaUnicaPorId()
+        public void ObterModuleInstanciaUnicaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Obter(modulo.Id);
-            Assert.AreEqual(modulo, modulov2);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.GetModule(Module.Id);
+            Assert.AreEqual(Module, Modulev2);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaMultiplaPorId()
+        public void ObterModuleInstanciaMultiplaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Obter<TesteInstanciaMultiplaModulo>();
-            Assert.AreEqual(modulo.Id, modulov2.Id);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.GetModule<TesteInstanciaMultiplaModule>();
+            Assert.AreEqual(Module.Id, Modulev2.Id);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaMultipla_MultiplosModulosPorId()
+        public void ObterModuleInstanciaMultipla_MultiplosModulesPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            IModulo modulov3 = gerenciador.Obter(modulov2.Id);
-            Assert.IsNotNull(modulov3);
-            Assert.AreEqual(modulov2, modulov3);
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            IModule Modulev3 = gerenciador.GetModule(Modulev2.Id);
+            Assert.IsNotNull(Modulev3);
+            Assert.AreEqual(Modulev2, Modulev3);
 
         }
         [TestMethod()]
         [TestCategory("Obter")]
-        public void ObterModuloInstanciaPorIdInexistente_ArgumentException()
+        public void ObterModuleInstanciaPorIdInexistente_ArgumentException()
         {
 
-            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
-                _ = gerenciador.Obter(Guid.NewGuid().ToString());
+                _ = gerenciador.GetModule(Guid.NewGuid().ToString());
             });
 
         }
@@ -394,178 +388,178 @@ namespace Propeus.Modulo.CoreTests
         //Existe
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaUnicaPorInstancia()
+        public void ExisteModuleInstanciaUnicaPorInstancia()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultiplaPorInstancia()
+        public void ExisteModuleInstanciaMultiplaPorInstancia()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultipla_MultiplosModulosPorInstancia()
+        public void ExisteModuleInstanciaMultipla_MultiplosModulesPorInstancia()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulo));
-            Assert.IsTrue(gerenciador.Existe(modulov2));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaUnicaPorTipo()
+        public void ExisteModuleInstanciaUnicaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(typeof(TesteInstanciaUnicaModulo)));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(typeof(TesteInstanciaUnicaModule)));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultiplaPorTipo()
+        public void ExisteModuleInstanciaMultiplaPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(typeof(TesteInstanciaMultiplaModulo)));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(typeof(TesteInstanciaMultiplaModule)));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultipla_MultiplosModulosPorTipo()
+        public void ExisteModuleInstanciaMultipla_MultiplosModulesPorTipo()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.IsTrue(gerenciador.Existe(typeof(TesteInstanciaMultiplaModulo)));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(typeof(TesteInstanciaMultiplaModule)));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaUnicaPorId()
+        public void ExisteModuleInstanciaUnicaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo.Id));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module.Id));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultiplaPorId()
+        public void ExisteModuleInstanciaMultiplaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo.Id));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module.Id));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaMultipla_MultiplosModulosPorId()
+        public void ExisteModuleInstanciaMultipla_MultiplosModulesPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            IModulo modulov2 = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulov2);
-            Assert.AreNotEqual(modulo, modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulov2.Id));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            IModule Modulev2 = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Modulev2);
+            Assert.AreNotEqual(Module, Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2.Id));
 
         }
         [TestMethod()]
         [TestCategory("Existe")]
-        public void ExisteModuloInstanciaPorIdInexistente()
+        public void ExisteModuleInstanciaPorIdInexistente()
         {
 
-            Assert.IsFalse(gerenciador.Existe(Guid.NewGuid().ToString()));
+            Assert.IsFalse(gerenciador.ExistsModule(Guid.NewGuid().ToString()));
 
         }
 
         //Reciclar
         [TestMethod()]
         [TestCategory("Reciclar")]
-        public void ReiniciarModuloInstanciaUnicaPorInstancia()
+        public void ReiniciarModuleInstanciaUnicaPorInstancia()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
-            IModulo modulov2 = gerenciador.Reciclar(modulo);
-            Assert.IsNotNull(modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulov2));
-            Assert.IsFalse(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
+            IModule Modulev2 = gerenciador.RecycleModule(Module);
+            Assert.IsNotNull(Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2));
+            Assert.IsFalse(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Reciclar")]
-        public void ReiniciarModuloInstanciaMultiplaPorInstancia()
+        public void ReiniciarModuleInstanciaMultiplaPorInstancia()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
-            IModulo modulov2 = gerenciador.Reciclar(modulo);
-            Assert.IsNotNull(modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulov2));
-            Assert.IsFalse(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
+            IModule Modulev2 = gerenciador.RecycleModule(Module);
+            Assert.IsNotNull(Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2));
+            Assert.IsFalse(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Reciclar")]
-        public void ReiniciarModuloInstanciaUnicaPorId()
+        public void ReiniciarModuleInstanciaUnicaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaUnicaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
-            IModulo modulov2 = gerenciador.Reciclar(modulo.Id);
-            Assert.IsNotNull(modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulov2));
-            Assert.IsFalse(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
+            IModule Modulev2 = gerenciador.RecycleModule(Module.Id);
+            Assert.IsNotNull(Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2));
+            Assert.IsFalse(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Reciclar")]
-        public void ReiniciarModuloInstanciaMultiplaPorId()
+        public void ReiniciarModuleInstanciaMultiplaPorId()
         {
 
-            IModulo modulo = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
-            Assert.IsNotNull(modulo);
-            Assert.IsTrue(gerenciador.Existe(modulo));
-            IModulo modulov2 = gerenciador.Reciclar(modulo.Id);
-            Assert.IsNotNull(modulov2);
-            Assert.IsTrue(gerenciador.Existe(modulov2));
-            Assert.IsFalse(gerenciador.Existe(modulo));
+            IModule Module = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+            Assert.IsNotNull(Module);
+            Assert.IsTrue(gerenciador.ExistsModule(Module));
+            IModule Modulev2 = gerenciador.RecycleModule(Module.Id);
+            Assert.IsNotNull(Modulev2);
+            Assert.IsTrue(gerenciador.ExistsModule(Modulev2));
+            Assert.IsFalse(gerenciador.ExistsModule(Module));
 
         }
         [TestMethod()]
         [TestCategory("Reciclar")]
-        public void ReiniciarModuloInstanciaPorIdInexistente_ArgumentException()
+        public void ReiniciarModuleInstanciaPorIdInexistente_ArgumentException()
         {
 
-            _ = Assert.ThrowsException<ModuloNaoEncontradoException>(() =>
+            _ = Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
-                _ = gerenciador.Reciclar(Guid.NewGuid().ToString());
+                _ = gerenciador.RecycleModule(Guid.NewGuid().ToString());
             });
 
         }
@@ -575,17 +569,17 @@ namespace Propeus.Modulo.CoreTests
         //Listar
         [TestMethod()]
         [TestCategory("Listar")]
-        public void ListarModulos_loop()
+        public void ListarModules_loop()
         {
-            IModulo m = null;
-            for (int i = 0; i < 100; i++)
+            IModule m = null;
+            for (int i = 0; i < 99; i++)
             {
-                var auxm = gerenciador.Criar<TesteInstanciaMultiplaModulo>();
+                var auxm = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
                 Assert.AreNotEqual(m, auxm);
                 m = auxm;
             }
 
-            Assert.AreEqual(100, gerenciador.ModulosInicializados);
+            Assert.AreEqual(100, gerenciador.InitializedModules);
 
         }
 
@@ -597,43 +591,63 @@ namespace Propeus.Modulo.CoreTests
 
         }
 
-        [ModuloContrato("xpto")]
-        public interface InterfaceModuloInvalido
+        [ModuleContract("xpto")]
+        public interface InterfaceModuleInvalido
         {
 
         }
-        [ModuloContrato(typeof(OutroModuloDependenciaInterfaceValida))]
-        public interface IModuloValido : IModulo
-        {
-
-        }
-
-        [ModuloContrato(typeof(OutroModuloDependenciaInterfaceValida))]
-        public interface IModuloInstanciaUnica : IModulo
+        [ModuleContract(typeof(OutroModuleDependenciaInterfaceValida))]
+        public interface IModuleValido : IModule
         {
 
         }
 
-        [Modulo]
-        public class ModuloInstanciaUnica : ModuloBase, IModuloInstanciaUnica
+        [ModuleContract(typeof(OutroModuleDependenciaInterfaceValida))]
+        public interface IModuleInstanciaUnica : IModule
         {
-            public ModuloInstanciaUnica() : base(true)
+
+        }
+
+        [Module]
+        public class ModuleInstanciaUnica : BaseModule, IModuleInstanciaUnica
+        {
+            public ModuleInstanciaUnica() : base(true)
             {
             }
         }
 
-        public class ModuloInvallido
+        public class ModuleInvallido
         {
 
         }
 
-        public class ModuloSemAtributo : IModulo
+        public class ModuleSemAtributo : IModule
         {
-            public bool InstanciaUnica { get; }
-            public string Versao { get; }
-            public Estado Estado { get; }
-            public string Nome { get; }
+            public bool IsSingleInstance { get; }
+            /// <summary>
+            /// Version do modelo
+            /// </summary>
+            public string Version { get; }
+            /// <summary>
+            /// Representa o estado do objeto.
+            /// </summary>
+            public State State { get; }
+            /// <summary>
+            /// Representação amigavel do ojeto. 
+            /// <para>
+            /// Caso seja nulo o nome da classe herdado será informado na propriedade.
+            /// </para>
+            /// </summary>
+            public string Name { get; }
+            /// <summary>
+            /// Representação alfanumerica e unica do objeto.
+            /// </summary>
             public string Id { get; }
+            /// <summary>
+            /// <see cref="Guid"/> do <see cref="System.Reflection.Assembly" /> atual
+            /// </summary>
+            public string ManifestId { get; }
+
 
             private bool disposedValue;
 
@@ -658,19 +672,20 @@ namespace Propeus.Modulo.CoreTests
         }
 
 
-        [Modulo]
-        public class ModuloSemConstrutor : IModulo
+        [Module]
+        public class ModuleSemConstrutor : IModule
         {
-            private ModuloSemConstrutor()
+            private ModuleSemConstrutor()
             {
 
             }
 
-            public bool InstanciaUnica { get; }
-            public string Versao { get; }
-            public Estado Estado { get; }
-            public string Nome { get; }
+            public bool IsSingleInstance { get; }
+            public string Version { get; }
+            public State State { get; }
+            public string Name { get; }
             public string Id { get; }
+            public string ManifestId { get; }
 
             private bool disposedValue;
 
@@ -693,80 +708,80 @@ namespace Propeus.Modulo.CoreTests
             public string IdManifesto { get; }
         }
 
-        [Modulo]
-        public class ModuloIntanciaUnica : ModuloBase
+        [Module]
+        public class ModuleIntanciaUnica : BaseModule
         {
-            public ModuloIntanciaUnica() : base(true)
+            public ModuleIntanciaUnica() : base(true)
             {
             }
         }
 
 
 
-        [Modulo]
-        public class ModuloDependenciaInvalida : ModuloBase
+        [Module]
+        public class ModuleDependenciaInvalida : BaseModule
         {
-            public ModuloDependenciaInvalida(ModuloInvallido moduloInvallido) : base(true)
+            public ModuleDependenciaInvalida(ModuleInvallido ModuleInvallido) : base(true)
             {
             }
         }
 
-        [Modulo]
-        public class ModuloDependenciaInterfaceInvalidaOpcional : ModuloBase
+        [Module]
+        public class ModuleDependenciaInterfaceInvalidaOpcional : BaseModule
         {
-            public ModuloDependenciaInterfaceInvalidaOpcional(InterfaceModuloInvalido interfaceModuloInvalido = null) : base(false)
+            public ModuleDependenciaInterfaceInvalidaOpcional(InterfaceModuleInvalido interfaceModuleInvalido = null) : base(false)
             {
             }
         }
 
-        [Modulo]
-        public class ModuloDependenciaValida : ModuloBase
+        [Module]
+        public class ModuleDependenciaValida : BaseModule
         {
-            public ModuloDependenciaValida(ModuloDependenciaInterfaceInvalidaOpcional modulo) : base(true)
+            public ModuleDependenciaValida(ModuleDependenciaInterfaceInvalidaOpcional Module) : base(true)
             {
             }
         }
 
-        [Modulo]
-        public class OutroModuloDependenciaInterfaceValida : ModuloBase, IModuloValido
+        [Module]
+        public class OutroModuleDependenciaInterfaceValida : BaseModule, IModuleValido
         {
-            public OutroModuloDependenciaInterfaceValida() : base(false)
+            public OutroModuleDependenciaInterfaceValida() : base(false)
             {
             }
         }
 
-        [Modulo]
-        public class ModuloDependenciaInterfaceValida : ModuloBase
+        [Module]
+        public class ModuleDependenciaInterfaceValida : BaseModule
         {
-            public ModuloDependenciaInterfaceValida(IModuloValido iModulo) : base(false)
+            public ModuleDependenciaInterfaceValida(IModuleValido iModule) : base(false)
             {
             }
         }
 
-        [Modulo]
-        public class ModuloParametroInvalido : ModuloBase, IModuloValido
+        [Module]
+        public class ModuleParametroInvalido : BaseModule, IModuleValido
         {
-            public ModuloParametroInvalido(int a) : base(false)
+            public ModuleParametroInvalido(int a) : base(false)
             {
             }
         }
 
-        [Modulo]
-        public class ModuloParametroInvalidoOpcional : ModuloBase, IModuloValido
+        [Module]
+        public class ModuleParametroInvalidoOpcional : BaseModule, IModuleValido
         {
-            public ModuloParametroInvalidoOpcional(bool instanciaUnica = false) : base(instanciaUnica)
+            public ModuleParametroInvalidoOpcional(bool instanciaUnica = false) : base(instanciaUnica)
             {
             }
         }
 
-        [ModuloContrato(default(string))]
-        public interface IContratoInvalido : IModulo
+        [ModuleContract(default(string))]
+        public interface IContratoInvalido : IModule
         {
 
         }
 
-        [ModuloContrato(default(Type))]
-        public interface IContratoInvalidoTipo : IModulo
+        [ModuleContract(default(Type))]
+        public interface IContratoInvalidoTipo : IModule
         {
 
         }
@@ -776,90 +791,84 @@ namespace Propeus.Modulo.CoreTests
         public void TodosOstestes()
         {
 
-            Assert.IsNotNull(gerenciador.Criar(typeof(IModuloInstanciaUnica)));
-            Assert.IsTrue(gerenciador.Existe(typeof(IModuloInstanciaUnica)));
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(IModuleInstanciaUnica)));
+            Assert.IsTrue(gerenciador.ExistsModule(typeof(IModuleInstanciaUnica)));
 
-            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloParametroInvalidoOpcional)));
-            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceInvalidaOpcional)));
-            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaValida)));
-            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceValida)));
-            Assert.IsNotNull(gerenciador.Criar(typeof(ModuloDependenciaInterfaceValida)).ToString());
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleParametroInvalidoOpcional)));
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional)));
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaValida)));
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)));
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)).ToString());
 
 
 
-            Assert.ThrowsException<ModuloDescartadoException>(() =>
+            Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
-                var m = gerenciador.Criar(typeof(ModuloDependenciaInterfaceInvalidaOpcional));
+                var m = gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional));
                 m.Dispose();
-                gerenciador.Obter(m.Id);
+                gerenciador.GetModule(m.Id);
             });
 
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                gerenciador.Obter(default(string));
+                gerenciador.GetModule(default(string));
             });
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ModuleContractInvalidException>(() =>
             {
-                gerenciador.Criar(typeof(IContratoInvalido));
+                gerenciador.CreateModule(typeof(IContratoInvalido));
+            });
+
+            Assert.ThrowsException<ModuleContractInvalidException>(() =>
+            {
+                gerenciador.CreateModule(typeof(IContratoInvalidoTipo));
             });
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                gerenciador.Criar(typeof(IContratoInvalidoTipo));
+                gerenciador.CreateModule(default(Type));
             });
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
-                gerenciador.Criar(default(Type));
+                gerenciador.ExistsModule(default(Type));
             });
 
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.ThrowsException<ModuleContractNotFoundException>(() =>
             {
-                gerenciador.Existe(default(Type));
+                gerenciador.CreateModule(typeof(InterfaceSemAtributo));
             });
 
-            Assert.ThrowsException<ModuloContratoNaoEncontratoException>(() =>
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-                gerenciador.Criar(typeof(InterfaceSemAtributo));
+                gerenciador.CreateModule(typeof(int));
             });
 
-            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            Assert.ThrowsException<ModuleTypeNotFoundException>(() =>
             {
-                gerenciador.Criar(typeof(int));
+                gerenciador.CreateModule(typeof(InterfaceModuleInvalido));
             });
 
-            Assert.ThrowsException<TipoModuloNaoEncontradoException>(() =>
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-                gerenciador.Criar(typeof(InterfaceModuloInvalido));
+                gerenciador.CreateModule(typeof(ModuleInvallido));
             });
 
-            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-                gerenciador.Criar(typeof(ModuloInvallido));
+                gerenciador.CreateModule(typeof(ModuleSemAtributo));
             });
 
-            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
+            Assert.ThrowsException<ModuleBuilderAbsentException>(() =>
             {
-                gerenciador.Criar(typeof(ModuloSemAtributo));
+                gerenciador.CreateModule(typeof(ModuleSemConstrutor));
             });
 
-            Assert.ThrowsException<ModuloConstrutorAusenteException>(() =>
+            Assert.ThrowsException<ModuleSingleInstanceException>(() =>
             {
-                gerenciador.Criar(typeof(ModuloSemConstrutor));
+                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
+                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
             });
-
-            Assert.ThrowsException<ModuloInstanciaUnicaException>(() =>
-            {
-                gerenciador.Criar(typeof(ModuloIntanciaUnica));
-                gerenciador.Criar(typeof(ModuloIntanciaUnica));
-            });
-
-            Assert.ThrowsException<TipoModuloInvalidoException>(() =>
-            {
-                gerenciador.Criar(typeof(ModuloParametroInvalido));
-            });
-
 
         }
         #endregion

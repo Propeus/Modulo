@@ -42,15 +42,15 @@ internal sealed class ServiceProviderEngineScope : IServiceScope, IServiceProvid
         }
 
 
-        if (serviceType.GetCustomAttribute<ModuloAttribute>() != null || serviceType.GetCustomAttribute<ModuloContratoAttribute>() != null)
+        if (serviceType.GetCustomAttribute<ModuleAttribute>() != null || serviceType.GetCustomAttribute<ModuleContractAttribute>() != null)
         {
-            var _gerenciador = (IGerenciador)GetService(typeof(IGerenciador));
+            var _gerenciador = (IModuleManager)GetService(typeof(IModuleManager));
 
             if (_gerenciador != null)
             {
                 try
                 {
-                    return _gerenciador.Criar(serviceType);
+                    return _gerenciador.CreateModule(serviceType);
                 }
                 catch (Exception)
                 {

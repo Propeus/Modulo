@@ -3,12 +3,12 @@
     /// <summary>
     /// Modelo base para criação de modulos
     /// </summary>
-    public interface IModulo : IBaseModelo
+    public interface IModule : IBaseModel
     {
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
         /// <value><see langword="false"/></value>
-        bool InstanciaUnica { get; }
+        bool IsSingleInstance { get; }
     }
 }

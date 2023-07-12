@@ -10,42 +10,59 @@ namespace Propeus.Modulo.Core
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    class ModuloTipo : ModeloBase, IModuloTipo
+    class ModuloTipo : BaseModel, IModuleType
     {
 
         /// <summary>
         /// Inicializa o objeto informando a instancia do modulo
         /// </summary>
         /// <param name="modulo">Instancia do modulo</param>
-        /// <exception cref="ArgumentNullException">Modulo nao pode ser nulo</exception>
-        public ModuloTipo(IModulo modulo)
+        /// <exception cref="ArgumentNullException">Module nao pode ser nulo</exception>
+        public ModuloTipo(IModule modulo)
         {
             WeakReference = new WeakReference(modulo);
-            InstanciaUnica = modulo.InstanciaUnica;
-            IdModulo = modulo.Id;
-            Versao = modulo.Versao;
-            Nome = modulo.Nome;
+            IsSingleInstance = modulo.IsSingleInstance;
+            IdModule = modulo.Id;
+            Version = modulo.Version;
+            Name = modulo.Name;
         }
 
         /// <summary>
-        /// Versao do modulo
+        /// Version do modulo
         /// </summary>
-        public override string Versao { get; }
+        public override string Version { get; }
         ///<inheritdoc/>
-        public bool Coletado => WeakReference is null || !WeakReference.IsAlive;
+        public bool IsCollected => WeakReference is null || !WeakReference.IsAlive;
         ///<inheritdoc/>
-        public bool Elimindado => Coletado || (WeakReference.Target as IModulo)?.Estado == Estado.Desligado;
+        public bool IsDeleted => IsCollected || (WeakReference.Target as IModule)?.State == State.Off;
+        ///<inheritdoc/>
+        public bool IsKeepAlive => _moduleKeepAlive is not null;
         ///<inheritdoc/>
         public WeakReference WeakReference { get; protected set; }
         ///<inheritdoc/>
-        public IModulo Modulo => WeakReference.Target as IModulo;
+        public IModule Module => WeakReference.Target as IModule;
         ///<inheritdoc/>
-        public Type TipoModulo => WeakReference?.Target?.GetType();
+        public Type ModuleType => WeakReference?.Target?.GetType();
 
         ///<inheritdoc/>
-        public bool InstanciaUnica { get; }
+        public bool IsSingleInstance { get; }
         ///<inheritdoc/>
-        public string IdModulo { get; }
+        public string IdModule { get; }
+
+
+        public IModule _moduleKeepAlive;
+        public void KeepAliveModule(bool keepAlive)
+        {
+            if (IsDeleted) return;
+            if (keepAlive)
+            {
+                _moduleKeepAlive = Module;
+            }
+            else
+            {
+                _moduleKeepAlive = null;
+            }
+        }
 
         /// <summary>
         /// Exibe informacoes detalhadas sobre o modulo e seu estado no .NET
@@ -55,12 +72,12 @@ namespace Propeus.Modulo.Core
         {
             StringBuilder sb = new(base.ToString());
 
-            if (Modulo != null)
+            if (Module != null)
             {
-                _ = sb.Append(Modulo).AppendLine();
+                _ = sb.Append(Module).AppendLine();
             }
-            _ = sb.Append("Coletado pelo G.C.: ").Append(Coletado).AppendLine();
-            _ = sb.Append("Objeto eliminado: ").Append(Elimindado).AppendLine();
+            _ = sb.Append("IsCollected pelo G.C.: ").Append(IsCollected).AppendLine();
+            _ = sb.Append("Objeto eliminado: ").Append(IsDeleted).AppendLine();
 
 
             return sb.ToString();
@@ -69,14 +86,14 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (!Elimindado)
+            if (!IsDeleted)
             {
-                Modulo.Dispose();
+                KeepAliveModule(false);
+                Module.Dispose();
             }
             WeakReference = null;
             base.Dispose(disposing);
         }
-
 
 
     }

@@ -1,27 +1,22 @@
-﻿using System;
-using System.Reflection;
-using System.Text;
+﻿using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Proveders;
-
-using static Propeus.Modulo.Abstrato.Constantes;
 
 namespace Propeus.Modulo.Abstrato.Modulos
 {
     /// <summary>
     /// Classe base para o modulo
     /// </summary>
-    public abstract class ModuloBase : ModeloBase, IModulo
+    public abstract class BaseModule : BaseModel, IModule
     {
         /// <summary>
         /// Inicializa um modulo
         /// </summary>
-        /// <param name="instanciaUnica">Informa se a instancia é unica ou multipla</param>
-        protected ModuloBase(bool instanciaUnica = false) : base()
+        /// <param name="isSingleInstance">Informa se a instancia é unica ou multipla</param>
+        protected BaseModule(bool isSingleInstance = false) : base()
         {
-            InstanciaUnica = instanciaUnica;
-            Nome = GetType().Name;
+            IsSingleInstance = isSingleInstance;
+            Name = GetType().Name;
 
           
         }
@@ -29,7 +24,7 @@ namespace Propeus.Modulo.Abstrato.Modulos
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
-        public bool InstanciaUnica { get; }
+        public bool IsSingleInstance { get; }
 
         /// <summary>
         /// Exibe informacoes basicas sobre o modulo
@@ -39,7 +34,7 @@ namespace Propeus.Modulo.Abstrato.Modulos
         {
             StringBuilder sb = new(base.ToString());
 
-            _ = sb.AppendLine($"Instancia Unica: {InstanciaUnica}");
+            _ = sb.AppendLine($"Instancia Unica: {IsSingleInstance}");
 
             return sb.ToString();
         }

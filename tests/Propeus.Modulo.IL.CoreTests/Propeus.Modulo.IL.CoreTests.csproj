@@ -16,4 +16,9 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.IL.Core\Propeus.Modulo.IL.Core.csproj" />
+  </ItemGroup>
+
 </Project>

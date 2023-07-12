@@ -1,13 +1,13 @@
 using Propeus.Modulo.Abstrato.Atributos;
 
-namespace Propeus.Modulo.WorkerService.Exmaple.DLL;
+namespace Propeus.Modulo.WorkerService.Example.DLL;
 
-[Modulo(AutoInicializavel = true, AutoAtualizavel = true)]
+[Module(AutoStartable = true, AutoUpdate = true)]
 public class Worker : BackgroundServiceModulo
 {
 
     /**
-    * Use este worker no projeto de exemplo 'Propeus.Modulo.WorkerService.Example'
+    * Use este worker no projeto de exemplo 'Propeus.Module.WorkerService.Example'
     * **/
 
     public Worker() : base(false)
@@ -19,7 +19,7 @@ public class Worker : BackgroundServiceModulo
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            System.Console.WriteLine("Worker running at time: {0}", DateTimeOffset.Now);
+            Console.WriteLine("Worker running at time: {0}", DateTimeOffset.Now);
             await Task.Delay(1000, stoppingToken);
         }
     }

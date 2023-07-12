@@ -13,8 +13,8 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {
-    [Modulo(AutoAtualizavel = false, AutoInicializavel = false)]
-    public class BallModule : ModuloBase
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class BallModule : BaseModule
     {
         public float X { get; set; }
         public float Y { get; set; }

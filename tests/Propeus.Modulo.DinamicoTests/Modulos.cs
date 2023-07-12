@@ -16,8 +16,8 @@ namespace Propeus.Modulo.DinamicoTests
     * Observação, durante o uso do gerenciador dinamico, lembre-se sempre de deixar o contrato como **public** pois por ser dinamico haverá erro de assecibilidade 
     * durante a criação do modulo
     * **/
-    [Modulo]
-    public class ModuloDeExemploParaPropeusModuloDinamico : ModuloBase
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamico : BaseModule
     {
         //O parametro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilziando uma unica instancia quando houver.
         //Por padrao o valor para instanciaUnica é false
@@ -49,8 +49,8 @@ namespace Propeus.Modulo.DinamicoTests
         **/
     }
 
-    [Modulo]
-    public class ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria : ModuloBase
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria : BaseModule
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo;
 
@@ -66,8 +66,8 @@ namespace Propeus.Modulo.DinamicoTests
         }
     }
 
-    [Modulo]
-    public class ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional : ModuloBase
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional : BaseModule
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo;
 
@@ -91,8 +91,8 @@ namespace Propeus.Modulo.DinamicoTests
         }
     }
 
-    [Modulo]
-    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia : ModuloBase
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia : BaseModule
     {
         private string mensagem;
         private int a;
@@ -132,8 +132,8 @@ namespace Propeus.Modulo.DinamicoTests
         }
     }
 
-    [Modulo]
-    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao : ModuloBase
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao : BaseModule
     {
         private string mensagem;
         private int a;

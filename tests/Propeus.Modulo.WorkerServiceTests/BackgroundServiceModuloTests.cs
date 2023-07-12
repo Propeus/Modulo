@@ -12,7 +12,7 @@ using Propeus.Modulo.WorkerService;
 
 namespace Propeus.Modulo.WorkerServiceTests
 {
-    [Modulo]
+    [Module]
     public class ModuloTesteWorker : BackgroundServiceModulo
     {
         public ModuloTesteWorker(bool instanciaUnica = false) : base()
@@ -33,45 +33,44 @@ namespace Propeus.Modulo.WorkerServiceTests
     [TestClass()]
     public class BackgroundServiceModuloTests
     {
-        private IGerenciador gerenciador;
+        private IModuleManager gerenciador;
 
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = Gerenciador.Atual(Core.Gerenciador.Atual);
+            gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault());
         }
 
         [TestCleanup]
         public void End()
         {
             gerenciador.Dispose();
-            Core.Gerenciador.Atual.Dispose();
         }
 
         [TestMethod()]
         public void BackgroundServiceModuloTest()
         {
-            _ = gerenciador.Criar<ModuloTesteWorker>();
-            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
-            Assert.AreEqual(Abstrato.Estado.Criado, worker.Estado);
+            _ = gerenciador.CreateModule<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
+            Assert.AreEqual(Abstrato.State.Created, worker.State);
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
-            _ = gerenciador.Criar<ModuloTesteWorker>();
-            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
+            _ = gerenciador.CreateModule<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
             Assert.IsNotNull(worker.ToString());
         }
 
         [TestMethod()]
         public void DisposeTest()
         {
-            _ = gerenciador.Criar<ModuloTesteWorker>();
-            ModuloTesteWorker worker = gerenciador.Obter<ModuloTesteWorker>();
-            Assert.AreEqual(Abstrato.Estado.Criado, worker.Estado);
-            gerenciador.Remover(worker);
-            Assert.AreEqual(Abstrato.Estado.Desligado, worker.Estado);
+            _ = gerenciador.CreateModule<ModuloTesteWorker>();
+            ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
+            Assert.AreEqual(Abstrato.State.Created, worker.State);
+            gerenciador.RemoveModule(worker);
+            Assert.AreEqual(Abstrato.State.Off, worker.State);
         }
     }
 }

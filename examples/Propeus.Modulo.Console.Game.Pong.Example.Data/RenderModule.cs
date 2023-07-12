@@ -4,8 +4,8 @@ using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data
 {
-    [Modulo(AutoAtualizavel = false, AutoInicializavel = false)]
-    public class RenderModule : ModuloBase
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class RenderModule : BaseModule
     {
         public RenderModule() : base(true)
         {

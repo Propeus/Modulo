@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Dinamico;
+using Propeus.Modulo.Dinamico.Modules;
 
 using System;
 using System.Collections.Generic;
@@ -8,17 +10,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Dinamico.Tests
+namespace Propeus.Modulo.DinamicoTests
 {
     [TestClass()]
     public class ModuleProviderTests
     {
-        private ModuleProvider provider;
+        private ModuleProviderModule provider;
 
         [TestInitialize]
         public void Init()
         {
-            provider = ModuleProvider.Provider;
+            var gen = Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault();
+            gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>()).Wait();
+            provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleProviderModule>();
         }
         [TestCleanup]
         public void Cleanup()
@@ -30,7 +34,6 @@ namespace Propeus.Modulo.Dinamico.Tests
         public void LoadModulesTest()
         {
             Assert.IsNotNull(provider);
-            provider.LoadModules();
         }
     }
 }

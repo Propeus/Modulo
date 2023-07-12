@@ -3,9 +3,8 @@
 using Propeus.Modulo.Abstrato.Atributos;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Helpers.Tests
+namespace Propeus.Modulo.IL.CoreTests.Helpers
 {
     public interface ITeste
     {
@@ -17,7 +16,7 @@ namespace Propeus.Modulo.IL.Helpers.Tests
         int TesteMetodo2(int a);
     }
 
-    [Modulo]
+    [Module]
     public class Teste
     {
 

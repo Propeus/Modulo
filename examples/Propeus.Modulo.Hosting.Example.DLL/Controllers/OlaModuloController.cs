@@ -11,7 +11,7 @@ using Propeus.Modulo.Abstrato.Atributos;
 
 namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
 {
-    [Modulo]
+    [Module]
     [Controller]
     [Route("olamundo")]
     public class OlaModuloController : ModuloController
@@ -27,7 +27,7 @@ namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
         [HttpGet("olamundo2")]
         public IActionResult OlaMundo()
         {
-            Logger.LogInformation("Ola Modulo!!!!!!! - " + Id);
+            Logger.LogInformation("Ola Module!!!!!!! - " + Id);
             return Ok("Ola mundo OKView - " + Id);
         }
 

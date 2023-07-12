@@ -36,10 +36,11 @@ namespace Propeus.Modulo.IL.Core.Geradores
         public Type Base { get; private set; }
         public Type[] Interfaces { get; private set; }
         public Token[] Acessadores { get; private set; }
+        public Type[] Atributos { get; private set; }
         internal ILBuilderProxy Proxy { get; private set; }
         public bool Executado { get; private set; }
 
-        internal ILClasseProvider(ILBuilderProxy proxy, string nome = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
+        internal ILClasseProvider(ILBuilderProxy proxy, string nome = Constantes.CONST_NME_CLASSE, string @namespace = Constantes.CONST_NME_NAMESPACE_CLASSE, Type @base = null, Type[] interfaces = null, Token[] acessadores = null, Type[] atributos = null)
         {
 
             Namespace = @namespace;
@@ -50,6 +51,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
             Nome = nome;
             Executado = false;
             _versoes = new ILClasse[3];
+            Atributos = atributos;
         }
 
 
@@ -81,7 +83,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
             }
 
 
-            ILClasse classe = new(Proxy, Nome, Namespace + ".V" + Versao, Base, Interfaces, Acessadores);
+            ILClasse classe = new ILClasse(Proxy, Nome, Namespace + ".V" + Versao, Base, Interfaces, Acessadores,Atributos);
             InserirNovaVersaoArray(classe, Versao);
             Atual = classe;
 

@@ -8,22 +8,22 @@ namespace Propeus.Modulo.Abstrato
     /// <summary>
     /// Classe com o modelo base para o projeto
     /// </summary>
-    public abstract class ModeloBase : IBaseModelo
+    public abstract class BaseModel : IBaseModel
     {
 
         /// <summary>
         /// Inicia um modelo basico
         /// </summary>
-        protected ModeloBase()
+        protected BaseModel()
         {
-            Nome = GetType().Name;
-            Estado = Estado.Criado;
+            Name = GetType().Name;
+            State = State.Created;
             Id = Guid.NewGuid().ToString();
-            IdManifesto = this.GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
+            ManifestId = this.GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
         }
 
         ///<inheritdoc/>
-        public virtual string Versao
+        public virtual string Version
         {
             get
             {
@@ -34,13 +34,13 @@ namespace Propeus.Modulo.Abstrato
 
 
         ///<inheritdoc/>
-        public Estado Estado { get; set; }
+        public State State { get; set; }
         ///<inheritdoc/>
-        public string Nome { get; protected set; }
+        public string Name { get; protected set; }
         ///<inheritdoc/>
         public string Id { get; }
         ///<inheritdoc/>
-        public string IdManifesto { get; }
+        public string ManifestId { get; }
 
         /// <summary>
         /// Exibe informações basicas sobre o modelo
@@ -50,10 +50,10 @@ namespace Propeus.Modulo.Abstrato
         {
             StringBuilder sb = new();
 
-            _ = sb.Append("Nome: ").Append(Nome).AppendLine();
-            _ = sb.Append("Estado: ").Append(Estado).AppendLine();
+            _ = sb.Append("ModuleName: ").Append(Name).AppendLine();
+            _ = sb.Append("State: ").Append(State).AppendLine();
             _ = sb.Append("Id: ").Append(Id).AppendLine();
-            _ = sb.Append("Versao: ").Append(Versao).AppendLine();
+            _ = sb.Append("Version: ").Append(Version).AppendLine();
 
             return sb.ToString();
         }
@@ -65,16 +65,16 @@ namespace Propeus.Modulo.Abstrato
         protected bool disposedValue = false; 
 
         /// <summary>
-        /// Libera os objetos deste modelo e altera o estado dele para <see cref="Estado.Desligado"/>
+        /// Libera os objetos deste modelo e altera o estado dele para <see cref="State.Off"/>
         /// </summary>
-        /// <param name="disposing">Indica se deve alterar o estado do objeto para <see cref="Estado.Desligado"/></param>
+        /// <param name="disposing">Indica se deve alterar o estado do objeto para <see cref="State.Off"/></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing)
                 {
-                    Estado = Estado.Desligado;
+                    State = State.Off;
                 }
 
                 disposedValue = true;

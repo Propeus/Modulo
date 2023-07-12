@@ -10,8 +10,8 @@ using Propeus.Modulo.Console.Game.Pong.Example.Data.Scene;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {
-    [Modulo(AutoAtualizavel = false, AutoInicializavel = false)]
-    public class PaddleModule : ModuloBase
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class PaddleModule : BaseModule
     {
         public PaddleModule(int height = 0) : base(false)
         {

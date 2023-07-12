@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -19,6 +20,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
     internal class ILClasse : IILExecutor, IDisposable
     {
         private Token[] _acessadores;
+        private Type[] _atributos;
 
         /// <summary>
         /// Instancia para criar uma classe
@@ -29,7 +31,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
         /// <param name="base">Objeto a ser extendido para classse</param>
         /// <param name="interfaces">Interface a ser implementado na classe</param>
         /// <param name="acessadores">Acessadores da classe</param>
-        public ILClasse(ILBuilderProxy IlProxy, string nome, string @namespace, Type @base = null, Type[] interfaces = null, Token[] acessadores = null)
+        public ILClasse(ILBuilderProxy IlProxy, string nome, string @namespace, Type @base = null, Type[] interfaces = null, Token[] acessadores = null, Type[] atributos = null)
         {
             Proxy = IlProxy.Clone();
 
@@ -46,6 +48,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
             Base = @base;
             Interfaces = new List<Type>(interfaces);
             _acessadores = acessadores;
+            _atributos = atributos;
 
 
             List<TypeAttributes> typeAttributes = new();
@@ -61,6 +64,16 @@ namespace Propeus.Modulo.IL.Core.Geradores
                 ? builder.DefineType(Namespace + "." + nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces)
                 : builder.DefineType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
 
+
+            if (_atributos!= null)
+            {
+                foreach (var item in _atributos)
+                {
+                    //Pode dar erro de construtor padrao até proque eu nao sei quais sao os valores de parametro. (Na real estou com preguiça de fazer essa parte)
+                    var attrbuilder = new CustomAttributeBuilder(item.GetConstructors().First(), Array.Empty<object>());
+                    typeBuilder.SetCustomAttribute(attrbuilder);
+                } 
+            }
             Proxy.RegistrarBuilders(typeBuilder);
         }
 

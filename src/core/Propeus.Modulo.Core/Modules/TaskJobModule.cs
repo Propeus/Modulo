@@ -2,28 +2,19 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Util.Objetos;
+using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Util.Thread;
 
-using static System.Collections.Specialized.BitVector32;
-
-namespace Propeus.Modulo.Util.Thread
+namespace Propeus.Modulo.Core.Modules
 {
-    public class TaskJob : IDisposable
+    [Module]
+    internal class TaskJobModule : BaseModule
     {
-
-        static TaskJob _task;
-        public static TaskJob GetTasker(int workers = 2)
-        {
-            if (_task == null || _task.disposedValue)
-                _task = new TaskJob(workers);
-            return _task;
-        }
-
         enum EstadoRunner
         {
             Criado,
@@ -85,7 +76,7 @@ namespace Propeus.Modulo.Util.Thread
         CancellationTokenSource _cancellationTokenSource;
         TaskFactory _taskFactory;
 
-        private TaskJob(int threads = 2)
+        public TaskJobModule(int threads = 2) : base(true)
         {
             _runners = new ConcurrentDictionary<string, Runner>();
             _cancellationTokenSource = new CancellationTokenSource();
@@ -131,7 +122,7 @@ namespace Propeus.Modulo.Util.Thread
                         {
                             runner.Estado = EstadoRunner.Finalizado;
                         }
-                        
+
                     }
                     else
                     {
@@ -219,32 +210,17 @@ namespace Propeus.Modulo.Util.Thread
         }
 
         #region IDisposable
-        private bool disposedValue;
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!disposedValue && disposing)
             {
-                if (disposing)
-                {
-                    _cancellationTokenSource.Cancel();
-                    WaitAll();
-                    _runners.Clear();
-                }
-
-
-                disposedValue = true;
+                _cancellationTokenSource.Cancel();
+                _runners.Clear();
             }
-        }
 
-        public void Dispose()
-        {
-            // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            base.Dispose(disposing);
         }
         #endregion
     }
-
-
 }

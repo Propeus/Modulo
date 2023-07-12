@@ -24,7 +24,7 @@ namespace Propeus.Modulo.Hosting
     }
 
 
-    [Modulo]
+    [Module]
     public class ModuloController : ModuloControllerBase, IActionFilter, IAsyncActionFilter
     {
 

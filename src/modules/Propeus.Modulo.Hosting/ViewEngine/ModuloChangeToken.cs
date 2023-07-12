@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Primitives;
 
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.Primitives;
-
-using Propeus.Modulo.Abstrato.Proveders;
+using Propeus.Modulo.Hosting.Contracts;
 
 namespace Propeus.Modulo.Hosting.ViewEngine
 {
@@ -15,10 +8,22 @@ namespace Propeus.Modulo.Hosting.ViewEngine
     {
         private string _name;
 
-        public ModuloChangeToken(ModuloController moduloController)
+        public ModuloChangeToken(ModuloController moduloController, IModuleProviderModuleContract moduleProvider)
         {
             _name = moduloController.GetType().Name;
-            EventoProvider.RegistrarOuvinteInformacao(OnTypeLoadUnload);
+            moduleProvider.OnLoadModule += (Type moduleType) =>
+            {
+                HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
+            };
+            moduleProvider.OnUnloadModule += (Type moduleType) =>
+            {
+                HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
+            };
+            moduleProvider.OnRebuildModule += (Type moduleType) =>
+            {
+                HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
+            };
+
         }
 
         IDisposable IChangeToken.RegisterChangeCallback(Action<object> callback, object state) => EmptyDisposable.Instance;
@@ -26,18 +31,6 @@ namespace Propeus.Modulo.Hosting.ViewEngine
         public bool HasChanged { get; private set; }
         public bool ActiveChangeCallbacks => false;
 
-        private void OnTypeLoadUnload(Type fonte, string mensagem, Exception exception)
-        {
-            switch (mensagem)
-            {
-                case "load":
-                    HasChanged = fonte.Name.Contains("Controller") && _name.Contains(fonte.Name);
-                    break;
-                case "unload":
-                    HasChanged = fonte.Name.Contains("Controller") && _name.Contains(fonte.Name);
-                    break;
-            }
-        }
     }
 
     internal class EmptyDisposable : IDisposable

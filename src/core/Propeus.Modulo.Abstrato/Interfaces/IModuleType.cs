@@ -4,36 +4,46 @@ namespace Propeus.Modulo.Abstrato.Interfaces
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    public interface IModuloTipo : IBaseModelo
+    public interface IModuleType : IBaseModel
     {
         /// <summary>
         /// Informa se o modulo foi coletado pelo <see cref="GC"/>
         /// </summary>
-        bool Coletado { get; }
-
+        bool IsCollected { get; }
         /// <summary>
         /// Informa se o modulo foi eliminado da aplicação
         /// </summary>
-        bool Elimindado { get; }
+        bool IsDeleted { get; }
+        /// <summary>
+        /// Indica se o modulo foi definido para se manter vivo
+        /// </summary>
+        bool IsKeepAlive { get; }
+
         /// <summary>
         /// Informa o id gerado para o modulo instanciado
         /// </summary>
-        string IdModulo { get; }
+        string IdModule { get; }
         /// <summary>
         /// Informa se o modulo é instancia unica
         /// </summary>
-        bool InstanciaUnica { get; }
+        bool IsSingleInstance { get; }
         /// <summary>
         /// Instancia do modulo
         /// </summary>
-        IModulo Modulo { get; }
+        IModule Module { get; }
         /// <summary>
-        /// Tipo do modulo
+        /// ModuleType do modulo
         /// </summary>
-        Type TipoModulo { get; }
+        Type ModuleType { get; }
         /// <summary>
         /// Referencia fraca da instancia do modulo
         /// </summary>
         WeakReference WeakReference { get; }
+
+        /// <summary>
+        /// Define se o modulo atual deve ser mantido vivo ou nao
+        /// </summary>
+        /// <param name="keepAlive">Define se o modulo deve ser mantido vivo</param>
+        void KeepAliveModule(bool keepAlive);   
     }
 }

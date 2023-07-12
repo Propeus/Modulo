@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Primitives;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Proveders;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Hosting.Contracts;
 
 namespace Propeus.Modulo.Hosting
 {
@@ -24,67 +24,61 @@ namespace Propeus.Modulo.Hosting
     }
 
 
-    internal class ModuloApplicationPart
+    internal class ModuloApplicationPart : BaseModule
     {
         Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
 
-        public ModuloApplicationPart(Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager applicationPart)
+        bool _sincronizado = false;
+
+        public ModuloApplicationPart(ApplicationPartManager applicationPart, IModuleManager moduleManager) : base(true)
         {
             ApplicationPart = applicationPart;
-            LoadTypes();
-            EventoProvider.RegistrarOuvinteInformacao(OnTypeLoadUnload);
+
+            foreach (var moduleType in moduleManager.GetModule<IModuleProviderModuleContract>().GetAllModules())
+            {
+                OnLoadModuleController(moduleType);
+            }            
+            moduleManager.GetModule<IModuleProviderModuleContract>().OnLoadModule += OnLoadModuleController;
+            moduleManager.GetModule<IModuleProviderModuleContract>().OnUnloadModule += OnUnloadModuleController;
+            
         }
 
-        private void LoadTypes()
+        private void OnUnloadModuleController(Type moduleType)
         {
-            foreach (var item in ModuleProvider.Provider.GetTypes())
+            if (!moduleType.Name.Contains("Controller"))
+                return;
+
+            ApplicationPart appOld = null;
+            foreach (ApplicationPart appApplicationPart in this.ApplicationPart.ApplicationParts)
             {
-                OnTypeLoadUnload(item, "load", null);
+                if (appApplicationPart.Name == moduleType.Name)
+                {
+                    appOld = appApplicationPart;
+                }
+            }
+
+            if (appOld != null)
+            {
+                this.ApplicationPart.ApplicationParts.Remove(appOld);
+            }
+            ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
+        }
+
+        private void OnLoadModuleController(Type moduleType)
+        {
+            if (!moduleType.Name.Contains("Controller"))
+                return;
+            var app = new AssemblyPart(moduleType.Assembly);
+            if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
+            {
+                this.ApplicationPart.ApplicationParts.Add(app);
+
+                ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
+                ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
             }
         }
 
-        private void OnTypeLoadUnload(Type fonte, string mensagem, Exception exception)
-        {
-            switch (mensagem)
-            {
-                case "load":
-                    if (!fonte.Name.Contains("Controller"))
-                        return;
-                    var app = new AssemblyPart(fonte.Assembly);
-                    var viewApp = new CompiledRazorAssemblyPart(fonte.Assembly);
-                    if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
-                    {
-                        this.ApplicationPart.ApplicationParts.Add(app);
-                        //this.ApplicationPart.ApplicationParts.Add(viewApp);
-                        
 
-                        ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
-                        ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
-                    }
-
-
-                    //this.ApplicationPart.ApplicationParts.Add(new EmbeddedFileAssemblyPart())
-                    break;
-                case "unload":
-                    if (!fonte.Name.Contains("Controller"))
-                        return;
-
-                    ApplicationPart appOld = null;
-                    foreach (ApplicationPart appApplicationPart in this.ApplicationPart.ApplicationParts)
-                    {
-                        if (appApplicationPart.Name == fonte.Name)
-                        {
-                            appOld = appApplicationPart;
-                        }
-                    }
-
-                    if (appOld != null)
-                    {
-                        this.ApplicationPart.ApplicationParts.Remove(appOld);
-                    }
-                    ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
-                    break;
-            }
-        }
+    
     }
 }
