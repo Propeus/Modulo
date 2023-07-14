@@ -1,22 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="Views\Index.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="Views\OlaModulo\Index.cshtml">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</EmbeddedResource>
-	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\modules\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />

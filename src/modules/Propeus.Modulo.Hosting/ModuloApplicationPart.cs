@@ -33,14 +33,26 @@ namespace Propeus.Modulo.Hosting
         public ModuloApplicationPart(ApplicationPartManager applicationPart, IModuleManager moduleManager) : base(true)
         {
             ApplicationPart = applicationPart;
+            IModuleProviderModuleContract moduleProviderModuleContract;
+            if (!moduleManager.ExistsModule(typeof(IModuleProviderModuleContract)))
+            {
+                moduleProviderModuleContract = moduleManager.CreateModule<IModuleProviderModuleContract>();
+            }
+            else
+            {
+                moduleProviderModuleContract = moduleManager.GetModule<IModuleProviderModuleContract>();
+            }
 
-            foreach (var moduleType in moduleManager.GetModule<IModuleProviderModuleContract>().GetAllModules())
+            var modules = moduleProviderModuleContract.GetAllModules();
+
+            foreach (var moduleType in modules)
             {
                 OnLoadModuleController(moduleType);
-            }            
-            moduleManager.GetModule<IModuleProviderModuleContract>().OnLoadModule += OnLoadModuleController;
-            moduleManager.GetModule<IModuleProviderModuleContract>().OnUnloadModule += OnUnloadModuleController;
-            
+            }
+
+            moduleProviderModuleContract.SetOnLoadModule(OnLoadModuleController);
+            moduleProviderModuleContract.SetOnUnloadModule(OnUnloadModuleController);
+
         }
 
         private void OnUnloadModuleController(Type moduleType)
@@ -79,6 +91,6 @@ namespace Propeus.Modulo.Hosting
         }
 
 
-    
+
     }
 }

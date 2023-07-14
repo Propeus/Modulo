@@ -15,10 +15,14 @@ using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
 using Propeus.Modulo.Util.Atributos;
+using Propeus.Modulo.Util.Objetos;
 using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Dinamico
 {
+
+
+  
     /// <summary>
     /// ModuleProxy responsável por administrar modulos em tempo de execução
     /// </summary>

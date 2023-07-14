@@ -118,6 +118,11 @@ namespace Propeus.Modulo.IL.Core.Enums
         /// NestedPublic
         /// </summary>
         [Description("NestedPublic")]
-        PublicaAninhado
+        PublicaAninhado,
+        /// <summary>
+        /// Static
+        /// </summary>
+        [Description("Static")]
+        Estatico
     }
 }

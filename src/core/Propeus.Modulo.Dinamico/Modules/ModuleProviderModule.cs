@@ -33,7 +33,7 @@ namespace Propeus.Modulo.Dinamico.Modules
             {
                 ModuleProxy = new WeakReference<Type>(null);
                 Module = new WeakReference<Type>(null);
-           
+
             }
 
             public bool HasProxyTypeModule => ModuleProxy is not null && ModuleProxy.TryGetTarget(out _);
@@ -65,7 +65,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                 {
                     if (_proxyBuilder is null)
                     {
-                        _proxyBuilder = GeradorHelper.Modulo.CriarProxyClasse(target, GetContractsType().ToArray(),new Type[] {typeof(ModuleAttribute)});
+                        _proxyBuilder = GeradorHelper.Modulo.CriarProxyClasse(target, GetContractsType().ToArray(), new Type[] { typeof(ModuleAttribute) });
                     }
                     else
                     {
@@ -188,7 +188,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <summary>
         /// Indica se o modulo e valido
         /// </summary>
-        public bool IsValid => !IsCurrentDomain && !HasError;
+        public bool IsValid => !IsCurrentDomain && !HasError && Modules.Count > 0;
 
         public Exception? Error { get; set; }
 
@@ -605,26 +605,41 @@ namespace Propeus.Modulo.Dinamico.Modules
             }
 
 
-         
+
         }
 
+
+        /// <summary>
+        /// Obtem todos tipos de modulos validos
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Type> GetAllModules()
         {
             foreach (var moduleInfo in _modulesInfo)
             {
+                if (!moduleInfo.IsValid)
+                    continue;
+
                 foreach (var module in moduleInfo.Modules)
                 {
-                    if (module.Value.HasProxyTypeModule)
-                    {
+                    //if (module.Value.HasProxyTypeModule)
+                    //{
                         if (module.Value.ModuleProxy.TryGetTarget(out Type moduleTypeProxy))
                         {
                             yield return moduleTypeProxy;
                         }
+                    //    if (module.Value.Module.TryGetTarget(out Type moduleType))
+                    //    {
+                    //        yield return moduleType;
+                    //    }
+                    //}
+                    //else
+                    //{
                         if (module.Value.Module.TryGetTarget(out Type moduleType))
                         {
                             yield return moduleType;
                         }
-                    }
+                    //}
                 }
             }
         }

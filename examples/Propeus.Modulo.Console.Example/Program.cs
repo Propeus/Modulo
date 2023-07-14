@@ -3,10 +3,13 @@ using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.Console.Example
 {
+  
+
     internal class Program
     {
         private static void Main()
         {
+          
             ExemploPropeusModuloCore();
             System.Console.ResetColor();
 
@@ -24,7 +27,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Para inicializar ele é necessario passar um gerenciador "nativo" ou de nivel superior
              * **/
-            using (IModuleManager gerenciador =  Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManagerDefault()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManagerDefault()))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamico>();
@@ -36,7 +39,7 @@ namespace Propeus.Modulo.Console.Example
              * Assim como o Propeus.ModuleProxy.Core, este gerenciador não exige que tenha uma interface de contrato para que possa criar novos modulos.
              * Portanto que o modulo seja valido, ele pode ser criado diretamente no gerenciador
              * **/
-            using (IModuleManager gerenciador =  Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault()))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 ModuloDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamico>();
