@@ -20,22 +20,22 @@ namespace Propeus.Modulo.Hosting
         public static IHostBuilder ConfigureGerenciador(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
         {
             configureHostBuilder.UseServiceProviderFactory(new ModuloServiceProviderFactory());
-            configureHostBuilder.ConfigureServices((ctx, serviceDescriptors) =>
+            configureHostBuilder.ConfigureServices(configureDelegate: (HostBuilderContext ctx, IServiceCollection serviceDescriptors) =>
             {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
                 serviceDescriptors.AddSingleton<IModuleManager>(gerenciador);
                 serviceDescriptors.AddSingleton(new ModuloApplicationPart(serviceDescriptors.AddMvcCore().PartManager, gerenciador));
-                serviceDescriptors.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
-                {
+                //serviceDescriptors.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
+                //{
 
-                    opts.FileProviders.Add(new ModuloFileProvider(gerenciador));
-                });
-                serviceDescriptors
-                .AddControllersWithViews()
-                //.AddRazorRuntimeCompilation()
-                ;
+                //    opts.FileProviders.Add(new ModuloFileProvider(gerenciador));
+                //});
+                //serviceDescriptors
+                //.AddControllersWithViews();
+                serviceDescriptors.AddRazorPages().AddViewLocalization().AddViewComponentsAsServices();
             });
             return configureHostBuilder;
+
         }
     }
 }

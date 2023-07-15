@@ -31,7 +31,7 @@ namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
             return Ok("Ola mundo OKView - " + Id);
         }
 
-        [HttpGet("TesteView")]
+        [HttpGet(template: "TesteView")]
         public IActionResult Index()
         {
             return View();

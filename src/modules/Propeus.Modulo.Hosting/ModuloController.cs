@@ -176,6 +176,7 @@ namespace Propeus.Modulo.Hosting
         public virtual ViewResult View(string viewName, object model)
         {
             //Vamos ter que fazer override na kcta da engine https://github.com/dotnet/aspnetcore/blob/4afe7f612d104b43b690e71d83c18a8bc48aae2d/src/Mvc/Mvc.ViewFeatures/src/ViewResultExecutor.cs#L21
+            //Nem fudendo
 
             ViewData.Model = model;
             return new ViewResult

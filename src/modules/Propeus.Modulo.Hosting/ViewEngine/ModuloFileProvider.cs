@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,7 +33,8 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             ModuloFileInfo? result;
 
             controllerName = subpath.Split('.')[0];
-            foreach (var item in gerenciador.ListAllModules().Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
+            var modules = gerenciador.ListAllModules().ToList();
+            foreach (var item in modules.Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
                 if (item.Name.Contains(controllerName))
                     return new ModuloFileInfo(item, controllerName);
@@ -51,7 +53,8 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             ModuloController? result = null;
 
             controllerName = filter.Split('.')[0];
-            foreach (ModuloController item in gerenciador.ListAllModules().Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
+            var modules = gerenciador.ListAllModules().ToList();
+            foreach (ModuloController item in modules.Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
                 if (item.Name.Contains(controllerName))
                 {

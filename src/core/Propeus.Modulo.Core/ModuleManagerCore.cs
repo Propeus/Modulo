@@ -59,7 +59,7 @@ namespace Propeus.Modulo.Core
                 var modulesOff = modules.Where(x => x.Value.IsDeleted);
                 foreach (var item in modulesOff)
                 {
-                    RemoveModule(item.Value.Id);
+                    RemoveModule(item.Key);
                 }
 
             }, $"{this.GetType().FullName}::Auto_Remove_Modules", TimeSpan.FromSeconds(1));

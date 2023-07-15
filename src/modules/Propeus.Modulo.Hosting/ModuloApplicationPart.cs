@@ -78,16 +78,22 @@ namespace Propeus.Modulo.Hosting
 
         private void OnLoadModuleController(Type moduleType)
         {
-            if (!moduleType.Name.Contains("Controller"))
-                return;
-            var app = new AssemblyPart(moduleType.Assembly);
-            if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
+            if (moduleType.Name.Contains("Controller"))
             {
-                this.ApplicationPart.ApplicationParts.Add(app);
+                var app = new AssemblyPart(moduleType.Assembly);
+                var razorPart = new CompiledRazorAssemblyPart(moduleType.Assembly);
+                if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
+                {
+                    //Tem que carregar os dois
+                    this.ApplicationPart.ApplicationParts.Add(app);
+                    this.ApplicationPart.ApplicationParts.Add(razorPart);
 
-                ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
-                ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
+                    ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
+                    ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
+                }
             }
+
+
         }
 
 
