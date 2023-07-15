@@ -60,19 +60,20 @@ namespace Propeus.Modulo.Hosting
             if (!moduleType.Name.Contains("Controller"))
                 return;
 
-            ApplicationPart appOld = null;
+            List<ApplicationPart> parts = new List<ApplicationPart>();
             foreach (ApplicationPart appApplicationPart in this.ApplicationPart.ApplicationParts)
             {
                 if (appApplicationPart.Name == moduleType.Name)
                 {
-                    appOld = appApplicationPart;
+                    parts.Add(appApplicationPart);
                 }
             }
 
-            if (appOld != null)
+            foreach (var part in parts)
             {
-                this.ApplicationPart.ApplicationParts.Remove(appOld);
+                this.ApplicationPart.ApplicationParts.Remove(part);
             }
+
             ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
         }
 

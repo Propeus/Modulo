@@ -23,16 +23,8 @@ namespace Propeus.Modulo.Hosting
             configureHostBuilder.ConfigureServices(configureDelegate: (HostBuilderContext ctx, IServiceCollection serviceDescriptors) =>
             {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
-                serviceDescriptors.AddSingleton<IModuleManager>(gerenciador);
+                //serviceDescriptors.AddSingleton<IModuleManager>(gerenciador);
                 serviceDescriptors.AddSingleton(new ModuloApplicationPart(serviceDescriptors.AddMvcCore().PartManager, gerenciador));
-                //serviceDescriptors.Configure<MvcRazorRuntimeCompilationOptions>(opts =>
-                //{
-
-                //    opts.FileProviders.Add(new ModuloFileProvider(gerenciador));
-                //});
-                //serviceDescriptors
-                //.AddControllersWithViews();
-                serviceDescriptors.AddRazorPages().AddViewLocalization().AddViewComponentsAsServices();
             });
             return configureHostBuilder;
 

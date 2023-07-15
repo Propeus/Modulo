@@ -9,7 +9,7 @@ namespace Propeus.Modulo.Hosting.Example
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            //builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews();
             
             builder.Host.ConfigureGerenciador(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault()));
 
