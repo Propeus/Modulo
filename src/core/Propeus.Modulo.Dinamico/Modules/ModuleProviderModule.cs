@@ -582,10 +582,10 @@ namespace Propeus.Modulo.Dinamico.Modules
 
         public void CriarConfiguracao()
         {
-
-
             foreach (var modulePath in _assmLibsPath)
             {
+                if(string.IsNullOrEmpty(modulePath)) continue;  //Por algum motivo a lista esta vindo com caminhos vazios
+
                 var fi = new FileInfo(modulePath);
                 var mp = new ModuleProviderInfo(modulePath, true, _moduleManager);
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
