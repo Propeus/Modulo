@@ -27,7 +27,7 @@ em tempo de execução.
 |                   [![Propeus.Modulo.IL](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml)                  	|            [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-il)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            	|
 | [![Propeus.Modulo.WorkerService](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml) 	| [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-workerservice)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-workerservice) 	|
 
-
+	
 ## Licença
 
 Os principais projetos são licenciados da seguinte maneira
@@ -55,6 +55,17 @@ suas modificaçoes e derivados.
 
 \* As licenças podem ser alteradas conforme for necessario para manter a **gratuidade** e a liberdade de usar o codigo-fonte
 
+## Estrutura do projeto
+
+- archived (Projetos excluidos logicamente)
+- docs (Documentações do projeto)
+- examples (Exemplos funcionais, não são testes unitarios)
+- src (Codigo-fonte do projeto)
+	- addons (modulos fim, ou seja, são criados para fazer algo, más nao são fundamentais para o funcionamento)
+	- core (modulos essenciais para o funcionamento do projeto)
+	- modules (modulos meio, ou seja, são criados para que os addons possam funcionar dentro do programa)
+- tests (Testes unitarios dos projetos)
+
 ## Planos
 
 Os proximos passos deste projeto é otimizar o codigo-fonte para ficar mais funcional e entendível
@@ -69,24 +80,3 @@ Após este passo, os seguintes passos estão na lista para serem executados:
 1. Tonar o projeto como um MVP (Mínimo Produto Viavel)
 1. Criar documentação em ingles
 1. Criar modulos para aumentar a capacidade de uso do projeto (Conexoes com cache, banco de dados, comunicacao entre programas, segurançla etc)
-
-## Perguntas frequentes
-
-> Existe uma documentação técnica sobre o funcinamento deste projeto?
-
-Existe uma documentação auto-gerado baseado na documentação em codigo.
-
-> Em que estado está este projeto?
-
-Atuamente esta na fase de PoC (Prova de Conceito).
-
-> Posso uar em produção?
-
-Pode por sua conta e risco
-
-> Por que este projeto nao usa componentes de terceiros?
-
-A idéia ptincipal deste projeto é ser totalmente modular e possuir o minimo de dependencia possivel, então não faria sentido
-adicionar componentes de proxy dinamico e injeção de dependencia de terceiros.
-
-\* Esta pagina pode ser alterada conforme for surgindo a necessidade.
