@@ -43,8 +43,8 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"propeus-modulo-core_propeus-modulo-dinamico" /o:"propeus-modulo-core" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.host.url="https://sonarcloud.io"
-          dotnet restore ./src/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj
-          dotnet build ./src/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj --no-restore
+          dotnet restore ./src/core/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj
+          dotnet build ./src/core/Propeus.Modulo.Dinamico/Propeus.Modulo.Dinamico.csproj --no-restore
 
           dotnet tool install --global dotnet-coverage
           dotnet-coverage collect "dotnet test ./tests/Propeus.Modulo.DinamicoTests/Propeus.Modulo.DinamicoTests.csproj" -f xml -o "coverage.xml"
