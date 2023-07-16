@@ -1,3 +1,5 @@
+
+
 ## Gerenciadores
 Neste projeto todos os gerenciadores são herdados da interface `Propeus.Modulo.Abstrato.Interfaces.IGerenciadores` e implementam os principais metodos:
 - Criar
