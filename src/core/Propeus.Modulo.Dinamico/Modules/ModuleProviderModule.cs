@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Runtime.Loader;
 using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.VisualBasic;
 
@@ -163,12 +164,13 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             this.Modules = new Dictionary<string, ModuleInfo>();
 
-            this.ModulePath = modulePath;
+            this.FullPathModule = modulePath;
             this.IsCurrentDomain = isCurrentDomain;
             this.moduleManager = moduleManager;
-            GetModuleInfo();
-            UpdateAssembly();
-            MapModules();
+
+            this._listNameIgnoreModules = new List<string>() {
+            "Microsoft"
+            };
         }
 
 
@@ -180,6 +182,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// Informa se houve mudanca no arquivo do modulo
         /// </summary>
         public bool IsChanged { get; set; }
+        public bool IsLoaded => _loadModuletask != null && _loadModuletask.IsCompletedSuccessfully;
         /// <summary>
         /// Indica se houve erro durante o carregamento do modulo
         /// </summary>
@@ -189,18 +192,18 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// Indica se o modulo e valido
         /// </summary>
         public bool IsValid => !IsCurrentDomain && !HasError && Modules.Count > 0;
-
+        public bool IsValidModule { get; private set; }
         public Exception? Error { get; set; }
 
         /// <summary>
         /// Informa se o arquivo do modulo existe
         /// </summary>
-        public bool Exists => File.Exists(ModulePath);
+        public bool Exists => File.Exists(FullPathModule);
 
         /// <summary>
         /// Caminho completo do arquivo DLL do modulo
         /// </summary>
-        public string ModulePath { get; set; }
+        public string FullPathModule { get; set; }
         /// <summary>
         /// Identificacao unica do modulo
         /// </summary>
@@ -208,17 +211,56 @@ namespace Propeus.Modulo.Dinamico.Modules
         public Dictionary<string, ModuleInfo> Modules { get; set; }
 
 
-
+        private Task? _loadModuletask;
         private AssemblyLoadContext _assemblyLoadContext;
         private readonly IModuleManager moduleManager;
+        private readonly List<string> _listNameIgnoreModules;
+
+        public void WaitLoadModule()
+        {
+            if (_loadModuletask != null && _loadModuletask.Status == TaskStatus.Running)
+            {
+                _loadModuletask.Wait();
+            }
+
+            if (_loadModuletask == null)
+            {
+                ReloadAsync().Wait();
+            }
+        }
+        public Task ReloadAsync(string newFullPath = null)
+        {
+            this._loadModuletask = Task.Run(() => { Reload(newFullPath); });
+            return this._loadModuletask;
+        }
+        public void Reload(string newFullPath = null)
+        {
+            if (!string.IsNullOrEmpty(newFullPath))
+            {
+                FullPathModule = newFullPath;
+            }
+
+            GetModuleInfo();
+            UpdateAssembly();
+            MapModules();
+        }
 
         private void GetModuleInfo()
         {
             if (Exists)
             {
+                foreach (var ignoreModule in _listNameIgnoreModules)
+                {
+                    if (FullPathModule.Contains(ignoreModule, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        IsValidModule = false;
+                        return;
+                    }
+                }
+
                 List<string> modules = new List<string>();
 
-                using (Stream streamReader = LoadModuleStream(ModulePath))
+                using (Stream streamReader = LoadModuleStream(FullPathModule))
                 {
                     streamReader.Seek(0, SeekOrigin.Begin);
 
@@ -257,6 +299,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                                     {
                                         IsChanged = true;
                                     }
+                                    IsValidModule = true;
                                     this.ModuleGuid = guid;
                                     return;
                                 }
@@ -275,8 +318,8 @@ namespace Propeus.Modulo.Dinamico.Modules
                 if (!IsChanged && _assemblyLoadContext is null)
                 {
 
-                    _assemblyLoadContext = new AssemblyLoadContext(ModulePath, true);
-                    using (var ms = LoadModuleStream(ModulePath))
+                    _assemblyLoadContext = new AssemblyLoadContext(FullPathModule, true);
+                    using (var ms = LoadModuleStream(FullPathModule))
                     {
                         _assemblyLoadContext.LoadFromStream(ms);
                     }
@@ -296,7 +339,7 @@ namespace Propeus.Modulo.Dinamico.Modules
 
             Dictionary<string, ModuleInfo> auxTypes = new Dictionary<string, ModuleInfo>();
             List<Type> types = new List<Type>();
-            if (Exists)
+            if (Exists && IsValidModule)
             {
                 if (!IsCurrentDomain)
                 {
@@ -323,7 +366,7 @@ namespace Propeus.Modulo.Dinamico.Modules
 
                     try
                     {
-                        foreach (var item in AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == ModulePath))
+                        foreach (var item in AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == FullPathModule))
                         {
                             foreach (var item1 in item.ExportedTypes)
                             {
@@ -436,7 +479,10 @@ namespace Propeus.Modulo.Dinamico.Modules
         public event Action<Type> OnUnloadModule;
         public event Action<Type> OnRebuildModule;
 
-        ConcurrentBag<ModuleProviderInfo> _modulesInfo;
+        ConcurrentDictionary<string, ModuleProviderInfo> _modulesInfo;
+        //ConcurrentBag<ModuleProviderInfo> _modulesInfo;
+        FileSystemWatcher _fileSystemWatcher;
+
 
         #region init
         public ModuleProviderModule(IModuleManager moduleManager) : base(true)
@@ -449,19 +495,105 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             _currentDirectory = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
             _assmLibsPath = AppDomain.CurrentDomain.GetAssemblies().Select(x => x.Location).Distinct();
-            _modulesInfo = new ConcurrentBag<ModuleProviderInfo>();
-            this._moduleManager = moduleManager;
+            _modulesInfo = new ConcurrentDictionary<string, ModuleProviderInfo>();
+            //_modulesInfo = new ConcurrentBag<ModuleProviderInfo>();
+            _moduleManager = moduleManager;
+
+            _fileSystemWatcher = new FileSystemWatcher();
+            _fileSystemWatcher.NotifyFilter = NotifyFilters.Attributes
+                                 | NotifyFilters.CreationTime
+                                 | NotifyFilters.DirectoryName
+                                 | NotifyFilters.FileName
+                                 | NotifyFilters.LastAccess
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Security
+                                 | NotifyFilters.Size;
+            _fileSystemWatcher.Changed += _fileSystemWatcher_OnEvent;
+            _fileSystemWatcher.Created += _fileSystemWatcher_OnEvent;
+            _fileSystemWatcher.Deleted += _fileSystemWatcher_OnEvent;
+            _fileSystemWatcher.Renamed += _fileSystemWatcher_Renamed;
+            _fileSystemWatcher.Filter = "*.dll";
+            _fileSystemWatcher.IncludeSubdirectories = true;
+            _fileSystemWatcher.Path = _currentDirectory;
+            _fileSystemWatcher.EnableRaisingEvents = true;
+
         }
+
+        private void _fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            if (_modulesInfo.ContainsKey(e.OldFullPath))
+            {
+                if (_modulesInfo.TryGetValue(e.FullPath, out ModuleProviderInfo target))
+                {
+                    target.Reload(e.FullPath);
+                }
+            }
+            else
+            {
+                //Tem algo de errado, como mudou se nao existe?
+                throw new NotImplementedException();
+            }
+        }
+
+        private void _fileSystemWatcher_OnEvent(object sender, FileSystemEventArgs e)
+        {
+            switch (e.ChangeType)
+            {
+                case WatcherChangeTypes.Created:
+                    var mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, false, _moduleManager);
+                    _modulesInfo.TryAdd(e.FullPath, mpf);
+                    mpf.WaitLoadModule();
+
+
+                    break;
+                case WatcherChangeTypes.Deleted:
+                    if (_modulesInfo.TryRemove(e.FullPath, out _))
+                    {
+                        //Adicionar semaforo
+                    }
+                    break;
+                case WatcherChangeTypes.Changed:
+                    if (_modulesInfo.ContainsKey(e.FullPath))
+                    {
+                        if (_modulesInfo.TryGetValue(e.FullPath, out ModuleProviderInfo target))
+                        {
+                            target.Reload();
+                        }
+                    }
+                    else if (_assmLibsPath.Contains(e.FullPath))
+                    {
+                        _modulesInfo.TryAdd(e.FullPath, new ModuleProviderInfo(e.FullPath, true, _moduleManager));
+                    }
+                    //else
+                    //{
+                    //    //Tem algo de errado, como mudou se nao existe?
+                    //    throw new NotImplementedException();
+                    //}
+                    break;
+                case WatcherChangeTypes.All:
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+
+
+
         public void CriarConfiguracao()
         {
 
+
             foreach (var modulePath in _assmLibsPath)
             {
-                _modulesInfo.Add(new ModuleProviderInfo(modulePath, true, _moduleManager));
+                var fi = new FileInfo(modulePath);
+                var mp = new ModuleProviderInfo(modulePath, true, _moduleManager);
+                _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
             foreach (var modulePath in Directory.GetFiles(_currentDirectory, "*.dll").Except(_assmLibsPath))
             {
-                _modulesInfo.Add(new ModuleProviderInfo(modulePath, false, _moduleManager));
+                var fi = new FileInfo(modulePath);
+                _fileSystemWatcher_OnEvent(null, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
 
             State = Abstrato.State.Ready;
@@ -471,14 +603,14 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             get
             {
-                var info = _modulesInfo.Where(x => x.Modules.ContainsKey(nameType));
-                if (info.Any() && info.Count() == 1 && info.First().Modules[nameType].IsValid)
+                var info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType));
+                if (info.Any() && info.Count() == 1 && info.First().Value.Modules[nameType].IsValid)
                 {
-                    if (info.First().Modules[nameType].ModuleProxy is not null && info.First().Modules[nameType].ModuleProxy.TryGetTarget(out var proxy))
+                    if (info.First().Value.Modules[nameType].ModuleProxy is not null && info.First().Value.Modules[nameType].ModuleProxy.TryGetTarget(out var proxy))
                     {
                         return proxy;
                     }
-                    if (info.First().Modules[nameType].Module.TryGetTarget(out var target))
+                    if (info.First().Value.Modules[nameType].Module.TryGetTarget(out var target))
                     {
                         return target;
                     }
@@ -491,10 +623,10 @@ namespace Propeus.Modulo.Dinamico.Modules
             set
             {
 
-                var info = _modulesInfo.Where(x => x.Modules.ContainsKey(nameType));
-                if (info.Any() && info.Count() == 1 && info.First().Modules[nameType].IsValid)
+                var info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType));
+                if (info.Any() && info.Count() == 1 && info.First().Value.Modules[nameType].IsValid)
                 {
-                    info.First().Modules[nameType].ModuleProxy.SetTarget(value);
+                    info.First().Value.Modules[nameType].ModuleProxy.SetTarget(value);
                 }
             }
         }
@@ -511,10 +643,10 @@ namespace Propeus.Modulo.Dinamico.Modules
         #region Funcoes
         public IEnumerable<Type> GetContracts(string nmeType)
         {
-            var query = _modulesInfo.FirstOrDefault(x => x.Modules.ContainsKey(nmeType));
+            KeyValuePair<string, ModuleProviderInfo>? query = _modulesInfo.FirstOrDefault(x => x.Value.Modules.ContainsKey(nmeType));
             if (query is not null)
             {
-                foreach (var item in query.Modules[nmeType].Contracts)
+                foreach (var item in query.Value.Value.Modules[nmeType].Contracts)
                 {
                     if (item.TryGetTarget(out var target))
                     {
@@ -527,10 +659,10 @@ namespace Propeus.Modulo.Dinamico.Modules
         }
         public bool HasProxyType(string moduleName)
         {
-            if (_modulesInfo.Any(x => x.Modules.ContainsKey(moduleName)))
+            if (_modulesInfo.Any(x => x.Value.Modules.ContainsKey(moduleName)))
             {
-                var info = _modulesInfo.First(x => x.Modules.ContainsKey(moduleName));
-                return info.Modules[moduleName].HasProxyTypeModule;
+                var info = _modulesInfo.First(x => x.Value.Modules.ContainsKey(moduleName));
+                return info.Value.Modules[moduleName].HasProxyTypeModule;
             }
             return false;
         }
@@ -538,7 +670,10 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             foreach (var moduleInfo in _modulesInfo)
             {
-                foreach (var module in moduleInfo.Modules)
+                if (!moduleInfo.Value.IsLoaded)
+                    moduleInfo.Value.WaitLoadModule();
+
+                foreach (var module in moduleInfo.Value.Modules)
                 {
                     if (module.Value.Contracts is null)
                         continue;
@@ -576,7 +711,8 @@ namespace Propeus.Modulo.Dinamico.Modules
 
                 foreach (var moduleInfo in _modulesInfo)
                 {
-                    foreach (var module in moduleInfo.Modules)
+                 
+                    foreach (var module in moduleInfo.Value.Modules)
                     {
                         if (module.Value.ModuleName == moduleContractAttribute.ModuleName && module.Value.IsValid)
                         {
@@ -617,17 +753,17 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             foreach (var moduleInfo in _modulesInfo)
             {
-                if (!moduleInfo.IsValid)
+                if (!moduleInfo.Value.IsValid)
                     continue;
 
-                foreach (var module in moduleInfo.Modules)
+                foreach (var module in moduleInfo.Value.Modules)
                 {
                     //if (module.Value.HasProxyTypeModule)
                     //{
-                        if (module.Value.ModuleProxy.TryGetTarget(out Type moduleTypeProxy))
-                        {
-                            yield return moduleTypeProxy;
-                        }
+                    if (module.Value.ModuleProxy.TryGetTarget(out Type moduleTypeProxy))
+                    {
+                        yield return moduleTypeProxy;
+                    }
                     //    if (module.Value.Module.TryGetTarget(out Type moduleType))
                     //    {
                     //        yield return moduleType;
@@ -635,14 +771,16 @@ namespace Propeus.Modulo.Dinamico.Modules
                     //}
                     //else
                     //{
-                        if (module.Value.Module.TryGetTarget(out Type moduleType))
-                        {
-                            yield return moduleType;
-                        }
+                    if (module.Value.Module.TryGetTarget(out Type moduleType))
+                    {
+                        yield return moduleType;
+                    }
                     //}
                 }
             }
         }
+      
+
         #endregion
 
 
