@@ -127,6 +127,11 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// </summary>
         /// <returns><see cref="Task"/></returns>
         Task KeepAliveAsync();
+        /// <summary>
+        /// Mantem um modulo vivo mesmo não possuindo referencia alguma
+        /// </summary>
+        /// <param name="moduleInstance">Modulo a ser mantido vivo</param>
+        /// <returns>Retorna uma tarefa</returns>
         Task KeepAliveModuleAsync(IModule moduleInstance);
 
 

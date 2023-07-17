@@ -51,6 +51,7 @@ namespace Propeus.Modulo.Core
 
 
         public IModule _moduleKeepAlive;
+        ///<inheritdoc/>
         public void KeepAliveModule(bool keepAlive)
         {
             if (IsDeleted)
