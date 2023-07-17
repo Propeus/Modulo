@@ -3,7 +3,7 @@ using System.Reflection;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;

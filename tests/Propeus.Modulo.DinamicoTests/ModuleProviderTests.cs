@@ -15,14 +15,14 @@ namespace Propeus.Modulo.DinamicoTests
     [TestClass()]
     public class ModuleProviderTests
     {
-        private ModuleProviderModule provider;
+        private ModuleWatcherModule provider;
 
         [TestInitialize]
         public void Init()
         {
             var gen = Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault();
             gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>()).Wait();
-            provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleProviderModule>();
+            provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
         }
         [TestCleanup]
         public void Cleanup()

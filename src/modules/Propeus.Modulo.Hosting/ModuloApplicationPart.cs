@@ -6,9 +6,8 @@ using System.Threading;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Primitives;
-
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Hosting.Contracts;
 
 namespace Propeus.Modulo.Hosting

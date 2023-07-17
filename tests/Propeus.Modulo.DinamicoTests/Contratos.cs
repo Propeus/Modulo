@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.DinamicoTests

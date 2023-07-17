@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -457,7 +457,7 @@ namespace Propeus.Modulo.Core
         {
             StringBuilder stringBuilder = new(base.ToString());
             _ = stringBuilder.Append("Ultima atualização: ").Append(LastUpdate).AppendLine();
-            _ = stringBuilder.Append("Modulos inicializados: ").Append(InitializedModules).AppendLine();
+            _ = stringBuilder.Append("Modules inicializados: ").Append(InitializedModules).AppendLine();
             return stringBuilder.ToString();
 
         }

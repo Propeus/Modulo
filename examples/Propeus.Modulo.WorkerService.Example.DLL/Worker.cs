@@ -1,4 +1,4 @@
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.WorkerService.Example.DLL;
 

@@ -6,3 +6,4 @@ Documento destinado a perguntas e duvidas frequentes
 | Data | Observação |
 |-|-|
 |15/07/2023 | Documentação inicial|
+

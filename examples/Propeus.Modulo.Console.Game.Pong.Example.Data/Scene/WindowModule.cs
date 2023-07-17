@@ -8,10 +8,9 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
-
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
 
 using static System.Formats.Asn1.AsnWriter;

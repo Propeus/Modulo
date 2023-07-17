@@ -2,7 +2,7 @@
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Abstrato.Modulos
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Classe base para o modulo
@@ -18,7 +18,7 @@ namespace Propeus.Modulo.Abstrato.Modulos
             IsSingleInstance = isSingleInstance;
             Name = GetType().Name;
 
-          
+
         }
 
         /// <summary>

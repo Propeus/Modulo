@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.Dinamico.Modules
 {
@@ -52,6 +51,7 @@ namespace Propeus.Modulo.Dinamico.Modules
     }
 
     [Module]
+    [Obsolete("Nao será mais necessario",false)]
     public sealed class QueueMessageModule : BaseModule, IQueueMessageModuleContract
     {
         public QueueMessageModule()

@@ -3,9 +3,9 @@
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
 
-		<Product>Propeus.Modulo.Abstrato</Product>
+		<Product>Propeus.Modulo.Util</Product>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente com classes e interfaces para implementacao de modulos</Description>
+		<Description>Componente com classes para facilitar o desenvolvimento de modulos</Description>
 
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
@@ -14,33 +14,25 @@
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Abstrato</PackageTags>
-		<PackageId>Propeus.Modulo.Abstrato</PackageId>
+		<PackageTags>Propeus Net Modulo Util</PackageTags>
+		<PackageId>Propeus.Modulo.Util</PackageId>
 
-		<AssemblyName>Propeus.Modulo.Abstrato</AssemblyName>
-		<RootNamespace>Propeus.Modulo.Abstrato</RootNamespace>
+		<AssemblyName>Propeus.Modulo.Util</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Util</RootNamespace>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>Propeus.Modulo.Util.csproj</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="LICENSE">
+	  <None Include="Propeus.Modulo.Util.csproj">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Modulos\" />
 	</ItemGroup>
 
 </Project>

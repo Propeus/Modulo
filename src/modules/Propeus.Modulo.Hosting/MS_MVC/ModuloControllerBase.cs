@@ -3,9 +3,8 @@ using System.Text;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
-
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.Hosting.MS_MVC
 {

@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Console.Game.Pong.Example.Data.Scene;
 
 using static System.Formats.Asn1.AsnWriter;

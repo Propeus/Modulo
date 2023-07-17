@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Propeus.Modulo.Abstrato.Atributos
+namespace Propeus.Modulo.Abstrato.Attributes
 {
     /// <summary>
     /// Identifier de extremidade de um modulo

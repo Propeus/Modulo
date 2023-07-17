@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Helpers

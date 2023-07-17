@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CB241CDA-7B9C-46BE-87B3-D645C2E14273}"
 	ProjectSection(SolutionItems) = preProject
 		FAQ.md = FAQ.md
+		Teachings.md = Teachings.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Abstrato", "core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj", "{3179428F-B363-4EC8-A9BE-A51628EE6F12}"

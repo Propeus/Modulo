@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using Newtonsoft.Json;
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using Propeus.Modulo.Hosting.MS_MVC;
 using System.Resources;

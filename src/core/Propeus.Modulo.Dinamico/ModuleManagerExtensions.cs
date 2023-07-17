@@ -21,7 +21,7 @@ namespace Propeus.Modulo.Dinamico
         {
             var gen = new ModuleManager(moduleManagerCore);
             gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>());
-            gen.KeepAliveModuleAsync(gen.CreateModule<ModuleProviderModule>());
+            gen.KeepAliveModuleAsync(gen.CreateModule<ModuleWatcherModule>());
             return gen;
         }
         /// <summary>

@@ -7,10 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
@@ -22,7 +21,7 @@ namespace Propeus.Modulo.Dinamico
 {
 
 
-  
+
     /// <summary>
     /// ModuleProxy responsável por administrar modulos em tempo de execução
     /// </summary>
@@ -78,7 +77,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -102,7 +101,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -150,7 +149,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -174,7 +173,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -265,7 +264,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -289,7 +288,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -319,7 +318,7 @@ namespace Propeus.Modulo.Dinamico
         public IModule CreateModule(string moduleName)
         {
             //TODO: Criar exception para caso do modulo ModuleProviderModule nao existir
-            return CreateModule(this.GetModule<ModuleProviderModule>()[moduleName]);
+            return CreateModule(this.GetModule<ModuleWatcherModule>()[moduleName]);
         }
 
 
@@ -340,7 +339,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -371,7 +370,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -421,7 +420,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -452,7 +451,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -502,7 +501,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -533,7 +532,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -574,7 +573,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -605,7 +604,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -645,7 +644,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -676,7 +675,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -713,7 +712,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -744,7 +743,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -784,7 +783,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -815,7 +814,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois recicle
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -858,7 +857,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -889,7 +888,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois recicle pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -933,7 +932,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -964,7 +963,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1003,7 +1002,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1034,7 +1033,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1073,7 +1072,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1104,7 +1103,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1147,7 +1146,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1178,7 +1177,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1225,7 +1224,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1256,7 +1255,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1294,7 +1293,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1325,7 +1324,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1363,7 +1362,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1394,7 +1393,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1432,7 +1431,7 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1463,7 +1462,7 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois mantenha vivo a instancia do _gerenciador
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Atributos;
+        ///using Propeus.ModuleProxy.Abstrato.Attributes;
         ///using Propeus.ModuleProxy.Core.ModuleManager;
         ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
         ///
@@ -1552,7 +1551,7 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentException("O tipo nao e uma interface");
             }
 
-            return this._gerenciador.GetModule<ModuleProviderModule>().GetModuleFromContract(contrato);
+            return this._gerenciador.GetModule<ModuleWatcherModule>().GetModuleFromContract(contrato);
 
         }
         private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModule

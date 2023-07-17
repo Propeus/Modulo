@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Atributos;
-using Propeus.Modulo.Abstrato.Modulos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Core.Modules

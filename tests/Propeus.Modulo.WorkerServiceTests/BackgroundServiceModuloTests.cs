@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
-using Propeus.Modulo.Dinamico;
 using Propeus.Modulo.WorkerService;
 
 namespace Propeus.Modulo.WorkerServiceTests

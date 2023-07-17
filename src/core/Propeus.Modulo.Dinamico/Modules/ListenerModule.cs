@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.Dinamico.Modules
 {
     /// <summary>
-    /// Modulo para definir ouvintes para o <see cref="ModuleProviderModule"/>
+    /// Modulo para definir ouvintes para o <see cref="ModuleWatcherModule"/>
     /// </summary>
     [Module]
     public class ListenerModule : BaseModule
@@ -29,7 +28,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onLoadModule"></param>
         public void SetOnLoadModule(Action<Type> onLoadModule)
         {
-            _moduleManager.GetModule<ModuleProviderModule>().OnLoadModule += onLoadModule;
+            _moduleManager.GetModule<ModuleWatcherModule>().OnLoadModule += onLoadModule;
         }
         /// <summary>
         /// Adiciona evento para escutar eventos de descarregamento de modulo
@@ -37,7 +36,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onUnloadModule"></param>
         public void SetOnUnloadModule(Action<Type> onUnloadModule)
         {
-            _moduleManager.GetModule<ModuleProviderModule>().OnUnloadModule += onUnloadModule;
+            _moduleManager.GetModule<ModuleWatcherModule>().OnUnloadModule += onUnloadModule;
         }
         /// <summary>
         /// Adiciona evento para escutar eventos de regarregamento de modulo
@@ -45,7 +44,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onRebuildModule"></param>
         public void SetOnRebuildModule(Action<Type> onRebuildModule)
         {
-            _moduleManager.GetModule<ModuleProviderModule>().OnRebuildModule += onRebuildModule;
+            _moduleManager.GetModule<ModuleWatcherModule>().OnReloadModule += onRebuildModule;
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <returns></returns>
         public IEnumerable<Type> GetAllModules()
         {
-            return _moduleManager.GetModule<ModuleProviderModule>().GetAllModules().ToList();
+            return _moduleManager.GetModule<ModuleWatcherModule>().GetAllModules().ToList();
         }
     }
 }

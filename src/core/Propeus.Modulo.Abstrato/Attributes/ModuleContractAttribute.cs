@@ -2,7 +2,7 @@
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Abstrato.Atributos
+namespace Propeus.Modulo.Abstrato.Attributes
 {
     /// <summary>
     /// Atributo de identificação de moduleType.
