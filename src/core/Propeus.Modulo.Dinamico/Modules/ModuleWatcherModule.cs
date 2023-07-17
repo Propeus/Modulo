@@ -686,7 +686,6 @@ namespace Propeus.Modulo.Dinamico.Modules
         private IEnumerable<string> _assmLibsPath;
         private string _currentDirectory;
 
-        private readonly TaskJob _job;
         private IModuleManager _moduleManager;
         #endregion
 
