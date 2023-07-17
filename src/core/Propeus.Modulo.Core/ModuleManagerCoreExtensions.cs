@@ -3,6 +3,9 @@ using Propeus.Modulo.Core.Modules;
 
 namespace Propeus.Modulo.Core
 {
+    /// <summary>
+    /// Metodos de extensao para criar gerenciadores
+    /// </summary>
     public static class ModuleManagerCoreExtensions
     {
         /// <summary>
