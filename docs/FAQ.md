@@ -1,20 +1,9 @@
-## Perguntas frequentes
+# Perguntas e respostas
 
-> Existe uma documentação técnica sobre o funcinamento deste projeto?
+Documento destinado a perguntas e duvidas frequentes
 
-Existe uma documentação auto-gerado baseado na documentação em codigo.
+## Atualizações
+| Data | Observação |
+|-|-|
+|15/07/2023 | Documentação inicial|
 
-> Em que fase está este projeto?
-
-Atuamente esta na fase 1-1 ou PoC (Prova de Conceito).
-
-> Posso uar em produção?
-
-Pode por sua conta e risco
-
-> Por que este projeto nao usa componentes de terceiros?
-
-A idéia principalç deste projeto é ser totalmente modular e possuir o minimo de dependencia possivel, então não faria sentido
-adicionar componentes de proxy dinamico e injeção de dependencia de terceiros.
-
-\* Esta pagina pode ser alterada conforme for surgindo a necessidade.
