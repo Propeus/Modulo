@@ -71,13 +71,13 @@ namespace Propeus.Modulo.Core
             return (T)CreateModule(typeof(T));
         }
         ///<inheritdoc/>
-        public IModule CreateModule(string nomeModulo)
+        public IModule CreateModule(string moduleName)
         {
             Type result = null;
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies().Reverse();
             foreach (Assembly item in assemblies)
             {
-                result = item.GetTypes().FirstOrDefault(x => x.Name == nomeModulo);
+                result = Array.Find(item.GetTypes(), x => x.Name == moduleName);
                 if (result != null)
                 {
                     break;
@@ -85,19 +85,20 @@ namespace Propeus.Modulo.Core
             }
 
             return result == null
-                ? throw new ModuleTypeNotFoundException(string.Format(Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, nomeModulo))
+                ? throw new ModuleTypeNotFoundException(string.Format(Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, moduleName))
                 : CreateModule(result);
         }
         ///<inheritdoc/>
-        public IModule CreateModule(Type moduloType)
+        public IModule CreateModule(Type moduleType)
         {
-            if (moduloType is null)
+            //TODO: Simplificar metodo
+            if (moduleType is null)
             {
-                throw new ArgumentNullException(nameof(moduloType));
+                throw new ArgumentNullException(nameof(moduleType));
             }
-            moduloType = ResolverContrato(moduloType);
+            moduleType = ResolverContrato(moduleType);
 
-            ConstructorInfo ctor = moduloType.GetConstructors().MaxBy(x => x.GetParameters().Length);
+            ConstructorInfo ctor = moduleType.GetConstructors().MaxBy(x => x.GetParameters().Length);
             if (ctor is null)
             {
                 throw new ModuleBuilderAbsentException(Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
@@ -143,7 +144,6 @@ namespace Propeus.Modulo.Core
                 }
                 else
                 {
-                    //TODO: E para IsNulable?
                     if (paramCtor[i].HasDefaultValue)
                     {
                         args[i] = paramCtor[i].DefaultValue;
@@ -164,7 +164,7 @@ namespace Propeus.Modulo.Core
 
 
 
-            IModule modulo = (IModule)Activator.CreateInstance(moduloType, args);
+            IModule modulo = (IModule)Activator.CreateInstance(moduleType, args);
             Register(modulo);
             InitializedModules++;
             return modulo;
@@ -202,9 +202,9 @@ namespace Propeus.Modulo.Core
 
         }
         ///<inheritdoc/>
-        public bool ExistsModule(IModule modulo)
+        public bool ExistsModule(IModule moduleInstance)
         {
-            return modulo is null ? throw new ArgumentNullException(nameof(modulo)) : ExistsModule(modulo.Id);
+            return moduleInstance is null ? throw new ArgumentNullException(nameof(moduleInstance)) : ExistsModule(moduleInstance.Id);
         }
         ///<inheritdoc/>
         public bool ExistsModule(string idModule)
@@ -389,6 +389,8 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         private Type ResolverContrato(Type modulo)
         {
+            //TODO: Simplificar metodo
+
             if (!modulo.IsInterface && !modulo.IsClass)
             {
                 throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_INVALIDO);
@@ -406,13 +408,9 @@ namespace Propeus.Modulo.Core
                 modulo = attr.ModuleType;
                 if (modulo is null)
                 {
-                    foreach (KeyValuePair<string, IModuleType> item in modules)
+                    foreach (var item in modules.Where(item => item.Value.Name == attr.ModuleName))
                     {
-                        if (item.Value.Name == attr.ModuleName)
-                        {
-                            modulo = item.Value.ModuleType;
-                            break;
-                        }
+                        modulo = item.Value.ModuleType;
                     }
                 }
 
