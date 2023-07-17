@@ -163,7 +163,7 @@ namespace Propeus.Modulo.Core.Modules
             }
             catch (TaskCanceledException)
             {
-
+                //Ignora exceção
             }
         }
 

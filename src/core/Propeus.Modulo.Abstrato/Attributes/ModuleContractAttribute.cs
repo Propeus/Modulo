@@ -48,10 +48,5 @@ namespace Propeus.Modulo.Abstrato.Attributes
         /// Esta propriedade e opcional e sera preenchida somente quando o tipo for informado no construtor do atributo
         /// </remarks>
         public Type ModuleType { get; private set; }
-
-        public void SetModuleType(Type moduleType)
-        {
-            ModuleType = moduleType;
-        }
     }
 }

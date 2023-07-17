@@ -40,11 +40,19 @@ namespace Propeus.Modulo.Util.Objetos
             MethodInfo box_explicito_implicito = obj.GetType().GetMethod("op_Explicit", new[] { obj.GetType() })
                 ?? obj.GetType().GetMethod("op_Implicit", new[] { obj.GetType() });
 
-            //Ta dando ruim aqui
+            if (box_explicito_implicito is null)
+            {
+                throw new InvalidCastException();
+            }
+            else if (box_explicito_implicito.ReturnType == para)
+            {
+                return box_explicito_implicito.Invoke(obj, new object[] { obj });
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
 
-            return box_explicito_implicito?.ReturnType == para
-                ? box_explicito_implicito.Invoke(obj, new object[] { obj })
-                : throw new InvalidCastException();
         }
         //https://stackoverflow.com/questions/374651/how-to-check-if-an-object-is-nullable
         public static bool IsNullable<T>(this T obj)
