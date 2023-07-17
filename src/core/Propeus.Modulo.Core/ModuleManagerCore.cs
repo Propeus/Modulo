@@ -91,7 +91,6 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         public IModule CreateModule(Type moduleType)
         {
-            //TODO: Simplificar metodo
             if (moduleType is null)
             {
                 throw new ArgumentNullException(nameof(moduleType));
@@ -109,32 +108,7 @@ namespace Propeus.Modulo.Core
 
             for (int i = 0; i < paramCtor.Length; i++)
             {
-                if (!paramCtor[i].ParameterType.IsAssignableTo(typeof(IModuleManager)) && (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) || paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>()))
-                {
-                    if (!ExistsModule(paramCtor[i].ParameterType))
-                    {
-                        if (paramCtor[i].IsOptional)
-                        {
-                            try
-                            {
-                                args[i] = Convert.ChangeType(CreateModule(paramCtor[i].ParameterType), paramCtor[i].ParameterType);
-                            }
-                            catch (ModuleTypeNotFoundException)
-                            {
-                                args[i] = paramCtor[i].ParameterType.Default();
-                            }
-                        }
-                        else
-                        {
-                            args[i] = CreateModule(paramCtor[i].ParameterType)/*.To(paramCtor[i].ParameterType)*/;
-                        }
-                    }
-                    else
-                    {
-                        args[i] = GetModule(paramCtor[i].ParameterType).To(paramCtor[i].ParameterType);
-                    }
-                }
-                else if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModuleManager)))
+                if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModuleManager)))
                 {
                     IModuleType gen = modules
                         .Where(x => !x.Value.IsDeleted)
@@ -142,24 +116,33 @@ namespace Propeus.Modulo.Core
                         .FirstOrDefault(x => x.Module is IModuleManager);
                     args[i] = (gen?.Module as IModuleManager) ?? this;
                 }
-                else
+                else if ((paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) || paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>()))
                 {
-                    if (paramCtor[i].HasDefaultValue)
+                    try
                     {
-                        args[i] = paramCtor[i].DefaultValue;
-                        continue;
+                        args[i] = CreateModule(paramCtor[i].ParameterType);
                     }
-                    else if (paramCtor[i].IsOptional)
+                    catch (ModuleTypeNotFoundException)
                     {
-                        continue;
+                        if (paramCtor[i].IsOptional)
+                        {
+                            args[i] = paramCtor[i].ParameterType.Default();
+                            continue;
+                        }
+                        
+                        throw;
                     }
-                    else if (paramCtor[i].IsNullable())
-                    {
-                        continue;
-                    }
-
-                    throw new ModuleTypeInvalidException($"O tipo '{paramCtor[i].ParameterType.Name}' nao e um Module, Contrato ou ModuleManagerCore");
                 }
+
+
+                if (paramCtor[i].HasDefaultValue || paramCtor[i].IsOptional || paramCtor[i].IsNullable())
+                {
+                    if (!(paramCtor[i].DefaultValue is DBNull))
+                        args[i] = paramCtor[i].DefaultValue;
+                    continue;
+                }
+
+                throw new ModuleTypeInvalidException($"O tipo '{paramCtor[i].ParameterType.Name}' nao e um Module, Contrato ou ModuleManagerCore");
             }
 
 
@@ -170,6 +153,8 @@ namespace Propeus.Modulo.Core
             return modulo;
 
         }
+
+
 
         ///<inheritdoc/>
         public bool ExistsModule(Type moduleType)
