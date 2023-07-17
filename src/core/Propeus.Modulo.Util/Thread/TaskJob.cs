@@ -10,16 +10,8 @@ namespace Propeus.Modulo.Util.Thread
 {
     public class TaskJob : IDisposable
     {
-        private static TaskJob _task;
-        public static TaskJob GetTasker(int workers = 2)
-        {
-            if (_task == null || _task.disposedValue)
-            {
-                _task = new TaskJob(workers);
-            }
-
-            return _task;
-        }
+        static TaskJob _task;
+    
 
         private enum EstadoRunner
         {
@@ -82,13 +74,19 @@ namespace Propeus.Modulo.Util.Thread
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly TaskFactory _taskFactory;
 
-        private TaskJob(int threads = 2)
+        TaskJob(int threads = 2)
         {
             _runners = new ConcurrentDictionary<string, Runner>();
             _cancellationTokenSource = new CancellationTokenSource();
             _taskFactory = new TaskFactory(new LimitedConcurrencyLevelTaskScheduler(threads));
         }
 
+        /// <summary>
+        /// Registra uma nova tarefa
+        /// </summary>
+        /// <param name="action">Funcao que irá realizar a tarefa</param>
+        /// <param name="nomeJob">Nome da tarefa</param>
+        /// <param name="period">Tempo de espera para executar a tarefa novamente</param>
         public void RegisterJob(Action<object> action, string nomeJob = null, TimeSpan? period = null)
         {
             nomeJob ??= Guid.NewGuid().ToString();
@@ -147,6 +145,10 @@ namespace Propeus.Modulo.Util.Thread
                 runner.Dispose();
             }
         }
+        /// <summary>
+        /// Remove a tarefa
+        /// </summary>
+        /// <param name="nomeJob">Nome da tarefa a ser removido</param>
         public void UnregisterJob(string nomeJob)
         {
             if (_runners.TryRemove(nomeJob, out Runner runner))
@@ -154,6 +156,10 @@ namespace Propeus.Modulo.Util.Thread
                 runner.Dispose();
             }
         }
+        /// <summary>
+        /// Aguarda todas as tarefas serem concluidas
+        /// </summary>
+        /// <param name="timeSpan">Tempo de espera maximo</param>
         public void WaitAll(TimeSpan? timeSpan = null)
         {
             try
@@ -169,10 +175,14 @@ namespace Propeus.Modulo.Util.Thread
             }
             catch (TaskCanceledException)
             {
-
+                //Ignora em caso de excecao
             }
         }
 
+        /// <summary>
+        /// Exibe as tarefas em execucao
+        /// </summary>
+        /// <returns>Lista de tarefas em execucao</returns>
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -183,6 +193,10 @@ namespace Propeus.Modulo.Util.Thread
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Exibe melhor as tarefas com base no grupo informado no nome
+        /// </summary>
+        /// <returns>As tarefas em execucao</returns>
         public string ToStringView()
         {
             Dictionary<string, StringBuilder> grupos = new Dictionary<string, StringBuilder>
@@ -224,6 +238,10 @@ namespace Propeus.Modulo.Util.Thread
         #region IDisposable
         private bool disposedValue;
 
+        /// <summary>
+        /// Cancela todas as tarefas em execucao
+        /// </summary>
+        /// <param name="disposing">Indica para parar todas as tarefas imediatamente</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -240,6 +258,9 @@ namespace Propeus.Modulo.Util.Thread
             }
         }
 
+        /// <summary>
+        /// Cancela todas as tarefas em execucao
+        /// </summary>
         public void Dispose()
         {
             // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
