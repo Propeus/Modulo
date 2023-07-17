@@ -40,7 +40,7 @@ namespace Propeus.Modulo.Core.Modules
             public Task Task { get; internal set; }
             public EstadoRunner Estado { get; internal set; }
 
-            public void Run(CancellationToken cancellationToken, TaskFactory _taskFactory)
+            public void Run( TaskFactory _taskFactory, CancellationToken cancellationToken)
             {
                 Task = _taskFactory.StartNew(Action, cancellationToken, CancelationToken.Token);
             }
@@ -134,7 +134,7 @@ namespace Propeus.Modulo.Core.Modules
 
             if (_runners.TryAdd(nomeJob, runner))
             {
-                runner.Run(_cancellationTokenSource.Token, _taskFactory);
+                runner.Run(_taskFactory, _cancellationTokenSource.Token);
             }
             else
             {
@@ -190,15 +190,16 @@ namespace Propeus.Modulo.Core.Modules
                 string[] nme_group = item.Key.Split("::");
                 if (nme_group.Length > 1)
                 {
-                    if (grupos.ContainsKey(nme_group[0]))
+                    if (grupos.TryGetValue(nme_group[0],out var targetValue))
                     {
-                        grupos[nme_group[0]].Append('\t').Append("- ").Append(nme_group[1]).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
+                        targetValue.Append('\t').Append("- ").Append(nme_group[1]).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
                     }
                     else
                     {
-                        grupos.Add(nme_group[0], new StringBuilder());
-                        grupos[nme_group[0]].AppendLine(nme_group[0]);
-                        grupos[nme_group[0]].Append('\t').Append("- ").Append(nme_group[1]).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
+                        var stringBuilder = new StringBuilder();
+                        stringBuilder.AppendLine(nme_group[0]);
+                        stringBuilder.Append('\t').Append("- ").Append(nme_group[1]).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
+                        grupos.Add(nme_group[0], stringBuilder);
                     }
                 }
                 else
@@ -210,7 +211,7 @@ namespace Propeus.Modulo.Core.Modules
             StringBuilder sb = new StringBuilder();
             foreach (KeyValuePair<string, StringBuilder> item in grupos)
             {
-                sb.Append(item.Value.ToString());
+                sb.Append(item.Value);
             }
             return sb.ToString();
         }
