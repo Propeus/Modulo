@@ -16,38 +16,27 @@ internal abstract class CallSiteVisitor<TArgument, TResult>
             return _stackGuard.RunOnEmptyStack(VisitCallSite, callSite, argument);
         }
 
-        switch (callSite.Cache.Location)
+        return callSite.Cache.Location switch
         {
-            case CallSiteResultCacheLocation.Root:
-                return VisitRootCache(callSite, argument);
-            case CallSiteResultCacheLocation.Scope:
-                return VisitScopeCache(callSite, argument);
-            case CallSiteResultCacheLocation.Dispose:
-                return VisitDisposeCache(callSite, argument);
-            case CallSiteResultCacheLocation.None:
-                return VisitNoCache(callSite, argument);
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            CallSiteResultCacheLocation.Root => VisitRootCache(callSite, argument),
+            CallSiteResultCacheLocation.Scope => VisitScopeCache(callSite, argument),
+            CallSiteResultCacheLocation.Dispose => VisitDisposeCache(callSite, argument),
+            CallSiteResultCacheLocation.None => VisitNoCache(callSite, argument),
+            _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 
     protected virtual TResult VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
     {
-        switch (callSite.Kind)
+        return callSite.Kind switch
         {
-            case CallSiteKind.Factory:
-                return VisitFactory((FactoryCallSite)callSite, argument);
-            case CallSiteKind.IEnumerable:
-                return VisitIEnumerable((IEnumerableCallSite)callSite, argument);
-            case CallSiteKind.Constructor:
-                return VisitConstructor((ConstructorCallSite)callSite, argument);
-            case CallSiteKind.Constant:
-                return VisitConstant((ConstantCallSite)callSite, argument);
-            case CallSiteKind.ServiceProvider:
-                return VisitServiceProvider((ServiceProviderCallSite)callSite, argument);
-            default:
-                throw new NotSupportedException("Chamada nao suportada");
-        }
+            CallSiteKind.Factory => VisitFactory((FactoryCallSite)callSite, argument),
+            CallSiteKind.IEnumerable => VisitIEnumerable((IEnumerableCallSite)callSite, argument),
+            CallSiteKind.Constructor => VisitConstructor((ConstructorCallSite)callSite, argument),
+            CallSiteKind.Constant => VisitConstant((ConstantCallSite)callSite, argument),
+            CallSiteKind.ServiceProvider => VisitServiceProvider((ServiceProviderCallSite)callSite, argument),
+            _ => throw new NotSupportedException("Chamada nao suportada"),
+        };
     }
 
     protected virtual TResult VisitNoCache(ServiceCallSite callSite, TArgument argument)

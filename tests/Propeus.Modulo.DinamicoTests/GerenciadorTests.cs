@@ -31,7 +31,7 @@ namespace Propeus.Modulo.DinamicoTests
          * 1 - Todos os modulos utilziados aqui, estão dentro do proprio console para facilitar o entendimento do fluxo do gerenciador e permitir que debuge o que for necessario.
          * 2 - O tempo para inicializar um gerenciador vai depender da quantidade de DLLs que estiverem na pasta
          * **/
-     
+
         [TestMethod()]
         public void Teste_8()
         {

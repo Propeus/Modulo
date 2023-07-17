@@ -33,17 +33,21 @@ internal readonly struct ServiceCacheKey : IEquatable<ServiceCacheKey>
     /// <summary>Indicates whether the current instance is equal to another instance of the same type.</summary>
     /// <param name="other">An instance to compare with this instance.</param>
     /// <returns>true if the current instance is equal to the other instance; otherwise, false.</returns>
-    public bool Equals(ServiceCacheKey other) =>
-        Type == other.Type && Slot == other.Slot;
+    public bool Equals(ServiceCacheKey other)
+    {
+        return Type == other.Type && Slot == other.Slot;
+    }
 
-    public override bool Equals([NotNullWhen(true)] object? obj) =>
-        obj is ServiceCacheKey other && Equals(other);
+    public override bool Equals([NotNullWhen(true)] object? obj)
+    {
+        return obj is ServiceCacheKey other && Equals(other);
+    }
 
     public override int GetHashCode()
     {
         unchecked
         {
-            return (Type?.GetHashCode() ?? 23) * 397 ^ Slot;
+            return ((Type?.GetHashCode() ?? 23) * 397) ^ Slot;
         }
     }
 }

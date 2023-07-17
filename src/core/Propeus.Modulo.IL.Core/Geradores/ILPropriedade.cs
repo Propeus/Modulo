@@ -68,13 +68,13 @@ namespace Propeus.Modulo.IL.Geradores
         ///<inheritdoc/>
         public void Executar()
         {
-                     
+
             if (Getter != null)
             {
                 Getter.Executar();
                 _propriedadeBuilder.SetGetMethod(Getter._metodoBuilder);
             }
-           
+
             if (Setter != null)
             {
                 Setter.Executar();

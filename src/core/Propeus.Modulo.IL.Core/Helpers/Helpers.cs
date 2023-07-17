@@ -5,9 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 using Propeus.Modulo.Util.Objetos;
 
@@ -39,7 +36,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
                         nEnums[i] = vnEnum;
                     }
                 }
-              
+
             }
 
             return nEnums;
@@ -118,7 +115,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
         /// <exception cref="ArgumentNullException">Argumento nulo</exception>
         public static IEnumerable<T> FullJoin<T>(this IEnumerable<T> esquerda, IEnumerable<T> direita)
         {
-            
+
             if (direita is null)
             {
                 return esquerda;
@@ -399,7 +396,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
         /// <param name="nome">Nome do tipo que possui o metodo</param>
         public static void DisposeModuleBuilder(this ModuleBuilder modBuild, string nome = null)
         {
-           
+
             Type modBuildType = typeof(ModuleBuilder);
 #pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo modTypeBuildList = modBuildType.GetField("_typeBuilderDict", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);

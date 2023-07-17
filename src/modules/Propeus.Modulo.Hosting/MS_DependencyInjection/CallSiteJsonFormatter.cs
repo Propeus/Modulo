@@ -12,8 +12,8 @@ namespace Propeus.Modulo.Hosting.MS_DependencyInjection
 
         public string Format(ServiceCallSite callSite)
         {
-            var stringBuilder = new StringBuilder();
-            var context = new CallSiteFormatterContext(stringBuilder, 0, new HashSet<ServiceCallSite>());
+            StringBuilder stringBuilder = new StringBuilder();
+            CallSiteFormatterContext context = new CallSiteFormatterContext(stringBuilder, 0, new HashSet<ServiceCallSite>());
 
             VisitCallSite(callSite, context);
 

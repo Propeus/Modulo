@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 
-partial class ServiceProvider
+internal partial class ServiceProvider
 {
     internal sealed class DynamicServiceProviderEngine : CompiledServiceProviderEngine
     {
@@ -23,7 +23,7 @@ partial class ServiceProvider
             {
                 // Resolve the result before we increment the call count, this ensures that singletons
                 // won't cause any side effects during the compilation of the resolve function.
-                var result = CallSiteRuntimeResolver.Instance.Resolve(callSite, scope);
+                object? result = CallSiteRuntimeResolver.Instance.Resolve(callSite, scope);
 
                 if (Interlocked.Increment(ref callCount) == 2)
                 {

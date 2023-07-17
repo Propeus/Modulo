@@ -5,7 +5,7 @@ namespace Propeus.Modulo.Abstrato
     /// </summary>
     public static partial class Constantes
     {
-        
+
         /// <summary>
         /// Metodo que o gerenciador irá chamar para realizar as configurações
         /// </summary>
@@ -15,7 +15,7 @@ namespace Propeus.Modulo.Abstrato
         /// </summary>
         public const string METODO_INSTANCIA = "CriarInstancia";
 
-       
+
 
         /// <summary>
         /// Nenhum construtor publico foi encontrado

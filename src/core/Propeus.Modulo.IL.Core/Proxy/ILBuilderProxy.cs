@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 
 using Propeus.Modulo.IL.Core.Helpers;
 
@@ -44,7 +43,7 @@ namespace Propeus.Modulo.IL.Core.Proxy
 
 
         private readonly Dictionary<Type, object> Builders;
-        private Dictionary<string, string> Stack = new();
+        private readonly Dictionary<string, string> Stack = new();
         internal ILGenerator ILGenerator { get; private set; }
 
         /// <summary>

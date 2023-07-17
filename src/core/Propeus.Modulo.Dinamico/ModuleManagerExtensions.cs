@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Dinamico.Modules;
 
 namespace Propeus.Modulo.Dinamico
@@ -19,7 +13,7 @@ namespace Propeus.Modulo.Dinamico
         /// <returns></returns>
         public static IModuleManager CreateModuleManagerDefault(IModuleManager moduleManagerCore)
         {
-            var gen = new ModuleManager(moduleManagerCore);
+            ModuleManager gen = new ModuleManager(moduleManagerCore);
             gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>());
             gen.KeepAliveModuleAsync(gen.CreateModule<ModuleWatcherModule>());
             return gen;
@@ -30,7 +24,7 @@ namespace Propeus.Modulo.Dinamico
         /// <returns></returns>
         public static IModuleManager CreateModuleManager(IModuleManager moduleManagerCore)
         {
-            var gen = new ModuleManager(moduleManagerCore);
+            ModuleManager gen = new ModuleManager(moduleManagerCore);
             return gen;
         }
     }

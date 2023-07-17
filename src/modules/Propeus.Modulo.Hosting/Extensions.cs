@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using Propeus.Modulo.Abstrato.Interfaces;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Propeus.Modulo.Hosting.ViewEngine;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace Propeus.Modulo.Hosting
 {

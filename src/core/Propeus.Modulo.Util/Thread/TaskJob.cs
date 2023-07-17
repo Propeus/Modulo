@@ -2,29 +2,26 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Propeus.Modulo.Util.Objetos;
-
-using static System.Collections.Specialized.BitVector32;
 
 namespace Propeus.Modulo.Util.Thread
 {
     public class TaskJob : IDisposable
     {
-
-        static TaskJob _task;
+        private static TaskJob _task;
         public static TaskJob GetTasker(int workers = 2)
         {
             if (_task == null || _task.disposedValue)
+            {
                 _task = new TaskJob(workers);
+            }
+
             return _task;
         }
 
-        enum EstadoRunner
+        private enum EstadoRunner
         {
             Criado,
             Executando,
@@ -33,7 +30,7 @@ namespace Propeus.Modulo.Util.Thread
             Finalizado
         }
 
-        class Runner : IDisposable
+        private class Runner : IDisposable
         {
 
             public Runner()
@@ -81,9 +78,9 @@ namespace Propeus.Modulo.Util.Thread
             }
         }
 
-        ConcurrentDictionary<string, Runner> _runners;
-        CancellationTokenSource _cancellationTokenSource;
-        TaskFactory _taskFactory;
+        private readonly ConcurrentDictionary<string, Runner> _runners;
+        private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly TaskFactory _taskFactory;
 
         private TaskJob(int threads = 2)
         {
@@ -131,7 +128,7 @@ namespace Propeus.Modulo.Util.Thread
                         {
                             runner.Estado = EstadoRunner.Finalizado;
                         }
-                        
+
                     }
                     else
                     {
@@ -162,9 +159,13 @@ namespace Propeus.Modulo.Util.Thread
             try
             {
                 if (timeSpan == null)
+                {
                     Task.WaitAll(_runners.Select(x => x.Value.Task).ToArray());
+                }
                 else
+                {
                     Task.WaitAll(_runners.Select(x => x.Value.Task).ToArray(), timeSpan.Value);
+                }
             }
             catch (TaskCanceledException)
             {
@@ -175,7 +176,7 @@ namespace Propeus.Modulo.Util.Thread
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in _runners)
+            foreach (KeyValuePair<string, Runner> item in _runners)
             {
                 stringBuilder.Append(item.Key).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
             }
@@ -184,13 +185,15 @@ namespace Propeus.Modulo.Util.Thread
 
         public string ToStringView()
         {
-            Dictionary<string, StringBuilder> grupos = new Dictionary<string, StringBuilder>();
-            grupos.Add("Global", new StringBuilder());
+            Dictionary<string, StringBuilder> grupos = new Dictionary<string, StringBuilder>
+            {
+                { "Global", new StringBuilder() }
+            };
             grupos.First().Value.AppendLine("Global");
 
-            foreach (var item in _runners)
+            foreach (KeyValuePair<string, Runner> item in _runners)
             {
-                var nme_group = item.Key.Split("::");
+                string[] nme_group = item.Key.Split("::");
                 if (nme_group.Length > 1)
                 {
                     if (grupos.ContainsKey(nme_group[0]))
@@ -211,7 +214,7 @@ namespace Propeus.Modulo.Util.Thread
             }
 
             StringBuilder sb = new StringBuilder();
-            foreach (var item in grupos)
+            foreach (KeyValuePair<string, StringBuilder> item in grupos)
             {
                 sb.Append(item.Value.ToString());
             }

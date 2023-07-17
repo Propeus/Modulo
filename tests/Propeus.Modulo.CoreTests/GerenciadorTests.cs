@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -573,7 +572,7 @@ namespace Propeus.Modulo.CoreTests
             IModule m = null;
             for (int i = 0; i < 99; i++)
             {
-                var auxm = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
+                TesteInstanciaMultiplaModule auxm = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
                 Assert.AreNotEqual(m, auxm);
                 m = auxm;
             }
@@ -803,7 +802,7 @@ namespace Propeus.Modulo.CoreTests
 
             Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
-                var m = gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional));
+                IModule m = gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional));
                 m.Dispose();
                 gerenciador.GetModule(m.Id);
             });

@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
+
 using Propeus.Modulo.Abstrato.Attributes;
-using Microsoft.Extensions.DependencyInjection;
 using Propeus.Modulo.Hosting.MS_MVC;
-using System.Resources;
 
 namespace Propeus.Modulo.Hosting
 {
@@ -59,15 +59,7 @@ namespace Propeus.Modulo.Hosting
 
                 return _viewData;
             }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException(Resources.ArgumentCannotBeNullOrEmpty, "ViewData");
-                }
-
-                _viewData = value;
-            }
+            set => _viewData = value ?? throw new ArgumentException(Resources.ArgumentCannotBeNullOrEmpty, "ViewData");
         }
 
         //
@@ -85,15 +77,7 @@ namespace Propeus.Modulo.Hosting
 
                 return _tempData;
             }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                _tempData = value;
-            }
+            set => _tempData = value ?? throw new ArgumentNullException("value");
         }
 
         //

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Util.Thread;
@@ -14,7 +15,7 @@ namespace Propeus.Modulo.Core.Modules
     [Module]
     internal class TaskJobModule : BaseModule
     {
-        enum EstadoRunner
+        private enum EstadoRunner
         {
             Criado,
             Executando,
@@ -23,7 +24,7 @@ namespace Propeus.Modulo.Core.Modules
             Finalizado
         }
 
-        class Runner : IDisposable
+        private class Runner : IDisposable
         {
 
             public Runner()
@@ -71,9 +72,9 @@ namespace Propeus.Modulo.Core.Modules
             }
         }
 
-        ConcurrentDictionary<string, Runner> _runners;
-        CancellationTokenSource _cancellationTokenSource;
-        TaskFactory _taskFactory;
+        private readonly ConcurrentDictionary<string, Runner> _runners;
+        private readonly CancellationTokenSource _cancellationTokenSource;
+        private readonly TaskFactory _taskFactory;
 
         public TaskJobModule(int threads = 2) : base(true)
         {
@@ -152,9 +153,13 @@ namespace Propeus.Modulo.Core.Modules
             try
             {
                 if (timeSpan == null)
+                {
                     Task.WaitAll(_runners.Select(x => x.Value.Task).ToArray());
+                }
                 else
+                {
                     Task.WaitAll(_runners.Select(x => x.Value.Task).ToArray(), timeSpan.Value);
+                }
             }
             catch (TaskCanceledException)
             {
@@ -165,7 +170,7 @@ namespace Propeus.Modulo.Core.Modules
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in _runners)
+            foreach (KeyValuePair<string, Runner> item in _runners)
             {
                 stringBuilder.Append(item.Key).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
             }
@@ -174,13 +179,15 @@ namespace Propeus.Modulo.Core.Modules
 
         public string ToStringView()
         {
-            Dictionary<string, StringBuilder> grupos = new Dictionary<string, StringBuilder>();
-            grupos.Add("Global", new StringBuilder());
+            Dictionary<string, StringBuilder> grupos = new Dictionary<string, StringBuilder>
+            {
+                { "Global", new StringBuilder() }
+            };
             grupos.First().Value.AppendLine("Global");
 
-            foreach (var item in _runners)
+            foreach (KeyValuePair<string, Runner> item in _runners)
             {
-                var nme_group = item.Key.Split("::");
+                string[] nme_group = item.Key.Split("::");
                 if (nme_group.Length > 1)
                 {
                     if (grupos.ContainsKey(nme_group[0]))
@@ -201,7 +208,7 @@ namespace Propeus.Modulo.Core.Modules
             }
 
             StringBuilder sb = new StringBuilder();
-            foreach (var item in grupos)
+            foreach (KeyValuePair<string, StringBuilder> item in grupos)
             {
                 sb.Append(item.Value.ToString());
             }

@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Propeus.Modulo.Hosting.MS_MVC
 {
@@ -91,8 +84,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         {
             ArgumentNullException.ThrowIfNull(includeExpressions);
 
-            var expression = GetPropertyFilterExpression(includeExpressions);
-            var propertyFilter = expression.Compile();
+            Expression<Func<ModelMetadata, bool>> expression = GetPropertyFilterExpression(includeExpressions);
+            Func<ModelMetadata, bool> propertyFilter = expression.Compile();
 
             return TryUpdateModelAsync(
                model,
@@ -231,16 +224,16 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 throw new ArgumentException(nameof(modelType));
             }
 
-            var modelMetadata = metadataProvider.GetMetadataForType(modelType);
+            ModelMetadata modelMetadata = metadataProvider.GetMetadataForType(modelType);
 
             if (modelMetadata.BoundConstructor != null)
             {
                 throw new NotSupportedException();
             }
 
-            var modelState = actionContext.ModelState;
+            ModelStateDictionary modelState = actionContext.ModelState;
 
-            var modelBindingContext = DefaultModelBindingContext.CreateBindingContext(
+            ModelBindingContext modelBindingContext = DefaultModelBindingContext.CreateBindingContext(
                 actionContext,
                 valueProvider,
                 modelMetadata,
@@ -250,7 +243,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
             modelBindingContext.Model = model;
             modelBindingContext.PropertyFilter = propertyFilter;
 
-            var factoryContext = new ModelBinderFactoryContext()
+            ModelBinderFactoryContext factoryContext = new ModelBinderFactoryContext()
             {
                 Metadata = modelMetadata,
                 BindingInfo = new BindingInfo()
@@ -266,10 +259,10 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 // operations because they use the ParameterDescriptor for the token.
                 CacheToken = modelMetadata,
             };
-            var binder = modelBinderFactory.CreateBinder(factoryContext);
+            IModelBinder binder = modelBinderFactory.CreateBinder(factoryContext);
 
             await binder.BindModelAsync(modelBindingContext);
-            var modelBindingResult = modelBindingContext.Result;
+            ModelBindingResult modelBindingResult = modelBindingContext.Result;
             if (modelBindingResult.IsModelSet)
             {
                 objectModelValidator.Validate(
@@ -287,8 +280,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         // Internal for tests
         internal static string GetPropertyName(Expression expression)
         {
-            if (expression.NodeType == ExpressionType.Convert ||
-                expression.NodeType == ExpressionType.ConvertChecked)
+            if (expression.NodeType is ExpressionType.Convert or
+                ExpressionType.ConvertChecked)
             {
                 // For Boxed Value Types
                 expression = ((UnaryExpression)expression).Operand;
@@ -299,7 +292,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 throw new InvalidOperationException();
             }
 
-            var memberExpression = (MemberExpression)expression;
+            MemberExpression memberExpression = (MemberExpression)expression;
             if (memberExpression.Member is PropertyInfo memberInfo)
             {
                 if (memberExpression.Expression!.NodeType != ExpressionType.Parameter)
@@ -332,11 +325,11 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 return (m) => true;
             }
 
-            var firstExpression = GetPredicateExpression(expressions[0]);
-            var orWrapperExpression = firstExpression.Body;
-            foreach (var expression in expressions.Skip(1))
+            Expression<Func<ModelMetadata, bool>> firstExpression = GetPredicateExpression(expressions[0]);
+            Expression orWrapperExpression = firstExpression.Body;
+            foreach (Expression<Func<TModel, object?>>? expression in expressions.Skip(1))
             {
-                var predicate = GetPredicateExpression(expression);
+                Expression<Func<ModelMetadata, bool>> predicate = GetPredicateExpression(expression);
                 orWrapperExpression = Expression.OrElse(
                     orWrapperExpression,
                     Expression.Invoke(predicate, firstExpression.Parameters));
@@ -348,7 +341,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         private static Expression<Func<ModelMetadata, bool>> GetPredicateExpression<TModel>(
             Expression<Func<TModel, object?>> expression)
         {
-            var propertyName = GetPropertyName(expression.Body);
+            string propertyName = GetPropertyName(expression.Body);
 
             return (metadata) => string.Equals(metadata.PropertyName, propertyName, StringComparison.Ordinal);
         }
@@ -399,7 +392,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                     //
                     // In the unlikely case that multiple top-level collections where bound to the empty prefix,
                     // you're just out of luck.
-                    foreach (var kvp in modelState)
+                    foreach (KeyValuePair<string, ModelStateEntry> kvp in modelState)
                     {
                         if (kvp.Key.Length > 0 && kvp.Key[0] == '[')
                         {
@@ -411,9 +404,9 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 }
                 else if (modelMetadata.IsComplexType)
                 {
-                    for (var i = 0; i < modelMetadata.Properties.Count; i++)
+                    for (int i = 0; i < modelMetadata.Properties.Count; i++)
                     {
-                        var property = modelMetadata.Properties[i];
+                        ModelMetadata property = modelMetadata.Properties[i];
                         modelState.ClearValidationState((property.BinderModelName ?? property.PropertyName)!);
                     }
                 }
@@ -421,7 +414,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 {
                     // Simple types bind to a single entry. So clear the entry with the empty-key, in the
                     // unlikely event that it has errors.
-                    var entry = modelState[string.Empty];
+                    ModelStateEntry? entry = modelState[string.Empty];
                     if (entry != null)
                     {
                         entry.Errors.Clear();
@@ -456,8 +449,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         /// <remarks>"Usable" in this context means the property can be set or its value reused.</remarks>
         public static bool CanGetCompatibleCollection<T>(ModelBindingContext bindingContext)
         {
-            var model = bindingContext.Model;
-            var modelType = bindingContext.ModelType;
+            object? model = bindingContext.Model;
+            Type modelType = bindingContext.ModelType;
 
             if (typeof(T).IsAssignableFrom(modelType))
             {
@@ -540,8 +533,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
 
         private static ICollection<T> GetCompatibleCollection<T>(ModelBindingContext bindingContext, int? capacity)
         {
-            var model = bindingContext.Model;
-            var modelType = bindingContext.ModelType;
+            object? model = bindingContext.Model;
+            Type modelType = bindingContext.ModelType;
 
             // There's a limited set of collection types we can create here.
             //
@@ -594,7 +587,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         [return: NotNullIfNotNull("value")]
         public static T? ConvertTo<T>(object? value, CultureInfo? culture)
         {
-            var converted = ConvertTo(value, typeof(T), culture);
+            object? converted = ConvertTo(value, typeof(T), culture);
             return converted == null ? default : (T)converted;
         }
 
@@ -622,22 +615,22 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 return value;
             }
 
-            var cultureToUse = culture ?? CultureInfo.InvariantCulture;
+            CultureInfo cultureToUse = culture ?? CultureInfo.InvariantCulture;
             return UnwrapPossibleArrayType(value, type, cultureToUse);
         }
 
         private static object? UnwrapPossibleArrayType(object value, Type destinationType, CultureInfo culture)
         {
             // array conversion results in four cases, as below
-            var valueAsArray = value as Array;
+            Array? valueAsArray = value as Array;
             if (destinationType.IsArray)
             {
-                var destinationElementType = destinationType.GetElementType()!;
+                Type destinationElementType = destinationType.GetElementType()!;
                 if (valueAsArray != null)
                 {
                     // case 1: both destination + source type are arrays, so convert each element
-                    var converted = (IList)Array.CreateInstance(destinationElementType, valueAsArray.Length);
-                    for (var i = 0; i < valueAsArray.Length; i++)
+                    IList converted = Array.CreateInstance(destinationElementType, valueAsArray.Length);
+                    for (int i = 0; i < valueAsArray.Length; i++)
                     {
                         converted[i] = ConvertSimpleType(valueAsArray.GetValue(i), destinationElementType, culture);
                     }
@@ -647,8 +640,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 {
                     // case 2: destination type is array but source is single element, so wrap element in
                     // array + convert
-                    var element = ConvertSimpleType(value, destinationElementType, culture);
-                    var converted = (IList)Array.CreateInstance(destinationElementType, 1);
+                    object? element = ConvertSimpleType(value, destinationElementType, culture);
+                    IList converted = Array.CreateInstance(destinationElementType, 1);
                     converted[0] = element;
                     return converted;
                 }
@@ -658,7 +651,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 // case 3: destination type is single element but source is array, so extract first element + convert
                 if (valueAsArray.Length > 0)
                 {
-                    var elementValue = valueAsArray.GetValue(0);
+                    object? elementValue = valueAsArray.GetValue(0);
                     return ConvertSimpleType(elementValue, destinationType, culture);
                 }
                 else
@@ -688,8 +681,8 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                 return null;
             }
 
-            var converter = TypeDescriptor.GetConverter(destinationType);
-            var canConvertFrom = converter.CanConvertFrom(value.GetType());
+            TypeConverter converter = TypeDescriptor.GetConverter(destinationType);
+            bool canConvertFrom = converter.CanConvertFrom(value.GetType());
             if (!canConvertFrom)
             {
                 converter = TypeDescriptor.GetConverter(value.GetType());

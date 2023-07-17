@@ -14,8 +14,6 @@ using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
 using Propeus.Modulo.Util.Atributos;
-using Propeus.Modulo.Util.Objetos;
-using Propeus.Modulo.Util.Thread;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -318,7 +316,7 @@ namespace Propeus.Modulo.Dinamico
         public IModule CreateModule(string moduleName)
         {
             //TODO: Criar exception para caso do modulo ModuleProviderModule nao existir
-            return CreateModule(this.GetModule<ModuleWatcherModule>()[moduleName]);
+            return CreateModule(GetModule<ModuleWatcherModule>()[moduleName]);
         }
 
 
@@ -1208,7 +1206,7 @@ namespace Propeus.Modulo.Dinamico
         public bool ExistsModule(Type moduleType)
         {
 
-            if (ModuloProvider.TryGetValue(moduleType.Name, out var target))
+            if (ModuloProvider.TryGetValue(moduleType.Name, out ILClasseProvider? target))
             {
                 return _gerenciador.ExistsModule(target.ObterTipoGerado());
             }
@@ -1508,7 +1506,7 @@ namespace Propeus.Modulo.Dinamico
                 State = State.Off;
                 RemoveAllModules();
 
-                foreach (var item in this.ModuloProvider)
+                foreach (KeyValuePair<string, ILClasseProvider> item in ModuloProvider)
                 {
                     item.Value.Dispose();
                 }
@@ -1551,7 +1549,7 @@ namespace Propeus.Modulo.Dinamico
                 throw new ArgumentException("O tipo nao e uma interface");
             }
 
-            return this._gerenciador.GetModule<ModuleWatcherModule>().GetModuleFromContract(contrato);
+            return _gerenciador.GetModule<ModuleWatcherModule>().GetModuleFromContract(contrato);
 
         }
         private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModule

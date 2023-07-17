@@ -17,7 +17,7 @@ namespace Propeus.Modulo.IL.Geradores
 
     internal static partial class Constantes
     {
-        public const string CONST_NME_METODO = "IL_Gerador_{0}_Metodo_";       
+        public const string CONST_NME_METODO = "IL_Gerador_{0}_Metodo_";
     }
 
     /// <summary>
@@ -39,9 +39,9 @@ namespace Propeus.Modulo.IL.Geradores
 
         public ILParametro[] Parametros { get; private set; }
         public Token[] Acessadores { get; private set; }
-      
+
         internal List<IILPilha> PilhaExecucao { get; private set; }
-        
+
         internal Stack<IILPilha> PilhasAuxiliares { get; private set; }
 
         internal MethodBuilder _metodoBuilder;
@@ -60,7 +60,7 @@ namespace Propeus.Modulo.IL.Geradores
         /// <param name="parametros"></param>
         public ILMetodo(ILBuilderProxy builderProxy, string nomeClasse, string nomeMetodo, Token[] acessadores, Type retorno, ILParametro[] parametros = null)
         {
-            
+
             parametros ??= Array.Empty<ILParametro>();
 
             Nome = nomeMetodo;
@@ -168,7 +168,7 @@ namespace Propeus.Modulo.IL.Geradores
             .AppendLine()
             .AppendLine();
 
-           
+
             foreach (IILPilha pilha in PilhaExecucao)
             {
                 if (!string.IsNullOrEmpty(pilha.ToString()))
@@ -199,7 +199,7 @@ namespace Propeus.Modulo.IL.Geradores
 
                     PilhaExecucao.Clear();
                     PilhaExecucao = null;
-                                  
+
                     Retorno = null;
                     Parametros = null;
                     _metodoBuilder = null;

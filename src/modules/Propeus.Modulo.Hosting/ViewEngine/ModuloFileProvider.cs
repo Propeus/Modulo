@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
-using System.Security.Cryptography;
+﻿using System.Resources;
 using System.Text;
-using System.Threading.Tasks;
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
@@ -30,14 +22,15 @@ namespace Propeus.Modulo.Hosting.ViewEngine
         public IFileInfo GetFileInfo(string subpath)
         {
             string? controllerName;
-            ModuloFileInfo? result;
 
             controllerName = subpath.Split('.')[0];
-            var modules = gerenciador.ListAllModules().ToList();
-            foreach (var item in modules.Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
+            List<IModule> modules = gerenciador.ListAllModules().ToList();
+            foreach (ModuloController item in modules.Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
                 if (item.Name.Contains(controllerName))
+                {
                     return new ModuloFileInfo(item, controllerName);
+                }
             }
             return new NotFoundFileInfo(subpath);
         }
@@ -53,13 +46,13 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             ModuloController? result = null;
 
             controllerName = filter.Split('.')[0];
-            var modules = gerenciador.ListAllModules().ToList();
+            List<IModule> modules = gerenciador.ListAllModules().ToList();
             foreach (ModuloController item in modules.Where(x => x.Name.Contains("Controller")).Cast<ModuloController>())
             {
                 if (item.Name.Contains(controllerName))
                 {
                     result = item;
-                    return new ModuloChangeToken(result,gerenciador.GetModule<IModuleProviderModuleContract>());
+                    return new ModuloChangeToken(result, gerenciador.GetModule<IModuleProviderModuleContract>());
                 }
             }
             return null;
@@ -69,13 +62,13 @@ namespace Propeus.Modulo.Hosting.ViewEngine
 
     public class ModuloFileInfo : IFileInfo
     {
-        private string _view;
-        private byte[] _viewContent;
+        private readonly string _view;
+        private readonly byte[] _viewContent;
 
         public ModuloFileInfo(ModuloController moduloController, string viewName)
         {
-            var _resource = new ResourceManager("Resource", moduloController.GetType().Assembly);
-            var ns = moduloController.GetType().FullName.Replace("Controller", "");
+            ResourceManager _resource = new ResourceManager("Resource", moduloController.GetType().Assembly);
+            string ns = moduloController.GetType().FullName.Replace("Controller", "");
             ns += viewName + "cshtml";
 
             _view = _resource.GetString(ns);
@@ -84,7 +77,7 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             Name = viewName;
             PhysicalPath = null;
             Exists = true;
-            using (var ms = CreateReadStream())
+            using (Stream ms = CreateReadStream())
             {
                 Length = ms.Length;
             }

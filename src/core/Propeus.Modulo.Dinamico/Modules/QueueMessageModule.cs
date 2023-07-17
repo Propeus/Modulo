@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Dinamico.Modules
 {
-    class QueueMessageDataDefault : QueueMessageData
+    internal class QueueMessageDataDefault : QueueMessageData
     {
         public QueueMessageDataDefault(Type messageTo, object data) : base(messageTo)
         {
@@ -51,7 +52,7 @@ namespace Propeus.Modulo.Dinamico.Modules
     }
 
     [Module]
-    [Obsolete("Nao será mais necessario",false)]
+    [Obsolete("Nao será mais necessario", false)]
     public sealed class QueueMessageModule : BaseModule, IQueueMessageModuleContract
     {
         public QueueMessageModule()
@@ -59,8 +60,8 @@ namespace Propeus.Modulo.Dinamico.Modules
             _listener = new Dictionary<Type, Action<object>>();
         }
 
-        Dictionary<Type, Action<object>> _listener;
-     
+        private readonly Dictionary<Type, Action<object>> _listener;
+
         public void CreateOrUpdateListener(Type type, Action<object> action)
         {
             if (!_listener.ContainsKey(type))
@@ -74,15 +75,19 @@ namespace Propeus.Modulo.Dinamico.Modules
         }
         public bool SendMessage(Type type, object data)
         {
-            var msg = new QueueMessageDataDefault(type, data);
-            msg.MessageSent = DateTime.Now;
+            QueueMessageDataDefault msg = new QueueMessageDataDefault(type, data)
+            {
+                MessageSent = DateTime.Now
+            };
             return SendMessage(type, msg);
 
         }
         public bool SendMessage(Type type, QueueMessageData dataMessage)
         {
             if (!_listener.ContainsKey(type))
+            {
                 return false;
+            }
             else
             {
                 _listener[type].Invoke(dataMessage);

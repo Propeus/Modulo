@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.Abstrato.Exceptions
+﻿namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para quando o tipo do modulo informado nao for encontrado no Assembly

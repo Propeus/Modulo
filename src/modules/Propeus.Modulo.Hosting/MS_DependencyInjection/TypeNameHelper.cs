@@ -64,7 +64,10 @@ internal static class TypeNameHelper
         }
         else if (_builtInTypeNames.TryGetValue(type, out string? builtInName))
         {
-            if (builder is null) return builtInName;
+            if (builder is null)
+            {
+                return builtInName;
+            }
 
             builder.Append(builtInName);
         }
@@ -72,7 +75,10 @@ internal static class TypeNameHelper
         {
             if (options.IncludeGenericParameterNames)
             {
-                if (builder is null) return type.Name;
+                if (builder is null)
+                {
+                    return type.Name;
+                }
 
                 builder.Append(type.Name);
             }

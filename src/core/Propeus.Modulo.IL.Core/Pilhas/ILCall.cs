@@ -36,7 +36,7 @@ namespace Propeus.Modulo.IL.Core.Pilhas
         ///<inheritdoc/>
         public override void Executar()
         {
-            
+
             base.Executar();
 
             if (Valor is MethodInfo)

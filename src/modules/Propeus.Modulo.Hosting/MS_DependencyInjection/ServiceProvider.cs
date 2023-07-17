@@ -4,17 +4,12 @@ using System.Runtime.CompilerServices;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Hosting.MS_DependencyInjection;
-using Propeus.Modulo.Util.Atributos;
-
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 
 /// <summary>
 /// The default IServiceProvider.
 /// </summary>
-partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
+internal partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
 {
     private readonly CallSiteValidator? _callSiteValidator;
 
@@ -91,9 +86,15 @@ partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="serviceType">The type of the service to get.</param>
     /// <returns>The service that was produced.</returns>
-    public object? GetService(Type serviceType) => GetService(serviceType, Root);
+    public object? GetService(Type serviceType)
+    {
+        return GetService(serviceType, Root);
+    }
 
-    internal bool IsDisposed() => _disposed;
+    internal bool IsDisposed()
+    {
+        return _disposed;
+    }
 
     /// <inheritdoc />
     public void Dispose()
@@ -135,7 +136,7 @@ partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
         Func<ServiceProviderEngineScope, object?> realizedService = _realizedServices.GetOrAdd(serviceType, _createServiceAccessor);
         OnResolve(serviceType, serviceProviderEngineScope);
         DependencyInjectionEventSource.Log.ServiceResolved(this, serviceType);
-        var result = realizedService.Invoke(serviceProviderEngineScope);
+        object? result = realizedService.Invoke(serviceProviderEngineScope);
         System.Diagnostics.Debug.Assert(result is null || CallSiteFactory.IsService(serviceType));
         return result;
     }
@@ -218,6 +219,9 @@ partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
 
         [UnconditionalSuppressMessage("AotAnalysis", "IL3050:RequiresDynamicCode",
             Justification = "CreateDynamicEngine won't be called when using NativeAOT.")] // see also https://github.com/dotnet/linker/issues/2715
-        ServiceProviderEngine CreateDynamicEngine() => new DynamicServiceProviderEngine(this);
+        ServiceProviderEngine CreateDynamicEngine()
+        {
+            return new DynamicServiceProviderEngine(this);
+        }
     }
 }

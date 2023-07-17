@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Pilhas;
 using Propeus.Modulo.IL.Core.Proxy;
 
 namespace Propeus.Modulo.IL.Core.Pilhas.Campos
@@ -21,7 +20,7 @@ namespace Propeus.Modulo.IL.Core.Pilhas.Campos
         ///<inheritdoc/>
         public override void Executar()
         {
-           
+
             base.Executar();
             Proxy.Emit(Code, Valor);
 

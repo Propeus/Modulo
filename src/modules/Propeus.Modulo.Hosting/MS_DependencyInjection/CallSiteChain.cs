@@ -31,7 +31,7 @@ internal sealed class CallSiteChain
 
     private string CreateCircularDependencyExceptionMessage(Type type)
     {
-        var messageBuilder = new StringBuilder();
+        StringBuilder messageBuilder = new StringBuilder();
         messageBuilder.Append("CircularDependencyException");
         messageBuilder.AppendLine();
 
@@ -42,7 +42,7 @@ internal sealed class CallSiteChain
 
     private void AppendResolutionPath(StringBuilder builder, Type currentlyResolving)
     {
-        var ordered = new List<KeyValuePair<Type, ChainItemInfo>>(_callSiteChain);
+        List<KeyValuePair<Type, ChainItemInfo>> ordered = new List<KeyValuePair<Type, ChainItemInfo>>(_callSiteChain);
         ordered.Sort((a, b) => a.Value.Order.CompareTo(b.Value.Order));
 
         foreach (KeyValuePair<Type, ChainItemInfo> pair in ordered)

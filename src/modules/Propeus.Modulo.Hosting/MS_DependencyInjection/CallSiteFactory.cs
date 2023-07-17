@@ -10,7 +10,6 @@ namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 internal sealed class CallSiteFactory : IServiceProviderIsService
 {
     private const int DefaultSlot = 0;
-    private readonly ServiceDescriptor[] _descriptors;
     private readonly ConcurrentDictionary<ServiceCacheKey, ServiceCallSite> _callSiteCache = new ConcurrentDictionary<ServiceCacheKey, ServiceCallSite>();
     private readonly Dictionary<Type, ServiceDescriptorCacheItem> _descriptorLookup = new Dictionary<Type, ServiceDescriptorCacheItem>();
     private readonly ConcurrentDictionary<Type, object> _callSiteLocks = new ConcurrentDictionary<Type, object>();
@@ -20,17 +19,17 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
     public CallSiteFactory(ICollection<ServiceDescriptor> descriptors)
     {
         _stackGuard = new StackGuard();
-        _descriptors = new ServiceDescriptor[descriptors.Count];
-        descriptors.CopyTo(_descriptors, 0);
+        Descriptors = new ServiceDescriptor[descriptors.Count];
+        descriptors.CopyTo(Descriptors, 0);
 
         Populate();
     }
 
-    internal ServiceDescriptor[] Descriptors => _descriptors;
+    internal ServiceDescriptor[] Descriptors { get; }
 
     private void Populate()
     {
-        foreach (ServiceDescriptor descriptor in _descriptors)
+        foreach (ServiceDescriptor descriptor in Descriptors)
         {
             Type serviceType = descriptor.ServiceType;
             if (serviceType.IsGenericTypeDefinition)
@@ -151,9 +150,11 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
         return null;
     }
 
-    internal ServiceCallSite? GetCallSite(Type serviceType, CallSiteChain callSiteChain) =>
-        _callSiteCache.TryGetValue(new ServiceCacheKey(serviceType, DefaultSlot), out ServiceCallSite? site) ? site :
+    internal ServiceCallSite? GetCallSite(Type serviceType, CallSiteChain callSiteChain)
+    {
+        return _callSiteCache.TryGetValue(new ServiceCacheKey(serviceType, DefaultSlot), out ServiceCallSite? site) ? site :
         CreateCallSite(serviceType, callSiteChain);
+    }
 
     internal ServiceCallSite? GetCallSite(ServiceDescriptor serviceDescriptor, CallSiteChain callSiteChain)
     {
@@ -183,7 +184,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
 
         // This is to make sure we can safely store singleton values on the callsites themselves
 
-        var callsiteLock = _callSiteLocks.GetOrAdd(serviceType, static _ => new object());
+        object callsiteLock = _callSiteLocks.GetOrAdd(serviceType, static _ => new object());
 
         lock (callsiteLock)
         {
@@ -242,7 +243,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
                 }
 
                 CallSiteResultCacheLocation cacheLocation = CallSiteResultCacheLocation.Root;
-                var callSites = new List<ServiceCallSite>();
+                List<ServiceCallSite> callSites = new List<ServiceCallSite>();
 
                 // If item type is not generic we can safely use descriptor cache
                 if (!itemType.IsConstructedGenericType &&
@@ -266,9 +267,9 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
                 {
                     int slot = 0;
                     // We are going in reverse so the last service in descriptor list gets slot 0
-                    for (int i = _descriptors.Length - 1; i >= 0; i--)
+                    for (int i = Descriptors.Length - 1; i >= 0; i--)
                     {
-                        ServiceDescriptor descriptor = _descriptors[i];
+                        ServiceDescriptor descriptor = Descriptors[i];
                         ServiceCallSite? callSite = TryCreateExact(descriptor, itemType, callSiteChain, slot) ??
                                        TryCreateOpenGeneric(descriptor, itemType, callSiteChain, slot, false);
 
@@ -286,7 +287,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
 
 
                 ResultCache resultCache = ResultCache.None;
-                if (cacheLocation == CallSiteResultCacheLocation.Scope || cacheLocation == CallSiteResultCacheLocation.Root)
+                if (cacheLocation is CallSiteResultCacheLocation.Scope or CallSiteResultCacheLocation.Root)
                 {
                     resultCache = new ResultCache(cacheLocation, callSiteKey);
                 }
@@ -318,7 +319,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
             }
 
             ServiceCallSite callSite;
-            var lifetime = new ResultCache(descriptor.Lifetime, serviceType, slot);
+            ResultCache lifetime = new ResultCache(descriptor.Lifetime, serviceType, slot);
             if (descriptor.ImplementationInstance != null)
             {
                 callSite = new ConstantCallSite(descriptor.ServiceType, descriptor.ImplementationInstance);
@@ -361,7 +362,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
             }
 
             Debug.Assert(descriptor.ImplementationType != null, "descriptor.ImplementationType != null");
-            var lifetime = new ResultCache(descriptor.Lifetime, serviceType, slot);
+            ResultCache lifetime = new ResultCache(descriptor.Lifetime, serviceType, slot);
             Type closedType;
             try
             {
@@ -495,7 +496,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
         ParameterInfo[] parameters,
         bool throwIfCallSiteNotFound)
     {
-        var parameterCallSites = new ServiceCallSite[parameters.Length];
+        ServiceCallSite[] parameterCallSites = new ServiceCallSite[parameters.Length];
         for (int index = 0; index < parameters.Length; index++)
         {
             Type parameterType = parameters[index].ParameterType;
@@ -653,7 +654,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
 
         public ServiceDescriptorCacheItem Add(ServiceDescriptor descriptor)
         {
-            var newCacheItem = default(ServiceDescriptorCacheItem);
+            ServiceDescriptorCacheItem newCacheItem = default;
             if (_item == null)
             {
                 Debug.Assert(_items == null);

@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Propeus.Modulo.Util.Atributos
@@ -11,7 +10,7 @@ namespace Propeus.Modulo.Util.Atributos
     public static partial class Helper
     {
 
-       
+
         /// <summary>
         /// Verifica se o <paramref name="obj"/> possui o atributo
         /// </summary>

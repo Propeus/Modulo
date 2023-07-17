@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Propeus.Modulo.IL.Core.Interfaces;
-
 namespace Propeus.Modulo.IL.Geradores
 {
     internal static partial class Constantes
@@ -13,7 +11,7 @@ namespace Propeus.Modulo.IL.Geradores
         }
     }
 
-    internal class ILParametro 
+    internal class ILParametro
     {
 
         public ILParametro(string nomeMetodo
@@ -24,7 +22,7 @@ namespace Propeus.Modulo.IL.Geradores
         {
             if (nome == Constantes.CONST_NME_PARAMETRO)
             {
-               nome = Constantes.GerarNomeParametro(nomeMetodo);
+                nome = Constantes.GerarNomeParametro(nomeMetodo);
             }
             tipo ??= typeof(object);
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
@@ -9,7 +8,7 @@ namespace Propeus.Modulo.Abstrato.Exceptions
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3925:\"ISerializable\" should be implemented correctly", Justification = "<Pendente>")]
     public class ModuleException : Exception
     {
-       
+
         /// <summary>
         /// Construtor padrao
         /// </summary>

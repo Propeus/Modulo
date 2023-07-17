@@ -103,14 +103,14 @@ namespace Propeus.Modulo.Hosting.MS_DependencyInjection
             if (IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {
                 string format = CallSiteJsonFormatter.Instance.Format(callSite);
-                int chunkCount = format.Length / MaxChunkSize + (format.Length % MaxChunkSize > 0 ? 1 : 0);
+                int chunkCount = (format.Length / MaxChunkSize) + (format.Length % MaxChunkSize > 0 ? 1 : 0);
 
                 int providerHashCode = provider.GetHashCode();
                 for (int i = 0; i < chunkCount; i++)
                 {
                     CallSiteBuilt(
                         serviceType.ToString(),
-                        format.Substring(i * MaxChunkSize, Math.Min(MaxChunkSize, format.Length - i * MaxChunkSize)), i, chunkCount,
+                        format.Substring(i * MaxChunkSize, Math.Min(MaxChunkSize, format.Length - (i * MaxChunkSize))), i, chunkCount,
                         providerHashCode);
                 }
             }
@@ -219,13 +219,13 @@ namespace Propeus.Modulo.Hosting.MS_DependencyInjection
                 ServiceProviderBuilt(providerHashCode, singletonServices, scopedServices, transientServices, closedGenericsServices, openGenericsServices);
 
                 string descriptorString = descriptorBuilder.ToString();
-                int chunkCount = descriptorString.Length / MaxChunkSize + (descriptorString.Length % MaxChunkSize > 0 ? 1 : 0);
+                int chunkCount = (descriptorString.Length / MaxChunkSize) + (descriptorString.Length % MaxChunkSize > 0 ? 1 : 0);
 
                 for (int i = 0; i < chunkCount; i++)
                 {
                     ServiceProviderDescriptors(
                         providerHashCode,
-                        descriptorString.Substring(i * MaxChunkSize, Math.Min(MaxChunkSize, descriptorString.Length - i * MaxChunkSize)), i, chunkCount);
+                        descriptorString.Substring(i * MaxChunkSize, Math.Min(MaxChunkSize, descriptorString.Length - (i * MaxChunkSize))), i, chunkCount);
                 }
             }
         }
@@ -294,7 +294,7 @@ namespace Propeus.Modulo.Hosting.MS_DependencyInjection
         {
             if (source.IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {
-                var visitor = new NodeCountingVisitor();
+                NodeCountingVisitor visitor = new NodeCountingVisitor();
                 visitor.Visit(expression);
                 source.ExpressionTreeGenerated(serviceType.ToString(), visitor.NodeCount, provider.GetHashCode());
             }

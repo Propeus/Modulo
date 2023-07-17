@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace Propeus.Modulo.Util.Tipos
 {
@@ -23,7 +20,7 @@ namespace Propeus.Modulo.Util.Tipos
                 return Activator.CreateInstance(type);
             }
             return null;
-                      
+
         }
 
 

@@ -18,21 +18,13 @@ internal struct ResultCache
     {
         Debug.Assert(lifetime == ServiceLifetime.Transient || type != null);
 
-        switch (lifetime)
+        Location = lifetime switch
         {
-            case ServiceLifetime.Singleton:
-                Location = CallSiteResultCacheLocation.Root;
-                break;
-            case ServiceLifetime.Scoped:
-                Location = CallSiteResultCacheLocation.Scope;
-                break;
-            case ServiceLifetime.Transient:
-                Location = CallSiteResultCacheLocation.Dispose;
-                break;
-            default:
-                Location = CallSiteResultCacheLocation.None;
-                break;
-        }
+            ServiceLifetime.Singleton => CallSiteResultCacheLocation.Root,
+            ServiceLifetime.Scoped => CallSiteResultCacheLocation.Scope,
+            ServiceLifetime.Transient => CallSiteResultCacheLocation.Dispose,
+            _ => CallSiteResultCacheLocation.None,
+        };
         Key = new ServiceCacheKey(type, slot);
     }
 

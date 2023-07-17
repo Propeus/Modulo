@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Propeus.Modulo.Abstrato.Exceptions
+﻿namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para quando o modulo nao possuir nenhum construtor publico

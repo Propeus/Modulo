@@ -1,8 +1,4 @@
-﻿using System;
-
-using Propeus.Modulo.Abstrato.Attributes;
-
-namespace Propeus.Modulo.Abstrato.Exceptions
+﻿namespace Propeus.Modulo.Abstrato.Exceptions
 {
 #pragma warning disable S3925 // "ISerializable" should be implemented correctly
     /// <summary>

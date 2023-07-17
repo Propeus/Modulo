@@ -58,7 +58,7 @@ namespace Propeus.Modulo.IL.Geradores
                 nomeModulo = Constantes.GerarNomeModulo();
             }
 
-            ILModulo modulo = new ILModulo( this, nomeModulo);
+            ILModulo modulo = new ILModulo(this, nomeModulo);
             Modulo = modulo;
             return modulo;
         }

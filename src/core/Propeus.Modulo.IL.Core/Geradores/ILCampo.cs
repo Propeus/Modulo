@@ -33,7 +33,7 @@ namespace Propeus.Modulo.IL.Geradores
 
         public ILCampo(ILBuilderProxy builderProxy, string nomeClasse, Token[] acessadores, Type tipo, string nome)
         {
-            
+
             Nome = nome;
             Retorno = tipo ?? throw new ArgumentNullException(nameof(tipo));
             Acessadores = acessadores ?? throw new ArgumentNullException(nameof(acessadores));

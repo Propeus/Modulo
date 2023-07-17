@@ -11,8 +11,8 @@ namespace Propeus.Modulo.Core
         /// <returns></returns>
         public static IModuleManager CreateModuleManagerDefault()
         {
-            var gen = new ModuleManagerCore();
-            var taskJobModule = gen.CreateModule<TaskJobModule>();
+            ModuleManagerCore gen = new ModuleManagerCore();
+            TaskJobModule taskJobModule = gen.CreateModule<TaskJobModule>();
             gen.KeepAliveModuleAsync(taskJobModule).Wait();
             gen.RegisterTaskJobs(taskJobModule);
             return gen;
@@ -23,7 +23,7 @@ namespace Propeus.Modulo.Core
         /// <returns></returns>
         public static IModuleManager CreateModuleManager()
         {
-            var gen = new ModuleManagerCore();
+            ModuleManagerCore gen = new ModuleManagerCore();
             return gen;
         }
     }

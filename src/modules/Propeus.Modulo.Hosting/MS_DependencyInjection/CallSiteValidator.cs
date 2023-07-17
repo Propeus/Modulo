@@ -77,11 +77,20 @@ internal sealed class CallSiteValidator : CallSiteVisitor<CallSiteValidator.Call
         return scopedCallSite.ServiceType;
     }
 
-    protected override Type? VisitConstant(ConstantCallSite constantCallSite, CallSiteValidatorState state) => null;
+    protected override Type? VisitConstant(ConstantCallSite constantCallSite, CallSiteValidatorState state)
+    {
+        return null;
+    }
 
-    protected override Type? VisitServiceProvider(ServiceProviderCallSite serviceProviderCallSite, CallSiteValidatorState state) => null;
+    protected override Type? VisitServiceProvider(ServiceProviderCallSite serviceProviderCallSite, CallSiteValidatorState state)
+    {
+        return null;
+    }
 
-    protected override Type? VisitFactory(FactoryCallSite factoryCallSite, CallSiteValidatorState state) => null;
+    protected override Type? VisitFactory(FactoryCallSite factoryCallSite, CallSiteValidatorState state)
+    {
+        return null;
+    }
 
     internal struct CallSiteValidatorState
     {

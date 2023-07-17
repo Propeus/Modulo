@@ -10,7 +10,7 @@ namespace Propeus.Modulo.Core
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    class ModuloTipo : BaseModel, IModuleType
+    internal class ModuloTipo : BaseModel, IModuleType
     {
 
         /// <summary>
@@ -53,7 +53,11 @@ namespace Propeus.Modulo.Core
         public IModule _moduleKeepAlive;
         public void KeepAliveModule(bool keepAlive)
         {
-            if (IsDeleted) return;
+            if (IsDeleted)
+            {
+                return;
+            }
+
             if (keepAlive)
             {
                 _moduleKeepAlive = Module;

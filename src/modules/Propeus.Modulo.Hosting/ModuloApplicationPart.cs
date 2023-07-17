@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Primitives;
+
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Hosting.Contracts;
@@ -30,9 +26,9 @@ namespace Propeus.Modulo.Hosting
 
     internal class ModuloApplicationPart : BaseModule
     {
-        Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
+        private Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartManager ApplicationPart { get; set; }
 
-        bool _sincronizado = false;
+        private readonly bool _sincronizado = false;
 
         public ModuloApplicationPart(ApplicationPartManager applicationPart, IModuleManager moduleManager) : base(true)
         {
@@ -47,9 +43,9 @@ namespace Propeus.Modulo.Hosting
                 moduleProviderModuleContract = moduleManager.GetModule<IModuleProviderModuleContract>();
             }
 
-            var modules = moduleProviderModuleContract.GetAllModules();
+            IEnumerable<Type> modules = moduleProviderModuleContract.GetAllModules();
 
-            foreach (var moduleType in modules)
+            foreach (Type moduleType in modules)
             {
                 OnLoadModuleController(moduleType);
             }
@@ -62,10 +58,12 @@ namespace Propeus.Modulo.Hosting
         private void OnUnloadModuleController(Type moduleType)
         {
             if (!moduleType.Name.Contains("Controller"))
+            {
                 return;
+            }
 
             List<ApplicationPart> parts = new List<ApplicationPart>();
-            foreach (ApplicationPart appApplicationPart in this.ApplicationPart.ApplicationParts)
+            foreach (ApplicationPart appApplicationPart in ApplicationPart.ApplicationParts)
             {
                 if (appApplicationPart.Name == moduleType.Name)
                 {
@@ -73,9 +71,9 @@ namespace Propeus.Modulo.Hosting
                 }
             }
 
-            foreach (var part in parts)
+            foreach (ApplicationPart part in parts)
             {
-                this.ApplicationPart.ApplicationParts.Remove(part);
+                ApplicationPart.ApplicationParts.Remove(part);
             }
 
             ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();
@@ -85,13 +83,13 @@ namespace Propeus.Modulo.Hosting
         {
             if (moduleType.Name.Contains("Controller"))
             {
-                var app = new AssemblyPart(moduleType.Assembly);
-                var razorPart = new CompiledRazorAssemblyPart(moduleType.Assembly);
-                if (!this.ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
+                AssemblyPart app = new AssemblyPart(moduleType.Assembly);
+                CompiledRazorAssemblyPart razorPart = new CompiledRazorAssemblyPart(moduleType.Assembly);
+                if (!ApplicationPart.ApplicationParts.Any(x => x.Name == app.Name))
                 {
                     //Tem que carregar os dois
-                    this.ApplicationPart.ApplicationParts.Add(app);
-                    this.ApplicationPart.ApplicationParts.Add(razorPart);
+                    ApplicationPart.ApplicationParts.Add(app);
+                    ApplicationPart.ApplicationParts.Add(razorPart);
 
                     ModuleActionDescriptorChangeProvider.Instance.HasChanged = true;
                     ModuleActionDescriptorChangeProvider.Instance.TokenSource?.Cancel();

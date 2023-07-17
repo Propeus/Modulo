@@ -20,7 +20,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
     internal class ILClasse : IILExecutor, IDisposable
     {
         private Token[] _acessadores;
-        private Type[] _atributos;
+        private readonly Type[] _atributos;
 
         /// <summary>
         /// Instancia para criar uma classe
@@ -65,14 +65,14 @@ namespace Propeus.Modulo.IL.Core.Geradores
                 : builder.DefineType(nome, typeAttributes.ToArray().ConcatenarEnum(), @base, interfaces);
 
 
-            if (_atributos!= null)
+            if (_atributos != null)
             {
-                foreach (var item in _atributos)
+                foreach (Type item in _atributos)
                 {
                     //Pode dar erro de construtor padrao até proque eu nao sei quais sao os valores de parametro. (Na real estou com preguiça de fazer essa parte)
-                    var attrbuilder = new CustomAttributeBuilder(item.GetConstructors().First(), Array.Empty<object>());
+                    CustomAttributeBuilder attrbuilder = new CustomAttributeBuilder(item.GetConstructors().First(), Array.Empty<object>());
                     typeBuilder.SetCustomAttribute(attrbuilder);
-                } 
+                }
             }
             Proxy.RegistrarBuilders(typeBuilder);
         }
@@ -172,7 +172,7 @@ namespace Propeus.Modulo.IL.Core.Geradores
             return sb.ToString();
         }
 
-   
+
         private bool disposedValue;
 
         protected virtual void Dispose(bool disposing)

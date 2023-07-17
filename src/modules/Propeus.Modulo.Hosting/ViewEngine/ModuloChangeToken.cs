@@ -6,7 +6,7 @@ namespace Propeus.Modulo.Hosting.ViewEngine
 {
     internal class ModuloChangeToken : IChangeToken
     {
-        private string _name;
+        private readonly string _name;
 
         public ModuloChangeToken(ModuloController moduloController, IModuleProviderModuleContract moduleProvider)
         {
@@ -15,7 +15,7 @@ namespace Propeus.Modulo.Hosting.ViewEngine
             {
                 HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
             });
-            moduleProvider.SetOnUnloadModule( (Type moduleType) =>
+            moduleProvider.SetOnUnloadModule((Type moduleType) =>
             {
                 HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
             });
@@ -26,7 +26,10 @@ namespace Propeus.Modulo.Hosting.ViewEngine
 
         }
 
-        IDisposable IChangeToken.RegisterChangeCallback(Action<object> callback, object state) => EmptyDisposable.Instance;
+        IDisposable IChangeToken.RegisterChangeCallback(Action<object> callback, object state)
+        {
+            return EmptyDisposable.Instance;
+        }
 
         public bool HasChanged { get; private set; }
         public bool ActiveChangeCallbacks => false;

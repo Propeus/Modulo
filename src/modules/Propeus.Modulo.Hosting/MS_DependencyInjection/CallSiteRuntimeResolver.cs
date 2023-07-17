@@ -71,7 +71,7 @@ internal sealed class CallSiteRuntimeResolver : CallSiteVisitor<RuntimeResolverC
             return value;
         }
 
-        var lockType = RuntimeResolverLock.Root;
+        RuntimeResolverLock lockType = RuntimeResolverLock.Root;
         ServiceProviderEngineScope serviceProviderEngine = context.Scope.RootProvider.Root;
 
         lock (callSite)

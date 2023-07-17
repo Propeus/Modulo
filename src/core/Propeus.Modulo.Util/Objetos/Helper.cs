@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
 
-using Propeus.Modulo.Util.Tipos;
-
 namespace Propeus.Modulo.Util.Objetos
 {
     /// <summary>
@@ -51,10 +49,22 @@ namespace Propeus.Modulo.Util.Objetos
         //https://stackoverflow.com/questions/374651/how-to-check-if-an-object-is-nullable
         public static bool IsNullable<T>(this T obj)
         {
-            if (obj == null) return true; // obvious
+            if (obj == null)
+            {
+                return true; // obvious
+            }
+
             Type type = typeof(T);
-            if (!type.IsValueType) return true; // ref-type
-            if (Nullable.GetUnderlyingType(type) != null) return true; // Nullable<T>
+            if (!type.IsValueType)
+            {
+                return true; // ref-type
+            }
+
+            if (Nullable.GetUnderlyingType(type) != null)
+            {
+                return true; // Nullable<T>
+            }
+
             return false; // value-type
         }
 

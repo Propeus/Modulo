@@ -88,7 +88,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
                 {
                     MetodoAPI.CarregarArgumento(mth, i);
                 }
-                MethodInfo cmpMetodo = tClasse.GetMethod(metodo.Name, mth.Parametros.Select(x=> x.Tipo).ToArray());
+                MethodInfo cmpMetodo = tClasse.GetMethod(metodo.Name, mth.Parametros.Select(x => x.Tipo).ToArray());
                 MetodoAPI.ChamarFuncao(mth, cmpMetodo);
                 MetodoAPI.CriarRetorno(mth);
             }
@@ -103,7 +103,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
 
             foreach (KeyValuePair<PropertyInfo, bool> propriedadeKP in properts)
             {
-                var propriedade = propriedadeKP.Key;
+                PropertyInfo propriedade = propriedadeKP.Key;
 
                 MethodInfo mth_info_get = propriedade.GetGetMethod();
                 MethodInfo mth_info_set = propriedade.GetSetMethod();
@@ -204,7 +204,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
                 if (ctor != null && attr.GetType().Name.Contains("Modulo"))
                 {
 
-                    var arrParams = ctor.GetParameters().Select(x => x.DefaultValue).ToArray();
+                    object[] arrParams = ctor.GetParameters().Select(x => x.DefaultValue).ToArray();
                     CustomAttributeBuilder attributeBuilder = new CustomAttributeBuilder(ctor, arrParams);
                     cls.Atual.Proxy.ObterBuilder<TypeBuilder>().SetCustomAttribute(attributeBuilder);
                 }
@@ -240,13 +240,13 @@ namespace Propeus.Modulo.IL.Core.Helpers
 
             return Proxy(iLGerador, classe, interfaces);
         }
-        public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null, Type[] atributos=null)
+        public static ILClasseProvider CriarProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null, Type[] atributos = null)
         {
             Type tClasse = classe;
 
             interfaces = tClasse.GetInterfaces().FullJoin(interfaces).ToArray();
 
-            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces,null, atributos);
+            ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces, null, atributos);
 
             return Proxy(cls, classe, interfaces);
         }

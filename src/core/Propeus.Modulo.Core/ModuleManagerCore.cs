@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +15,6 @@ using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Core.Modules;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
-using Propeus.Modulo.Util.Thread;
 using Propeus.Modulo.Util.Tipos;
 
 namespace Propeus.Modulo.Core
@@ -50,19 +47,19 @@ namespace Propeus.Modulo.Core
         private readonly CancellationTokenSource _cancellationToken = new();
 
         //K:Id | V:moduleInstance
-        readonly ConcurrentDictionary<string, IModuleType> modules = new ConcurrentDictionary<string, IModuleType>();
+        private readonly ConcurrentDictionary<string, IModuleType> modules = new ConcurrentDictionary<string, IModuleType>();
 
         internal void RegisterTaskJobs(TaskJobModule taskJobModule)
         {
             taskJobModule.RegisterJob((ct) =>
             {
-                var modulesOff = modules.Where(x => x.Value.IsDeleted);
-                foreach (var item in modulesOff)
+                IEnumerable<KeyValuePair<string, IModuleType>> modulesOff = modules.Where(x => x.Value.IsDeleted);
+                foreach (KeyValuePair<string, IModuleType> item in modulesOff)
                 {
                     RemoveModule(item.Key);
                 }
 
-            }, $"{this.GetType().FullName}::Auto_Remove_Modules", TimeSpan.FromSeconds(1));
+            }, $"{GetType().FullName}::Auto_Remove_Modules", TimeSpan.FromSeconds(1));
         }
 
         ///<inheritdoc/>
@@ -77,8 +74,8 @@ namespace Propeus.Modulo.Core
         public IModule CreateModule(string nomeModulo)
         {
             Type result = null;
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Reverse();
-            foreach (var item in assemblies)
+            IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies().Reverse();
+            foreach (Assembly item in assemblies)
             {
                 result = item.GetTypes().FirstOrDefault(x => x.Name == nomeModulo);
                 if (result != null)
@@ -167,7 +164,7 @@ namespace Propeus.Modulo.Core
 
 
 
-            var modulo = (IModule)Activator.CreateInstance(moduloType, args);
+            IModule modulo = (IModule)Activator.CreateInstance(moduloType, args);
             Register(modulo);
             InitializedModules++;
             return modulo;
@@ -185,7 +182,7 @@ namespace Propeus.Modulo.Core
             try
             {
                 moduleType = ResolverContrato(moduleType);
-                var moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
+                IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
 
                 if (moduloInstancia is null)
                 {
@@ -213,10 +210,12 @@ namespace Propeus.Modulo.Core
         public bool ExistsModule(string idModule)
         {
             if (string.IsNullOrEmpty(idModule))
+            {
                 throw new ArgumentNullException(nameof(idModule));
+            }
             else
             {
-                modules.TryGetValue(idModule, out var moduloInformacao);
+                modules.TryGetValue(idModule, out IModuleType moduloInformacao);
                 if (moduloInformacao is null)
                 {
                     return false;
@@ -232,7 +231,7 @@ namespace Propeus.Modulo.Core
         public IModule GetModule(Type moduleType)
         {
             moduleType = ResolverContrato(moduleType);
-            var moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
+            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
 
             if (moduloInstancia is null)
             {
@@ -266,7 +265,7 @@ namespace Propeus.Modulo.Core
                 throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, idModule));
             }
 
-            modules.TryGetValue(idModule, out var info);
+            modules.TryGetValue(idModule, out IModuleType info);
             return info.IsDeleted ? throw new ModuleDisposedException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, idModule)) : info.Module;
         }
         ///<inheritdoc/>
@@ -322,9 +321,9 @@ namespace Propeus.Modulo.Core
         public IModule RecycleModule(string idModule)
         {
 
-            if (modules.TryGetValue(idModule, out var moduloTipo))
+            if (modules.TryGetValue(idModule, out IModuleType moduloTipo))
             {
-                var moduleType = moduloTipo.ModuleType;
+                Type moduleType = moduloTipo.ModuleType;
                 RemoveModule(idModule);
                 return CreateModule(moduleType);
             }
@@ -384,7 +383,7 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         ///<inheritdoc/>
@@ -407,16 +406,16 @@ namespace Propeus.Modulo.Core
                 modulo = attr.ModuleType;
                 if (modulo is null)
                 {
-                    foreach (var item in modules)
+                    foreach (KeyValuePair<string, IModuleType> item in modules)
                     {
-                        if(item.Value.Name == attr.ModuleName)
+                        if (item.Value.Name == attr.ModuleName)
                         {
                             modulo = item.Value.ModuleType;
                             break;
                         }
                     }
                 }
-              
+
                 if (modulo is null)
                 {
                     throw new ModuleTypeNotFoundException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.ModuleName));

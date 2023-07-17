@@ -19,7 +19,7 @@ namespace Propeus.Modulo.Abstrato
             Name = GetType().Name;
             State = State.Created;
             Id = Guid.NewGuid().ToString();
-            ManifestId = this.GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
+            ManifestId = GetType().Assembly.ManifestModule.ModuleVersionId.ToString();
         }
 
         ///<inheritdoc/>
@@ -62,7 +62,7 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Para detectar chamadas redundantes
         /// </summary>
-        protected bool disposedValue = false; 
+        protected bool disposedValue = false;
 
         /// <summary>
         /// Libera os objetos deste modelo e altera o estado dele para <see cref="State.Off"/>

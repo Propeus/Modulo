@@ -1,6 +1,4 @@
-﻿using System;
-
-using Propeus.Modulo.Abstrato.Attributes;
+﻿using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Propeus.Modulo.Abstrato;
+﻿using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Console.Game.Pong.Example.Data.Scene;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {

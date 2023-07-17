@@ -2,7 +2,7 @@
 
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 
-partial class ServiceProvider
+internal partial class ServiceProvider
 {
     internal abstract class CompiledServiceProviderEngine : ServiceProviderEngine
     {
@@ -18,6 +18,9 @@ partial class ServiceProvider
             ResolverBuilder = new(provider);
         }
 
-        public override Func<ServiceProviderEngineScope, object?> RealizeService(ServiceCallSite callSite) => ResolverBuilder.Build(callSite);
+        public override Func<ServiceProviderEngineScope, object?> RealizeService(ServiceCallSite callSite)
+        {
+            return ResolverBuilder.Build(callSite);
+        }
     }
 }

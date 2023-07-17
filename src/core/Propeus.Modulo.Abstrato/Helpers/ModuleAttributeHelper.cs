@@ -2,7 +2,6 @@
 using System.Reflection;
 
 using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Util;
 
 namespace Propeus.Modulo.Abstrato.Helpers
 {
@@ -21,7 +20,7 @@ namespace Propeus.Modulo.Abstrato.Helpers
         /// <exception cref="InvalidOperationException"><see cref="ModuleAttribute"/> não encontrado</exception>
         public static ModuleAttribute GetModuleAttribute(this Type typeModule)
         {
-           return typeModule.GetCustomAttribute<ModuleAttribute>();
+            return typeModule.GetCustomAttribute<ModuleAttribute>();
         }
 
 

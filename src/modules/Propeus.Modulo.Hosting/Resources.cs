@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using System.Resources;
 using System.Reflection;
+using System.Resources;
 
 namespace Propeus.Modulo.Hosting
 {

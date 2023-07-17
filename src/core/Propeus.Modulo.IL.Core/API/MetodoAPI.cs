@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.IL.Core.Pilhas;
 using Propeus.Modulo.IL.Core.Pilhas.Campos;
+using Propeus.Modulo.IL.Geradores;
 
 namespace Propeus.Modulo.IL.Core.API
 {

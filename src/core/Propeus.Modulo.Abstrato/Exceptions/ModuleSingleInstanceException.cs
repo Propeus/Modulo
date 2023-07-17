@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.Abstrato.Exceptions
+﻿namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para tentativa de criacao de um novo modulo de instancia unica

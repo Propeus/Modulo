@@ -48,11 +48,11 @@ namespace Propeus.Modulo.IL.Geradores
         }
 
 
-        internal ILClasseProvider CriarClasseProvider(string nomeClasse, string @namespace, Type @base = null, Type[] interfaces = null, Token[] acessadores = null, Type[] atributos=null)
+        internal ILClasseProvider CriarClasseProvider(string nomeClasse, string @namespace, Type @base = null, Type[] interfaces = null, Token[] acessadores = null, Type[] atributos = null)
         {
             ILBuilderProxy proxy = new ILBuilderProxy(new object[] { iLGerador.assemblyBuilder, moduleBuilder });
 
-            ILClasseProvider clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores,atributos);
+            ILClasseProvider clsProvider = new ILClasseProvider(proxy, nomeClasse, @namespace, @base, interfaces, acessadores, atributos);
             Classes.Add(@namespace + nomeClasse, clsProvider);
             return clsProvider;
         }

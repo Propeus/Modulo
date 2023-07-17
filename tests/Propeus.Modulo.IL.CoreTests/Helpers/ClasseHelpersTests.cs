@@ -36,15 +36,8 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
 
         public int this[int valor]
         {
-            get
-            {
-                return valor;
-
-            }
-            set
-            {
-                valor = value;
-            }
+            get => valor;
+            set => valor = value;
         }
         public int testeProp { get; }
         public int testeProp2 { get; set; }
@@ -84,7 +77,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
             ILClasseProvider? Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste));
             Proxy.Executar();
             GeradorHelper.Modulo.Executar();
-            var tpProxy = Proxy.ObterTipoGerado();
+            Type tpProxy = Proxy.ObterTipoGerado();
             Assert.IsNotNull(tpProxy);
             Assert.IsNotNull(Activator.CreateInstance(tpProxy));
             Assert.IsNotNull(Proxy.ToString());
@@ -105,7 +98,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
             Assert.ThrowsException<ObjectDisposedException>(() => { Proxy.NovaVersao("Teste.NovaVersao.Namespace", typeof(object), new Type[] { typeof(ITeste) }).CriarProxyClasse(typeof(Teste)); });
             Assert.ThrowsException<ObjectDisposedException>(() => { Proxy.Executar(); });
             Assert.ThrowsException<ObjectDisposedException>(() => { Proxy.NovaVersao(); });
-            var modulo = GeradorHelper.Modulo;
+            Geradores.ILModulo modulo = GeradorHelper.Modulo;
             modulo.Dispose();
             Assert.AreEqual(string.Empty, modulo.ToString());
         }
@@ -114,9 +107,9 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
         public void CriarProxyClasseTest2()
         {
 
-            var Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste) });
+            ILClasseProvider Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste) });
             Proxy.Executar();
-            var tpProxy = Proxy.ObterTipoGerado();
+            Type tpProxy = Proxy.ObterTipoGerado();
             Assert.IsNotNull(tpProxy);
             Assert.IsNotNull(Activator.CreateInstance(tpProxy));
         }

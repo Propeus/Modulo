@@ -3,6 +3,7 @@ using System.Text;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
+
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 
@@ -68,15 +69,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
 
                 return _controllerContext;
             }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                _controllerContext = value;
-            }
+            set => _controllerContext = value ?? throw new ArgumentNullException("value");
         }
 
         //
@@ -97,7 +90,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                     else
                     {
                         IServiceProvider requestServices = httpContext.RequestServices;
-                        metadataProvider = requestServices != null ? requestServices.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider>() : null;
+                        metadataProvider = requestServices?.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider>();
                     }
 
                     _metadataProvider = metadataProvider as Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider;
@@ -134,7 +127,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                     else
                     {
                         IServiceProvider requestServices = httpContext.RequestServices;
-                        modelBinderFactory = requestServices != null ? requestServices.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderFactory>() : null;
+                        modelBinderFactory = requestServices?.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderFactory>();
                     }
 
                     _modelBinderFactory = modelBinderFactory as Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderFactory;
@@ -171,7 +164,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                     else
                     {
                         IServiceProvider requestServices = httpContext.RequestServices;
-                        obj = requestServices != null ? requestServices.GetRequiredService<Microsoft.AspNetCore.Mvc.Routing.IUrlHelperFactory>() : null;
+                        obj = requestServices?.GetRequiredService<Microsoft.AspNetCore.Mvc.Routing.IUrlHelperFactory>();
                     }
 
                     _url = (obj as Microsoft.AspNetCore.Mvc.Routing.IUrlHelperFactory)?.GetUrlHelper(ControllerContext);
@@ -208,7 +201,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
                     else
                     {
                         IServiceProvider requestServices = httpContext.RequestServices;
-                        objectValidator = requestServices != null ? requestServices.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.Validation.IObjectModelValidator>() : null;
+                        objectValidator = requestServices?.GetRequiredService<Microsoft.AspNetCore.Mvc.ModelBinding.Validation.IObjectModelValidator>();
                     }
 
                     _objectValidator = objectValidator as Microsoft.AspNetCore.Mvc.ModelBinding.Validation.IObjectModelValidator;

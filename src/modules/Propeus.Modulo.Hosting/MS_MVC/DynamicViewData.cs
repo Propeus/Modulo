@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Dynamic;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -24,7 +19,7 @@ namespace Propeus.Modulo.Hosting.MS_MVC
         {
             get
             {
-                var viewData = _viewDataFunc();
+                ViewDataDictionary viewData = _viewDataFunc();
                 if (viewData == null)
                 {
                     throw new InvalidOperationException(Resources.DynamicViewData_ViewDataNull);

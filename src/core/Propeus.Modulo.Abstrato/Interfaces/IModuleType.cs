@@ -44,6 +44,6 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// Define se o modulo atual deve ser mantido vivo ou nao
         /// </summary>
         /// <param name="keepAlive">Define se o modulo deve ser mantido vivo</param>
-        void KeepAliveModule(bool keepAlive);   
+        void KeepAliveModule(bool keepAlive);
     }
 }

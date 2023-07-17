@@ -3,13 +3,13 @@ using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.Console.Example
 {
-  
+
 
     internal class Program
     {
         private static void Main()
         {
-          
+
             ExemploPropeusModuloCore();
             System.Console.ResetColor();
 

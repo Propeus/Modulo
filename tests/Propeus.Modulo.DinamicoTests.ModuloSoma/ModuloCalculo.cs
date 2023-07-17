@@ -5,7 +5,7 @@ using Propeus.Modulo.Abstrato.Interfaces;
 namespace Propeus.Modulo.DinamicoTests.ModuloSoma
 {
     [ModuleContract("ModuloCalculo")]
-    public interface ModuloCalculoContrato: IModule
+    public interface ModuloCalculoContrato : IModule
     {
         int Calcular(int a, int b);
     }

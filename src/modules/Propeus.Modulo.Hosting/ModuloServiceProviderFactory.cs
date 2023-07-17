@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Propeus.Modulo.Hosting;
 

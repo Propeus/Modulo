@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
+﻿using System.Diagnostics;
+
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
-
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 {
@@ -64,12 +54,14 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
         private readonly PaddleModule PaddleB;
         private BallModule BallModule;
 
-        RenderModule RenderModule
+        private RenderModule RenderModule
         {
             get
             {
                 if (gerenciador.ExistsModule(typeof(RenderModule)))
+                {
                     return gerenciador.GetModule<RenderModule>();
+                }
 
                 return gerenciador.CreateModule<RenderModule>();
             }
@@ -97,7 +89,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
                 flg_loop = true;
 
                 gerenciador.RemoveModule(BallModule);
-                BallModule = this.gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
+                BallModule = gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
             }
             System.Console.Clear();
             if (PaddleA.Score > PaddleB.Score)
@@ -125,7 +117,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
             // Compute Time And New Ball Position
             float time = (float)Stopwatch.Elapsed.TotalSeconds * 15;
-            var (X2, Y2) = (BallModule.X + time * BallModule.DX, BallModule.Y + time * BallModule.DY);
+            (float X2, float Y2) = (BallModule.X + (time * BallModule.DX), BallModule.Y + (time * BallModule.DY));
 
             // Collisions With Up/Down Walls
             if (Y2 < 0 || Y2 > Height)
@@ -145,7 +137,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
                     BallModule.DX = -BallModule.DX;
                     BallModule.DX *= multiplier;
                     BallModule.DY *= multiplier;
-                    X2 = BallModule.X + time * BallModule.DX;
+                    X2 = BallModule.X + (time * BallModule.DX);
                 }
             }
 
@@ -160,7 +152,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
                     BallModule.DX = -BallModule.DX;
                     BallModule.DX *= multiplier;
                     BallModule.DY *= multiplier;
-                    X2 = BallModule.X + time * BallModule.DX;
+                    X2 = BallModule.X + (time * BallModule.DX);
                 }
             }
 
@@ -218,11 +210,11 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
             if (enemyStopwatch.Elapsed > enemyInputDelay)
             {
-                if (BallModule.Y < paddleB.Paddle + paddleB.PaddleSize / 2 && BallModule.DY < 0)
+                if (BallModule.Y < paddleB.Paddle + (paddleB.PaddleSize / 2) && BallModule.DY < 0)
                 {
                     paddleB.Paddle = Math.Max(paddleB.Paddle - 1, 0);
                 }
-                else if (BallModule.Y > paddleB.Paddle + paddleB.PaddleSize / 2 && BallModule.DY > 0)
+                else if (BallModule.Y > paddleB.Paddle + (paddleB.PaddleSize / 2) && BallModule.DY > 0)
                 {
                     paddleB.Paddle = Math.Min(paddleB.Paddle + 1, Height - paddleB.PaddleSize - 1);
                 }
@@ -243,9 +235,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
             // find the slope
             float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
             // find the y-intercept
-            float yIntercept = line.A.Y - line.A.X * slope;
+            float yIntercept = line.A.Y - (line.A.X * slope);
             // find the function's value at parameter "x"
-            return x * slope + yIntercept;
+            return (x * slope) + yIntercept;
         }
     }
 }

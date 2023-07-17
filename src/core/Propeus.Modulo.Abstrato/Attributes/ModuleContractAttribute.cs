@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Propeus.Modulo.Abstrato.Interfaces;
-
 namespace Propeus.Modulo.Abstrato.Attributes
 {
     /// <summary>

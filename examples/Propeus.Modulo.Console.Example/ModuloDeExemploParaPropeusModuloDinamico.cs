@@ -1,6 +1,5 @@
 ﻿using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Console.Example
 {

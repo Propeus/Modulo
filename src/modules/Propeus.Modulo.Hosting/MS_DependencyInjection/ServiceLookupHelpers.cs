@@ -1,11 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-using Propeus.Modulo.Hosting.MS_DependencyInjection;
-
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 
-partial class ServiceProvider
+internal partial class ServiceProvider
 {
     internal static class ServiceLookupHelpers
     {
@@ -35,7 +33,9 @@ partial class ServiceProvider
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
         [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2060:MakeGenericMethod",
             Justification = "Calling Array.Empty<T>() is safe since the T doesn't have trimming annotations.")]
-        internal static MethodInfo GetArrayEmptyMethodInfo(Type itemType) =>
-            ArrayEmptyMethodInfo.MakeGenericMethod(itemType);
+        internal static MethodInfo GetArrayEmptyMethodInfo(Type itemType)
+        {
+            return ArrayEmptyMethodInfo.MakeGenericMethod(itemType);
+        }
     }
 }

@@ -4,11 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Propeus.Modulo.Hosting.MS_DependencyInjection;
-
 namespace Propeus.Modulo.Hosting.MS_DependencyInjection;
 
-partial class ServiceProvider
+internal partial class ServiceProvider
 {
     internal sealed class ExpressionResolverBuilder : CallSiteVisitor<object?, Expression>
     {
