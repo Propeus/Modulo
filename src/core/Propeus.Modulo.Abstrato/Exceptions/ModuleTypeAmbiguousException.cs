@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
@@ -8,10 +9,13 @@ namespace Propeus.Modulo.Abstrato.Exceptions
     [Serializable]
     public class ModuleTypeAmbiguousException : ModuleException
     {
-        /// <summary>
-        /// Construtor padrao
-        /// </summary>
-        /// <param name="message">Mensagem do erro</param>
+
+        ///<inheritdoc/>
         public ModuleTypeAmbiguousException(string message) : base(message) { }
+
+        ///<inheritdoc/>
+        protected ModuleTypeAmbiguousException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

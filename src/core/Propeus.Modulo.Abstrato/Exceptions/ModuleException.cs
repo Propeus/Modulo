@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao generica
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3925:\"ISerializable\" should be implemented correctly", Justification = "<Pendente>")]
+    [Serializable]
     public class ModuleException : Exception
     {
 
@@ -14,6 +15,15 @@ namespace Propeus.Modulo.Abstrato.Exceptions
         /// </summary>
         /// <param name="message">Mensagem do erro</param>
         public ModuleException(string message) : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Construtor para serializacao
+        /// </summary>
+        /// <param name="info">Informacao da serializacao</param>
+        /// <param name="context">Contexto</param>
+        protected ModuleException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

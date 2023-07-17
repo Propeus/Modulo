@@ -1,15 +1,21 @@
-﻿namespace Propeus.Modulo.Abstrato.Exceptions
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
     /// Excecao para tentativa de criacao de um novo modulo de instancia unica
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S3925:\"ISerializable\" should be implemented correctly", Justification = "<Pendente>")]
+    [Serializable]
     public class ModuleSingleInstanceException : ModuleException
     {
-        /// <summary>
-        /// Construtor padrao
-        /// </summary>
-        /// <param name="message">Mensagem do erro</param>
+
+        ///<inheritdoc/>
         public ModuleSingleInstanceException(string message) : base(message) { }
+
+        ///<inheritdoc/>
+        protected ModuleSingleInstanceException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

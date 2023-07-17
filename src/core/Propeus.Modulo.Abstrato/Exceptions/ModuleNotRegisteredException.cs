@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
@@ -8,10 +9,12 @@ namespace Propeus.Modulo.Abstrato.Exceptions
     [Serializable]
     public class ModuleNotRegisteredException : ModuleException
     {
-        /// <summary>
-        /// Construtor padrao
-        /// </summary>
-        /// <param name="message">Mensagem do erro</param>
+        ///<inheritdoc/>
         public ModuleNotRegisteredException(string message) : base(message) { }
+
+        ///<inheritdoc/>
+        protected ModuleNotRegisteredException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 }

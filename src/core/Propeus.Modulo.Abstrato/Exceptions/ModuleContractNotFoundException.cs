@@ -1,20 +1,26 @@
-﻿using Propeus.Modulo.Abstrato.Attributes;
+﻿using System;
+using System.Runtime.Serialization;
+
+using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
-#pragma warning disable S3925 // "ISerializable" should be implemented correctly
+
     /// <summary>
     /// Excecao para quando a interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/>
     /// </summary>
+    [Serializable]
     public class ModuleContractNotFoundException : ModuleException
     {
-        /// <summary>
-        /// Construtor padrao
-        /// </summary>
-        /// <param name="message">Mensagem do erro</param>
+        ///<inheritdoc/>
         public ModuleContractNotFoundException(string message) : base(message)
         {
         }
+
+        ///<inheritdoc/>
+        protected ModuleContractNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
-#pragma warning restore S3925 // "ISerializable" should be implemented correctly
+
 }
