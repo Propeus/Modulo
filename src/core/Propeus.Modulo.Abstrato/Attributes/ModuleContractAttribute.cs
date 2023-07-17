@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Propeus.Modulo.Abstrato.Exceptions;
+
 namespace Propeus.Modulo.Abstrato.Attributes
 {
     /// <summary>
@@ -19,6 +21,11 @@ namespace Propeus.Modulo.Abstrato.Attributes
         /// <param name="moduleName">ModuleName do moduleType</param>
         public ModuleContractAttribute(string moduleName)
         {
+            if (string.IsNullOrEmpty(moduleName))
+            {
+                throw new ModuleContractInvalidException("O atributo deve possui um nome ou tipo do modulo");
+            }
+
             ModuleName = moduleName;
 
         }
@@ -33,8 +40,12 @@ namespace Propeus.Modulo.Abstrato.Attributes
             if (moduleType != null)
             {
                 ModuleName = moduleType.Name;
+                ModuleType = moduleType;
             }
-            ModuleType = moduleType;
+            else
+            {
+                throw new ModuleContractInvalidException("O atributo deve possui um nome ou tipo do modulo");
+            }
         }
 
         /// <summary>

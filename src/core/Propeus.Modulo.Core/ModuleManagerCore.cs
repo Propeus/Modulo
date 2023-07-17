@@ -129,7 +129,7 @@ namespace Propeus.Modulo.Core
                             args[i] = paramCtor[i].ParameterType.Default();
                             continue;
                         }
-                        
+
                         throw;
                     }
                 }
@@ -261,8 +261,6 @@ namespace Propeus.Modulo.Core
                 target.Dispose();
                 InitializedModules--;
             }
-
-
         }
         ///<inheritdoc/>
         public void RemoveModule(string idModule)
@@ -374,22 +372,9 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         private Type ResolverContrato(Type modulo)
         {
-            //TODO: Simplificar metodo
-
-            if (!modulo.IsInterface && !modulo.IsClass)
-            {
-                throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_INVALIDO);
-            }
-
             if (modulo.IsInterface)
             {
                 ModuleContractAttribute attr = modulo.GetAttributeContractModule() ?? throw new ModuleContractNotFoundException(Constantes.ERRO_TIPO_NAO_MARCADO);
-
-                if (!attr.IsValid)
-                {
-                    throw new ModuleContractInvalidException("O atributo deve possui um nome ou tipo do modulo");
-                }
-
                 modulo = attr.ModuleType;
                 if (modulo is null)
                 {
@@ -417,9 +402,12 @@ namespace Propeus.Modulo.Core
                 {
                     throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_NAO_MARCADO);
                 }
+
+                return modulo;
             }
 
-            return modulo;
+            throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_INVALIDO);
+
         }
 
 
