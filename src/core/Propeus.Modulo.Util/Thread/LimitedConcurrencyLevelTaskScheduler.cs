@@ -85,7 +85,7 @@ namespace Propeus.Modulo.Util.Thread
                         }
 
                         // Execute the task we pulled out of the queue
-                        _ = TryExecuteTask(item);
+                        TryExecuteTask(item);
                     }
                 }
                 // We're done processing items on the current thread
