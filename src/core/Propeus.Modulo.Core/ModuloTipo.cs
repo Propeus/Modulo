@@ -4,7 +4,7 @@ using System.Text;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Abstrato
 {
 
     /// <summary>

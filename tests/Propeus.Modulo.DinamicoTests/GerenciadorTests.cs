@@ -12,7 +12,7 @@ namespace Propeus.Modulo.DinamicoTests
 
         public IModuleManager GetModuleManager()
         {
-            return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault());
+            return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager());
         }
 
         /**

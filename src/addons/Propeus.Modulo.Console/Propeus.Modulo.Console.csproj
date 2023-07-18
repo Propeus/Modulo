@@ -29,6 +29,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Update="LICENSE">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>

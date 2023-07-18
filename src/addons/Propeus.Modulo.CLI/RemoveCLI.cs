@@ -5,15 +5,15 @@ namespace Propeus.Modulo.CLI
     internal static class RemoveCli
     {
 
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
                 case "--id":
-                    (gerenciador as IGerenciadorArgumentos).Remover(args[2]);
+                    (gerenciador as IModuleManagerArguments).RemoveModule(args[2]);
                     break;
                 case "--all":
-                    (gerenciador as IGerenciadorArgumentos).RemoverTodos();
+                    (gerenciador as IModuleManagerArguments).RemoveAllModules();
                     break;
                 case "help":
                     ObtionsCreateHelp(args, gerenciador);
@@ -21,7 +21,7 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        private static void ObtionsCreateHelp(string[] args, IGerenciador gerenciador)
+        private static void ObtionsCreateHelp(string[] args, IModuleManager gerenciador)
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

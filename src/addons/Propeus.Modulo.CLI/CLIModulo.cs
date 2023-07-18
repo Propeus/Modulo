@@ -1,26 +1,25 @@
 ﻿using System;
 
 using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.CLI
 {
     /// <summary>
     /// Exemplo de modulo auto inicializavel e funcional
     /// </summary>
-    [Modulo]
+    [Module]
     //[ModuloAutoInicializavel]
-    public class CliModulo : ModuloBase
+    public class CliModulo : BaseModule
     {
-        private IGerenciador Gerenciador { get; }
+        private IModuleManager Gerenciador { get; }
 
         /// <summary>
-        /// Construtor padrao do <see cref="ModeloBase"/>
+        /// Construtor padrao do <see cref="BaseModel"/>
         /// </summary>
         /// <param name="gerenciador"></param>
-        public CliModulo(IGerenciador gerenciador) : base(true)
+        public CliModulo(IModuleManager gerenciador) : base(true)
         {
             Gerenciador = gerenciador;
         }

@@ -1,25 +1,14 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core.Modules;
+﻿using System;
 
-namespace Propeus.Modulo.Core
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Metodos de extensao para criar gerenciadores
     /// </summary>
     public static class ModuleManagerCoreExtensions
     {
-        /// <summary>
-        /// Cria uma nova instancia do gereciador com alguns modulos adicionais
-        /// </summary>
-        /// <returns></returns>
-        public static IModuleManager CreateModuleManagerDefault()
-        {
-            ModuleManagerCore gen = new ModuleManagerCore();
-            TaskJobModule taskJobModule = gen.CreateModule<TaskJobModule>();
-            gen.KeepAliveModuleAsync(taskJobModule).Wait();
-            gen.RegisterTaskJobs(taskJobModule);
-            return gen;
-        }
         /// <summary>
         /// Cria uma nova instancia do gereciador 
         /// </summary>
@@ -29,5 +18,26 @@ namespace Propeus.Modulo.Core
             ModuleManagerCore gen = new ModuleManagerCore();
             return gen;
         }
+        /// <summary>
+        /// Cria ou obtem um modulo existente
+        /// </summary>
+        /// <typeparam name="TModule">Tipo do modulo</typeparam>
+        /// <param name="moduleManager">Gerenciador de modulos</param>
+        /// <returns></returns>
+        public static TModule CreateOrGetModule<TModule>(this IModuleManager moduleManager) where TModule : IModule
+        {
+            if (!moduleManager.ExistsModule(typeof(TModule)))
+            {
+                return moduleManager.CreateModule<TModule>();
+            }
+            else
+            {
+                return moduleManager.GetModule<TModule>();
+            }
+        }
+
+     
+
+    
     }
 }

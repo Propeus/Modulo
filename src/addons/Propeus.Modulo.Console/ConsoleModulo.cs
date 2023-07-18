@@ -4,9 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Atributos;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato.Modulos;
 
 namespace Propeus.Modulo.Console
 {
@@ -14,8 +13,8 @@ namespace Propeus.Modulo.Console
     /// <summary>
     /// Interface de contrato para o Propeus.Modulo.CLI.CLIModulo
     /// </summary>
-    [ModuloContrato("CliModulo")]
-    public interface IModuloCliContrato : IModulo
+    [ModuleContract("CliModulo")]
+    public interface IModuloCliContrato : IModule
     {
         /// <summary>
         /// Executa a CLI do Propeus.Modulo.CLI
@@ -24,26 +23,27 @@ namespace Propeus.Modulo.Console
         void ExecutarCLI(string[] args);
     }
 
-
+    //TODO: Caso o atributo possua AutoStartable, procurar o metodo Launch e anexar ao taskjob se estiver disponivel,
+    //caso contrario inicar o launch de void e o usuario deve lidar com o ciclo de vida do modulo
     /// <summary>
     /// Exemplo de modulo auto inicializavel e funcional
     /// </summary>
-    [Modulo(AutoInicializavel = true)]
-    public class ConsoleModulo : ModuloBase
+    [Module(AutoStartable = true)]
+    public class ConsoleModulo : BaseModule
     {
         private readonly CancellationTokenSource cancellationTokenSource = new();
         private readonly Task tarefa;
-        private readonly IModulo modulo;
+        private readonly IModuleManager _moduleManager;
         private readonly IModuloCliContrato moduloCLI;
 
         /// <summary>
-        /// Construtor padrao do <see cref="ModeloBase"/>
+        /// Construtor padrao do <see cref="ConsoleModulo"/>
         /// </summary>
-        /// <param name="gerenciador"></param>
+        /// <param name="moduleManager"></param>
         /// <param name="moduloCLI"></param>
-        public ConsoleModulo(IGerenciador gerenciador, IModuloCliContrato moduloCLI = null) : base(true)
+        public ConsoleModulo(IModuleManager moduleManager, IModuloCliContrato moduloCLI = null) : base(true)
         {
-            modulo = gerenciador.Listar().FirstOrDefault(m => m.Nome == "Gerenciador");
+            _moduleManager = moduleManager;
             //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
             tarefa = Task.Run(IniciarProcesso);
             System.Console.CancelKeyPress += Console_CancelKeyPress;
@@ -58,7 +58,7 @@ namespace Propeus.Modulo.Console
 
         private Task IniciarProcesso()
         {
-            IGerenciador gerenciador = modulo as IGerenciador;
+            
 
             if (moduloCLI != null)
             {
@@ -67,7 +67,7 @@ namespace Propeus.Modulo.Console
             else
             {
                 System.Console.Clear();
-                System.Console.WriteLine("Console modulo " + "v" + Versao);
+                System.Console.WriteLine("Console modulo " + "v" + Version);
             }
 
 
@@ -88,7 +88,7 @@ namespace Propeus.Modulo.Console
                         System.Console.Write("Digite o comando: ");
                         string[] cmd = System.Console.ReadLine().Split(' ');
                         System.Console.Clear();
-                        System.Console.WriteLine("Console modulo " + "v" + Versao);
+                        System.Console.WriteLine("Console modulo " + "v" + Version);
 
 
                         switch (cmd[0])
@@ -112,10 +112,10 @@ namespace Propeus.Modulo.Console
                                 switch (cmd[1])
                                 {
                                     case "gerenciador":
-                                        System.Console.WriteLine(gerenciador);
+                                        System.Console.WriteLine(_moduleManager);
                                         break;
                                     case "modulo":
-                                        foreach (IModulo item in gerenciador.Listar())
+                                        foreach (IModule item in _moduleManager.ListAllModules())
                                         {
                                             System.Console.WriteLine(item);
                                         }
@@ -127,33 +127,35 @@ namespace Propeus.Modulo.Console
                                 break;
                             case "-o":
                             case "--obter":
-                                System.Console.WriteLine(gerenciador.Obter(cmd[1]));
+                                System.Console.WriteLine(_moduleManager.GetModule(cmd[1]));
                                 break;
                             case "-e":
                             case "--existe":
-                                System.Console.WriteLine(gerenciador.Existe(cmd[1]));
+                                System.Console.WriteLine(_moduleManager.ExistsModule(cmd[1]));
                                 break;
                             case "-r":
                             case "--reciclar":
-                                System.Console.WriteLine(gerenciador.Reciclar(cmd[1]));
+                                System.Console.WriteLine(_moduleManager.RecycleModule(cmd[1]));
                                 break;
                             case "-rm":
                             case "--remover":
                                 if (cmd[1].ToLower() == "all")
                                 {
-                                    gerenciador.RemoverTodos();
+                                    _moduleManager.RemoveAllModules();
                                 }
                                 else
                                 {
-                                    gerenciador.Remover(cmd[1]);
+                                    _moduleManager.RemoveModule(cmd[1]);
                                 }
                                 break;
+                            case "--s":
                             case "--sair":
                                 cancellationTokenSource.Cancel();
-                                gerenciador.Remover(this);
+                                this.Dispose();
                                 break;
                             case "-v":
                             case "--versao":
+                               
                                 break;
                             case "--cp":
                                 switch (cmd[1])
@@ -169,7 +171,7 @@ namespace Propeus.Modulo.Console
                                             default:
                                                 break;
                                         }
-                                        gerenciador.Remover(cmd[2]);
+                                        _moduleManager.RemoveModule(cmd[2]);
                                         break;
                                     default:
                                         switch (cmd[2])

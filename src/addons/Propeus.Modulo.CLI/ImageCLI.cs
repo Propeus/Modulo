@@ -5,12 +5,12 @@ namespace Propeus.Modulo.CLI
     internal static class ImageCli
     {
 
-        public static void ExecuteImage(string[] args, IGerenciador gerenciador)
+        public static void ExecuteImage(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
                 case "--id":
-                    _ = gerenciador.Obter(args[2]);
+                    _ = gerenciador.GetModule(args[2]);
                     break;
                 case "help":
                     OptionsCreateHelp(args);
@@ -18,9 +18,9 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        public static void ExecuteImages(string[] args, IGerenciador gerenciador)
+        public static void ExecuteImages(string[] args, IModuleManager gerenciador)
         {
-            foreach (IModulo item in gerenciador.Listar())
+            foreach (IModule item in gerenciador.ListAllModules())
             {
                 System.Console.WriteLine(item);
             }

@@ -12,12 +12,11 @@ using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core.Modules;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
 using Propeus.Modulo.Util.Tipos;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Modulo.Abstrato
 {
     /// <summary>
     /// Controlador de modulos
@@ -37,26 +36,12 @@ namespace Propeus.Modulo.Core
         internal ModuleManagerCore()
         {
             StartDate = DateTime.Now;
-
         }
 
         private readonly CancellationTokenSource _cancellationToken = new();
 
         //K:Id | V:moduleInstance
         private readonly ConcurrentDictionary<string, IModuleType> modules = new ConcurrentDictionary<string, IModuleType>();
-
-        internal void RegisterTaskJobs(TaskJobModule taskJobModule)
-        {
-            taskJobModule.RegisterJob((ct) =>
-            {
-                IEnumerable<KeyValuePair<string, IModuleType>> modulesOff = modules.Where(x => x.Value.IsDeleted);
-                foreach (KeyValuePair<string, IModuleType> item in modulesOff)
-                {
-                    RemoveModule(item.Key);
-                }
-
-            }, $"{GetType().FullName}::Auto_Remove_Modules", TimeSpan.FromSeconds(1));
-        }
 
         ///<inheritdoc/>
         public DateTime StartDate { get; private set; }
@@ -165,15 +150,11 @@ namespace Propeus.Modulo.Core
                 moduleType = ResolverContrato(moduleType);
                 IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
 
-                if (moduloInstancia is null)
+                if (moduloInstancia is null || moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
                 {
                     return false;
                 }
-                if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
-                {
-                    return false;
-                }
-
+            
                 return true;
             }
             catch (ModuleTypeNotFoundException)
@@ -216,7 +197,7 @@ namespace Propeus.Modulo.Core
 
             if (moduloInstancia is null)
             {
-                throw new ModuleNotFoundException("Module nao encontrado");
+                throw new ModuleNotFoundException("Modulo nao encontrado");
             }
             if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
             {
@@ -313,7 +294,7 @@ namespace Propeus.Modulo.Core
 
         }
 
-
+        //TODO: Mover para um modulo separado
         ///<inheritdoc/>
         public async Task KeepAliveAsync()
         {

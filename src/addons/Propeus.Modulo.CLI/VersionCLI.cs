@@ -4,9 +4,9 @@ namespace Propeus.Modulo.CLI
 {
     internal static class VersionCli
     {
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
-            System.Console.WriteLine(gerenciador.Versao);
+            System.Console.WriteLine(gerenciador.Version);
         }
     }
 }

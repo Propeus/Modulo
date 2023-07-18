@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Util.Thread;
 
-namespace Propeus.Modulo.Core.Modules
+namespace Propeus.Modulo.Taskjob
 {
+    /// <summary>
+    /// Modulo para gerenciar tarefas
+    /// </summary>
     [Module]
-    internal class TaskJobModule : BaseModule
+    public class TaskJobModule : BaseModule
     {
         private enum EstadoRunner
         {
@@ -40,7 +38,7 @@ namespace Propeus.Modulo.Core.Modules
             public Task Task { get; internal set; }
             public EstadoRunner Estado { get; internal set; }
 
-            public void Run( TaskFactory _taskFactory, CancellationToken cancellationToken)
+            public void Run(TaskFactory _taskFactory, CancellationToken cancellationToken)
             {
                 Task = _taskFactory.StartNew(Action, cancellationToken, CancelationToken.Token);
             }
@@ -190,7 +188,7 @@ namespace Propeus.Modulo.Core.Modules
                 string[] nme_group = item.Key.Split("::");
                 if (nme_group.Length > 1)
                 {
-                    if (grupos.TryGetValue(nme_group[0],out var targetValue))
+                    if (grupos.TryGetValue(nme_group[0], out var targetValue))
                     {
                         targetValue.Append('\t').Append("- ").Append(nme_group[1]).Append(": ").AppendLine(item.Value.Estado.ToString().ToUpper());
                     }

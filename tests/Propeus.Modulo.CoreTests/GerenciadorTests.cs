@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.CoreTests.Modulos;
 
 namespace Propeus.Modulo.CoreTests
@@ -20,7 +21,7 @@ namespace Propeus.Modulo.CoreTests
             //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
             //EventoProvider.RegistrarOuvinteErro(TesteLog);
             //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
-            gerenciador = Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault();
+            gerenciador = Abstrato.ModuleManagerCoreExtensions.CreateModuleManager();
         }
 
         public void TesteLogAviso(Type fonte, string mensagem, Exception exception)
@@ -261,7 +262,7 @@ namespace Propeus.Modulo.CoreTests
             Assert.IsNotNull(Module);
             gerenciador.RemoveModule(Module.Id);
 
-            Assert.AreEqual(1, gerenciador.InitializedModules);
+            Assert.AreEqual(0, gerenciador.InitializedModules);
             _ = Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
                 gerenciador.RemoveModule(Module.Id);
@@ -544,7 +545,7 @@ namespace Propeus.Modulo.CoreTests
         public void ListarModules_loop()
         {
             IModule m = null;
-            for (int i = 0; i < 99; i++)
+            for (int i = 0; i < 100; i++)
             {
                 TesteInstanciaMultiplaModule auxm = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
                 Assert.AreNotEqual(m, auxm);
@@ -601,7 +602,7 @@ namespace Propeus.Modulo.CoreTests
         {
             Assert.ThrowsException<ModuleTypeNotFoundException>(() =>
             {
-                gerenciador.CreateModule(typeof(InterfaceModuleInvalido));
+                gerenciador.CreateModule(typeof(IContratoModuleInvalido));
             });
         }
         [TestMethod()]
@@ -715,6 +716,30 @@ namespace Propeus.Modulo.CoreTests
         {
             Assert.IsNotNull(gerenciador.CreateModule(typeof(IModuleInstanciaUnica)));
             Assert.IsTrue(gerenciador.ExistsModule(typeof(IModuleInstanciaUnica)));
+        }
+
+        [TestMethod()]
+        public void Testes_separar()
+        {
+            //Verifica se nao existe modulo
+            Assert.IsFalse(gerenciador.ExistsModule(typeof(ModuleDependenciaInvalida)));
+            //Verifica tipo invalido
+            Assert.IsFalse(gerenciador.ExistsModule(typeof(IContratoModuleInvalido)));
+            //Verifica valor invalido
+            Assert.ThrowsException<ArgumentNullException>(() => { gerenciador.ExistsModule(""); });
+            //Verifica valor invalido
+            Assert.ThrowsException<ArgumentException>(() => { gerenciador.RemoveModule(""); });
+            //Obtem instancia que nunca criou
+            Assert.ThrowsException<ModuleNotFoundException>(() => { gerenciador.GetModule(typeof(ModuleDependenciaInvalida)); });
+            //Obtem instancia excluida
+            gerenciador.CreateModule<TesteInstanciaMultiplaModule>().Dispose();
+            Assert.ThrowsException<ModuleDisposedException>(() => { gerenciador.GetModule(typeof(TesteInstanciaMultiplaModule)); });
+            //Tem que dar um jeito de testar isso aqui
+            Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());
+            Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());
+
+            //Assert.IsNotNull(gerenciador.CreateOrGetModule<TaskJobModule>().ToString());
+            //Assert.IsNotNull(gerenciador.CreateOrGetModule<TaskJobModule>().ToStringView());
         }
     }
 }

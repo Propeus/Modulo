@@ -122,11 +122,7 @@ namespace Propeus.Modulo.Abstrato.Interfaces
         /// <returns><see cref="IEnumerable{IModulo}"/></returns>
         IEnumerable<IModule> ListAllModules();
 
-        /// <summary>
-        /// Mantem o gerenciador vivo durante o uso da aplicação
-        /// </summary>
-        /// <returns><see cref="Task"/></returns>
-        Task KeepAliveAsync();
+       
         /// <summary>
         /// Mantem um modulo vivo mesmo não possuindo referencia alguma
         /// </summary>

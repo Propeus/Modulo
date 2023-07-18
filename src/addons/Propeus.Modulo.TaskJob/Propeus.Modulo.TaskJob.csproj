@@ -1,11 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-		<Product>Propeus.Modulo.Abstrato</Product>
+		<Product>Propeus.Modulo.Hosting</Product>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente com classes e interfaces para implementacao de modulos</Description>
+		<Description>Modulo para gerenciar trabalhos</Description>
 
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
@@ -14,11 +16,11 @@
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Abstrato</PackageTags>
-		<PackageId>Propeus.Modulo.Abstrato</PackageId>
+		<PackageTags>Propeus Net Modulo Task Job</PackageTags>
+		<PackageId>Propeus.Modulo.Taskjob</PackageId>
 
-		<AssemblyName>Propeus.Modulo.Abstrato</AssemblyName>
-		<RootNamespace>Propeus.Modulo.Abstrato</RootNamespace>
+		<AssemblyName>Propeus.Modulo.Taskjob</AssemblyName>
+		<RootNamespace>Propeus.Modulo.Taskjob</RootNamespace>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -29,14 +31,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj" />
+	  <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
 
 </Project>

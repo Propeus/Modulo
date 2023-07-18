@@ -5,12 +5,12 @@ namespace Propeus.Modulo.CLI
     internal static class RestartCli
     {
 
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
                 case "--id":
-                    _ = (gerenciador as IGerenciadorArgumentos).Reciclar(args[2]);
+                    _ = (gerenciador as IModuleManagerArguments).RecycleModule(args[2]);
                     break;
                 case "help":
                     ObtionsCreateHelp(args, gerenciador);
@@ -18,7 +18,7 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        private static void ObtionsCreateHelp(string[] args, IGerenciador gerenciador)
+        private static void ObtionsCreateHelp(string[] args, IModuleManager gerenciador)
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

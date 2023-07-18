@@ -2,6 +2,7 @@
 
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Abstrato;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example
 {
@@ -20,7 +21,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
         private static async Task Main(string[] args)
         {
 
-            IModuleManager gen = Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault());
+            IModuleManager gen = Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Abstrato.ModuleManagerCoreExtensions.CreateModuleManager());
             if (!gen.ExistsModule(typeof(IWindowModuleContract)))
             {
                 await gen.CreateModule<IWindowModuleContract>().Main();
@@ -29,7 +30,6 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
             {
                 await gen.GetModule<IWindowModuleContract>().Main();
             }
-            await gen.KeepAliveAsync();
 
         }
 

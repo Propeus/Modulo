@@ -7,7 +7,7 @@ namespace Propeus.Modulo.CoreTests
 
 
         [ModuleContract("xpto")]
-        public interface InterfaceModuleInvalido
+        public interface IContratoModuleInvalido
         {
 
         }

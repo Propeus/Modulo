@@ -5,7 +5,7 @@ namespace Propeus.Modulo.CLI
     internal static class CreateCli
     {
 
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
@@ -16,7 +16,7 @@ namespace Propeus.Modulo.CLI
                         switch (args[3])
                         {
                             case "--args":
-                                _ = (gerenciador as IGerenciadorArgumentos).Criar(args[2], args[3..-1]);
+                                _ = (gerenciador as IModuleManagerArguments).CreateModule(args[2], args[3..-1]);
                                 break;
                             default:
                                 break;
@@ -24,7 +24,7 @@ namespace Propeus.Modulo.CLI
                     }
                     else
                     {
-                        _ = gerenciador.Criar(args[2]);
+                        _ = gerenciador.CreateModule(args[2]);
                     }
                     break;
                 case "help":
@@ -33,7 +33,7 @@ namespace Propeus.Modulo.CLI
             }
         }
 
-        private static void ObtionsCreateHelp(string[] args, IGerenciador gerenciador)
+        private static void ObtionsCreateHelp(string[] args, IModuleManager gerenciador)
         {
             System.Console.Clear();
             System.Console.WriteLine("Propeus.Modulo.CLI");

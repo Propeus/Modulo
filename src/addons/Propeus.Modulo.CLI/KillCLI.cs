@@ -5,15 +5,15 @@ namespace Propeus.Modulo.CLI
     internal static class KillCli
     {
 
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
                 case "--id":
-                    gerenciador.Remover(args[2]);
+                    gerenciador.RemoveModule(args[2]);
                     break;
                 case "--all":
-                    gerenciador.RemoverTodos();
+                    gerenciador.RemoveAllModules();
                     break;
                 case "help":
                     OptionsCreateHelp();

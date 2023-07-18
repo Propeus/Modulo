@@ -5,7 +5,7 @@ namespace Propeus.Modulo.CLI
     internal static class CpCli
     {
 
-        public static void Execute(string[] args, IGerenciador gerenciador)
+        public static void Execute(string[] args, IModuleManager gerenciador)
         {
             switch (args[1])
             {
@@ -20,7 +20,7 @@ namespace Propeus.Modulo.CLI
                         default:
                             break;
                     }
-                    gerenciador.Remover(args[2]);
+                    gerenciador.RemoveModule(args[2]);
                     break;
                 case "help":
                     ObtionsCreateHelp();
