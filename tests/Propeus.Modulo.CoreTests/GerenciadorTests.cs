@@ -2,43 +2,17 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.CoreTests.Modulos;
 
 namespace Propeus.Modulo.CoreTests
 {
-    [Module]
-    public class TesteInstanciaUnicaModule : BaseModule
-    {
-        public TesteInstanciaUnicaModule() : base(true)
-        {
-        }
-
-        public override string ToString()
-        {
-            return Id;
-        }
-    }
-
-    [Module]
-    public class TesteInstanciaMultiplaModule : BaseModule
-    {
-        public TesteInstanciaMultiplaModule() : base(false)
-        {
-        }
-
-        public override string ToString()
-        {
-            return Id;
-        }
-    }
 
     [TestClass()]
-    public class GerenciadorTests
+    public partial class GerenciadorTests
     {
-        private IModuleManager gerenciador;
+        public IModuleManager gerenciador;
 
         [TestInitialize]
         public void Begin()
@@ -49,14 +23,14 @@ namespace Propeus.Modulo.CoreTests
             gerenciador = Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault();
         }
 
-        private void TesteLogAviso(Type fonte, string mensagem, Exception exception)
+        public void TesteLogAviso(Type fonte, string mensagem, Exception exception)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"[{DateTime.Now}] {fonte.Name}: {mensagem}");
             Console.ResetColor();
         }
 
-        private void TesteLog(Type fonte, string mensagem, Exception exception)
+        public void TesteLog(Type fonte, string mensagem, Exception exception)
         {
             if (exception == null)
             {
@@ -582,294 +556,165 @@ namespace Propeus.Modulo.CoreTests
         }
 
 
-        #region Organizar depois
 
-        public interface InterfaceSemAtributo
+
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_19()
         {
-
-        }
-
-        [ModuleContract("xpto")]
-        public interface InterfaceModuleInvalido
-        {
-
-        }
-        [ModuleContract(typeof(OutroModuleDependenciaInterfaceValida))]
-        public interface IModuleValido : IModule
-        {
-
-        }
-
-        [ModuleContract(typeof(OutroModuleDependenciaInterfaceValida))]
-        public interface IModuleInstanciaUnica : IModule
-        {
-
-        }
-
-        [Module]
-        public class ModuleInstanciaUnica : BaseModule, IModuleInstanciaUnica
-        {
-            public ModuleInstanciaUnica() : base(true)
+            Assert.ThrowsException<ModuleSingleInstanceException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
+                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
+            });
         }
-
-        public class ModuleInvallido
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_18()
         {
-
+            Assert.ThrowsException<ModuleBuilderAbsentException>(() =>
+            {
+                gerenciador.CreateModule(typeof(ModuleSemConstrutor));
+            });
         }
-
-        public class ModuleSemAtributo : IModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_17()
         {
-            public bool IsSingleInstance { get; }
-            /// <summary>
-            /// Version do modelo
-            /// </summary>
-            public string Version { get; }
-            /// <summary>
-            /// Representa o estado do objeto.
-            /// </summary>
-            public State State { get; }
-            /// <summary>
-            /// Representação amigavel do ojeto. 
-            /// <para>
-            /// Caso seja nulo o nome da classe herdado será informado na propriedade.
-            /// </para>
-            /// </summary>
-            public string Name { get; }
-            /// <summary>
-            /// Representação alfanumerica e unica do objeto.
-            /// </summary>
-            public string Id { get; }
-            /// <summary>
-            /// <see cref="Guid"/> do <see cref="System.Reflection.Assembly" /> atual
-            /// </summary>
-            public string ManifestId { get; }
-
-
-            private bool disposedValue;
-
-            protected virtual void Dispose(bool disposing)
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-                if (!disposedValue)
-                {
-                    disposedValue = true;
-                }
-            }
-
-
-
-            public void Dispose()
-            {
-
-                Dispose(disposing: true);
-                GC.SuppressFinalize(this);
-            }
-
-            public string IdManifesto { get; }
+                gerenciador.CreateModule(typeof(ModuleSemAtributo));
+            });
         }
-
-
-        [Module]
-        public class ModuleSemConstrutor : IModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_16()
         {
-            private ModuleSemConstrutor()
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-
-            }
-
-            public bool IsSingleInstance { get; }
-            public string Version { get; }
-            public State State { get; }
-            public string Name { get; }
-            public string Id { get; }
-            public string ManifestId { get; }
-
-            private bool disposedValue;
-
-            protected virtual void Dispose(bool disposing)
-            {
-                if (!disposedValue)
-                {
-                    disposedValue = true;
-                }
-            }
-
-
-            public void Dispose()
-            {
-                // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
-                Dispose(disposing: true);
-                GC.SuppressFinalize(this);
-            }
-
-            public string IdManifesto { get; }
+                gerenciador.CreateModule(typeof(ModuleInvallido));
+            });
         }
-
-        [Module]
-        public class ModuleIntanciaUnica : BaseModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_15()
         {
-            public ModuleIntanciaUnica() : base(true)
+            Assert.ThrowsException<ModuleTypeNotFoundException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(InterfaceModuleInvalido));
+            });
         }
-
-
-
-        [Module]
-        public class ModuleDependenciaInvalida : BaseModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_14()
         {
-            public ModuleDependenciaInvalida(ModuleInvallido ModuleInvallido) : base(true)
+            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(int));
+            });
         }
-
-        [Module]
-        public class ModuleDependenciaInterfaceInvalidaOpcional : BaseModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_13()
         {
-            public ModuleDependenciaInterfaceInvalidaOpcional(InterfaceModuleInvalido interfaceModuleInvalido = null) : base(false)
+            Assert.ThrowsException<ModuleContractNotFoundException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(InterfaceSemAtributo));
+            });
         }
-
-        [Module]
-        public class ModuleDependenciaValida : BaseModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_12()
         {
-            public ModuleDependenciaValida(ModuleDependenciaInterfaceInvalidaOpcional Module) : base(true)
+            Assert.ThrowsException<ArgumentNullException>(() =>
             {
-            }
+                gerenciador.ExistsModule(default(Type));
+            });
         }
-
-        [Module]
-        public class OutroModuleDependenciaInterfaceValida : BaseModule, IModuleValido
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_11()
         {
-            public OutroModuleDependenciaInterfaceValida() : base(false)
+            Assert.ThrowsException<ArgumentNullException>(() =>
             {
-            }
+                gerenciador.CreateModule(default(Type));
+            });
         }
-
-        [Module]
-        public class ModuleDependenciaInterfaceValida : BaseModule
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_10()
         {
-            public ModuleDependenciaInterfaceValida(IModuleValido iModule) : base(false)
+            Assert.ThrowsException<ModuleContractInvalidException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(IContratoInvalidoTipo));
+            });
         }
-
-        [Module]
-        public class ModuleParametroInvalido : BaseModule, IModuleValido
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_9()
         {
-            public ModuleParametroInvalido(int a) : base(false)
+            Assert.ThrowsException<ModuleContractInvalidException>(() =>
             {
-            }
+                gerenciador.CreateModule(typeof(IContratoInvalido));
+            });
         }
-
-        [Module]
-        public class ModuleParametroInvalidoOpcional : BaseModule, IModuleValido
+        [TestMethod()]
+        [TestCategory("Exceptions")]
+        public void Teste_8()
         {
-            public ModuleParametroInvalidoOpcional(bool instanciaUnica = false) : base(instanciaUnica)
+            Assert.ThrowsException<ArgumentException>(() =>
             {
-            }
-        }
-
-        [ModuleContract(default(string))]
-        public interface IContratoInvalido : IModule
-        {
-
-        }
-
-        [ModuleContract(default(Type))]
-        public interface IContratoInvalidoTipo : IModule
-        {
-
+                gerenciador.GetModule(default(string));
+            });
         }
 
         [TestMethod()]
-        [TestCategory("Todos")]
-        public void TodosOstestes()
+        [TestCategory("Exceptions")]
+        public void Teste_7()
         {
-
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(IModuleInstanciaUnica)));
-            Assert.IsTrue(gerenciador.ExistsModule(typeof(IModuleInstanciaUnica)));
-
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleParametroInvalidoOpcional)));
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional)));
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaValida)));
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)));
-            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)).ToString());
-
-
-
             Assert.ThrowsException<ModuleNotFoundException>(() =>
             {
                 IModule m = gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional));
                 m.Dispose();
                 gerenciador.GetModule(m.Id);
             });
-
-            Assert.ThrowsException<ArgumentException>(() =>
-            {
-                gerenciador.GetModule(default(string));
-            });
-
-            Assert.ThrowsException<ModuleContractInvalidException>(() =>
-            {
-                gerenciador.CreateModule(typeof(IContratoInvalido));
-            });
-
-            Assert.ThrowsException<ModuleContractInvalidException>(() =>
-            {
-                gerenciador.CreateModule(typeof(IContratoInvalidoTipo));
-            });
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-            {
-                gerenciador.CreateModule(default(Type));
-            });
-
-            Assert.ThrowsException<ArgumentNullException>(() =>
-            {
-                gerenciador.ExistsModule(default(Type));
-            });
-
-            Assert.ThrowsException<ModuleContractNotFoundException>(() =>
-            {
-                gerenciador.CreateModule(typeof(InterfaceSemAtributo));
-            });
-
-            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
-            {
-                gerenciador.CreateModule(typeof(int));
-            });
-
-            Assert.ThrowsException<ModuleTypeNotFoundException>(() =>
-            {
-                gerenciador.CreateModule(typeof(InterfaceModuleInvalido));
-            });
-
-            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
-            {
-                gerenciador.CreateModule(typeof(ModuleInvallido));
-            });
-
-            Assert.ThrowsException<ModuleTypeInvalidException>(() =>
-            {
-                gerenciador.CreateModule(typeof(ModuleSemAtributo));
-            });
-
-            Assert.ThrowsException<ModuleBuilderAbsentException>(() =>
-            {
-                gerenciador.CreateModule(typeof(ModuleSemConstrutor));
-            });
-
-            Assert.ThrowsException<ModuleSingleInstanceException>(() =>
-            {
-                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
-                gerenciador.CreateModule(typeof(ModuleIntanciaUnica));
-            });
-
         }
-        #endregion
-
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_6()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)).ToString());
+        }
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_5()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceValida)));
+        }
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_4()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaValida)));
+        }
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_3()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional)));
+        }
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_2()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuleParametroInvalidoOpcional)));
+        }
+        [TestMethod()]
+        [TestCategory("Criar")]
+        public void Teste_1()
+        {
+            Assert.IsNotNull(gerenciador.CreateModule(typeof(IModuleInstanciaUnica)));
+            Assert.IsTrue(gerenciador.ExistsModule(typeof(IModuleInstanciaUnica)));
+        }
     }
 }

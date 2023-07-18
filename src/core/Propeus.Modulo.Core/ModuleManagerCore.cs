@@ -38,10 +38,6 @@ namespace Propeus.Modulo.Core
         {
             StartDate = DateTime.Now;
 
-            Console.CancelKeyPress += Console_CancelKeyPress;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
-
-
         }
 
         private readonly CancellationTokenSource _cancellationToken = new();
@@ -357,18 +353,7 @@ namespace Propeus.Modulo.Core
             }
         }
 
-        ///<inheritdoc/>
-        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
-        {
-            Dispose();
-            e.Cancel = true;
-        }
-        ///<inheritdoc/>
-        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            Dispose();
-        }
-
+   
         ///<inheritdoc/>
         private Type ResolverContrato(Type modulo)
         {
