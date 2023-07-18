@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
@@ -23,6 +24,7 @@ namespace Propeus.Modulo.Abstrato.Exceptions
         /// </summary>
         /// <param name="info">Informacao da serializacao</param>
         /// <param name="context">Contexto</param>
+        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
         protected ModuleException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

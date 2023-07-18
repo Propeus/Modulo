@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Propeus.Modulo.Abstrato.Exceptions
@@ -13,6 +14,7 @@ namespace Propeus.Modulo.Abstrato.Exceptions
         public ModuleTypeNotFoundException(string message) : base(message) { }
 
         ///<inheritdoc/>
+        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
         protected ModuleTypeNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

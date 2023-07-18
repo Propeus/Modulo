@@ -737,6 +737,8 @@ namespace Propeus.Modulo.CoreTests
             //Tem que dar um jeito de testar isso aqui
             Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());
             Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());
+            Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>().ToString());
+            Assert.IsNotNull(gerenciador.ToString());
 
             //Assert.IsNotNull(gerenciador.CreateOrGetModule<TaskJobModule>().ToString());
             //Assert.IsNotNull(gerenciador.CreateOrGetModule<TaskJobModule>().ToStringView());

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Propeus.Modulo.Util.Objetos
@@ -61,6 +62,7 @@ namespace Propeus.Modulo.Util.Objetos
         /// <param name="obj">Instancia do objeto</param>
         /// <returns></returns>
         //https://stackoverflow.com/questions/374651/how-to-check-if-an-object-is-nullable
+        [ExcludeFromCodeCoverage(Justification = "Codigo de terceiro")]
         public static bool IsNullable<T>(this T obj)
         {
             if (obj == null)
