@@ -47,5 +47,5 @@ jobs:
           dotnet build ./src/core/Propeus.Modulo.IL.Core/Propeus.Modulo.IL.Core.csproj --no-restore
 
           dotnet tool install --global dotnet-coverage
-          dotnet-coverage collect "dotnet test ./tests/Propeus.Modulo.ILCoreTests/Propeus.Modulo.ILCoreTests.csproj" -f xml -o "coverage.xml"
+          dotnet-coverage collect "dotnet test ./tests/Propeus.Modulo.IL.CoreTests/Propeus.Modulo.IL.CoreTests.csproj" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
