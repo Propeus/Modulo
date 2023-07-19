@@ -30,15 +30,15 @@ namespace Propeus.Modulo.Dinamico
         /// <summary>
         /// Inicializa o _gerenciador
         /// </summary>
-        /// <param name="gerenciador">ModuleManager que irá controlar o modulo</param>
-        public ModuleManager(IModuleManager gerenciador) : base(true)
+        /// <param name="moduleManager">Gerenciador que irá controlar o modulo</param>
+        public ModuleManager(IModuleManager moduleManager) : base(true)
         {
 
 
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             StartDate = DateTime.Now;
 
-            _gerenciador = gerenciador;
+            _gerenciador = moduleManager;
         }
 
 
@@ -47,7 +47,7 @@ namespace Propeus.Modulo.Dinamico
         /// <summary>
         /// Diretório atual do modulo
         /// </summary>
-        public string DiretorioModulo { get; set; } = Directory.GetCurrentDirectory();
+        public string ModuleDirectory { get; set; } = Directory.GetCurrentDirectory();
         ///<inheritdoc/>
         public DateTime StartDate { get; }
         ///<inheritdoc/>
@@ -210,12 +210,9 @@ namespace Propeus.Modulo.Dinamico
                 moduleType = ResoverContratos(moduleType);
             }
 
-            if (moduleType is null)
-            {
-                throw new ArgumentNullException(nameof(moduleType));
-            }
-
-            ConstructorInfo ctor = moduleType.GetConstructors().MaxBy(cto => cto.GetParameters().Length);
+          
+            ConstructorInfo? ctor = moduleType.GetConstructors()
+                .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException("Nao existe nenhum construtor publico disponivel");
 
             ParameterInfo[] @params = ctor.GetParameters();
             foreach (ParameterInfo @param in @params)
@@ -315,7 +312,6 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(string moduleName)
         {
-            //TODO: Criar exception para caso do modulo ModuleProviderModule nao existir
             return CreateModule(GetModule<ModuleWatcherModule>()[moduleName]);
         }
 
@@ -1129,9 +1125,9 @@ namespace Propeus.Modulo.Dinamico
         ///}
         ///</code>
         ///</example>
-        public IModule GetModule(string moduleType)
+        public IModule GetModule(string idModule)
         {
-            return _gerenciador.GetModule(moduleType);
+            return _gerenciador.GetModule(idModule);
         }
 
         ///<inheritdoc/>
@@ -1458,15 +1454,14 @@ namespace Propeus.Modulo.Dinamico
             _ = stringBuilder.Append("Data de inicializacao: ").Append(StartDate).AppendLine();
             _ = stringBuilder.Append("Tempo em execução: ").Append(DateTime.Now - StartDate).AppendLine();
 
-            _ = stringBuilder.Append("Caminho do diretório: ").Append(DiretorioModulo).AppendLine();
+            _ = stringBuilder.Append("Caminho do diretório: ").Append(ModuleDirectory).AppendLine();
             //_ = stringBuilder.Append("Quantidade de DLLs no diretório: ").Append(ModuleProvider.Provider.ModulosDllCarregados).AppendLine();
             _ = stringBuilder.Append("Quantidade de caminho_modulos inicializados: ").Append(InitializedModules).AppendLine();
 
             return stringBuilder.ToString();
         }
 
-        //TODO: Mover o ResoverContratos para o moduleProvider
-
+       
         /// <summary>
         /// Obtem o tipo implementado com base na interface informada
         /// </summary>
@@ -1486,6 +1481,8 @@ namespace Propeus.Modulo.Dinamico
         }
         private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModule
         {
+           
+
             MethodInfo mthInstancia = modulo.GetType().GetMethod(Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
 

@@ -1,6 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Linq;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Dinamico.Modules;
 
 namespace Propeus.Modulo.DinamicoTests
 {
@@ -13,6 +17,7 @@ namespace Propeus.Modulo.DinamicoTests
         public IModuleManager GetModuleManager()
         {
             return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager());
+
         }
 
         /**
@@ -33,6 +38,47 @@ namespace Propeus.Modulo.DinamicoTests
          * **/
 
         [TestMethod()]
+        public void Teste_10()
+        {
+            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            {
+                ListenerModule listerner = gerenciador.CreateModule<ListenerModule>();
+                gerenciador.KeepAliveModuleAsync(gerenciador.GetModule<ModuleWatcherModule>());
+                Assert.IsNotNull(listerner);
+                listerner.SetOnLoadModule((obj) => { });
+                listerner.SetOnRebuildModule((obj) => { });
+                listerner.SetOnUnloadModule((obj) => { });
+                var module = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf>();
+                gerenciador.KeepAliveModuleAsync(module).Wait();
+                Assert.IsNotNull(listerner.GetAllModules().ToList());
+
+            }
+
+
+        }
+
+        [TestMethod()]
+        public void Teste_9()
+        {
+            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            {
+                Assert.ThrowsException<ArgumentNullException>(() => { gerenciador.CreateModule(default(Type)); });
+
+            }
+
+            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            {
+                Assert.ThrowsException<ArgumentNullException>(() => { gerenciador.CreateModule(default(Type), Array.Empty<object>()); });
+                Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao), Array.Empty<object>()));
+                var module = gerenciador.CreateModule(typeof(ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao), Array.Empty<object>());
+                gerenciador.RemoveModule(module);
+                module = gerenciador.CreateModule(typeof(ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao), Array.Empty<object>());
+                gerenciador.RemoveModule(module.Id);
+                Assert.IsNotNull(gerenciador.ListAllModules());
+            }
+        }
+
+        [TestMethod()]
         public void Teste_8()
         {
             /**
@@ -42,7 +88,6 @@ namespace Propeus.Modulo.DinamicoTests
                          * **/
             using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
             {
-                //TODO: Consertar o provedor de tipo para nao carregar tipos ja compilados
                 IModule modulo = (ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao)gerenciador.CreateModule("ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao", new object[] { 15, 20 });
                 Assert.IsNotNull(modulo);
                 Assert.IsInstanceOfType(modulo, typeof(IModule));

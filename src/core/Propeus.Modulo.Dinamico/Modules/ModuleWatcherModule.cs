@@ -69,7 +69,6 @@ namespace Propeus.Modulo.Dinamico.Modules
                     }
                     else
                     {
-                        //TODO: Corrigir esta funcao 'NovaVersao'
                         _proxyBuilder.NovaVersao(interfaces: GetContractsType().ToArray()).CriarProxyClasse(target, GetContractsType().ToArray());
                     }
 
@@ -134,12 +133,9 @@ namespace Propeus.Modulo.Dinamico.Modules
                 int idx = -1;
                 foreach (WeakReference<Type> item in Contracts)
                 {
-                    if (item.TryGetTarget(out Type? c))
+                    if (item.TryGetTarget(out Type? c) && c == contract)
                     {
-                        if (c == contract)
-                        {
-                            idx = Contracts.IndexOf(item);
-                        }
+                        idx = Contracts.IndexOf(item);
                     }
                 }
                 return idx;
@@ -402,8 +398,6 @@ namespace Propeus.Modulo.Dinamico.Modules
                                 types.Add(item1);
                             }
                         }
-
-                        //types = _assemblyLoadContext.Assemblies.SelectMany(x => x.ExportedTypes);
                     }
                     catch (Exception ex)
                     {
@@ -453,7 +447,6 @@ namespace Propeus.Modulo.Dinamico.Modules
                 {
                     //Gera o proxy para os novos modulos
                     lf.Value.BuildModuleProxy();
-                    moduleManager.GetModule<QueueMessageModule>().SendMessage(target, "load");
                 }
             }
 
@@ -462,7 +455,6 @@ namespace Propeus.Modulo.Dinamico.Modules
                 if (!auxTypes.ContainsKey(rh.Key) && rh.Value.Module.TryGetTarget(out Type? target))
                 {
                     rh.Value.Dispose();
-                    moduleManager.GetModule<QueueMessageModule>().SendMessage(target, "unload");
                 }
             }
 
@@ -474,7 +466,6 @@ namespace Propeus.Modulo.Dinamico.Modules
                     lf.Value._proxyBuilder = Modules[lf.Key]._proxyBuilder;
                     //Atualiza o proxy 
                     lf.Value.BuildModuleProxy();
-                    moduleManager.GetModule<QueueMessageModule>().SendMessage(target, "rebuild");
                 }
             }
 
@@ -646,26 +637,74 @@ namespace Propeus.Modulo.Dinamico.Modules
                     ModuleProviderInfo mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, false, _moduleManager);
                     _modulesInfo.TryAdd(e.FullPath, mpf);
                     mpf.WaitLoadModule();
-
+                    foreach (var item in mpf.Modules)
+                    {
+                        if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                        {
+                            OnLoadModule?.Invoke(target);
+                        }
+                        else if (item.Value.Module.TryGetTarget(out target))
+                        {
+                            OnLoadModule?.Invoke(target);
+                        }
+                    }
 
                     break;
                 case WatcherChangeTypes.Deleted:
-                    if (_modulesInfo.TryRemove(e.FullPath, out _))
+                    if (_modulesInfo.TryRemove(e.FullPath, out mpf))
                     {
+                        foreach (var item in mpf.Modules)
+                        {
+                            if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                            {
+                                OnUnloadModule?.Invoke(target);
+                            }
+                            else if (item.Value.Module.TryGetTarget(out target))
+                            {
+                                OnUnloadModule?.Invoke(target);
+                            }
+                        }
+                     
                         //Adicionar semaforo
                     }
                     break;
                 case WatcherChangeTypes.Changed:
                     if (_modulesInfo.ContainsKey(e.FullPath))
                     {
-                        if (_modulesInfo.TryGetValue(e.FullPath, out ModuleProviderInfo target))
+                        if (_modulesInfo.TryGetValue(e.FullPath, out mpf))
                         {
-                            target.Reload();
+                            mpf.Reload();
+                            foreach (var item in mpf.Modules)
+                            {
+                                if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                                {
+                                    OnReloadModule?.Invoke(target);
+                                }
+                                else if (item.Value.Module.TryGetTarget(out target))
+                                {
+                                    OnReloadModule?.Invoke(target);
+                                }
+                            }
                         }
                     }
                     else if (_assmLibsPath.Contains(e.FullPath))
                     {
-                        _modulesInfo.TryAdd(e.FullPath, new ModuleProviderInfo(e.FullPath, true, _moduleManager));
+                        mpf = new ModuleProviderInfo(e.FullPath, true, _moduleManager);
+                        if(_modulesInfo.TryAdd(e.FullPath, mpf))
+                        {
+                            mpf.WaitLoadModule();
+                            foreach (var item in mpf.Modules)
+                            {
+                                if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                                {
+                                    OnLoadModule?.Invoke(target);
+                                }
+                                else if (item.Value.Module.TryGetTarget(out target))
+                                {
+                                    OnLoadModule?.Invoke(target);
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -690,71 +729,6 @@ namespace Propeus.Modulo.Dinamico.Modules
         #endregion
 
         #region Funcoes
-        public IEnumerable<Type> GetContracts(string nmeType)
-        {
-            KeyValuePair<string, ModuleProviderInfo>? query = _modulesInfo.FirstOrDefault(x => x.Value.Modules.ContainsKey(nmeType));
-            if (query is not null)
-            {
-                foreach (WeakReference<Type> item in query.Value.Value.Modules[nmeType].Contracts)
-                {
-                    if (item.TryGetTarget(out Type? target))
-                    {
-                        yield return target;
-                    }
-                }
-            }
-            yield break;
-
-        }
-        public bool HasProxyType(string moduleName)
-        {
-            if (_modulesInfo.Any(x => x.Value.Modules.ContainsKey(moduleName)))
-            {
-                KeyValuePair<string, ModuleProviderInfo> info = _modulesInfo.First(x => x.Value.Modules.ContainsKey(moduleName));
-                return info.Value.Modules[moduleName].HasProxyTypeModule;
-            }
-            return false;
-        }
-        public Type GetModuleFromContract(string contractName)
-        {
-            foreach (KeyValuePair<string, ModuleProviderInfo> moduleInfo in _modulesInfo)
-            {
-                if (!moduleInfo.Value.IsLoaded)
-                {
-                    moduleInfo.Value.WaitLoadModule();
-                }
-
-                foreach (KeyValuePair<string, ModuleProviderInfo.ModuleInfo> module in moduleInfo.Value.Modules)
-                {
-                    if (module.Value.Contracts is null)
-                    {
-                        continue;
-                    }
-
-                    foreach (WeakReference<Type> contract in module.Value.Contracts)
-                    {
-                        if (contract.TryGetTarget(out Type? target) && target.Name == contractName)
-                        {
-                            if (module.Value.HasProxyTypeModule)
-                            {
-                                if (module.Value.ModuleProxy.TryGetTarget(out Type? moduleType))
-                                {
-                                    return moduleType;
-                                }
-                            }
-                            else
-                            {
-                                if (module.Value.Module.TryGetTarget(out Type? moduleType))
-                                {
-                                    return moduleType;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        }
         public Type GetModuleFromContract(Type contractType)
         {
             if (contractType.PossuiAtributo<ModuleContractAttribute>())
@@ -772,7 +746,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                             module.Value.AddContract(contractType);
                             module.Value.BuildModuleProxy();
 
-                            if (module.Value.ModuleProxy.TryGetTarget(out Type target))
+                            if (module.Value.ModuleProxy.TryGetTarget(out Type? target))
                             {
                                 return target;
                             }
@@ -806,31 +780,20 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             foreach (KeyValuePair<string, ModuleProviderInfo> moduleInfo in _modulesInfo)
             {
-                if (!moduleInfo.Value.IsValid)
-                {
-                    continue;
-                }
 
                 foreach (KeyValuePair<string, ModuleProviderInfo.ModuleInfo> module in moduleInfo.Value.Modules)
                 {
-                    //if (module.Value.HasProxyTypeModule)
-                    //{
-                    if (module.Value.ModuleProxy.TryGetTarget(out Type moduleTypeProxy))
+
+                    if (module.Value.ModuleProxy.TryGetTarget(out Type? moduleTypeProxy))
                     {
                         yield return moduleTypeProxy;
                     }
-                    //    if (module.Value.Module.TryGetTarget(out Type moduleType))
-                    //    {
-                    //        yield return moduleType;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    if (module.Value.Module.TryGetTarget(out Type moduleType))
+
+                    if (module.Value.Module.TryGetTarget(out Type? moduleType))
                     {
                         yield return moduleType;
                     }
-                    //}
+
                 }
             }
         }

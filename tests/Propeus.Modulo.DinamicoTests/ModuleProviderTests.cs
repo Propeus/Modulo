@@ -14,7 +14,6 @@ namespace Propeus.Modulo.DinamicoTests
         public void Init()
         {
             Abstrato.Interfaces.IModuleManager gen = Abstrato.ModuleManagerCoreExtensions.CreateModuleManager();
-            gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>()).Wait();
             provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
         }
         [TestCleanup]

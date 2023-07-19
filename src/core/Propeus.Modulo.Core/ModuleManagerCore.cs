@@ -252,10 +252,7 @@ namespace Propeus.Modulo.Abstrato
                 target.Dispose();
                 InitializedModules--;
             }
-            else
-            {
-                throw new ModuleNotFoundException("Module nao encontrdo");
-            }
+           
 
 
         }
@@ -266,7 +263,6 @@ namespace Propeus.Modulo.Abstrato
             {
                 RemoveModule(item.Key);
             }
-
 
             modules.Clear();
 
@@ -288,25 +284,11 @@ namespace Propeus.Modulo.Abstrato
                 return CreateModule(moduleType);
             }
 
-
-
             throw new ModuleNotFoundException(Constantes.ERRO_MODULO_NEW_REINICIAR);
 
         }
 
-        //TODO: Mover para um modulo separado
-        ///<inheritdoc/>
-        public async Task KeepAliveAsync()
-        {
-            await Task.Run(async () =>
-              {
-                  while (!_cancellationToken.IsCancellationRequested)
-                  {
-                      await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
-                  }
-
-              }, _cancellationToken.Token).ConfigureAwait(false);
-        }
+       
         ///<inheritdoc/>
         public async Task KeepAliveModuleAsync(IModule moduleInstance)
         {

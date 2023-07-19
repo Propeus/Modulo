@@ -263,10 +263,9 @@ namespace Propeus.Modulo.CoreTests
             gerenciador.RemoveModule(Module.Id);
 
             Assert.AreEqual(0, gerenciador.InitializedModules);
-            _ = Assert.ThrowsException<ModuleNotFoundException>(() =>
-            {
-                gerenciador.RemoveModule(Module.Id);
-            });
+
+            gerenciador.RemoveModule(Module.Id);
+
 
 
         }
@@ -553,7 +552,7 @@ namespace Propeus.Modulo.CoreTests
             }
 
             Assert.AreEqual(100, gerenciador.InitializedModules);
-
+            Assert.IsNotNull(gerenciador.ListAllModules());
         }
 
 

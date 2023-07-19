@@ -14,7 +14,6 @@ namespace Propeus.Modulo.Dinamico
         public static IModuleManager CreateModuleManagerDefault(IModuleManager moduleManagerCore)
         {
             ModuleManager gen = new ModuleManager(moduleManagerCore);
-            gen.KeepAliveModuleAsync(gen.CreateModule<QueueMessageModule>());
             gen.KeepAliveModuleAsync(gen.CreateModule<ModuleWatcherModule>());
             return gen;
         }

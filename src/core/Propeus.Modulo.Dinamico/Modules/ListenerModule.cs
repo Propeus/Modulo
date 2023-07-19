@@ -52,7 +52,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <returns></returns>
         public IEnumerable<Type> GetAllModules()
         {
-            return _moduleManager.GetModule<ModuleWatcherModule>().GetAllModules().ToList();
+            return _moduleManager.GetModule<ModuleWatcherModule>().GetAllModules();
         }
     }
 }
