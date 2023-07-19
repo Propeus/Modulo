@@ -7,25 +7,32 @@ em tempo de execução.
 | Data | Observação |
 |-|-|
 |15/07/2023 | Atualização de objetivos|
-
+|19/09/2023 | Adiciona status do sonar|
 ## Status CI
+
+### Sonar
+|Projeto|Qualidade|Segurança|Manutenção|Confiabilidade|
+|--|
+|Propeus.Modulo.Core|[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)|[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-core&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)|[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-core&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)|[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-core&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)|
+|Propeus.Modulo.Dinamico|[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)
+|Propeus.Modulo.IL|[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)|[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)|[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)|[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)
 
 
 ### Developer
-| Build                                                                                                                                                                                                                     	|                                                                                                             Sonar                                                                                                             	|
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:	|
-| [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml) 	|          [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-core)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)          	|
-| [![Propeus.Modulo.Dinamico](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml)	|      [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-dinamico)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)      	|
-| [![Propeus.Modulo.IL](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml)      	|            [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-il)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            	|
-| [![Propeus.Modulo.WorkerService](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml)| [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-workerservice)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-workerservice) 	|
+| Build                                                                                                                                                                                                                     	          |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	          |
+| [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml)                	          |        
+| [![Propeus.Modulo.Dinamico](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml)		          |
+| [![Propeus.Modulo.IL](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml)                      	          |           
+| [![Propeus.Modulo.WorkerService](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml)|
 
 ### Master
-| Build                                                                                                                                                                                                                     	|                                                                                                             Sonar                                                                                                             	|
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:	|
-|                [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml)               	|          [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-core)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-core)          	|
-|          [![Propeus.Modulo.Dinamico](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml)         	|      [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-dinamico)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)      	|
-|                   [![Propeus.Modulo.IL](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml)                  	|            [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-il)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            	|
-| [![Propeus.Modulo.WorkerService](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml) 	| [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=propeus-modulo-core_propeus-modulo-workerservice)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-workerservice) 	|
+| Build                                                                                                                                                                                                                     	 |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------      |
+| [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml)               	                 |
+| [![Propeus.Modulo.Dinamico](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-dinamico.yml)         	             |
+| [![Propeus.Modulo.IL](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-il.yml)                  	                     |
+| [![Propeus.Modulo.WorkerService](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-worker-service.yml) 	 |
 
 	
 ## Licença
@@ -68,7 +75,7 @@ suas modificaçoes e derivados.
 
 ## Planos
 
-Os proximos passos deste projeto é otimizar o codigo-fonte para ficar mais funcional e entendível
+Os proximos passos deste projeto é **otimizar o codigo-fonte** para ficar mais funcional e entendível
 
 Após este passo, os seguintes passos estão na lista para serem executados:
 
@@ -80,3 +87,6 @@ Após este passo, os seguintes passos estão na lista para serem executados:
 1. Tonar o projeto como um MVP (Mínimo Produto Viavel)
 1. Criar documentação em ingles
 1. Criar modulos para aumentar a capacidade de uso do projeto (Conexoes com cache, banco de dados, comunicacao entre programas, segurançla etc)
+
+Caso queira saber mais detalhes acesse [o projeto](https://github.com/users/Propeus/projects/6).
+
