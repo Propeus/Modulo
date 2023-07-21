@@ -16,7 +16,7 @@ using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
 using Propeus.Modulo.Util.Tipos;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Modulo.Core
 {
     /// <summary>
     /// Controlador de modulos
@@ -95,13 +95,25 @@ namespace Propeus.Modulo.Abstrato
                         .Where(x => !x.Value.IsDeleted)
                         .Select(x => x.Value)
                         .FirstOrDefault(x => x.Module is IModuleManager);
-                    args[i] = (gen?.Module as IModuleManager) ?? this;
+                    args[i] = gen?.Module as IModuleManager ?? this;
                 }
-                else if ((paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) || paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>()))
+                else if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) || paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>())
                 {
                     try
                     {
-                        args[i] = CreateModule(paramCtor[i].ParameterType);
+                        if (ExistsModule(paramCtor[i].ParameterType))
+                        {
+                            var module = GetModule(paramCtor[i].ParameterType);
+                            if (module.IsSingleInstance)
+                            {
+                                args[i] = module;
+                            }
+                        }
+
+                        if (args[i] is null)
+                        {
+                            args[i] = CreateModule(paramCtor[i].ParameterType);
+                        }
                     }
                     catch (ModuleTypeNotFoundException)
                     {
@@ -138,6 +150,10 @@ namespace Propeus.Modulo.Abstrato
 
 
         ///<inheritdoc/>
+        ///<exception cref="ArgumentNullException"></exception>
+        ///<exception cref="ModuleContractNotFoundException"></exception>
+        ///<exception cref="ModuleTypeNotFoundException"></exception>
+        ///<exception cref="ModuleTypeInvalidException"></exception>
         public bool ExistsModule(Type moduleType)
         {
             if (moduleType is null)
@@ -154,7 +170,7 @@ namespace Propeus.Modulo.Abstrato
                 {
                     return false;
                 }
-            
+
                 return true;
             }
             catch (ModuleTypeNotFoundException)
@@ -164,41 +180,35 @@ namespace Propeus.Modulo.Abstrato
 
         }
         ///<inheritdoc/>
+        ///<exception cref="ArgumentNullException"></exception>
         public bool ExistsModule(IModule moduleInstance)
         {
             return moduleInstance is null ? throw new ArgumentNullException(nameof(moduleInstance)) : ExistsModule(moduleInstance.Id);
         }
         ///<inheritdoc/>
+        ///<exception cref="ArgumentNullException"></exception>
         public bool ExistsModule(string idModule)
         {
             if (string.IsNullOrEmpty(idModule))
             {
                 throw new ArgumentNullException(nameof(idModule));
             }
-            else
-            {
-                modules.TryGetValue(idModule, out IModuleType moduloInformacao);
-                if (moduloInformacao is null)
-                {
-                    return false;
-                }
-                if (moduloInformacao.IsCollected || moduloInformacao.IsDeleted)
-                {
-                    return false;
-                }
-                return true;
-            }
+
+
+            return modules.TryGetValue(idModule, out IModuleType moduleType) && !moduleType.IsCollected && !moduleType.IsDeleted;
+
         }
+
         ///<inheritdoc/>
+        ///<exception cref="ModuleContractNotFoundException"></exception>
+        ///<exception cref="ModuleTypeNotFoundException"></exception>
+        ///<exception cref="ModuleTypeInvalidException"></exception>
+        ///<exception cref="ModuleNotFoundException"></exception>
+        ///<exception cref="ModuleDisposedException"></exception>
         public IModule GetModule(Type moduleType)
         {
             moduleType = ResolverContrato(moduleType);
-            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
-
-            if (moduloInstancia is null)
-            {
-                throw new ModuleNotFoundException("Modulo nao encontrado");
-            }
+            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name) ?? throw new ModuleNotFoundException("Modulo nao encontrado");
             if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
             {
                 throw new ModuleDisposedException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, moduloInstancia.IdModule));
@@ -208,6 +218,11 @@ namespace Propeus.Modulo.Abstrato
             return moduloInstancia.Module;
         }
         ///<inheritdoc/>
+        ///<exception cref="ModuleContractNotFoundException"></exception>
+        ///<exception cref="ModuleTypeNotFoundException"></exception>
+        ///<exception cref="ModuleTypeInvalidException"></exception>
+        ///<exception cref="ModuleNotFoundException"></exception>
+        ///<exception cref="ModuleDisposedException"></exception>
         public T GetModule<T>() where T : IModule
         {
             return (T)GetModule(typeof(T));
@@ -222,22 +237,26 @@ namespace Propeus.Modulo.Abstrato
                 throw new ArgumentException($"'{nameof(idModule)}' não pode ser nulo nem vazio.", nameof(idModule));
             }
 
-            if (!ExistsModule(idModule))
+
+            if (modules.TryGetValue(idModule, out IModuleType moduloInstancia))
             {
-                throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, idModule));
+                if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
+                {
+                    throw new ModuleDisposedException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, moduloInstancia.IdModule));
+                }
+
+                return moduloInstancia.Module;
             }
 
-            modules.TryGetValue(idModule, out IModuleType info);
-            return info.IsDeleted ? throw new ModuleDisposedException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, idModule)) : info.Module;
+            throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, idModule));
+
+
         }
+
         ///<inheritdoc/>
         public void RemoveModule<T>(T moduleInstance) where T : IModule
         {
-            if (modules.TryRemove(moduleInstance.Id, out IModuleType target) && !target.IsCollected)
-            {
-                target.Dispose();
-                InitializedModules--;
-            }
+            RemoveModule(moduleInstance.Id);
         }
         ///<inheritdoc/>
         public void RemoveModule(string idModule)
@@ -252,14 +271,14 @@ namespace Propeus.Modulo.Abstrato
                 target.Dispose();
                 InitializedModules--;
             }
-           
+
 
 
         }
         ///<inheritdoc/>
         public void RemoveAllModules()
         {
-            foreach (KeyValuePair<string, IModuleType> item in modules.Where(x => !x.Value.IsCollected))
+            foreach (KeyValuePair<string, IModuleType> item in modules)
             {
                 RemoveModule(item.Key);
             }
@@ -284,15 +303,23 @@ namespace Propeus.Modulo.Abstrato
                 return CreateModule(moduleType);
             }
 
-            throw new ModuleNotFoundException(Constantes.ERRO_MODULO_NEW_REINICIAR);
+            throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, idModule));
 
         }
 
-       
+
         ///<inheritdoc/>
         public async Task KeepAliveModuleAsync(IModule moduleInstance)
         {
-            modules[moduleInstance.Id].KeepAliveModule(true);
+            if (modules.TryGetValue(moduleInstance.Id, out IModuleType moduloTipo))
+            {
+                moduloTipo.KeepAliveModule(true);
+            }
+            else
+            {
+                throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, moduleInstance.Id));
+
+            }
             await Task.CompletedTask;
         }
 
@@ -309,15 +336,14 @@ namespace Propeus.Modulo.Abstrato
                 throw new ModuleSingleInstanceException(Constantes.ERRO_MODULO_INSTANCIA_UNICA);
             }
 
-
-            if (!modules.ContainsKey(modulo.Id))
-            {
-                modules.TryAdd(modulo.Id, new ModuloTipo(modulo));
-            }
+            modules.TryAdd(modulo.Id, new ModuloTipo(modulo));
         }
 
-   
+
         ///<inheritdoc/>
+        ///<exception cref="ModuleContractNotFoundException"></exception>
+        ///<exception cref="ModuleTypeNotFoundException"></exception>
+        ///<exception cref="ModuleTypeInvalidException"></exception>
         private Type ResolverContrato(Type modulo)
         {
             if (modulo.IsInterface)

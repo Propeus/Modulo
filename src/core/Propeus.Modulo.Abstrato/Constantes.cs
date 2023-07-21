@@ -35,7 +35,7 @@ namespace Propeus.Modulo.Abstrato
         /// </summary>
         public const string ERRO_MODULO_NAO_ENCONTRADO = "Module '{0}' não encontrado.\nVerifique se o nome esta correto na interface de contrato";
         /// <summary>
-        /// _modulos criados fora do gerenciador nao podem ser reiniciados
+        /// Modulos criados fora do gerenciador nao podem ser reiniciados
         /// </summary>
         public const string ERRO_MODULO_NEW_REINICIAR = "Não é possivel reiniciar modulos criados fora do gerenciador";
 

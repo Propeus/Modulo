@@ -12,7 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CB241CDA-7B9C-46BE-87B3-D645C2E14273}"
 	ProjectSection(SolutionItems) = preProject
 		..\docs\FAQ.md = ..\docs\FAQ.md
-		..\docs\Teachings.md = ..\docs\Teachings.md
+		..\docs\ModuleManager.md = ..\docs\ModuleManager.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Abstrato", "core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj", "{3179428F-B363-4EC8-A9BE-A51628EE6F12}"
@@ -76,7 +76,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console", "a
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Api", "addons\Propeus.Modulo.Hosting.Api\Propeus.Modulo.Api.csproj", "{A503BEE9-E5B8-4BE4-B9D4-374AA1EDDD5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Modulo.TaskJob", "addons\Propeus.Modulo.TaskJob\Propeus.Modulo.TaskJob.csproj", "{FC157820-1B68-4D2B-9BB5-890B509F8A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.TaskJob", "addons\Propeus.Modulo.TaskJob\Propeus.Modulo.TaskJob.csproj", "{FC157820-1B68-4D2B-9BB5-890B509F8A2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

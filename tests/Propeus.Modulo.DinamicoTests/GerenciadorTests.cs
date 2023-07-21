@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
 using Propeus.Modulo.Dinamico.Modules;
 
 namespace Propeus.Modulo.DinamicoTests
@@ -16,7 +17,7 @@ namespace Propeus.Modulo.DinamicoTests
 
         public IModuleManager GetModuleManager()
         {
-            return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager());
+            return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager());
 
         }
 

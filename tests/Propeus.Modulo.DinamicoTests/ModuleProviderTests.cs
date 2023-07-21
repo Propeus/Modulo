@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using Propeus.Modulo.Core;
 using Propeus.Modulo.Dinamico;
 using Propeus.Modulo.Dinamico.Modules;
 
@@ -13,7 +14,7 @@ namespace Propeus.Modulo.DinamicoTests
         [TestInitialize]
         public void Init()
         {
-            Abstrato.Interfaces.IModuleManager gen = Abstrato.ModuleManagerCoreExtensions.CreateModuleManager();
+            Abstrato.Interfaces.IModuleManager gen = ModuleManagerCoreExtensions.CreateModuleManager();
             provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
         }
         [TestCleanup]

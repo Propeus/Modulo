@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
 using Propeus.Modulo.WorkerService;
 
 namespace Propeus.Modulo.WorkerServiceTests
@@ -36,7 +37,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Abstrato.ModuleManagerCoreExtensions.CreateModuleManager());
+            gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager());
         }
 
         [TestCleanup]

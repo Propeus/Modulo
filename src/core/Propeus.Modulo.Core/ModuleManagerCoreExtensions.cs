@@ -2,7 +2,7 @@
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Modulo.Core
 {
     /// <summary>
     /// Metodos de extensao para criar gerenciadores
@@ -36,8 +36,8 @@ namespace Propeus.Modulo.Abstrato
             }
         }
 
-     
 
-    
+
+
     }
 }

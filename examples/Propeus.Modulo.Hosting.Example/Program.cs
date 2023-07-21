@@ -1,3 +1,5 @@
+using Propeus.Modulo.Core;
+
 namespace Propeus.Modulo.Hosting.Example
 {
     public class Program
@@ -9,7 +11,7 @@ namespace Propeus.Modulo.Hosting.Example
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Host.ConfigureGerenciador(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()));
+            builder.Host.ConfigureGerenciador(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()));
 
             WebApplication app = builder.Build();
 

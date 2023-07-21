@@ -4,8 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.CoreTests.Modulos;
+using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.CoreTests
 {
@@ -21,7 +21,7 @@ namespace Propeus.Modulo.CoreTests
             //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
             //EventoProvider.RegistrarOuvinteErro(TesteLog);
             //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
-            gerenciador = Abstrato.ModuleManagerCoreExtensions.CreateModuleManager();
+            gerenciador = ModuleManagerCoreExtensions.CreateModuleManager();
         }
 
         public void TesteLogAviso(Type fonte, string mensagem, Exception exception)
@@ -672,7 +672,7 @@ namespace Propeus.Modulo.CoreTests
         [TestCategory("Exceptions")]
         public void Teste_7()
         {
-            Assert.ThrowsException<ModuleNotFoundException>(() =>
+            Assert.ThrowsException<ModuleDisposedException>(() =>
             {
                 IModule m = gerenciador.CreateModule(typeof(ModuleDependenciaInterfaceInvalidaOpcional));
                 m.Dispose();

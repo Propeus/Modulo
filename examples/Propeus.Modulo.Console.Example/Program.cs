@@ -1,5 +1,5 @@
 ﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Core;
 
 namespace Propeus.Modulo.Console.Example
 {
@@ -39,7 +39,7 @@ namespace Propeus.Modulo.Console.Example
              * Assim como o Propeus.ModuleProxy.Core, este gerenciador não exige que tenha uma interface de contrato para que possa criar novos modulos.
              * Portanto que o modulo seja valido, ele pode ser criado diretamente no gerenciador
              * **/
-            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()))
             {
                 //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
                 ModuloDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamico>();
@@ -50,7 +50,7 @@ namespace Propeus.Modulo.Console.Example
             /**
              * Um modulo não necessariamente pode ter somente um unico contrato, cada contrato pode possuir os metodos e propriedades que serão necessarios para o seu uso
              * **/
-            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamico>();
@@ -72,7 +72,7 @@ namespace Propeus.Modulo.Console.Example
              * Existem cenarios onde não haverá o tipo do modulo para ser passado para o atributo ModuloContrato, neste caso é possivel utilizar
              * o campo 'nome' do atributo para obter o tipo dele.
              * */
-            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf modulo = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf>();
@@ -89,7 +89,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Para definir um modulo ocional, basta definir o parametro como opcional (tipo nome = null)
              * **/
-            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()))
             {
 
                 IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria moduloComDependenciaObrigatoria = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria>();
@@ -109,7 +109,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * O usuario pode criar quantos 'CriarInstancia' quiser, portanto que nao tenha a mesma assinatura dos outros.
              * **/
-            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()) as IModuleManagerArguments)
+            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()) as IModuleManagerArguments)
             {
 
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia>(new object[] { "O resultado da soma é", 15, 20 });
@@ -126,7 +126,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Não é obrigatorio o uso destes metodos, entretanto pode facilitar alguns fluxos de processos aonde se depende de outros modulos e/ou dados simultaneamente
              * */
-            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager()) as IModuleManagerArguments)
+            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager()) as IModuleManagerArguments)
             {
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao>(new object[] { 15, 20 });
                 modulo.EscreverOlaMundo();
@@ -164,7 +164,7 @@ namespace Propeus.Modulo.Console.Example
              * Uma vez que termina o escopo, todos os modulos criados dentro dele são eliminados assim como o gerenciador, 
              * más ao chamar a propriedade Propeus.ModuleProxy.Core.ModuleManagerCoreExtensions.CreateModuleManagerDefault() Uma nova instancia será criada
              * **/
-            using (IModuleManager gerenciador = Propeus.Modulo.Abstrato.ModuleManagerCoreExtensions.CreateModuleManager())
+            using (IModuleManager gerenciador = ModuleManagerCoreExtensions.CreateModuleManager())
             {
                 IInterfaceDeContratoDeExemploParaPropeusModuloCore modulo = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloCore>();
                 modulo.EscreverOlaMundo();
