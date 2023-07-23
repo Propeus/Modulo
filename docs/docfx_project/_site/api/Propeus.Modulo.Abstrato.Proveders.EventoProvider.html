@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class EventoProvider
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class EventoProvider
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider">
+
+
+
+  <h1 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider" class="text-break">
+    Class EventoProvider
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.Abstrato.html">Abstrato</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.html">Proveders</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Propeus.Modulo.Abstrato.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Classe para disparar mensagens para os ouvintes</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class EventoProvider</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">EventoProvider</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarAviso_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarAviso*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarAviso_System_Object_System_String_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarAviso(System.Object,System.String)">
+  NotificarAviso(object, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Envia uma informacao para os ouvintes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void NotificarAviso(this object fonte, string mensagem)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fonte</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>Tipo do objeto que esta distribuindo a mensagem</p>
+</dd>
+    <dt><code>mensagem</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Conteudo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarErro_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarErro*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarErro_System_Object_System_String_System_Exception_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarErro(System.Object,System.String,System.Exception)">
+  NotificarErro(object, string, Exception)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Delegate padrao</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void NotificarErro(this object fonte, string mensagem, Exception exception)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fonte</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>Tipo do objeto que esta distribuindo a mensagem</p>
+</dd>
+    <dt><code>mensagem</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Conteudo</p>
+</dd>
+    <dt><code>exception</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd><p>Excecao se houver</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarInformacao_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarInformacao*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_NotificarInformacao_System_Object_System_String_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.NotificarInformacao(System.Object,System.String)">
+  NotificarInformacao(object, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Envia uma informacao para os ouvintes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void NotificarInformacao(this object fonte, string mensagem)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fonte</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>Tipo do objeto que esta distribuindo a mensagem</p>
+</dd>
+    <dt><code>mensagem</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Conteudo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteAviso_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteAviso*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteAviso_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteAviso(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RegistrarOuvinteAviso(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registra um ouvinte para o evento atual</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegistrarOuvinteAviso(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteErro_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteErro*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteErro_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteErro(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RegistrarOuvinteErro(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registra um ouvinte para o evento atual</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegistrarOuvinteErro(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteInformacao_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteInformacao*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RegistrarOuvinteInformacao_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RegistrarOuvinteInformacao(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RegistrarOuvinteInformacao(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registra um ouvinte para o evento atual</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegistrarOuvinteInformacao(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteAviso_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteAviso*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteAviso_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteAviso(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RemoverOuvinteAviso(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registra um ouvinte para o evento atual</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoverOuvinteAviso(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteErro_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteErro*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteErro_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteErro(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RemoverOuvinteErro(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registra um ouvinte para o evento atual</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoverOuvinteErro(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteInformacao_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteInformacao*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Proveders_EventoProvider_RemoverOuvinteInformacao_Propeus_Modulo_Abstrato_Proveders_EventoProvider_Evento_" data-uid="Propeus.Modulo.Abstrato.Proveders.EventoProvider.RemoverOuvinteInformacao(Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento)">
+  RemoverOuvinteInformacao(Evento)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoverOuvinteInformacao(this EventoProvider.Evento ouvinte)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ouvinte</code> <a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.html">EventoProvider</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Proveders.EventoProvider.Evento.html">Evento</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
