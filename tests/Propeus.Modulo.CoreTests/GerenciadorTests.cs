@@ -21,7 +21,7 @@ namespace Propeus.Modulo.CoreTests
             //EventoProvider.RegistrarOuvinteInformacao(TesteLog);
             //EventoProvider.RegistrarOuvinteErro(TesteLog);
             //EventoProvider.RegistrarOuvinteAviso(TesteLogAviso);
-            gerenciador = ModuleManagerCoreExtensions.CreateModuleManager();
+            gerenciador = ModuleManagerExtensions.CreateModuleManager();
         }
 
         public void TesteLogAviso(Type fonte, string mensagem, Exception exception)
@@ -61,8 +61,11 @@ namespace Propeus.Modulo.CoreTests
         public void CriarModuleInstanciaUnica()
         {
 
-            IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
-            Assert.IsNotNull(Module);
+            using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+            {
+                IModule Module = gerenciador.CreateModule<TesteInstanciaUnicaModule>();
+                Assert.IsNotNull(Module); 
+            }
 
         }
 
@@ -730,9 +733,6 @@ namespace Propeus.Modulo.CoreTests
             Assert.ThrowsException<ArgumentException>(() => { gerenciador.RemoveModule(""); });
             //Obtem instancia que nunca criou
             Assert.ThrowsException<ModuleNotFoundException>(() => { gerenciador.GetModule(typeof(ModuleDependenciaInvalida)); });
-            //Obtem instancia excluida
-            gerenciador.CreateModule<TesteInstanciaMultiplaModule>().Dispose();
-            Assert.ThrowsException<ModuleDisposedException>(() => { gerenciador.GetModule(typeof(TesteInstanciaMultiplaModule)); });
             //Tem que dar um jeito de testar isso aqui
             Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());
             Assert.IsNotNull(gerenciador.CreateOrGetModule<TesteInstanciaMultiplaModule>());

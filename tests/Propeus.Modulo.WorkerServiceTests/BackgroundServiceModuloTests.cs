@@ -37,7 +37,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerCoreExtensions.CreateModuleManager());
+            gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerExtensions.CreateModuleManager());
         }
 
         [TestCleanup]

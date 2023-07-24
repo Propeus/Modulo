@@ -1,0 +1,880 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IModuleManager
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IModuleManager
+ ">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../../">
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../../public/main.js'
+    import { init } from './../../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager">
+
+
+
+  <h1 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager" class="text-break">
+    Interface IModuleManager
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.Abstrato.html">Abstrato</a>.<a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.html">Interfaces</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Propeus.Modulo.Abstrato.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Modelo base para criação de gerenciadores</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IModuleManager : IBaseModel, IDisposable</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html#Propeus_Modulo_Abstrato_Interfaces_IBaseModel_Version">IBaseModel.Version</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html#Propeus_Modulo_Abstrato_Interfaces_IBaseModel_State">IBaseModel.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html#Propeus_Modulo_Abstrato_Interfaces_IBaseModel_Name">IBaseModel.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html#Propeus_Modulo_Abstrato_Interfaces_IBaseModel_Id">IBaseModel.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html#Propeus_Modulo_Abstrato_Interfaces_IBaseModel_ManifestId">IBaseModel.ManifestId</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_InitializedModules_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.InitializedModules*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_InitializedModules" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.InitializedModules">
+  InitializedModules
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indica a quantidade de modulos inicializados pelo gerenciador</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int InitializedModules { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Quantidade de módulos instanciados</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_LastUpdate_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.LastUpdate*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_LastUpdate" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.LastUpdate">
+  LastUpdate
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data e hora do ultimo evento realizado no gerenciador</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime LastUpdate { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_LastUpdate_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Os eventos sao o CRUD (Criar, Reiniciar, Atualizar ou Remover) do gerenciador</p>
+</div>
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_StartDate_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.StartDate*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_StartDate" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.StartDate">
+  StartDate
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retorna data e hora que o gerenciador iniciou</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">DateTime StartDate { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_System_String_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule(System.String)">
+  CreateModule(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cria uma nova instancia do modulo baseado pelo nome</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IModule CreateModule(string moduleName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Nome do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>Um modulo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>O nome do modulo é o nome da classe</p>
+</div>
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_System_Type_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule(System.Type)">
+  CreateModule(Type)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cria uma nova instancia do modulo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IModule CreateModule(Type moduleType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd><p>ModuleType do moduleType</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>Um modulo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_CreateModule__1" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule``1">
+  CreateModule&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cria uma nova instancia do modulo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T CreateModule&lt;T&gt;() where T : IModule</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd><p>Um modulo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_Propeus_Modulo_Abstrato_Interfaces_IModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule(Propeus.Modulo.Abstrato.Interfaces.IModule)">
+  ExistsModule(IModule)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifica se a instancia do modulo existe no genrenciador</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ExistsModule(IModule moduleInstance)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleInstance</code> <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>A instancia do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Retorna <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> caso exista, caso contrario, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_System_String_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule(System.String)">
+  ExistsModule(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifica se existe alguma instancia com o id informando no gerenciador</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ExistsModule(string idModule)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>idModule</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identificação unica do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Retorna <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> caso exista, caso contrario, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ExistsModule_System_Type_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule(System.Type)">
+  ExistsModule(Type)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Verifica se existe alguma instancia do tipo no gerenciador</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ExistsModule(Type moduleType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd><p>Tipo do modulo a ser verificado</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Retorna <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> caso exista, caso contrario, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_System_String_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule(System.String)">
+  GetModule(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IModule GetModule(string idModule)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>idModule</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identificação unica do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>A instancia do modulo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_System_Type_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule(System.Type)">
+  GetModule(Type)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo tipo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IModule GetModule(Type moduleType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>A instancia do modulo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_System_Type__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Caso exista mais de uma instancia do mesmo tipo, o primeiro modulo sempre será retornado</p>
+</div>
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_GetModule__1" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule``1">
+  GetModule&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo tipo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T GetModule&lt;T&gt;() where T : IModule</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd><p>A instancia do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_KeepAliveModuleAsync_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.KeepAliveModuleAsync*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_KeepAliveModuleAsync_Propeus_Modulo_Abstrato_Interfaces_IModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)">
+  KeepAliveModuleAsync(IModule)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mantem um modulo vivo mesmo não possuindo referencia alguma</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task KeepAliveModuleAsync(IModule moduleInstance)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleInstance</code> <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>Modulo a ser mantido vivo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd><p>Retorna uma tarefa</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ListAllModules_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ListAllModules*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_ListAllModules" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ListAllModules">
+  ListAllModules()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Lista todos os modulos disponiveis</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;IModule&gt; ListAllModules()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a>&gt;</dt>
+    <dd><p>Lista de modulos ativos</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RecycleModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RecycleModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RecycleModule_System_String_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RecycleModule(System.String)">
+  RecycleModule(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Destroi o modulo antigo e retorna um novo do mesmo tipo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IModule RecycleModule(string idModule)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>idModule</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identificação unica do modulo a ser reciclado</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+    <dd><p>Nova instancia do modulo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RecycleModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RecycleModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RecycleModule__1___0_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RecycleModule``1(``0)">
+  RecycleModule&lt;T&gt;(T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Destroi o modulo antigo e retorna um novo do mesmo tipo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T RecycleModule&lt;T&gt;(T moduleInstance) where T : IModule</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleInstance</code> <span class="xref">T</span></dt>
+    <dd><p>Instancia do modulo a ser reciclado</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd><p>Nova instancia do modulo</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveAllModules_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveAllModules*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveAllModules" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveAllModules">
+  RemoveAllModules()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Remove todos os modulos</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveAllModules()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveModule_System_String_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule(System.String)">
+  RemoveModule(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Remove um modulo pelo seu ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveModule(string idModule)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>idModule</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Identificação unica do modulo</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveModule_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule*"></a>
+
+  <h3 id="Propeus_Modulo_Abstrato_Interfaces_IModuleManager_RemoveModule__1___0_" data-uid="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule``1(``0)">
+  RemoveModule&lt;T&gt;(T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Remove um modulo pelo objeto</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveModule&lt;T&gt;(T moduleInstance) where T : IModule</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>moduleInstance</code> <span class="xref">T</span></dt>
+    <dd><p>Qualquer instancia de modulo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

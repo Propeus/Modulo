@@ -1,0 +1,65 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/**/**/bin/**/Propeus*.dll"
+          ],
+          "src": "../"
+        }
+      ],
+      "dest": "api",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "nested",
+      "memberLayout": "separatePages",
+      "allowCompilationErrors": false
+    }
+  ],
+  "build": {
+    "sitemap": {
+      "baseUrl": "https://propeus.github.io/Modulo/",
+      "changefreq": "monthly"
+    },
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "globalMetadata": {
+      "_enableSearch": "true"
+    },
+    "template": [
+      "default",
+      "modern",
+      "templates/material" 
+    ],
+    "postProcessors": ["ExtractSearchIndex"],
+    "keepFileLink": false,
+    "disableGitFeatures": false
+  }
+}

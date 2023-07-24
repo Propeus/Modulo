@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Method GetModule
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Method GetModule
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Propeus.Modulo.Core.ModuleManager.GetModule*">
+
+
+
+
+
+<h1 id="Propeus_Modulo_Core_ModuleManager_GetModule_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule*" class="text-break">
+  Method GetModule
+  
+</h1>
+
+<div class="facts text-secondary">
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.Core.html">Core</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Propeus.Modulo.Core.dll</dd></dl>
+</div>
+
+<div class="markdown summary"></div>
+<div class="markdown conceptual"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a id="Propeus_Modulo_Core_ModuleManager_GetModule_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule*"></a>
+
+<h3 id="Propeus_Modulo_Core_ModuleManager_GetModule_System_Type_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule(System.Type)">
+  GetModule(Type)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo tipo</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public IModule GetModule(Type moduleType)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>moduleType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+  <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+  <dd><p>A instancia do modulo</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_GetModule_System_Type__remarks">Remarks</h4>
+<div class="markdown level1 remarks"><p>Caso exista mais de uma instancia do mesmo tipo, o primeiro modulo sempre será retornado</p>
+</div>
+
+<h4 class="section">Exceptions</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.html">ModuleContractNotFoundException</a></dt>
+  <dd><p>A interface não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html">ModuleTypeNotFoundException</a></dt>
+  <dd><p>O <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a> não possui um tipo ou nome valido</p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>O tipo não é nem <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/class">class</a> e nem <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/interface">interface</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>A classe informada não herda de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>A classe informada não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.html">ModuleAttribute</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
+  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+</dd>
+</dl>
+
+
+
+<a id="Propeus_Modulo_Core_ModuleManager_GetModule_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule*"></a>
+
+<h3 id="Propeus_Modulo_Core_ModuleManager_GetModule__1" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule``1">
+  GetModule&lt;T&gt;()
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo tipo</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public T GetModule&lt;T&gt;() where T : IModule</code></pre>
+</div>
+
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><span class="xref">T</span></dt>
+  <dd><p>A instancia do modulo</p>
+</dd>
+</dl>
+
+<h4 class="section">Type Parameters</h4>
+<dl class="parameters">
+  <dt><code>T</code></dt>
+  <dd><p>Qualquer tipo herdado de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+<h4 class="section">Exceptions</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.html">ModuleContractNotFoundException</a></dt>
+  <dd><p>A interface não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html">ModuleTypeNotFoundException</a></dt>
+  <dd><p>O <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a> não possui um tipo ou nome valido</p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>O tipo não é nem <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/class">class</a> e nem <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/interface">interface</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>A classe informada não herda de <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html">ModuleTypeInvalidException</a></dt>
+  <dd><p>A classe informada não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.html">ModuleAttribute</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
+  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+</dd>
+</dl>
+
+
+
+<a id="Propeus_Modulo_Core_ModuleManager_GetModule_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule*"></a>
+
+<h3 id="Propeus_Modulo_Core_ModuleManager_GetModule_System_String_" data-uid="Propeus.Modulo.Core.ModuleManager.GetModule(System.String)">
+  GetModule(string)
+  
+</h3>
+
+<div class="markdown level1 summary"><p>Obtem a instancia do modulo pelo id</p>
+</div>
+<div class="markdown level1 conceptual"></div>
+
+<div class="codewrapper">
+  <pre><code class="lang-csharp hljs">public IModule GetModule(string idModule)</code></pre>
+</div>
+
+<h4 class="section">Parameters</h4>
+<dl class="parameters">
+  <dt><code>idModule</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+  <dd><p>Identificação unica do modulo</p>
+</dd>
+</dl>
+
+<h4 class="section">Returns</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></dt>
+  <dd><p>A instancia do modulo</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+<h4 class="section">Exceptions</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+  <dd><p>Parâmetro nulo ou vazio</p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
+  <dd><p>O modulo informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
+  <dd><p>O modulo informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
+  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+</dd>
+</dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

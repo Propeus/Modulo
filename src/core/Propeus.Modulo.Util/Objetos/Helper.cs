@@ -58,10 +58,10 @@ namespace Propeus.Modulo.Util.Objetos
         /// <summary>
         /// Verifica se o objeto informado é nulo
         /// </summary>
+        /// <remarks>Codigo extraido de https://stackoverflow.com/questions/374651/how-to-check-if-an-object-is-nullable</remarks>
         /// <typeparam name="T">Tipo do objeto</typeparam>
         /// <param name="obj">Instancia do objeto</param>
         /// <returns></returns>
-        //https://stackoverflow.com/questions/374651/how-to-check-if-an-object-is-nullable
         [ExcludeFromCodeCoverage(Justification = "Codigo de terceiro")]
         public static bool IsNullable<T>(this T obj)
         {

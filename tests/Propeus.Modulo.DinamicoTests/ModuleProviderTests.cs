@@ -14,8 +14,8 @@ namespace Propeus.Modulo.DinamicoTests
         [TestInitialize]
         public void Init()
         {
-            Abstrato.Interfaces.IModuleManager gen = ModuleManagerCoreExtensions.CreateModuleManager();
-            provider = ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
+            Abstrato.Interfaces.IModuleManager gen = Core.ModuleManagerExtensions.CreateModuleManager();
+            provider = Dinamico.ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
         }
         [TestCleanup]
         public void Cleanup()
