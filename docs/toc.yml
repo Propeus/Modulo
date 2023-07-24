@@ -1,0 +1,7 @@
+- name: Inicio
+  href: README.md
+- name: Api Documentation
+  href: api/
+  homepage: api/index.md
+- name: Código de conduta
+  href: CODE_OF_CONDUCT.md

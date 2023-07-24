@@ -63,11 +63,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.WorkerServic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{D7211E49-7B32-4CFB-923E-0C656EF4E7D1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{E9F83172-A39F-4386-A393-D71162622E10}"
-	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "addons", "addons", "{320E28E9-BF13-4DEF-B5A1-232332867813}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.CLI", "addons\Propeus.Modulo.CLI\Propeus.Modulo.CLI.csproj", "{8A69C34E-9EC7-453C-8261-BB7A64C11C96}"
