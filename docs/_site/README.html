@@ -78,7 +78,7 @@
         <article data-uid="">
 <h1 id="propeusmodulo">Propeus.Modulo</h1>
 
-<p>Este projeto tem como objetivo facilitar o gerenciamento de modulo .NET e aplicar o conceito de DI, permitindo a inje��o de dependencia
+<p>Este projeto tem como objetivo facilitar o gerenciamento de modulo .NET e aplicar o conceito de DI, permitindo a injeção de dependencia
 em tempo de execuçao.</p>
 <h2 id="atualizações">Atualizações</h2>
 <table>
@@ -139,7 +139,7 @@ em tempo de execuçao.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="build">Build</h4>
+<h3 id="build">Build</h3>
 <table>
 <thead>
 <tr>
@@ -215,19 +215,20 @@ em tempo de execuçao.</p>
 </tbody>
 </table>
 <h2 id="estrutura-do-projeto">Estrutura do projeto</h2>
-<ul>
-<li>archived (Projetos excluidos logicamente)</li>
-<li>docs (Documentações do projeto)</li>
-<li>examples (Exemplos funcionais, não são testes unitarios)</li>
-<li>src (Codigo-fonte do projeto)
-<ul>
-<li>addons (modulos fim, ou seja, são criados para fazer algo, más nao são fundamentais para o funcionamento)</li>
-<li>core (modulos essenciais para o funcionamento do projeto)</li>
-<li>modules (modulos meio, ou seja, são criados para que os addons possam funcionar dentro do programa)</li>
-</ul>
-</li>
-<li>tests (Testes unitarios dos projetos)</li>
-</ul>
+<pre><code class="lang-bash">.
+├── archived 
+├── docs /
+│   ├── _site
+│   ├── api
+│   ├── CODE_OF_CONDUCT.md
+│   └── README.md
+├── examples 
+├── src /
+│   ├── addons
+│   ├── core 
+│   └── modules
+└── tests 
+</code></pre>
 <h2 id="planos">Planos</h2>
 <p>Os proximos passos deste projeto é <strong>otimizar o codigo-fonte</strong> para ficar mais funcional e entendivel</p>
 <p>Após este passo, os seguintes passos estão na lista para serem executados:</p>
@@ -237,7 +238,7 @@ em tempo de execuçao.</p>
 <li>Internacionalizar os nomes de classe, interfaces, propriedades, metodos, eventos para o ingles</li>
 <li>Criar exemplos mais complexos e funcionais (Jogos de RPG em console, projeto web para testar modulos etc)</li>
 <li>Documentar o restante do codigo-fonte</li>
-<li>Tonar o projeto como um MVP (M�nimo Produto Viavel)</li>
+<li>Tonar o projeto como um MVP (Mínimo Produto Viavel)</li>
 <li>Criar documentação em ingles</li>
 <li>Criar modulos para aumentar a capacidade de uso do projeto (Conexoes com cache, banco de dados, comunicacao entre programas, segurança etc)</li>
 </ol>

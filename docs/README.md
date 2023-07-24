@@ -18,7 +18,7 @@ em tempo de execuçao.
 |Propeus.Modulo.Dinamico|[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-dinamico&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-dinamico)|
 |Propeus.Modulo.IL      |[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            |[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            |[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            |[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=propeus-modulo-core_propeus-modulo-il&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=propeus-modulo-core_propeus-modulo-il)            |
 
-#### Build      
+### Build      
 |Developer																																																								  |Master																																																							 |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg?branch=develop)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml)                	          | [![Propeus.Modulo.Core](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml/badge.svg)](https://github.com/Propeus/Modulo/actions/workflows/propeus-modulo-core.yml)               	                     |
@@ -44,7 +44,7 @@ Os principais projetos são licenciados da seguinte maneira
 | Propeus.Modulo.Hosting       |   MIT   |
 
 ## Estrutura do projeto
-
+```bash
 .
 ├── archived 
 ├── docs /
@@ -58,7 +58,7 @@ Os principais projetos são licenciados da seguinte maneira
 │   ├── core 
 │   └── modules
 └── tests 
-
+```
 ## Planos
 
 Os proximos passos deste projeto é **otimizar o codigo-fonte** para ficar mais funcional e entendivel
