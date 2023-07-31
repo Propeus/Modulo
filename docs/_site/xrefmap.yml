@@ -310,6 +310,18 @@ references:
   commentId: T:Propeus.Modulo.Abstrato.Constantes
   fullName: Propeus.Modulo.Abstrato.Constantes
   nameWithType: Constantes
+- uid: Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO
+  name: ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO
+  href: api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO.html
+  commentId: F:Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO
+  fullName: Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO
+  nameWithType: Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO
+- uid: Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO
+  name: ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO
+  href: api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO.html
+  commentId: F:Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO
+  fullName: Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO
+  nameWithType: Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO
 - uid: Propeus.Modulo.Abstrato.Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO
   name: ERRO_CONSTRUTOR_NAO_ENCONTRADO
   href: api/Propeus.Modulo.Abstrato.Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO.html
@@ -403,15 +415,15 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
   nameWithType: ModuleBuilderAbsentException.ModuleBuilderAbsentException(SerializationInfo, StreamingContext)
   nameWithType.vb: ModuleBuilderAbsentException.New(SerializationInfo, StreamingContext)
-- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.#ctor(System.String)
-  name: ModuleBuilderAbsentException(string)
-  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleBuilderAbsentException__ctor_System_String_
-  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.ModuleBuilderAbsentException(string)
-  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.New(String)
-  nameWithType: ModuleBuilderAbsentException.ModuleBuilderAbsentException(string)
-  nameWithType.vb: ModuleBuilderAbsentException.New(String)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.#ctor(System.Type)
+  name: ModuleBuilderAbsentException(Type)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleBuilderAbsentException__ctor_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.#ctor(System.Type)
+  name.vb: New(Type)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.ModuleBuilderAbsentException(System.Type)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.New(System.Type)
+  nameWithType: ModuleBuilderAbsentException.ModuleBuilderAbsentException(Type)
+  nameWithType.vb: ModuleBuilderAbsentException.New(Type)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.#ctor*
   name: ModuleBuilderAbsentException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.-ctor.html
@@ -427,6 +439,15 @@ references:
   commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException
   fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException
   nameWithType: ModuleContractInvalidException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor
+  name: ModuleContractInvalidException()
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleContractInvalidException__ctor
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor
+  name.vb: New()
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.ModuleContractInvalidException()
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.New()
+  nameWithType: ModuleContractInvalidException.ModuleContractInvalidException()
+  nameWithType.vb: ModuleContractInvalidException.New()
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
   name: ModuleContractInvalidException(SerializationInfo, StreamingContext)
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleContractInvalidException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
@@ -436,15 +457,6 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
   nameWithType: ModuleContractInvalidException.ModuleContractInvalidException(SerializationInfo, StreamingContext)
   nameWithType.vb: ModuleContractInvalidException.New(SerializationInfo, StreamingContext)
-- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor(System.String)
-  name: ModuleContractInvalidException(string)
-  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleContractInvalidException__ctor_System_String_
-  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.ModuleContractInvalidException(string)
-  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.New(String)
-  nameWithType: ModuleContractInvalidException.ModuleContractInvalidException(string)
-  nameWithType.vb: ModuleContractInvalidException.New(String)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.#ctor*
   name: ModuleContractInvalidException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.-ctor.html
@@ -469,15 +481,15 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
   nameWithType: ModuleContractNotFoundException.ModuleContractNotFoundException(SerializationInfo, StreamingContext)
   nameWithType.vb: ModuleContractNotFoundException.New(SerializationInfo, StreamingContext)
-- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.#ctor(System.String)
-  name: ModuleContractNotFoundException(string)
-  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleContractNotFoundException__ctor_System_String_
-  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.ModuleContractNotFoundException(string)
-  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.New(String)
-  nameWithType: ModuleContractNotFoundException.ModuleContractNotFoundException(string)
-  nameWithType.vb: ModuleContractNotFoundException.New(String)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.#ctor(System.Type)
+  name: ModuleContractNotFoundException(Type)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleContractNotFoundException__ctor_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.#ctor(System.Type)
+  name.vb: New(Type)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.ModuleContractNotFoundException(System.Type)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.New(System.Type)
+  nameWithType: ModuleContractNotFoundException.ModuleContractNotFoundException(Type)
+  nameWithType.vb: ModuleContractNotFoundException.New(Type)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.#ctor*
   name: ModuleContractNotFoundException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.-ctor.html
@@ -493,6 +505,15 @@ references:
   commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException
   fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException
   nameWithType: ModuleDisposedException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name: ModuleDisposedException(IModule)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleDisposedException__ctor_Propeus_Modulo_Abstrato_Interfaces_IModule_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name.vb: New(IModule)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.ModuleDisposedException(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.New(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  nameWithType: ModuleDisposedException.ModuleDisposedException(IModule)
+  nameWithType.vb: ModuleDisposedException.New(IModule)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
   name: ModuleDisposedException(SerializationInfo, StreamingContext)
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleDisposedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
@@ -553,6 +574,39 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleException.New
   nameWithType: ModuleException.ModuleException
   nameWithType.vb: ModuleException.New
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException
+  name: ModuleManagerDisposedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.html
+  commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException
+  nameWithType: ModuleManagerDisposedException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor
+  name: ModuleManagerDisposedException()
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleManagerDisposedException__ctor
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor
+  name.vb: New()
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.ModuleManagerDisposedException()
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.New()
+  nameWithType: ModuleManagerDisposedException.ModuleManagerDisposedException()
+  nameWithType.vb: ModuleManagerDisposedException.New()
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: ModuleManagerDisposedException(SerializationInfo, StreamingContext)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleManagerDisposedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name.vb: New(SerializationInfo, StreamingContext)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.ModuleManagerDisposedException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: ModuleManagerDisposedException.ModuleManagerDisposedException(SerializationInfo, StreamingContext)
+  nameWithType.vb: ModuleManagerDisposedException.New(SerializationInfo, StreamingContext)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor*
+  name: ModuleManagerDisposedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.-ctor.html
+  commentId: Overload:Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.ModuleManagerDisposedException
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.New
+  nameWithType: ModuleManagerDisposedException.ModuleManagerDisposedException
+  nameWithType.vb: ModuleManagerDisposedException.New
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException
   name: ModuleNotFoundException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html
@@ -577,6 +631,15 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.New(String)
   nameWithType: ModuleNotFoundException.ModuleNotFoundException(string)
   nameWithType.vb: ModuleNotFoundException.New(String)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.#ctor(System.Type)
+  name: ModuleNotFoundException(Type)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleNotFoundException__ctor_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.#ctor(System.Type)
+  name.vb: New(Type)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.ModuleNotFoundException(System.Type)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.New(System.Type)
+  nameWithType: ModuleNotFoundException.ModuleNotFoundException(Type)
+  nameWithType.vb: ModuleNotFoundException.New(Type)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.#ctor*
   name: ModuleNotFoundException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.-ctor.html
@@ -592,6 +655,15 @@ references:
   commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException
   fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException
   nameWithType: ModuleSingleInstanceException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name: ModuleSingleInstanceException(IModule)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleSingleInstanceException__ctor_Propeus_Modulo_Abstrato_Interfaces_IModule_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name.vb: New(IModule)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.ModuleSingleInstanceException(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.New(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  nameWithType: ModuleSingleInstanceException.ModuleSingleInstanceException(IModule)
+  nameWithType.vb: ModuleSingleInstanceException.New(IModule)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
   name: ModuleSingleInstanceException(SerializationInfo, StreamingContext)
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleSingleInstanceException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
@@ -601,15 +673,6 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
   nameWithType: ModuleSingleInstanceException.ModuleSingleInstanceException(SerializationInfo, StreamingContext)
   nameWithType.vb: ModuleSingleInstanceException.New(SerializationInfo, StreamingContext)
-- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor(System.String)
-  name: ModuleSingleInstanceException(string)
-  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleSingleInstanceException__ctor_System_String_
-  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor(System.String)
-  name.vb: New(String)
-  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.ModuleSingleInstanceException(string)
-  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.New(String)
-  nameWithType: ModuleSingleInstanceException.ModuleSingleInstanceException(string)
-  nameWithType.vb: ModuleSingleInstanceException.New(String)
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.#ctor*
   name: ModuleSingleInstanceException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.-ctor.html
@@ -652,6 +715,72 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.New
   nameWithType: ModuleTypeInvalidException.ModuleTypeInvalidException
   nameWithType.vb: ModuleTypeInvalidException.New
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException
+  name: ModuleTypeInvalidException.TypeModuleNotInheritedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.html
+  commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException
+  nameWithType: ModuleTypeInvalidException.TypeModuleNotInheritedException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: TypeModuleNotInheritedException(SerializationInfo, StreamingContext)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleTypeInvalidException_TypeModuleNotInheritedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name.vb: New(SerializationInfo, StreamingContext)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException(SerializationInfo, StreamingContext)
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleNotInheritedException.New(SerializationInfo, StreamingContext)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor(System.Type)
+  name: TypeModuleNotInheritedException(Type)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleTypeInvalidException_TypeModuleNotInheritedException__ctor_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor(System.Type)
+  name.vb: New(Type)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException(System.Type)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.New(System.Type)
+  nameWithType: ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException(Type)
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleNotInheritedException.New(Type)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor*
+  name: TypeModuleNotInheritedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.-ctor.html
+  commentId: Overload:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.New
+  nameWithType: ModuleTypeInvalidException.TypeModuleNotInheritedException.TypeModuleNotInheritedException
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleNotInheritedException.New
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException
+  name: ModuleTypeInvalidException.TypeModuleUnmarkedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.html
+  commentId: T:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException
+  nameWithType: ModuleTypeInvalidException.TypeModuleUnmarkedException
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: TypeModuleUnmarkedException(SerializationInfo, StreamingContext)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleTypeInvalidException_TypeModuleUnmarkedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name.vb: New(SerializationInfo, StreamingContext)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.New(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException(SerializationInfo, StreamingContext)
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleUnmarkedException.New(SerializationInfo, StreamingContext)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor(System.Type)
+  name: TypeModuleUnmarkedException(Type)
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.-ctor.html#Propeus_Modulo_Abstrato_Exceptions_ModuleTypeInvalidException_TypeModuleUnmarkedException__ctor_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor(System.Type)
+  name.vb: New(Type)
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException(System.Type)
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.New(System.Type)
+  nameWithType: ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException(Type)
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleUnmarkedException.New(Type)
+- uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor*
+  name: TypeModuleUnmarkedException
+  href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.-ctor.html
+  commentId: Overload:Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException
+  fullName.vb: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.New
+  nameWithType: ModuleTypeInvalidException.TypeModuleUnmarkedException.TypeModuleUnmarkedException
+  nameWithType.vb: ModuleTypeInvalidException.TypeModuleUnmarkedException.New
 - uid: Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException
   name: ModuleTypeNotFoundException
   href: api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html
@@ -1216,6 +1345,147 @@ references:
   commentId: F:Propeus.Modulo.Abstrato.State.Ready
   fullName: Propeus.Modulo.Abstrato.State.Ready
   nameWithType: State.Ready
+- uid: Propeus.Modulo.CLI
+  name: Propeus.Modulo.CLI
+  href: api/Propeus.Modulo.CLI.html
+  commentId: N:Propeus.Modulo.CLI
+  fullName: Propeus.Modulo.CLI
+  nameWithType: Propeus.Modulo.CLI
+- uid: Propeus.Modulo.CLI.CliModulo
+  name: CliModulo
+  href: api/Propeus.Modulo.CLI.CliModulo.html
+  commentId: T:Propeus.Modulo.CLI.CliModulo
+  fullName: Propeus.Modulo.CLI.CliModulo
+  nameWithType: CliModulo
+- uid: Propeus.Modulo.CLI.CliModulo.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name: CliModulo(IModuleManager)
+  href: api/Propeus.Modulo.CLI.CliModulo.-ctor.html#Propeus_Modulo_CLI_CliModulo__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
+  commentId: M:Propeus.Modulo.CLI.CliModulo.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name.vb: New(IModuleManager)
+  fullName: Propeus.Modulo.CLI.CliModulo.CliModulo(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  fullName.vb: Propeus.Modulo.CLI.CliModulo.New(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  nameWithType: CliModulo.CliModulo(IModuleManager)
+  nameWithType.vb: CliModulo.New(IModuleManager)
+- uid: Propeus.Modulo.CLI.CliModulo.#ctor*
+  name: CliModulo
+  href: api/Propeus.Modulo.CLI.CliModulo.-ctor.html
+  commentId: Overload:Propeus.Modulo.CLI.CliModulo.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.CLI.CliModulo.CliModulo
+  fullName.vb: Propeus.Modulo.CLI.CliModulo.New
+  nameWithType: CliModulo.CliModulo
+  nameWithType.vb: CliModulo.New
+- uid: Propeus.Modulo.CLI.CliModulo.CriarInstancia(System.String[])
+  name: CriarInstancia(string[])
+  href: api/Propeus.Modulo.CLI.CliModulo.CriarInstancia.html#Propeus_Modulo_CLI_CliModulo_CriarInstancia_System_String___
+  commentId: M:Propeus.Modulo.CLI.CliModulo.CriarInstancia(System.String[])
+  name.vb: CriarInstancia(String())
+  fullName: Propeus.Modulo.CLI.CliModulo.CriarInstancia(string[])
+  fullName.vb: Propeus.Modulo.CLI.CliModulo.CriarInstancia(String())
+  nameWithType: CliModulo.CriarInstancia(string[])
+  nameWithType.vb: CliModulo.CriarInstancia(String())
+- uid: Propeus.Modulo.CLI.CliModulo.CriarInstancia*
+  name: CriarInstancia
+  href: api/Propeus.Modulo.CLI.CliModulo.CriarInstancia.html
+  commentId: Overload:Propeus.Modulo.CLI.CliModulo.CriarInstancia
+  fullName: Propeus.Modulo.CLI.CliModulo.CriarInstancia
+  nameWithType: CliModulo.CriarInstancia
+- uid: Propeus.Modulo.CLI.CliModulo.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Propeus.Modulo.CLI.CliModulo.Dispose.html#Propeus_Modulo_CLI_CliModulo_Dispose_System_Boolean_
+  commentId: M:Propeus.Modulo.CLI.CliModulo.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Propeus.Modulo.CLI.CliModulo.Dispose(bool)
+  fullName.vb: Propeus.Modulo.CLI.CliModulo.Dispose(Boolean)
+  nameWithType: CliModulo.Dispose(bool)
+  nameWithType.vb: CliModulo.Dispose(Boolean)
+- uid: Propeus.Modulo.CLI.CliModulo.Dispose*
+  name: Dispose
+  href: api/Propeus.Modulo.CLI.CliModulo.Dispose.html
+  commentId: Overload:Propeus.Modulo.CLI.CliModulo.Dispose
+  fullName: Propeus.Modulo.CLI.CliModulo.Dispose
+  nameWithType: CliModulo.Dispose
+- uid: Propeus.Modulo.CLI.CliModulo.ExecutarCLI(System.String[])
+  name: ExecutarCLI(string[])
+  href: api/Propeus.Modulo.CLI.CliModulo.ExecutarCLI.html#Propeus_Modulo_CLI_CliModulo_ExecutarCLI_System_String___
+  commentId: M:Propeus.Modulo.CLI.CliModulo.ExecutarCLI(System.String[])
+  name.vb: ExecutarCLI(String())
+  fullName: Propeus.Modulo.CLI.CliModulo.ExecutarCLI(string[])
+  fullName.vb: Propeus.Modulo.CLI.CliModulo.ExecutarCLI(String())
+  nameWithType: CliModulo.ExecutarCLI(string[])
+  nameWithType.vb: CliModulo.ExecutarCLI(String())
+- uid: Propeus.Modulo.CLI.CliModulo.ExecutarCLI*
+  name: ExecutarCLI
+  href: api/Propeus.Modulo.CLI.CliModulo.ExecutarCLI.html
+  commentId: Overload:Propeus.Modulo.CLI.CliModulo.ExecutarCLI
+  fullName: Propeus.Modulo.CLI.CliModulo.ExecutarCLI
+  nameWithType: CliModulo.ExecutarCLI
+- uid: Propeus.Modulo.Console
+  name: Propeus.Modulo.Console
+  href: api/Propeus.Modulo.Console.html
+  commentId: N:Propeus.Modulo.Console
+  fullName: Propeus.Modulo.Console
+  nameWithType: Propeus.Modulo.Console
+- uid: Propeus.Modulo.Console.ConsoleModulo
+  name: ConsoleModulo
+  href: api/Propeus.Modulo.Console.ConsoleModulo.html
+  commentId: T:Propeus.Modulo.Console.ConsoleModulo
+  fullName: Propeus.Modulo.Console.ConsoleModulo
+  nameWithType: ConsoleModulo
+- uid: Propeus.Modulo.Console.ConsoleModulo.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager,Propeus.Modulo.Console.IModuloCliContrato)
+  name: ConsoleModulo(IModuleManager, IModuloCliContrato)
+  href: api/Propeus.Modulo.Console.ConsoleModulo.-ctor.html#Propeus_Modulo_Console_ConsoleModulo__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_Propeus_Modulo_Console_IModuloCliContrato_
+  commentId: M:Propeus.Modulo.Console.ConsoleModulo.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager,Propeus.Modulo.Console.IModuloCliContrato)
+  name.vb: New(IModuleManager, IModuloCliContrato)
+  fullName: Propeus.Modulo.Console.ConsoleModulo.ConsoleModulo(Propeus.Modulo.Abstrato.Interfaces.IModuleManager, Propeus.Modulo.Console.IModuloCliContrato)
+  fullName.vb: Propeus.Modulo.Console.ConsoleModulo.New(Propeus.Modulo.Abstrato.Interfaces.IModuleManager, Propeus.Modulo.Console.IModuloCliContrato)
+  nameWithType: ConsoleModulo.ConsoleModulo(IModuleManager, IModuloCliContrato)
+  nameWithType.vb: ConsoleModulo.New(IModuleManager, IModuloCliContrato)
+- uid: Propeus.Modulo.Console.ConsoleModulo.#ctor*
+  name: ConsoleModulo
+  href: api/Propeus.Modulo.Console.ConsoleModulo.-ctor.html
+  commentId: Overload:Propeus.Modulo.Console.ConsoleModulo.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.Console.ConsoleModulo.ConsoleModulo
+  fullName.vb: Propeus.Modulo.Console.ConsoleModulo.New
+  nameWithType: ConsoleModulo.ConsoleModulo
+  nameWithType.vb: ConsoleModulo.New
+- uid: Propeus.Modulo.Console.ConsoleModulo.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Propeus.Modulo.Console.ConsoleModulo.Dispose.html#Propeus_Modulo_Console_ConsoleModulo_Dispose_System_Boolean_
+  commentId: M:Propeus.Modulo.Console.ConsoleModulo.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Propeus.Modulo.Console.ConsoleModulo.Dispose(bool)
+  fullName.vb: Propeus.Modulo.Console.ConsoleModulo.Dispose(Boolean)
+  nameWithType: ConsoleModulo.Dispose(bool)
+  nameWithType.vb: ConsoleModulo.Dispose(Boolean)
+- uid: Propeus.Modulo.Console.ConsoleModulo.Dispose*
+  name: Dispose
+  href: api/Propeus.Modulo.Console.ConsoleModulo.Dispose.html
+  commentId: Overload:Propeus.Modulo.Console.ConsoleModulo.Dispose
+  fullName: Propeus.Modulo.Console.ConsoleModulo.Dispose
+  nameWithType: ConsoleModulo.Dispose
+- uid: Propeus.Modulo.Console.IModuloCliContrato
+  name: IModuloCliContrato
+  href: api/Propeus.Modulo.Console.IModuloCliContrato.html
+  commentId: T:Propeus.Modulo.Console.IModuloCliContrato
+  fullName: Propeus.Modulo.Console.IModuloCliContrato
+  nameWithType: IModuloCliContrato
+- uid: Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI(System.String[])
+  name: ExecutarCLI(string[])
+  href: api/Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI.html#Propeus_Modulo_Console_IModuloCliContrato_ExecutarCLI_System_String___
+  commentId: M:Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI(System.String[])
+  name.vb: ExecutarCLI(String())
+  fullName: Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI(string[])
+  fullName.vb: Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI(String())
+  nameWithType: IModuloCliContrato.ExecutarCLI(string[])
+  nameWithType.vb: IModuloCliContrato.ExecutarCLI(String())
+- uid: Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI*
+  name: ExecutarCLI
+  href: api/Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI.html
+  commentId: Overload:Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI
+  fullName: Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI
+  nameWithType: IModuloCliContrato.ExecutarCLI
 - uid: Propeus.Modulo.Core
   name: Propeus.Modulo.Core
   href: api/Propeus.Modulo.Core.html
@@ -1951,18 +2221,6 @@ references:
   commentId: Overload:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao
   fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao
   nameWithType: ModuleWatcherModule.CriarConfiguracao
-- uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  name: CriarInstancia(IModuleManager)
-  href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_CriarInstancia_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
-  commentId: M:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  nameWithType: ModuleWatcherModule.CriarInstancia(IModuleManager)
-- uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia*
-  name: CriarInstancia
-  href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html
-  commentId: Overload:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia
-  fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia
-  nameWithType: ModuleWatcherModule.CriarInstancia
 - uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetAllModules
   name: GetAllModules()
   href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetAllModules.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_GetAllModules
@@ -4858,6 +5116,117 @@ references:
   commentId: Overload:Propeus.Modulo.IL.Geradores.ILModulo.ToString
   fullName: Propeus.Modulo.IL.Geradores.ILModulo.ToString
   nameWithType: ILModulo.ToString
+- uid: Propeus.Modulo.Taskjob
+  name: Propeus.Modulo.Taskjob
+  href: api/Propeus.Modulo.Taskjob.html
+  commentId: N:Propeus.Modulo.Taskjob
+  fullName: Propeus.Modulo.Taskjob
+  nameWithType: Propeus.Modulo.Taskjob
+- uid: Propeus.Modulo.Taskjob.TaskJobModule
+  name: TaskJobModule
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.html
+  commentId: T:Propeus.Modulo.Taskjob.TaskJobModule
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule
+  nameWithType: TaskJobModule
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.#ctor(System.Int32)
+  name: TaskJobModule(int)
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.-ctor.html#Propeus_Modulo_Taskjob_TaskJobModule__ctor_System_Int32_
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.#ctor(System.Int32)
+  name.vb: New(Integer)
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.TaskJobModule(int)
+  fullName.vb: Propeus.Modulo.Taskjob.TaskJobModule.New(Integer)
+  nameWithType: TaskJobModule.TaskJobModule(int)
+  nameWithType.vb: TaskJobModule.New(Integer)
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.#ctor*
+  name: TaskJobModule
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.-ctor.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.TaskJobModule
+  fullName.vb: Propeus.Modulo.Taskjob.TaskJobModule.New
+  nameWithType: TaskJobModule.TaskJobModule
+  nameWithType.vb: TaskJobModule.New
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.Dispose(System.Boolean)
+  name: Dispose(bool)
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.Dispose.html#Propeus_Modulo_Taskjob_TaskJobModule_Dispose_System_Boolean_
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.Dispose(System.Boolean)
+  name.vb: Dispose(Boolean)
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.Dispose(bool)
+  fullName.vb: Propeus.Modulo.Taskjob.TaskJobModule.Dispose(Boolean)
+  nameWithType: TaskJobModule.Dispose(bool)
+  nameWithType.vb: TaskJobModule.Dispose(Boolean)
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.Dispose*
+  name: Dispose
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.Dispose.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.Dispose
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.Dispose
+  nameWithType: TaskJobModule.Dispose
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob(System.Action{System.Object},System.String,System.Nullable{System.TimeSpan})
+  name: RegisterJob(Action<object>, string, TimeSpan?)
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob.html#Propeus_Modulo_Taskjob_TaskJobModule_RegisterJob_System_Action_System_Object__System_String_System_Nullable_System_TimeSpan__
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob(System.Action{System.Object},System.String,System.Nullable{System.TimeSpan})
+  name.vb: RegisterJob(Action(Of Object), String, TimeSpan?)
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob(System.Action<object>, string, System.TimeSpan?)
+  fullName.vb: Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob(System.Action(Of Object), String, System.TimeSpan?)
+  nameWithType: TaskJobModule.RegisterJob(Action<object>, string, TimeSpan?)
+  nameWithType.vb: TaskJobModule.RegisterJob(Action(Of Object), String, TimeSpan?)
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob*
+  name: RegisterJob
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob
+  nameWithType: TaskJobModule.RegisterJob
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.ToString
+  name: ToString()
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.ToString.html#Propeus_Modulo_Taskjob_TaskJobModule_ToString
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.ToString
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.ToString()
+  nameWithType: TaskJobModule.ToString()
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.ToString*
+  name: ToString
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.ToString.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.ToString
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.ToString
+  nameWithType: TaskJobModule.ToString
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.ToStringView
+  name: ToStringView()
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.ToStringView.html#Propeus_Modulo_Taskjob_TaskJobModule_ToStringView
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.ToStringView
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.ToStringView()
+  nameWithType: TaskJobModule.ToStringView()
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.ToStringView*
+  name: ToStringView
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.ToStringView.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.ToStringView
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.ToStringView
+  nameWithType: TaskJobModule.ToStringView
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob(System.String)
+  name: UnregisterJob(string)
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob.html#Propeus_Modulo_Taskjob_TaskJobModule_UnregisterJob_System_String_
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob(System.String)
+  name.vb: UnregisterJob(String)
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob(string)
+  fullName.vb: Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob(String)
+  nameWithType: TaskJobModule.UnregisterJob(string)
+  nameWithType.vb: TaskJobModule.UnregisterJob(String)
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob*
+  name: UnregisterJob
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob
+  nameWithType: TaskJobModule.UnregisterJob
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.WaitAll(System.Nullable{System.TimeSpan})
+  name: WaitAll(TimeSpan?)
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.WaitAll.html#Propeus_Modulo_Taskjob_TaskJobModule_WaitAll_System_Nullable_System_TimeSpan__
+  commentId: M:Propeus.Modulo.Taskjob.TaskJobModule.WaitAll(System.Nullable{System.TimeSpan})
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.WaitAll(System.TimeSpan?)
+  nameWithType: TaskJobModule.WaitAll(TimeSpan?)
+- uid: Propeus.Modulo.Taskjob.TaskJobModule.WaitAll*
+  name: WaitAll
+  href: api/Propeus.Modulo.Taskjob.TaskJobModule.WaitAll.html
+  commentId: Overload:Propeus.Modulo.Taskjob.TaskJobModule.WaitAll
+  fullName: Propeus.Modulo.Taskjob.TaskJobModule.WaitAll
+  nameWithType: TaskJobModule.WaitAll
 - uid: Propeus.Modulo.Util
   name: Propeus.Modulo.Util
   href: api/Propeus.Modulo.Util.html

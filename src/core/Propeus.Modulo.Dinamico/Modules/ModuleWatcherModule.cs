@@ -14,6 +14,7 @@ using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Dinamico.Contracts;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
 using Propeus.Modulo.Util.Atributos;
@@ -65,7 +66,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                 {
                     if (_proxyBuilder is null)
                     {
-                        _proxyBuilder = GeradorHelper.Modulo.CriarProxyClasse(target, GetContractsType().ToArray(), new Type[] { typeof(ModuleAttribute) });
+                        _proxyBuilder = GeradorHelper.Modulo.CriarOuObterProxyClasse(target, GetContractsType().ToArray(), new Type[] { typeof(ModuleAttribute) });
                     }
                     else
                     {
@@ -195,7 +196,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <summary>
         /// Informa se o modulo atual foi carregado em memoria
         /// </summary>
-        public bool IsLoaded => _loadModuletask != null && _loadModuletask.IsCompletedSuccessfully;
+        public bool IsLoaded { get; private set; }
 
         /// <summary>
         /// Indica se houve erro durante o carregamento do modulo
@@ -231,45 +232,30 @@ namespace Propeus.Modulo.Dinamico.Modules
         private readonly IModuleManager moduleManager;
         private readonly List<string> _listNameIgnoreModules;
 
-        /// <summary>
-        /// Aguarda carregamento do modulo em memoria
-        /// </summary>
-        public void WaitLoadModule()
-        {
-            if (_loadModuletask != null && _loadModuletask.Status == TaskStatus.Running)
-            {
-                _loadModuletask.Wait();
-            }
-
-            if (_loadModuletask == null)
-            {
-                ReloadAsync().Wait();
-            }
-        }
-        /// <summary>
-        /// Carrega ou atualiza os modulos
-        /// </summary>
-        /// <param name="newFullPath">Novo caminho do modulo caso seja necessario mudar ou renomear</param>
-        /// <returns>Uma tarefa</returns>
-        public Task ReloadAsync(string? newFullPath = null)
-        {
-            _loadModuletask = Task.Run(() => { Reload(newFullPath); });
-            return _loadModuletask;
-        }
-        /// <summary>
-        /// Carrega ou atualiza os modulos
-        /// </summary>
-        /// <param name="newFullPath">Novo caminho do modulo caso seja necessario mudar ou renomear</param>
         public void Reload(string? newFullPath = null)
         {
             if (!string.IsNullOrEmpty(newFullPath))
             {
                 FullPathModule = newFullPath;
             }
+            IsLoaded = false;
+            Load();
+        }
 
-            GetModuleInfo();
-            UpdateAssembly();
-            MapModules();
+        /// <summary>
+        /// Carrega ou atualiza os modulos
+        /// </summary>
+        /// <param name="newFullPath">Novo caminho do modulo caso seja necessario mudar ou renomear</param>
+        public void Load(string? newFullPath = null)
+        {
+            if (!IsLoaded)
+            {
+                GetModuleInfo();
+                UpdateAssembly();
+                MapModules();
+            }
+
+            IsLoaded = true;
         }
 
         private void GetModuleInfo()
@@ -429,14 +415,16 @@ namespace Propeus.Modulo.Dinamico.Modules
 
                 if (moduleContractAttr is not null)
                 {
-                    WeakReference<Type> wrAttr = new WeakReference<Type>(type);
                     if (auxTypes.ContainsKey(moduleContractAttr.ModuleName))
                     {
-                        auxTypes[moduleContractAttr.ModuleName].Contracts.Add(wrAttr);
+                        auxTypes[moduleContractAttr.ModuleName].AddContract(type);
                     }
                     else
                     {
-                        auxTypes.Add(type.Name, new ModuleInfo { ModuleName = moduleContractAttr.ModuleName, Contracts = new List<WeakReference<Type>>() { wrAttr } });
+                        var moduleInfo = new ModuleInfo { ModuleName = moduleContractAttr.ModuleName };
+                        moduleInfo.AddContract(type);
+
+                        auxTypes.Add(type.Name, moduleInfo);
                     }
                 }
             }
@@ -494,24 +482,19 @@ namespace Propeus.Modulo.Dinamico.Modules
     /// Modulo para mapear e atualizar outros modulos em tempo de execucao
     /// </summary>
     [Module]
-    public class ModuleWatcherModule : BaseModule
+    public class ModuleWatcherModule : BaseModule, IModuleWatcherModule
     {
-        /// <summary>
-        /// Evento para carregamento de um novo modulo
-        /// </summary>
-        public event Action<Type> OnLoadModule;
-        /// <summary>
-        /// Evento para descarregamento de um modulo existente
-        /// </summary>
-        public event Action<Type> OnUnloadModule;
-        /// <summary>
-        /// Evento para recarregamento de um novo modulo
-        /// </summary>
-        public event Action<Type> OnReloadModule;
+        ///<inheritdoc/>
+        public event Action<Type>? OnLoadModule;
+        ///<inheritdoc/>
+        public event Action<Type>? OnUnloadModule;
+        ///<inheritdoc/>
+        public event Action<Type>? OnReloadModule;
 
         private ConcurrentDictionary<string, ModuleProviderInfo> _modulesInfo;
         private FileSystemWatcher _fileSystemWatcher;
-        public Type this[string nameType]
+        ///<inheritdoc/>
+        public Type? this[string nameType]
         {
             get
             {
@@ -528,7 +511,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                     }
                 }
 
-                return null;
+                return default;
 
 
             }
@@ -636,7 +619,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                 case WatcherChangeTypes.Created:
                     ModuleProviderInfo mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, false, _moduleManager);
                     _modulesInfo.TryAdd(e.FullPath, mpf);
-                    mpf.WaitLoadModule();
+                    mpf.Load();
                     foreach (var item in mpf.Modules)
                     {
                         if (item.Value.ModuleProxy.TryGetTarget(out var target))
@@ -664,7 +647,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                                 OnUnloadModule?.Invoke(target);
                             }
                         }
-                     
+
                         //Adicionar semaforo
                     }
                     break;
@@ -690,9 +673,9 @@ namespace Propeus.Modulo.Dinamico.Modules
                     else if (_assmLibsPath.Contains(e.FullPath))
                     {
                         mpf = new ModuleProviderInfo(e.FullPath, true, _moduleManager);
-                        if(_modulesInfo.TryAdd(e.FullPath, mpf))
+                        if (_modulesInfo.TryAdd(e.FullPath, mpf))
                         {
-                            mpf.WaitLoadModule();
+                            mpf.Load();
                             foreach (var item in mpf.Modules)
                             {
                                 if (item.Value.ModuleProxy.TryGetTarget(out var target))
@@ -729,6 +712,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         #endregion
 
         #region Funcoes
+        ///<inheritdoc/>
         public Type GetModuleFromContract(Type contractType)
         {
             if (contractType.PossuiAtributo<ModuleContractAttribute>())
@@ -759,12 +743,12 @@ namespace Propeus.Modulo.Dinamico.Modules
                 }
 
 
-                throw new ModuleNotFoundException("ModuleProxy nao encontrado");
+                throw new ModuleContractInvalidException();
 
             }
             else
             {
-                throw new ModuleContractNotFoundException("Atributo nao encontrado no tipo informado");
+                throw new ModuleContractNotFoundException(contractType);
             }
 
 

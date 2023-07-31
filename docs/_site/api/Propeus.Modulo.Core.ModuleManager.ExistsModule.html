@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method ExistsModule
@@ -146,7 +146,7 @@
 
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_ExistsModule_System_Type__examples">Examples</h4>
-<p>Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato</p>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
 <pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -164,7 +164,7 @@ namespace Propeus.Modulo.Example
       public void EscreverOlaMundo()
       {
           System.Console.WriteLine("Ola mundo!");
-          System.Console.WriteLine("Este é um modulo em funcionamento!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
       }
 
   }
@@ -176,7 +176,7 @@ namespace Propeus.Modulo.Example
   }
 }</code></pre>
 <div class="TIP"><h5>tip</h5><p>
-Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
 </p></div>
 <p>Para verificar se existe alguma instancia do tipo</p>
 <pre><code class="lang-csharp">using System;
@@ -193,7 +193,7 @@ namespace Propeus.Modulo.Example
               IModule module_a = gerenciador.CreateModule(typeof(ModuloDeExemplo));
               if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
               {
-                 System.Console.WriteLine("Existe o modulo! Obaaa!");
+                 System.Console.WriteLine("Existe o module! Obaaa!");
               }else{
                  System.Console.WriteLine("Algo de errado nao esta certo...");
               }
@@ -262,6 +262,63 @@ namespace Propeus.Modulo.Example
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_ExistsModule_Propeus_Modulo_Abstrato_Interfaces_IModule__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para verificar se a instancia está registrado no gerenciador</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+              if(gerenciador.ExistsModule(module_a)
+              {
+                 System.Console.WriteLine("Existe o module! Obaaa!");
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -306,6 +363,63 @@ namespace Propeus.Modulo.Example
 
 
 
+
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_ExistsModule_System_String__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para verificar se existe o module pelo Id</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+              if(gerenciador.ExistsModule(module_a.Id)
+              {
+                 System.Console.WriteLine("Existe o module! Obaaa!");
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
 
 
 

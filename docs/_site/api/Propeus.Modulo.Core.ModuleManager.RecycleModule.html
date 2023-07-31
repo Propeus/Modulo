@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method RecycleModule
@@ -151,6 +151,63 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_RecycleModule__1___0__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para reciclar um modulo</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              System.Console.WriteLine(module_a);
+              module_a = gerenciador.RecycleModule(module_a);
+              System.Console.WriteLine(module_a);
+         }
+      }
+  }
+}</code></pre>
+<div class="IMPORTANT"><h5>important</h5><p>
+ Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Off">Off</a> ou <a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Error">Error</a> e não pode ter sido coletado e nem descartado
+</p></div>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -159,13 +216,13 @@
   <dd><p>Parâmetro nulo</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+  <dd><p>Não existe uma instancia valida do tipo do module no gerenciador</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.html">ModuleBuilderAbsentException</a></dt>
   <dd><p>Não há um construtor publico disponível</p>
@@ -223,6 +280,63 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_RecycleModule_System_String__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para reciclar um modulo pelo id</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              System.Console.WriteLine(module_a);
+              module_a = gerenciador.RecycleModule(module_a.Id);
+              System.Console.WriteLine(module_a);
+         }
+      }
+  }
+}</code></pre>
+<div class="IMPORTANT"><h5>important</h5><p>
+ Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Off">Off</a> ou <a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Error">Error</a> e não pode ter sido coletado e nem descartado
+</p></div>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -231,13 +345,13 @@
   <dd><p>Parâmetro nulo ou vazio</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+  <dd><p>Não existe uma instancia valida do tipo do module no gerenciador</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.html">ModuleBuilderAbsentException</a></dt>
   <dd><p>Não há um construtor publico disponível</p>

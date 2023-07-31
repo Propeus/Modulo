@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Dinamico.Contracts;
 using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
 using Propeus.Modulo.Util.Atributos;
+using Propeus.Modulo.Util.Objetos;
 
 namespace Propeus.Modulo.Dinamico
 {
@@ -28,13 +31,32 @@ namespace Propeus.Modulo.Dinamico
     {
 
         /// <summary>
-        /// Inicializa o _gerenciador
+        /// Inicializa o gerenciador
         /// </summary>
         /// <param name="moduleManager">Gerenciador que irá controlar o modulo</param>
+        ///<example>
+        ///Criar uma instancia do gerenciador dinamico
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Dinamico;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+        ///         {
+        ///            //Seu codigo aqui...
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        ///</example>
         public ModuleManager(IModuleManager moduleManager) : base(true)
         {
-
-
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             StartDate = DateTime.Now;
 
@@ -54,8 +76,8 @@ namespace Propeus.Modulo.Dinamico
         public DateTime LastUpdate { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
         public int InitializedModules => _gerenciador.InitializedModules;
-        private Dictionary<string, ILClasseProvider> ModuloProvider { get; set; }
 
+        private Dictionary<string, ILClasseProvider> ModuloProvider { get; set; }
 
 
         ///<inheritdoc/>
@@ -75,13 +97,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -99,14 +123,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -116,15 +142,18 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;();
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;();
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public T CreateModule<T>() where T : IModule
         {
@@ -147,13 +176,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -170,15 +201,16 @@ namespace Propeus.Modulo.Dinamico
         ///</code>
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
-        ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -188,15 +220,21 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule(typeof(ICalculadoraModuloContrato));
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule(typeof(ICalculadoraModuloContrato));
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        ///<note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
         ///</example>
         public IModule CreateModule(Type moduleType)
         {
@@ -207,12 +245,12 @@ namespace Propeus.Modulo.Dinamico
 
             if (moduleType.IsInterface)
             {
-                moduleType = ResoverContratos(moduleType);
+                moduleType = ResolveContract(moduleType);
             }
 
-          
+
             ConstructorInfo? ctor = moduleType.GetConstructors()
-                .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException("Nao existe nenhum construtor publico disponivel");
+                .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException(moduleType);
 
             ParameterInfo[] @params = ctor.GetParameters();
             foreach (ParameterInfo @param in @params)
@@ -229,10 +267,15 @@ namespace Propeus.Modulo.Dinamico
                         {
                             //Ignora erro neste caso
                         }
+                        catch (ModuleContractInvalidException)
+                        {
+                            //Ignora erro neste caso
+                        }
                     }
                     else
                     {
-                        _ = CreateModule(param.ParameterType);
+                        if (!ExistsModule(param.ParameterType))
+                            _ = CreateModule(param.ParameterType);
                     }
                 }
 
@@ -259,13 +302,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -283,14 +328,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -300,19 +347,31 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato");
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato");
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        /// <note type="important">
+        /// Ao contrário do método do Gerenciador Core, este método consegue moduleWatcher interface de contrato pelo nome.
+        /// </note>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
+        /// <note type="warning">
+        /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
+        /// </note>
         ///</example>
         public IModule CreateModule(string moduleName)
         {
-            return CreateModule(GetModule<ModuleWatcherModule>()[moduleName]);
+            return CreateModule(GetModule<IModuleWatcherModule>()[moduleName]);
         }
 
 
@@ -333,13 +392,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -364,14 +425,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -381,15 +444,18 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;(new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;(new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public T CreateModule<T>(object[] args) where T : IModule
         {
@@ -414,13 +480,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -445,14 +513,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -462,15 +532,21 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
         ///</example>
         public IModule CreateModule(Type moduleType, object[] args)
         {
@@ -495,13 +571,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -526,14 +604,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -543,15 +623,27 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        /// <note type="important">
+        /// Ao contrário do método do Gerenciador Core, este método consegue moduleWatcher interface de contrato pelo nome.
+        /// </note>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
+        /// <note type="warning">
+        /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
+        /// </note>
         ///</example>
         public IModule CreateModule(string moduleName, object[] args)
         {
@@ -567,13 +659,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -598,14 +692,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -615,16 +711,19 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///           using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                _gerenciador.RemoveModule(modulo);
+        ///                gerenciador.RemoveModule(modulo);
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public void RemoveModule<T>(T moduleInstance) where T : IModule
         {
@@ -638,13 +737,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -669,14 +770,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -686,16 +789,19 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                _gerenciador.RemoveModule(modulo.Id);
+        ///                gerenciador.RemoveModule(modulo.Id);
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public void RemoveModule(string idModule)
         {
@@ -706,13 +812,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -737,14 +845,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois remova pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -754,11 +864,11 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                _gerenciador.RemoveAllModules();
+        ///                gerenciador.RemoveAllModules();
         ///            }
         ///        }
         ///    }
@@ -777,11 +887,13 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///    [ModuleProxy]
         ///    public class CalculadoraModulo : BaseModule
@@ -808,11 +920,13 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois recicle
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
         ///    [ModuloContrato("CalculadoraModulo")]
@@ -825,16 +939,22 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                _gerenciador.Recilcar(modulo);
+        ///                gerenciador.RecycleModule(modulo);
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        ///<note type="important">
+        /// Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<see cref="State.Off"/> ou <see cref="State.Error"/> e não pode ter sido coletado e nem descartado
+        ///</note>
         ///</example>
         public T RecycleModule<T>(T moduleInstance) where T : IModule
         {
@@ -845,17 +965,17 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuleNotFoundException">Instancia do modulo nao foi inicializado</exception>
         ///<exception cref="ModuleDisposedException">Instancia do modulo foi coletado pelo <see cref="GC"/> ou acionou o <see cref="IDisposable.Dispose"/></exception>
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///    [ModuleProxy]
         ///    public class CalculadoraModulo : BaseModule
@@ -882,11 +1002,13 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois recicle pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
         ///    [ModuloContrato("CalculadoraModulo")]
@@ -899,16 +1021,22 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.Recilcar(modulo.Id);
+        ///                modulo = gerenciador.RecycleModule(modulo.Id);
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        ///<note type="important">
+        /// Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<see cref="State.Off"/> ou <see cref="State.Error"/> e não pode ter sido coletado e nem descartado
+        ///</note>
         ///</example>
         public IModule RecycleModule(string idModule)
         {
@@ -920,19 +1048,20 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo invalido</exception>
         ///<exception cref="ModuleContractNotFoundException">ModuleType da interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
         ///<exception cref="ModuleNotFoundException">Instancia do modulo nao foi inicializado</exception>
-        ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -957,14 +1086,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -974,16 +1105,19 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.GetModule&gt;ICalculadoraModuloContrato&lt;();
+        ///                modulo =  gerenciador.GetModule&gt;ICalculadoraModuloContrato&lt;();
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public T GetModule<T>() where T : IModule
         {
@@ -996,13 +1130,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1027,14 +1163,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1044,35 +1182,44 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.GetModule(typeof(ICalculadoraModuloContrato));
+        ///                modulo = gerenciador.GetModule(typeof(ICalculadoraModuloContrato));
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
         ///</example>
         public IModule GetModule(Type moduleType)
         {
-            return _gerenciador.GetModule(moduleType);
+
+            return _gerenciador.GetModule(ResolveContract(moduleType));
         }
         ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
+        ///<exception cref="ArgumentNullException">Parâmetro nulo</exception>
         ///<exception cref="ModuleNotFoundException">Instancia do modulo nao foi inicializado</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1097,14 +1244,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois obtem pelo tipo
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1114,16 +1263,22 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.GetModule(modulo.Id);
+        ///                modulo =  gerenciador.GetModule(modulo.Id);
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
         ///</example>
         public IModule GetModule(string idModule)
         {
@@ -1134,19 +1289,19 @@ namespace Propeus.Modulo.Dinamico
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo invalido</exception>
         ///<exception cref="ModuleContractNotFoundException">ModuleType da interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
         ///<example>
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1171,14 +1326,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1188,16 +1345,26 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.ExistsModule(typeof(ICalculadoraModuloContrato));
+        ///                if(gerenciador.ExistsModule(typeof(ICalculadoraModuloContrato)))
+        ///                {
+        ///                     System.Console.WriteLine("Yay!!!");
+        ///                }
+        ///                else
+        ///                {
+        ///                     System.Console.WriteLine("Ops :(");
+        ///                }
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public bool ExistsModule(Type moduleType)
         {
@@ -1218,13 +1385,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1248,15 +1417,16 @@ namespace Propeus.Modulo.Dinamico
         ///</code>
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
-        ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1266,16 +1436,25 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.ExistsModule(modulo);
-        ///            }
+        ///                if(gerenciador.ExistsModule(modulo))
+        ///                {
+        ///                     System.Console.WriteLine("Yay!!!");
+        ///                }
+        ///                else
+        ///                {
+        ///                     System.Console.WriteLine("Ops :(");
+        ///                }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public bool ExistsModule(IModule moduleInstance)
         {
@@ -1287,13 +1466,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1318,14 +1499,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia pelo ID
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1335,16 +1518,25 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                modulo =  _gerenciador.ExistsModule(modulo.Id);
-        ///            }
+        ///                if(gerenciador.ExistsModule(modulo.Id))
+        ///                {
+        ///                     System.Console.WriteLine("Yay!!!");
+        ///                }
+        ///                else
+        ///                {
+        ///                     System.Console.WriteLine("Ops :(");
+        ///                }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public bool ExistsModule(string idModule)
         {
@@ -1356,13 +1548,15 @@ namespace Propeus.Modulo.Dinamico
         ///Crie uma classe em um projeto separado
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
-        ///    [ModuleProxy]
+        ///    [Module]
         ///    public class CalculadoraModulo : BaseModule
         ///    {
         ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
@@ -1387,14 +1581,16 @@ namespace Propeus.Modulo.Dinamico
         ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
         ///<code>
         ///using System;
-        ///using Propeus.ModuleProxy.Abstrato.Attributes;
-        ///using Propeus.ModuleProxy.Core.ModuleManager;
-        ///using Propeus.ModuleProxy.Dinamico.ModuleManager;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
         ///
-        ///namespace Propeus.ModuleProxy.Exemplo
+        ///namespace Propeus.Modulo.Example
         ///{
         ///
-        ///    [ModuloContrato("CalculadoraModulo")]
+        ///    [ModuleContract("CalculadoraModulo")]
         ///    public interface ICalculadoraModuloContrato : IModule
         ///    {
         ///        public int Calcular(int a, int b);
@@ -1404,16 +1600,19 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                IEnumerable&gt;IModule&lt; =  _gerenciador.ListAllModules();
+        ///                IEnumerable&gt;IModule&lt; =  gerenciador.ListAllModules();
         ///            }
         ///        }
         ///    }
         ///}
         ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
         ///</example>
         public IEnumerable<IModule> ListAllModules()
         {
@@ -1421,6 +1620,76 @@ namespace Propeus.Modulo.Dinamico
         }
 
         ///<inheritdoc/>
+        ///<example>
+        ///Crie uma classe em um projeto separado
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///    [Module]
+        ///    public class CalculadoraModulo : BaseModule
+        ///    {
+        ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
+        ///        {
+        ///            
+        ///        }
+        ///        
+        ///        public int Calcular(int a, int b)
+        ///        {
+        ///            return a+b;
+        ///        }
+        ///        
+        ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
+        ///        {
+        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+        ///          //Caso contrario, este metodo nao será invocado
+        ///        }
+        ///        
+        ///    }
+        ///}
+        ///</code>
+        ///No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Modulo.Core;
+        ///using Propeus.Modulo.Dinamico;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///
+        ///    [ModuleContract("CalculadoraModulo")]
+        ///    public interface ICalculadoraModuloContrato : IModule
+        ///    {
+        ///        public int Calcular(int a, int b);
+        ///    }
+        ///    
+        ///    internal class Program
+        ///    {
+        ///        private static void Main(string[] args)
+        ///        {
+        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+        ///            {
+        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+        ///                Console.WriteLine(modulo.Calcular(1,1));
+        ///                gerenciador.KeepAliveModuleAsync(modulo).Wait();
+        ///            }
+        ///        }
+        ///    }
+        ///}
+        ///</code>
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        ///</example>
         public async Task KeepAliveModuleAsync(IModule moduleInstance)
         {
             await _gerenciador.KeepAliveModuleAsync(moduleInstance).ConfigureAwait(true);
@@ -1461,32 +1730,34 @@ namespace Propeus.Modulo.Dinamico
             return stringBuilder.ToString();
         }
 
-       
+
         /// <summary>
-        /// Obtem o tipo implementado com base na interface informada
+        /// Obtém o tipo implementado com base na interface informada
         /// </summary>
-        /// <param name="contrato"></param>
+        /// <param name="contractType"></param>
         /// <returns>ModuleType implementado</returns>
         /// <exception cref="ArgumentException">O tipo informado não é uma interface</exception>
         /// <exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        private Type ResoverContratos(Type contrato)
+        private Type ResolveContract(Type contractType)
         {
-            if (!contrato.IsInterface)
+            if (!contractType.IsInterface)
             {
-                throw new ArgumentException("O tipo nao e uma interface");
+                return contractType;
             }
-
-            return _gerenciador.GetModule<ModuleWatcherModule>().GetModuleFromContract(contrato);
+            else
+            {
+                return _gerenciador.GetModule<IModuleWatcherModule>().GetModuleFromContract(contractType);
+            }
 
         }
         private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModule
         {
-           
 
-            MethodInfo mthInstancia = modulo.GetType().GetMethod(Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
+
+            MethodInfo? mthInstancia = modulo.GetType().GetMethod(Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
             _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
 
-            MethodInfo mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
+            MethodInfo? mthConfiguracao = modulo.GetType().GetMethod(Abstrato.Constantes.METODO_CONFIGURACAO);
             _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
         }
 

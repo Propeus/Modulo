@@ -1,7 +1,14 @@
 - name: Inicio
   href: README.md
-- name: Api Documentation
-  href: api/
   homepage: api/index.md
+- name: Como usar
+  href: articles/como-usar.md
 - name: Código de conduta
   href: CODE_OF_CONDUCT.md
+- name: Documentação técnica
+  href: api/
+  homepage: api/index.md
+- name: Q & A
+  href: articles/qea.md
+- name: Exemplos
+  href: articles/recomendacoes.md

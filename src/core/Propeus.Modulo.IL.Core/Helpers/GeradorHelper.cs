@@ -7,6 +7,7 @@ namespace Propeus.Modulo.IL.Core.Helpers
         private static ILGerador _gerador;
         private static ILModulo _modulo;
 
+
         public static ILModulo Modulo
         {
             get

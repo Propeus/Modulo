@@ -5,16 +5,19 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
-    /// Excecao para quando o tipo do modulo informado nao for encontrado no Assembly
+    /// Exceção para quando o tipo do modulo informado nao for encontrado no Assembly
     /// </summary>
     [Serializable]
     public class ModuleTypeNotFoundException : ModuleException
     {
-        ///<inheritdoc/>
-        public ModuleTypeNotFoundException(string message) : base(message) { }
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        /// <param name="moduleName">Nome do modulo</param>
+        public ModuleTypeNotFoundException(string moduleName) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, moduleName)) { }
 
         ///<inheritdoc/>
-        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
+        [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]
         protected ModuleTypeNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

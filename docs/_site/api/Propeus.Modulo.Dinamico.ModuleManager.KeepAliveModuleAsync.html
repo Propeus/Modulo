@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method KeepAliveModuleAsync
@@ -144,6 +144,72 @@
 
 
 
+
+<h4 class="section" id="Propeus_Modulo_Dinamico_ModuleManager_KeepAliveModuleAsync_Propeus_Modulo_Abstrato_Interfaces_IModule__examples">Examples</h4>
+<p>Crie uma classe em um projeto separado</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
+
+namespace Propeus.Modulo.Example
+{
+    [Module]
+    public class CalculadoraModulo : BaseModule
+    {
+        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
+        {
+
+        }
+
+        public int Calcular(int a, int b)
+        {
+            return a+b;
+        }
+
+        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
+        {
+          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
+          //Caso contrario, este metodo nao será invocado
+        }
+
+    }
+}</code></pre>
+<p>No projeto principal, adicione uma interface de contrato e depois verifica se existe a instancia</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
+
+namespace Propeus.Modulo.Example
+{
+
+    [ModuleContract("CalculadoraModulo")]
+    public interface ICalculadoraModuloContrato : IModule
+    {
+        public int Calcular(int a, int b);
+    }
+
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+            {
+                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+                Console.WriteLine(modulo.Calcular(1,1));
+                gerenciador.KeepAliveModuleAsync(modulo).Wait();
+            }
+        }
+    }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
 
 
 

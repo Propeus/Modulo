@@ -7,7 +7,7 @@ namespace Propeus.Modulo.Core
     /// <summary>
     /// Metodos de extensao para criar gerenciadores
     /// </summary>
-    public static class ModuleManagerExtensions
+    public static partial class ModuleManagerExtensions
     {
         /// <summary>
         /// Cria uma nova instancia do gereciador 

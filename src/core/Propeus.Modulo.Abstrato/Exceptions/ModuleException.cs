@@ -5,14 +5,14 @@ using System.Runtime.Serialization;
 namespace Propeus.Modulo.Abstrato.Exceptions
 {
     /// <summary>
-    /// Excecao generica
+    /// Exceção genérica
     /// </summary>
     [Serializable]
     public class ModuleException : Exception
     {
 
         /// <summary>
-        /// Construtor padrao
+        /// Construtor padrão
         /// </summary>
         /// <param name="message">Mensagem do erro</param>
         public ModuleException(string message) : base(message)
@@ -20,11 +20,11 @@ namespace Propeus.Modulo.Abstrato.Exceptions
         }
 
         /// <summary>
-        /// Construtor para serializacao
+        /// Construtor para serialização
         /// </summary>
-        /// <param name="info">Informacao da serializacao</param>
+        /// <param name="info">Informação da serialização</param>
         /// <param name="context">Contexto</param>
-        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
+        [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]
         protected ModuleException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

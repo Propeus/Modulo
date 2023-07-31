@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Namespace Propeus.Modulo.Abstrato.Exceptions
@@ -95,32 +95,37 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html">ModuleContractInvalidException</a></dt>
-      <dd><p>Excecao para quando a interface de contrato possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html">ModuleContractInvalidException</a> invalido</p>
+      <dd><p>Exceção para quando a interface de contrato possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html">ModuleContractInvalidException</a> invalido</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.html">ModuleContractNotFoundException</a></dt>
-      <dd><p>Excecao para quando a interface de contrato nao possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
+      <dd><p>Exceção para quando a interface de contrato nao possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-      <dd><p>Excecao para quando o modulo é descartado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a> ou quando o <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a> coleta o objeto</p>
+      <dd><p>Exceção para quando o modulo é descartado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a> ou quando o <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a> coleta o objeto</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleException.html">ModuleException</a></dt>
-      <dd><p>Excecao generica</p>
+      <dd><p>Exceção genérica</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.html">ModuleManagerDisposedException</a></dt>
+      <dd><p>Exceção para quando é acionado alguma ação no <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.html">IModuleManager</a> após a chamada do método <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-      <dd><p>Excecao para quando o modulo informado nao foi encontrado</p>
+      <dd><p>Exceção para quando o modulo informado nao foi encontrado</p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.html">ModuleSingleInstanceException</a></dt>
-      <dd><p>Excecao para tentativa de criacao de um novo modulo de instancia unica</p>
+      <dd><p>Exceção para tentativa de criação de um novo modulo de instancia unica</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -129,8 +134,18 @@ Classes
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.html">ModuleTypeInvalidException.TypeModuleNotInheritedException</a></dt>
+      <dd><p>Excecao para quando o modulo nao seguir os padroes de implementacao</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.html">ModuleTypeInvalidException.TypeModuleUnmarkedException</a></dt>
+      <dd><p>Excecao para quando o modulo nao seguir os padroes de implementacao</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html">ModuleTypeNotFoundException</a></dt>
-      <dd><p>Excecao para quando o tipo do modulo informado nao for encontrado no Assembly</p>
+      <dd><p>Exceção para quando o tipo do modulo informado nao for encontrado no Assembly</p>
 </dd>
     </dl>
 

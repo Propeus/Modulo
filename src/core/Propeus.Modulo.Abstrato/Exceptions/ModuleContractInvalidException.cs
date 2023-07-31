@@ -6,18 +6,20 @@ namespace Propeus.Modulo.Abstrato.Exceptions
 {
 
     /// <summary>
-    /// Excecao para quando a interface de contrato possui o atributo <see cref="ModuleContractInvalidException"/> invalido
+    /// Exceção para quando a interface de contrato possui o atributo <see cref="ModuleContractInvalidException"/> invalido
     /// </summary>
     [Serializable]
     public class ModuleContractInvalidException : ModuleException
     {
-        ///<inheritdoc/>
-        public ModuleContractInvalidException(string message) : base(message)
+        /// <summary>
+        /// Exceção para quando a interface de contrato possui o atributo <see cref="ModuleContractInvalidException"/> invalido
+        /// </summary>
+        public ModuleContractInvalidException() : base("O atributo deve possuir um nome ou tipo do modulo")
         {
         }
 
         ///<inheritdoc/>
-        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
+        [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]
         protected ModuleContractInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

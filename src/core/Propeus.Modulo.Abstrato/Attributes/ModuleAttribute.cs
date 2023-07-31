@@ -10,12 +10,17 @@ namespace Propeus.Modulo.Abstrato.Attributes
     {
 
         /// <summary>
-        /// Indica se o modulo e autoinicializavel
+        /// Indica se o modulo e auto inicializavel
         /// </summary>
         public bool AutoStartable { get; set; } = false;
         /// <summary>
         /// Indica se deve ser recriado todas as instancias do modulo, caso a DLL seja alterada
         /// </summary>
         public bool AutoUpdate { get; set; } = false;
+        /// <summary>
+        /// Informa que o tipo deve ser de instancia unica ou não
+        /// </summary>
+        /// <value>Por padrão é <see langword="false"/></value>
+        public bool Singleton { get; set; } = false;
     }
 }

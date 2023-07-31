@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method RemoveModule
@@ -145,6 +145,64 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_RemoveModule__1___0__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para remover algum modulo pela instancia</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+              {
+                 gerenciador.RemoveModule(module_a);
+                 System.Console.WriteLine(module_a);
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -183,6 +241,64 @@
 
 
 
+
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_RemoveModule_System_String__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para remover algum modulo pelo Id</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+              {
+                 gerenciador.RemoveModule(module_a.Id);
+                 System.Console.WriteLine(module_a);
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
 
 
 

@@ -11,12 +11,15 @@ namespace Propeus.Modulo.Abstrato.Exceptions
     public class ModuleBuilderAbsentException : ModuleException
     {
 
-        ///<inheritdoc/>
-        public ModuleBuilderAbsentException(string message) : base(message)
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        /// <param name="moduleType">Tipo do modulo</param>
+        public ModuleBuilderAbsentException(Type moduleType) : base(string.Format(Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO, moduleType.Name))
         {
         }
         ///<inheritdoc/>
-        [ExcludeFromCodeCoverage(Justification ="Impelementacao do Serializable Pattern")]
+        [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]
         protected ModuleBuilderAbsentException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

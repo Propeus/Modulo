@@ -11,7 +11,7 @@ namespace Propeus.Modulo.Abstrato.Attributes
     public sealed class ModuleContractAttribute : Attribute
     {
         /// <summary>
-        /// Indica se o atributo possui os parametros necessarios
+        /// Indica se o atributo possui os parâmetros necessários
         /// </summary>
         public bool IsValid => ModuleName != null || ModuleType != null;
 
@@ -23,7 +23,7 @@ namespace Propeus.Modulo.Abstrato.Attributes
         {
             if (string.IsNullOrEmpty(moduleName))
             {
-                throw new ModuleContractInvalidException("O atributo deve possui um nome ou tipo do modulo");
+                throw new ModuleContractInvalidException();
             }
 
             ModuleName = moduleName;
@@ -44,7 +44,7 @@ namespace Propeus.Modulo.Abstrato.Attributes
             }
             else
             {
-                throw new ModuleContractInvalidException("O atributo deve possui um nome ou tipo do modulo");
+                throw new ModuleContractInvalidException();
             }
         }
 

@@ -122,9 +122,16 @@ namespace Propeus.Modulo.IL.Core.Helpers
                     _ = _acessadoresL.Remove(Token.Abstrato);
                     _ = _acessadoresL.Remove(Token.ReusoSlot);
                     _ = _acessadoresL.Remove(Token.VtableLayoutMask);
-                    _acessadoresL.Add(Token.Final);
-                    _acessadoresL.Add(Token.NovoSlot);
-                    _acessadoresL.Add(Token.Virtual);
+
+                    if (!_acessadoresL.Contains(Token.Final))
+                        _acessadoresL.Add(Token.Final);
+
+                    if (!_acessadoresL.Contains(Token.NovoSlot))
+                        _acessadoresL.Add(Token.NovoSlot);
+
+                    if (!_acessadoresL.Contains(Token.Virtual))
+                        _acessadoresL.Add(Token.Virtual);
+
                     _acessadores = _acessadoresL.ToArray();
                 }
                 else
@@ -161,9 +168,14 @@ namespace Propeus.Modulo.IL.Core.Helpers
                         _ = _acessadoresL.Remove(Token.Abstrato);
                         _ = _acessadoresL.Remove(Token.ReusoSlot);
                         _ = _acessadoresL.Remove(Token.VtableLayoutMask);
-                        _acessadoresL.Add(Token.Final);
-                        _acessadoresL.Add(Token.NovoSlot);
-                        _acessadoresL.Add(Token.Virtual);
+                        if (!_acessadoresL.Contains(Token.Final))
+                            _acessadoresL.Add(Token.Final);
+
+                        if (!_acessadoresL.Contains(Token.NovoSlot))
+                            _acessadoresL.Add(Token.NovoSlot);
+
+                        if (!_acessadoresL.Contains(Token.Virtual))
+                            _acessadoresL.Add(Token.Virtual);
                         _acessadores = _acessadoresL.ToArray();
                     }
                     else
@@ -177,14 +189,24 @@ namespace Propeus.Modulo.IL.Core.Helpers
                         _acessadores = _acessadoresL.ToArray();
                     }
 
-                    ClasseAPI.CriarMetodo(cls.Atual, _acessadores, typeof(void), Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, new ILParametro[] { new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, prop.Retorno) });
+                    var mth_info_set_params = mth_info_set.GetParameters();
+                    List<ILParametro> iLParametros = new List<ILParametro>();
+                    foreach (var param in mth_info_set_params)
+                    {
+                        iLParametros.Add(new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, param.ParameterType, param.IsOptional, param.DefaultValue, param.Name));
+                    }
+
+                    ClasseAPI.CriarMetodo(cls.Atual, _acessadores, typeof(void), Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Nome, iLParametros.ToArray());
                     ILMetodo mth_set = cls.Atual.Metodos.Last();
 
                     prop.Setter = mth_set;
 
                     MetodoAPI.CarregarArgumento(mth_set);
                     MetodoAPI.CarregarValorCampo(mth_set, cmp);
-                    MetodoAPI.CarregarArgumento(mth_set, 1);
+                    for (int i = 1; i <= iLParametros.Count; i++)
+                    {
+                        MetodoAPI.CarregarArgumento(mth_set, i);
+                    }
                     MetodoAPI.ChamarFuncaoVirtual(mth_set, mth_info_set);
                     MetodoAPI.CriarRetorno(mth_set);
                 }
@@ -249,6 +271,21 @@ namespace Propeus.Modulo.IL.Core.Helpers
             ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces, null, atributos);
 
             return Proxy(cls, classe, interfaces);
+        }
+        public static ILClasseProvider CriarOuObterProxyClasse(this ILModulo iLGerador, Type classe, Type[] interfaces = null, Type[] atributos = null)
+        {
+            Type tClasse = classe;
+            if (iLGerador.ExisteClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace))
+            {
+                ILClasseProvider cls = iLGerador.ObterClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace);
+                return cls;
+            }
+            else
+            {
+                ILClasseProvider cls = iLGerador.CriarClasseProvider(tClasse.Name, Constantes.CONST_NME_NAMESPACE_CLASSE_PROXY + '.' + tClasse.Namespace, null, interfaces, null, atributos);
+                return Proxy(cls, classe, interfaces);
+
+            }
         }
 
         public static Type ObterTipoGerado(this ILClasseProvider iLClasseProvider)

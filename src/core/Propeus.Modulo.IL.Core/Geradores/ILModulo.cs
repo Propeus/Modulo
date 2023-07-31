@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text;
 
 using Propeus.Modulo.IL.Core.Enums;
@@ -47,6 +48,15 @@ namespace Propeus.Modulo.IL.Geradores
 
         }
 
+        internal bool ExisteClasseProvider(string nomeClasse, string @namespace)
+        {
+            return Classes.ContainsKey(@namespace + nomeClasse);
+        }
+
+        internal ILClasseProvider ObterClasseProvider(string nomeClasse, string @namespace)
+        {
+            return Classes[@namespace + nomeClasse];
+        }
 
         internal ILClasseProvider CriarClasseProvider(string nomeClasse, string @namespace, Type @base = null, Type[] interfaces = null, Token[] acessadores = null, Type[] atributos = null)
         {

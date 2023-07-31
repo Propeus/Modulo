@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Constructor ModuleManager
@@ -118,7 +118,7 @@
   
 </h3>
 
-<div class="markdown level1 summary"><p>Inicializa o _gerenciador</p>
+<div class="markdown level1 summary"><p>Inicializa o gerenciador</p>
 </div>
 <div class="markdown level1 conceptual"></div>
 
@@ -138,6 +138,25 @@
 
 
 
+
+<h4 class="section" id="Propeus_Modulo_Dinamico_ModuleManager__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager__examples">Examples</h4>
+<p>Criar uma instancia do gerenciador dinamico</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Dinamico;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+         {
+            //Seu codigo aqui...
+         }
+      }
+  }
+}</code></pre>
 
 
 

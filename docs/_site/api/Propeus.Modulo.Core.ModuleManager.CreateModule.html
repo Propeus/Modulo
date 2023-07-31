@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method CreateModule
@@ -146,7 +146,7 @@
 
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_CreateModule__1_examples">Examples</h4>
-<p>Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato</p>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
 <pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -164,7 +164,7 @@ namespace Propeus.Modulo.Example
       public void EscreverOlaMundo()
       {
           System.Console.WriteLine("Ola mundo!");
-          System.Console.WriteLine("Este é um modulo em funcionamento!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
       }
 
   }
@@ -176,9 +176,9 @@ namespace Propeus.Modulo.Example
   }
 }</code></pre>
  <div class="TIP"><h5>tip</h5><p>
- Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+ Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
  </p></div>
-<p>Para criar múltiplas instancias de um mesmo modulo caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+<p>Para criar múltiplas instancias de um mesmo module caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
 <pre><code class="lang-csharp">using System;
 using Propeus.Modulo.Core;
 
@@ -196,7 +196,7 @@ namespace Propeus.Modulo.Example
       }
   }
 }</code></pre>
-<p>Para criar múltiplas instancias de um mesmo modulo por meio de uma interface de contrato</p>
+<p>Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato</p>
 <pre><code class="lang-csharp">using System;
 using Propeus.Modulo.Core;
 
@@ -276,7 +276,7 @@ namespace Propeus.Modulo.Example
 
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_CreateModule_System_String__examples">Examples</h4>
-<p>Para os exemplos abaixo será utilizado o seguinte modulo</p>
+<p>Para os exemplos abaixo será utilizado o seguinte module</p>
 <pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 
@@ -293,13 +293,13 @@ namespace Propeus.Modulo.Example
       public void EscreverOlaMundo()
       {
           System.Console.WriteLine("Ola mundo!");
-          System.Console.WriteLine("Este é um modulo em funcionamento!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
       }
 
   }
 
 }</code></pre>
-<p>Para criar múltiplas instancias de um mesmo modulo caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+<p>Para criar múltiplas instancias de um mesmo module caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
 <pre><code class="lang-csharp">using System;
 using Propeus.Modulo.Core;
 
@@ -324,7 +324,7 @@ namespace Propeus.Modulo.Example
  O retorno deste método sempre será <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a>, tome cuidado ao realizar o cast para um tipo não compatível.
  </p></div>
  <div class="WARNING"><h5>warning</h5><p>
- Tome cuidado ao escrever o nome do modulo, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
+ Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
  </p></div>
 
 
@@ -341,7 +341,7 @@ namespace Propeus.Modulo.Example
   <dd><p>A interface não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html">ModuleTypeNotFoundException</a></dt>
-  <dd><p>O modulo não foi encontrado pelo nome informado</p>
+  <dd><p>O module não foi encontrado pelo nome informado</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html">ModuleTypeNotFoundException</a></dt>
   <dd><p>O <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a> não possui um tipo ou nome valido</p>
@@ -394,7 +394,7 @@ namespace Propeus.Modulo.Example
 
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_CreateModule_System_Type__examples">Examples</h4>
-<p>Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato</p>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
 <pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -412,7 +412,7 @@ namespace Propeus.Modulo.Example
       public void EscreverOlaMundo()
       {
           System.Console.WriteLine("Ola mundo!");
-          System.Console.WriteLine("Este é um modulo em funcionamento!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
       }
 
   }
@@ -424,9 +424,9 @@ namespace Propeus.Modulo.Example
   }
 }</code></pre>
  <div class="TIP"><h5>tip</h5><p>
- Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+ Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
  </p></div>
-<p>Para criar múltiplas instancias de um mesmo modulo caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
+<p>Para criar múltiplas instancias de um mesmo module caso o <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_Interfaces_IModule_IsSingleInstance">IsSingleInstance</a> seja <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a></p>
 <pre><code class="lang-csharp">using System;
 using Propeus.Modulo.Core;
 
@@ -444,7 +444,7 @@ namespace Propeus.Modulo.Example
       }
   }
 }</code></pre>
-<p>Para criar múltiplas instancias de um mesmo modulo por meio de uma interface de contrato</p>
+<p>Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato</p>
 <pre><code class="lang-csharp">using System;
 using Propeus.Modulo.Core;
 

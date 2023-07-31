@@ -5,18 +5,23 @@ using System.Linq;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Dinamico.Contracts;
 
 namespace Propeus.Modulo.Dinamico.Modules
 {
     /// <summary>
-    /// Modulo para definir ouvintes para o <see cref="ModuleWatcherModule"/>
+    /// Modulo para definir ouvintes para o <see cref="IModuleWatcherModule"/>
     /// </summary>
     [Module]
     public class ListenerModule : BaseModule
     {
-        private readonly IModuleManager _moduleManager;
+        private readonly IModuleWatcherModule _moduleManager;
 
-        public ListenerModule(IModuleManager moduleManager)
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        /// <param name="moduleManager">Qualquer gerenciador de modulo</param>
+        public ListenerModule(IModuleWatcherModule moduleManager)
         {
             _moduleManager = moduleManager;
         }
@@ -27,7 +32,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onLoadModule"></param>
         public void SetOnLoadModule(Action<Type> onLoadModule)
         {
-            _moduleManager.GetModule<ModuleWatcherModule>().OnLoadModule += onLoadModule;
+            _moduleManager.OnLoadModule += onLoadModule;
         }
         /// <summary>
         /// Adiciona evento para escutar eventos de descarregamento de modulo
@@ -35,7 +40,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onUnloadModule"></param>
         public void SetOnUnloadModule(Action<Type> onUnloadModule)
         {
-            _moduleManager.GetModule<ModuleWatcherModule>().OnUnloadModule += onUnloadModule;
+            _moduleManager.OnUnloadModule += onUnloadModule;
         }
         /// <summary>
         /// Adiciona evento para escutar eventos de regarregamento de modulo
@@ -43,7 +48,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="onRebuildModule"></param>
         public void SetOnRebuildModule(Action<Type> onRebuildModule)
         {
-            _moduleManager.GetModule<ModuleWatcherModule>().OnReloadModule += onRebuildModule;
+            _moduleManager.OnReloadModule += onRebuildModule;
         }
 
         /// <summary>
@@ -52,7 +57,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <returns></returns>
         public IEnumerable<Type> GetAllModules()
         {
-            return _moduleManager.GetModule<ModuleWatcherModule>().GetAllModules();
+            return _moduleManager.GetAllModules();
         }
     }
 }

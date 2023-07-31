@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+      <title>Q &amp; A </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Q &amp; A ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Propeus/Modulo/blob/develop/docs/articles/qea.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="q--a">Q &amp; A</h1>
+
+<p>Pagina para perguntas e respostas</p>
+<h3 id="geral">Geral</h3>
+<blockquote>
+<p>Porque nao é utilizado componentes de terceiros para a manipulação de classes em tempo de execução como o Castle Project?</p>
+</blockquote>
+<p>São diversos pontos más o principal é porque eu não queria depender de varios projetos de terceiros, pois iria contra a ideia de ser modular.</p>
+<blockquote>
+<p>Qual a vantagem de usar esse projeto?</p>
+</blockquote>
+<p>A ideia surgiu dentro de 2 ocasioes jogo e web. Hoje em dia temos diversas ferramentas que possibilitam o deploy rapido e garantia de disponibilidade, porém nem todos possuem recursos para adquirir essas ferramentes, então sugiu a ideia da necessidade de realizar o deploy de uma parte sem precisar parar uma aplicação por completo ou ate mesmo aquela parte afetada. Para os jogos, a ideia seria a mesma, seria legal receber atualizações sem a necessidade de fechar ou reiniciar o jogo.</p>
+<blockquote>
+<p>Como funciona a atualização de modulo no Gerenciador dinamico?</p>
+</blockquote>
+<p>O gerencenciador verifica se existe algum evento no arquivo e caso exista, ele descarrega o assembly antigo e carrega o novo, porém os objetos que utilizam o assembly antigo continuarao até que finalize seu ciclo de vida. Para evitar que um modulo antigo permaneca ativo por muito tempo após a sua eliminação, o gerenciador sempre irá te retornar uma nova instancia de modulo ao invés de retornar o existente.</p>
+<blockquote>
+<p>É possivel usar esse projeto em sistemas WEB MVC?</p>
+</blockquote>
+<p>Sim, más há resalvas, para consegui utilziar o gerenciador como controle de DI, foi necessario copiar o controle de DI da microsoft e modifica-la para quando não houver registro de serviço, ele irá buscar no gerenciador. Para manter os padrões de DI, a Microsoft decidiu que ou criaria um do zero ou utilizaria o já existente.
+Obs.: A Microsft não possui responsabilidade sobre o codigo de injeção de dependencia que foi copiado e modificado no projeto <code>Propeus.Modulo.Hosting</code></p>
+<h3 id="desenvolvimento">Desenvolvimento</h3>
+<blockquote>
+<p>Para que serve cada projeto?</p>
+</blockquote>
+<p>Os projetos estão separados na seguinte ordem:
+1 - Propeus.Modulo.Util: É um conjunto de funcoes que ajuda no desenvolvimento.
+2 - Propeus.Modulo.IL: É um projeto para criar proxy dinamico, utilizado em conjunto com o <code>Propeus.Modulo.Dinamico</code>
+3 - Propeus.Modulo.Abstrato: É um projeto que possui todos os modelos e base para desenvolver qualquer modulo ou gerenciador
+4 - Propeus.Modulo.Core: É o gerenciador principal que orquestra todos os outros modulos
+5 - Propeus.Modulo.Dinamico: É o segundo gerenciador, ele é gerenciado pelo gerenciador core e serve para realizar proxy dinamico dos modulos e contratos
+6 - Propeus.Modulo.Workservice: É um modulo que implementa o <code>IHostedService</code>, resumindo, serve para criar modulos como um Work Service
+7 - Propeus.Modulo.Hosting: É um projeto que modifica o programa WEB MVC para permitir o uso do gerenciador dinamico, permitindo o carregamento de novos controllers e views em tempo de execução</p>
+<blockquote>
+<p>Um modulo pode manipular um gerenciador?</p>
+</blockquote>
+<p>Sim, porém só consegue manipular os metodos expostos pelo <code>IModuleManager</code>, um exemplo é o proprio gerenciador dinamico.</p>
+<blockquote>
+<p>Para usar os gerenciadores em um projeto WEB MVC, eu preciso carregar o <code>Propeus.Modulo.Hosting</code> junto?</p>
+</blockquote>
+<p>Não, se fosse assim não faria sentido o projeto como um todo. O <code>Propeus.Modulo.Hosting</code> serve para &quot;embutir&quot; o gerenciador dentro do sistema de DI da microsoft, voce pode carregar o gerenciador como singleton e fazer as chamadas dela para seus services e controllers como um servico qualquer, criar services como modulo tambem não te impede de usar como uma classe comum ou service no MVC.</p>
+<blockquote>
+<p>Da para carregar views e controllers usando a ferramenta?</p>
+</blockquote>
+<p>Sim, para este caso será necessario o uso do <code>Propeus.Modulo.Hosting</code> e <code>Propeus.Modulo.Dinamico</code> para funcionar de forma correta, além de precisar realizar a seguinte modificação no seu csproj do modulo.</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_xml" role="tab" aria-controls="tabpanel_bHGHmlrG6S_xml" data-tab="xml" tabindex="0" aria-selected="true">XML</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S_xml" role="tabpanel" data-tab="xml">
+
+<pre><code class="lang-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Razor&quot;&gt;
+	&lt;PropertyGroup&gt;
+		&lt;GenerateEmbeddedFilesManifest&gt;true&lt;/GenerateEmbeddedFilesManifest&gt;
+	&lt;/PropertyGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+</section>
+</div>
+
+<p>No sdk deverá utilziar o <code>Microsoft.NET.Sdk.Razor</code> e no PropertyGroup do seu projeto devera definir a tag <code>GenerateEmbeddedFilesManifest</code> como <code>true</code>.
+Esta modificação é para os modulos que estão fora do projeto principal e precisam carregar views.</p>
+<blockquote>
+<p>Se eu remover um modulo controller do MVC em execução, o controller deixará de existir?</p>
+</blockquote>
+<p>Não, para manter a integridade, ele só deixará de existir quando reiniciar o programa, voce pode criar uma versão de circuit break para evitar uso indevido.</p>
+<blockquote>
+<p>Existe algum lugar que possa ver as informacoes do modulo?</p>
+</blockquote>
+<p>Sim, voce pode usar a função <code>.ToString()</code> para mostrar as informacoes do modulo, caso implemente com base no <code>BaseModule</code></p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Propeus/Modulo/blob/develop/docs/articles/qea.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

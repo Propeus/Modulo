@@ -300,6 +300,26 @@
       "source_relative_path": "api/Propeus.Modulo.Abstrato.Constantes.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Constantes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Constantes.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Propeus.Modulo.Abstrato.Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO.html"
         }
       },
@@ -507,6 +527,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.yml",
       "output": {
         ".html": {
@@ -541,6 +581,46 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.html"
         }
       },
       "version": ""
@@ -720,6 +800,36 @@
       "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
       "output": {
         ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveAllModules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
+      "output": {
+        ".html": {
           "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule.html"
         }
       },
@@ -801,36 +911,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveAllModules.html"
         }
       },
       "version": ""
@@ -987,6 +1067,166 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.CliModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.CliModulo.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.CliModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.CliModulo.CriarInstancia.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.CliModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.CliModulo.ExecutarCLI.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.CliModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.CliModulo.Dispose.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.CliModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.CliModulo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.CLI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.CLI.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.Dispose.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.ConsoleModulo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.IModuloCliContrato.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.IModuloCliContrato.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.IModuloCliContrato.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Console.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Console.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.LastUpdate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.InitializedModules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.StartDate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
       "output": {
         ".html": {
@@ -1087,46 +1327,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.LastUpdate.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.InitializedModules.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.StartDate.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Core.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Core.ModuleManager.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Propeus.Modulo.Core.ModuleManagerExtensions.yml",
       "output": {
         ".html": {
@@ -1161,6 +1361,76 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Core.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.CreateModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RemoveModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RemoveAllModules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RecycleModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.GetModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.ExistsModule.html"
         }
       },
       "version": ""
@@ -1251,76 +1521,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.CreateModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RemoveModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RemoveAllModules.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.RecycleModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.GetModule.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.ModuleManager.ExistsModule.html"
         }
       },
       "version": ""
@@ -1421,16 +1621,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html"
         }
       },
       "version": ""
@@ -1631,156 +1821,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Content.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryUpdateModelAsync.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryValidateModel.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.HttpContext.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Request.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Response.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RouteData.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelState.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ControllerContext.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.MetadataProvider.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelBinderFactory.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Url.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ObjectValidator.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.User.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.html"
         }
       },
       "version": ""
@@ -2187,6 +2227,156 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryUpdateModelAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryValidateModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.HttpContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Request.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Response.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RouteData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelState.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ControllerContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.MetadataProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelBinderFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Url.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ObjectValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.User.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Propeus.Modulo.Hosting.MS_MVC.yml",
       "output": {
         ".html": {
@@ -2251,36 +2441,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.View.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.PartialView.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.ViewComponent.html"
         }
       },
       "version": ""
@@ -2377,6 +2537,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.View.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.PartialView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.ModuloController.ViewComponent.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.yml",
       "output": {
         ".html": {
@@ -2411,6 +2601,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.CreateReadStream.html"
         }
       },
       "version": ""
@@ -2481,26 +2691,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.-ctor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.CreateReadStream.html"
         }
       },
       "version": ""
@@ -2840,26 +3030,6 @@
       "source_relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.Executar.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.Dispose.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.yml",
-      "output": {
-        ".html": {
           "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.ToString.html"
         }
       },
@@ -2871,6 +3041,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.Executar.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.IL.Geradores.ILModulo.Dispose.html"
         }
       },
       "version": ""
@@ -2891,6 +3081,96 @@
       "output": {
         ".html": {
           "relative_path": "api/Propeus.Modulo.IL.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.-ctor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.WaitAll.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.ToString.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.ToStringView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.Dispose.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.TaskJobModule.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Propeus.Modulo.Taskjob.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Propeus.Modulo.Taskjob.html"
         }
       },
       "version": ""
@@ -3230,10 +3510,30 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/intro.md",
+      "source_relative_path": "articles/Recomendacoes.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html"
+          "relative_path": "articles/Recomendacoes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/como-usar.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/como-usar.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/qea.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/qea.html"
         }
       },
       "version": ""

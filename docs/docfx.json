@@ -51,14 +51,22 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "globalMetadata": {
-      "_enableSearch": "true"
+      "_enableSearch": "true",
+      "_gitUrlPattern": "https://github.com/Propeus/Modulo",
+      "_lang": "pt-br",
+      "_gitContribute": {
+        "repo": "https://github.com/Propeus/Modulo",
+        "branch": "develop"
+      }
     },
     "template": [
       "default",
       "modern",
-      "templates/material" 
+      "templates/material"
     ],
-    "postProcessors": ["ExtractSearchIndex"],
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ],
     "keepFileLink": false,
     "disableGitFeatures": false
   }

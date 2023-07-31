@@ -30,7 +30,7 @@ namespace Propeus.Modulo.Core
     ///  }
     /// </code>
     /// </example>
-    public sealed class ModuleManager : BaseModel, IModuleManager
+    public class ModuleManager : BaseModel, IModuleManager
     {
 
         ///<inheritdoc/>
@@ -64,7 +64,7 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
         ///<example>
-        ///Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
         ///using Propeus.Modulo.Abstrato;
         ///using Propeus.Modulo.Abstrato.Attributes;
@@ -83,7 +83,7 @@ namespace Propeus.Modulo.Core
         ///      public void EscreverOlaMundo()
         ///      {
         ///          System.Console.WriteLine("Ola mundo!");
-        ///          System.Console.WriteLine("Este é um modulo em funcionamento!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
         ///      }
         ///
         ///  }
@@ -97,10 +97,10 @@ namespace Propeus.Modulo.Core
         /// </code>
         /// 
         /// <note type="tip">
-        /// Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        /// Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         /// </note>
         /// 
-        ///Para criar múltiplas instancias de um mesmo modulo caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
+        ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Core;
@@ -120,7 +120,7 @@ namespace Propeus.Modulo.Core
         ///  }
         ///}
         ///</code>
-        ///Para criar múltiplas instancias de um mesmo modulo por meio de uma interface de contrato
+        ///Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Core;
@@ -149,13 +149,13 @@ namespace Propeus.Modulo.Core
         ///<inheritdoc/>
         ///<exception cref="ModuleBuilderAbsentException">Não há um construtor publico disponível</exception>
         ///<exception cref="ModuleContractNotFoundException">A interface não possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">O modulo não foi encontrado pelo nome informado</exception>
+        ///<exception cref="ModuleTypeNotFoundException">O module não foi encontrado pelo nome informado</exception>
         ///<exception cref="ModuleTypeNotFoundException">O <see cref="ModuleContractAttribute"/> não possui um tipo ou nome valido</exception>
         ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
         ///<example>
-        ///Para os exemplos abaixo será utilizado o seguinte modulo
+        ///Para os exemplos abaixo será utilizado o seguinte module
         ///<code>
         ///using Propeus.Modulo.Abstrato;
         ///using Propeus.Modulo.Abstrato.Attributes;
@@ -173,7 +173,7 @@ namespace Propeus.Modulo.Core
         ///      public void EscreverOlaMundo()
         ///      {
         ///          System.Console.WriteLine("Ola mundo!");
-        ///          System.Console.WriteLine("Este é um modulo em funcionamento!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
         ///      }
         ///
         ///  }
@@ -182,7 +182,7 @@ namespace Propeus.Modulo.Core
         /// </code>
         /// 
         /// 
-        ///Para criar múltiplas instancias de um mesmo modulo caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
+        ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Core;
@@ -209,7 +209,7 @@ namespace Propeus.Modulo.Core
         /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
         /// </note>
         /// <note type="warning">
-        /// Tome cuidado ao escrever o nome do modulo, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
+        /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
         /// </note>
         /// </example>
         public IModule CreateModule(string moduleName)
@@ -226,7 +226,7 @@ namespace Propeus.Modulo.Core
             }
 
             return result == null
-                ? throw new ModuleTypeNotFoundException(string.Format(Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO, moduleName))
+                ? throw new ModuleTypeNotFoundException(moduleName)
                 : CreateModule(result);
         }
         ///<inheritdoc/>
@@ -238,7 +238,7 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
         ///<example>
-        ///Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
         ///using Propeus.Modulo.Abstrato;
         ///using Propeus.Modulo.Abstrato.Attributes;
@@ -257,7 +257,7 @@ namespace Propeus.Modulo.Core
         ///      public void EscreverOlaMundo()
         ///      {
         ///          System.Console.WriteLine("Ola mundo!");
-        ///          System.Console.WriteLine("Este é um modulo em funcionamento!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
         ///      }
         ///
         ///  }
@@ -271,10 +271,10 @@ namespace Propeus.Modulo.Core
         /// </code>
         /// 
         /// <note type="tip">
-        /// Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        /// Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         /// </note>
         /// 
-        ///Para criar múltiplas instancias de um mesmo modulo caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
+        ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Core;
@@ -294,7 +294,7 @@ namespace Propeus.Modulo.Core
         ///  }
         ///}
         ///</code>
-        ///Para criar múltiplas instancias de um mesmo modulo por meio de uma interface de contrato
+        ///Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato
         ///<code>
         ///using System;
         ///using Propeus.Modulo.Core;
@@ -320,16 +320,18 @@ namespace Propeus.Modulo.Core
         /// </example>
         public IModule CreateModule(Type moduleType)
         {
+            CheckModuleManagerStatus();
+
             if (moduleType is null)
             {
                 throw new ArgumentNullException(nameof(moduleType));
             }
-            moduleType = ResolverContrato(moduleType);
+            moduleType = ResolveContract(moduleType);
 
             ConstructorInfo ctor = moduleType.GetConstructors().MaxBy(x => x.GetParameters().Length);
             if (ctor is null)
             {
-                throw new ModuleBuilderAbsentException(Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO);
+                throw new ModuleBuilderAbsentException(moduleType);
             }
 
             ParameterInfo[] paramCtor = ctor.GetParameters();
@@ -404,7 +406,7 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
         ///<example>
-        ///Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
         ///using Propeus.Modulo.Abstrato;
         ///using Propeus.Modulo.Abstrato.Attributes;
@@ -423,7 +425,7 @@ namespace Propeus.Modulo.Core
         ///      public void EscreverOlaMundo()
         ///      {
         ///          System.Console.WriteLine("Ola mundo!");
-        ///          System.Console.WriteLine("Este é um modulo em funcionamento!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
         ///      }
         ///
         ///  }
@@ -437,7 +439,7 @@ namespace Propeus.Modulo.Core
         /// </code>
         /// 
         ///<note type="tip">
-        ///Um modulo não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         ///</note>
         /// 
         ///Para verificar se existe alguma instancia do tipo
@@ -456,7 +458,7 @@ namespace Propeus.Modulo.Core
         ///              IModule module_a = gerenciador.CreateModule(typeof(ModuloDeExemplo));
         ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
         ///              {
-        ///                 System.Console.WriteLine("Existe o modulo! Obaaa!");
+        ///                 System.Console.WriteLine("Existe o module! Obaaa!");
         ///              }else{
         ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
         ///              }
@@ -471,6 +473,8 @@ namespace Propeus.Modulo.Core
         /// </example>
         public bool ExistsModule(Type moduleType)
         {
+            CheckModuleManagerStatus();
+
             if (moduleType is null)
             {
                 throw new ArgumentNullException(nameof(moduleType));
@@ -478,7 +482,7 @@ namespace Propeus.Modulo.Core
 
             try
             {
-                moduleType = ResolverContrato(moduleType);
+                moduleType = ResolveContract(moduleType);
                 IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
 
                 return moduloInstancia is not null && !moduloInstancia.IsDeleted && !moduloInstancia.IsCollected;
@@ -491,14 +495,142 @@ namespace Propeus.Modulo.Core
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">O parâmetro é nulo</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para verificar se a instancia está registrado no gerenciador
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+        ///              if(gerenciador.ExistsModule(module_a)
+        ///              {
+        ///                 System.Console.WriteLine("Existe o module! Obaaa!");
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public bool ExistsModule(IModule moduleInstance)
         {
             return moduleInstance is null ? throw new ArgumentNullException(nameof(moduleInstance)) : ExistsModule(moduleInstance.Id);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">O parâmetro é nulo</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para verificar se existe o module pelo Id
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+        ///              if(gerenciador.ExistsModule(module_a.Id)
+        ///              {
+        ///                 System.Console.WriteLine("Existe o module! Obaaa!");
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public bool ExistsModule(string idModule)
         {
+            CheckModuleManagerStatus();
+
             if (string.IsNullOrEmpty(idModule))
             {
                 throw new ArgumentNullException(nameof(idModule));
@@ -515,11 +647,80 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para obter alguma instancia do tipo
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              _ = gerenciador.CreateModule(typeof(ModuloDeExemplo));
+        ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+        ///              {
+        ///                 IModule module_a = gerenciador.GetModule(typeof(ModuloDeExemplo))
+        ///                 System.Console.WriteLine(module_a);
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// <note type="important">
+        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
+        /// </note>
+        /// </example>
         public IModule GetModule(Type moduleType)
         {
-            moduleType = ResolverContrato(moduleType);
-            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException("Modulo nao encontrado");
+            CheckModuleManagerStatus();
+
+            moduleType = ResolveContract(moduleType);
+            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException(moduleType);
             return moduloInstancia.Module;
         }
         ///<inheritdoc/>
@@ -528,18 +729,148 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para obter alguma instancia do tipo
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              _ = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+        ///              {
+        ///                 ModuloDeExemplo module_a = gerenciador.GetModule&lt;ModuloDeExemplo&gt;();
+        ///                 System.Console.WriteLine(module_a);
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public T GetModule<T>() where T : IModule
         {
             return (T)GetModule(typeof(T));
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentException">Parâmetro nulo ou vazio</exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi coletado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi apagado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi coletado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi apagado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para obter instancia pelo Id
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+        ///              {
+        ///                 IModule module_b = gerenciador.GetModule(module_a.Id);
+        ///                 System.Console.WriteLine(module_b);
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public IModule GetModule(string idModule)
         {
+            CheckModuleManagerStatus();
+
             if (string.IsNullOrEmpty(idModule))
             {
                 throw new ArgumentException($"'{nameof(idModule)}' não pode ser nulo nem vazio.", nameof(idModule));
@@ -550,19 +881,83 @@ namespace Propeus.Modulo.Core
             {
                 if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
                 {
-                    throw new ModuleDisposedException(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, moduloInstancia.IdModule));
+                    throw new ModuleDisposedException(moduloInstancia.IdModule);
                 }
 
                 return moduloInstancia.Module;
             }
 
-            throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, idModule));
+            throw new ModuleNotFoundException(idModule);
 
 
         }
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parâmetro nulo</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para remover algum contractType pela instancia
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+        ///              {
+        ///                 gerenciador.RemoveModule(module_a);
+        ///                 System.Console.WriteLine(module_a);
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public void RemoveModule<T>(T moduleInstance) where T : IModule
         {
             if (moduleInstance is null)
@@ -574,6 +969,70 @@ namespace Propeus.Modulo.Core
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentException">Parâmetro nulo ou vazio</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para remover algum contractType pelo Id
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+        ///              {
+        ///                 gerenciador.RemoveModule(module_a.Id);
+        ///                 System.Console.WriteLine(module_a);
+        ///              }else{
+        ///                 System.Console.WriteLine("Algo de errado nao esta certo...");
+        ///              }
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public void RemoveModule(string idModule)
         {
             if (string.IsNullOrEmpty(idModule))
@@ -581,7 +1040,7 @@ namespace Propeus.Modulo.Core
                 throw new ArgumentException($"'{nameof(idModule)}' não pode ser nulo nem vazio.", nameof(idModule));
             }
 
-            if (modules.TryRemove(idModule, out IModuleType target) && !target.IsDeleted)
+            if (modules.TryRemove(idModule, out IModuleType target))
             {
                 target.Dispose();
                 InitializedModules--;
@@ -589,6 +1048,65 @@ namespace Propeus.Modulo.Core
 
         }
         ///<inheritdoc/>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para remover todos os módulos ativos
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              gerenciador.RemoveAllModules();
+        ///              System.Console.WriteLine(module_a);
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        /// </example>
         public void RemoveAllModules()
         {
             foreach (KeyValuePair<string, IModuleType> item in modules)
@@ -602,24 +1120,87 @@ namespace Propeus.Modulo.Core
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parâmetro nulo</exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi coletado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi apagado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi coletado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi apagado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
         ///<exception cref="ModuleBuilderAbsentException">Não há um construtor publico disponível</exception>
         ///<exception cref="ModuleContractNotFoundException">A interface não possui o atributo <see cref="ModuleContractAttribute"/></exception>
         ///<exception cref="ModuleTypeNotFoundException">O <see cref="ModuleContractAttribute"/> não possui um tipo ou nome valido</exception>
         ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para reciclar um contractType
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              System.Console.WriteLine(module_a);
+        ///              module_a = gerenciador.RecycleModule(module_a);
+        ///              System.Console.WriteLine(module_a);
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        ///<note type="important">
+        /// Garanta que o contractType a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<see cref="State.Off"/> ou <see cref="State.Error"/> e não pode ter sido coletado e nem descartado
+        ///</note>
+        /// </example>
         public T RecycleModule<T>(T moduleInstance) where T : IModule
         {
             return (T)RecycleModule(moduleInstance.Id);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentException">Parâmetro nulo ou vazio</exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi coletado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi apagado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi coletado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi apagado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
         ///
         ///<exception cref="ModuleBuilderAbsentException">Não há um construtor publico disponível</exception>
         ///<exception cref="ModuleContractNotFoundException">A interface não possui o atributo <see cref="ModuleContractAttribute"/></exception>
@@ -627,6 +1208,69 @@ namespace Propeus.Modulo.Core
         ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
         ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///  [ModuleContract(typeof(ModuloDeExemplo))]
+        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
+        ///  {
+        ///      void EscreverOlaMundo();
+        ///  }
+        ///}
+        /// </code>
+        /// 
+        ///<note type="tip">
+        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+        ///</note>
+        /// 
+        ///Para reciclar um contractType pelo id
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              System.Console.WriteLine(module_a);
+        ///              module_a = gerenciador.RecycleModule(module_a.Id);
+        ///              System.Console.WriteLine(module_a);
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        ///<note type="important">
+        /// Garanta que o contractType a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<see cref="State.Off"/> ou <see cref="State.Error"/> e não pode ter sido coletado e nem descartado
+        ///</note>
+        ///</example>
         public IModule RecycleModule(string idModule)
         {
             Type moduleType = GetModule(idModule).GetType();
@@ -637,9 +1281,61 @@ namespace Propeus.Modulo.Core
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentException">Parâmetro nulo</exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi coletado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleDisposedException">O modulo informado foi apagado pelo <see cref="GC"/></exception>
-        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do modulo no gerenciador</exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi coletado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleDisposedException">O module informado foi apagado pelo <see cref="GC"/></exception>
+        ///<exception cref="ModuleNotFoundException">Não existe uma instancia valida do tipo do module no gerenciador</exception>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte contractType e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///}
+        /// </code>
+        /// 
+        /// 
+        ///Para manter vivo um contractType 
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+        ///              System.Console.WriteLine(module_a);
+        ///              gerenciador.KeepAliveModuleAsync(module_a).Wait();
+        ///              System.Console.WriteLine(module_a);
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        ///</example>
         public async Task KeepAliveModuleAsync(IModule moduleInstance)
         {
             if (moduleInstance is null)
@@ -655,80 +1351,157 @@ namespace Propeus.Modulo.Core
             }
             else
             {
-                throw new ModuleNotFoundException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, moduleInstance.Id));
+                throw new ModuleNotFoundException(moduleInstance.Id);
 
             }
             await Task.CompletedTask;
         }
 
         ///<inheritdoc/>
+        ///<example>
+        ///Para os exemplos abaixo será utilizado o seguinte contractType e sua interface de contrato
+        ///<code>
+        ///using Propeus.Modulo.Abstrato;
+        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  [Module]
+        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+        ///  {
+        ///
+        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        ///      {
+        ///      }
+        ///
+        ///      public void EscreverOlaMundo()
+        ///      {
+        ///          System.Console.WriteLine("Ola mundo!");
+        ///          System.Console.WriteLine("Este é um module em funcionamento!");
+        ///      }
+        ///
+        ///  }
+        ///
+        ///}
+        /// </code>
+        /// 
+        /// 
+        ///Para listar todos os modulos
+        ///<code>
+        ///using System;
+        ///using Propeus.Modulo.Core;
+        ///
+        ///namespace Propeus.Modulo.Example
+        ///{
+        ///  internal class Program
+        ///  {
+        ///      private static void Main()
+        ///      {
+        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+        ///         {
+        ///              gerenciador.KeepAliveModuleAsync(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+        ///              foreach(IModule module in gerenciador.ListAllModules())
+        ///              {
+        ///                 System.Console.WriteLine(module);
+        ///              }    
+        ///         }
+        ///      }
+        ///  }
+        ///}
+        ///</code>
+        ///</example>
         public IEnumerable<IModule> ListAllModules()
         {
             return modules.Select(x => x.Value.Module);
         }
 
+
+
         /// <summary>
-        /// Registra um modulo no gerenciador
+        /// Obtém o tipo implementado com base na interface informada
         /// </summary>
-        /// <param name="modulo">Instancia do modulo</param>
-        /// <exception cref="ModuleSingleInstanceException">O modulo não pode ser registrado, pois já existe uma instancia em execução</exception>
-        private void Register(IModule modulo)
+        /// <param name="contractType"></param>
+        /// <returns>ModuleType implementado</returns>
+        /// <exception cref="ArgumentException">O tipo informado não é uma interface</exception>
+        /// <exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
+        /// <exception cref="ModuleContractNotFoundException">A interface não possui o atributo <see cref="ModuleContractAttribute"/></exception>
+        /// <exception cref="ModuleTypeNotFoundException">O <see cref="ModuleContractAttribute"/> não possui um tipo ou nome valido</exception>
+        /// <exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
+        /// <exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
+        /// <exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
+        private Type ResolveContract(Type contractType)
         {
-            if (modulo.IsSingleInstance && ExistsModule(modulo.GetType()))
+            if (contractType.IsInterface)
             {
-                throw new ModuleSingleInstanceException(Constantes.ERRO_MODULO_INSTANCIA_UNICA);
-            }
-
-            modules.TryAdd(modulo.Id, new ModuloTipo(modulo));
-        }
-
-
-        ///<inheritdoc/>
-        ///<exception cref="ModuleContractNotFoundException">A interface não possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">O <see cref="ModuleContractAttribute"/> não possui um tipo ou nome valido</exception>
-        ///<exception cref="ModuleTypeInvalidException">O tipo não é nem <see langword="class"/> e nem <see langword="interface"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">A classe informada não herda de <see cref="IModule"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">A classe informada não possui o atributo <see cref="ModuleAttribute"/></exception>
-        private Type ResolverContrato(Type modulo)
-        {
-            if (modulo.IsInterface)
-            {
-                ModuleContractAttribute attr = modulo.GetAttributeContractModule() ?? throw new ModuleContractNotFoundException(Constantes.ERRO_TIPO_NAO_MARCADO);
-                modulo = attr.ModuleType;
-                if (modulo is null)
+                ModuleContractAttribute attr = contractType.GetAttributeContractModule() ?? throw new ModuleContractNotFoundException(contractType);
+                contractType = attr.ModuleType;
+                if (contractType is null)
                 {
                     foreach (var item in modules.Where(item => item.Value.Name == attr.ModuleName))
                     {
-                        modulo = item.Value.ModuleType;
+                        contractType = item.Value.ModuleType;
                     }
                 }
 
-                if (modulo is null)
+                if (contractType is null)
                 {
-                    throw new ModuleTypeNotFoundException(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, attr.ModuleName));
+                    throw new ModuleTypeNotFoundException(attr.ModuleName);
                 }
-
             }
 
-            if (modulo.IsClass)
+            if (contractType.IsClass)
             {
-                if (!modulo.IsAssignableTo(typeof(IModule)))
+                if (!contractType.IsAssignableTo(typeof(IModule)))
                 {
-                    throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_NAO_HERDADO);
+                    throw new ModuleTypeInvalidException.TypeModuleNotInheritedException(contractType);
                 }
 
-                if (modulo.GetModuleAttribute() is null)
+                if (contractType.GetModuleAttribute() is null)
                 {
-                    throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_NAO_MARCADO);
+                    throw new ModuleTypeInvalidException.TypeModuleUnmarkedException(contractType);
                 }
 
-                return modulo;
+                return contractType;
             }
 
             throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_INVALIDO);
 
         }
 
+        /// <summary>
+        /// Registra um module no gerenciador
+        /// </summary>
+        /// <param name="module">Instancia do module</param>
+        /// <exception cref="ModuleSingleInstanceException">O module não pode ser registrado, pois já existe uma instancia em execução</exception>
+        private void Register(IModule module)
+        {
+            if (module.IsSingleInstance && ExistsModule(module.GetType()))
+            {
+                throw new ModuleSingleInstanceException(module);
+            }
+
+            modules.TryAdd(module.Id, new ModuloTipo(module));
+        }
+
+
+        /// <summary>
+        /// Verifica se o gerenciador esta desligado ou liberado (disposed)
+        /// </summary>
+        /// <exception cref="ModuleManagerDisposedException">Quando o gerenciador chama o <see cref="IDisposable.Dispose()"/></exception>
+        /// <exception cref="ModuleException">Quando o gerenciador esta desligado (<see cref="State.Off"/></exception>
+        private void CheckModuleManagerStatus()
+        {
+            if (disposedValue)
+            {
+                throw new ModuleManagerDisposedException();
+            }
+
+            if (State == State.Off)
+            {
+                throw new ModuleException("O gerenciador se encontra desligado");
+            }
+        }
 
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)

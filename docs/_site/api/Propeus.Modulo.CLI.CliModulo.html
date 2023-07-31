@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+      <title>Class CliModulo
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CliModulo
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Propeus.Modulo.CLI.CliModulo">
+
+
+
+  <h1 id="Propeus_Modulo_CLI_CliModulo" data-uid="Propeus.Modulo.CLI.CliModulo" class="text-break">
+    Class CliModulo
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.CLI.html">CLI</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Propeus.Modulo.CLI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Exemplo de modulo auto inicializavel e funcional</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Module]
+public class CliModulo : BaseModule, IModule, IBaseModel, IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.html">BaseModel</a></div>
+      <div><a class="xref" href="Propeus.Modulo.Abstrato.BaseModule.html">BaseModule</a></div>
+      <div><span class="xref">CliModulo</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></div>
+      <div><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html">IBaseModel</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModule.ToString.html#Propeus_Modulo_Abstrato_BaseModule_ToString">BaseModule.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModule.IsSingleInstance.html#Propeus_Modulo_Abstrato_BaseModule_IsSingleInstance">BaseModule.IsSingleInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.disposedValue.html">BaseModel.disposedValue</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.Dispose.html#Propeus_Modulo_Abstrato_BaseModel_Dispose">BaseModel.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.Version.html#Propeus_Modulo_Abstrato_BaseModel_Version">BaseModel.Version</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.State.html#Propeus_Modulo_Abstrato_BaseModel_State">BaseModel.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.Name.html#Propeus_Modulo_Abstrato_BaseModel_Name">BaseModel.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.Id.html#Propeus_Modulo_Abstrato_BaseModel_Id">BaseModel.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.ManifestId.html#Propeus_Modulo_Abstrato_BaseModel_ManifestId">BaseModel.ManifestId</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Propeus.Modulo.CLI.CliModulo.-ctor.html#Propeus_Modulo_CLI_CliModulo__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_">CliModulo(IModuleManager)</a></dt>
+    <dd><p>Construtor padrao do <a class="xref" href="Propeus.Modulo.Abstrato.BaseModel.html">BaseModel</a></p>
+</dd>
+  </dl>
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+  <dl class="jumplist">
+    <dt><a class="xref" href="Propeus.Modulo.CLI.CliModulo.CriarInstancia.html#Propeus_Modulo_CLI_CliModulo_CriarInstancia_System_String___">CriarInstancia(string[])</a></dt>
+    <dd><p>Exibe CLI para criar uma nova instancia</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Propeus.Modulo.CLI.CliModulo.Dispose.html#Propeus_Modulo_CLI_CliModulo_Dispose_System_Boolean_">Dispose(bool)</a></dt>
+    <dd><p>Libera os objetos deste modelo e altera o estado dele para <a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Off">Off</a></p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Propeus.Modulo.CLI.CliModulo.ExecutarCLI.html#Propeus_Modulo_CLI_CliModulo_ExecutarCLI_System_String___">ExecutarCLI(string[])</a></dt>
+    <dd><p>Exibe CLI para criar uma nova instancia</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

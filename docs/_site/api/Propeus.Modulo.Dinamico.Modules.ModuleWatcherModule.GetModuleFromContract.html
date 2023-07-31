@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method GetModuleFromContract
@@ -118,7 +118,8 @@
   
 </h3>
 
-<div class="markdown level1 summary"></div>
+<div class="markdown level1 summary"><p>Obtém o tipo implementado passando o tipo do contrato</p>
+</div>
 <div class="markdown level1 conceptual"></div>
 
 <div class="codewrapper">
@@ -128,7 +129,8 @@
 <h4 class="section">Parameters</h4>
 <dl class="parameters">
   <dt><code>contractType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-  <dd></dd>
+  <dd><p>Tipo do contrato</p>
+</dd>
 </dl>
 
 <h4 class="section">Returns</h4>
@@ -144,6 +146,15 @@
 
 
 
+<h4 class="section">Exceptions</h4>
+<dl class="parameters">
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html">ModuleContractInvalidException</a></dt>
+  <dd><p>Exceção para quando a interface de contrato possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html">ModuleContractInvalidException</a> invalido</p>
+</dd>
+  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.html">ModuleContractNotFoundException</a></dt>
+  <dd><p>Exceção para quando a interface de contrato nao possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html">ModuleContractAttribute</a></p>
+</dd>
+</dl>
 
 
 

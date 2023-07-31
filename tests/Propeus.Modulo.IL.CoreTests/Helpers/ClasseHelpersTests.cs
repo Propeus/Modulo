@@ -16,6 +16,11 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
         int TesteMetodo2(int a);
     }
 
+    public interface ITeste1
+    {
+        int this[int valor] { get; set; }
+    }
+
     [Module]
     public class Teste
     {
@@ -107,7 +112,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
         public void CriarProxyClasseTest2()
         {
 
-            ILClasseProvider Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste) });
+            ILClasseProvider Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste),typeof(ITeste1) });
             Proxy.Executar();
             Type tpProxy = Proxy.ObterTipoGerado();
             Assert.IsNotNull(tpProxy);

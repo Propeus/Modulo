@@ -16,11 +16,19 @@ namespace Propeus.Modulo.Abstrato
         public const string METODO_INSTANCIA = "CriarInstancia";
 
 
+        /// <summary>
+        /// O atributo não possui um nome de modulo ou tipo
+        /// </summary>
+        public const string ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO = "O atributo deve possuir um nome ou tipo do modulo";
+        /// <summary>
+        /// O atributo não possui um nome de modulo ou tipo
+        /// </summary>
+        public const string ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO = "O atributo ModuleContractAttribute não foi encontrado no tipo '{0}'";
 
         /// <summary>
         /// Nenhum construtor publico foi encontrado
         /// </summary>
-        public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO = "Não foi possivel encontrar um construtor";
+        public const string ERRO_CONSTRUTOR_NAO_ENCONTRADO = "Não foi possivel encontrar um construtor publico para o tipo '{0}'";
 
         /// <summary>
         /// O modulo foi descartado
@@ -29,11 +37,11 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// O modulo permite somente a instancia unica (singleton)
         /// </summary>
-        public const string ERRO_MODULO_INSTANCIA_UNICA = "Não é possivel criar uma nova instancia de um modulo de instancia unica";
+        public const string ERRO_MODULO_INSTANCIA_UNICA = "O modulo '{0}' não pode ser inicializado, pois já existe uma instancia em execução definido como instancia unica";
         /// <summary>
         /// ModuleName do modulo incorreto ou inexistente
         /// </summary>
-        public const string ERRO_MODULO_NAO_ENCONTRADO = "Module '{0}' não encontrado.\nVerifique se o nome esta correto na interface de contrato";
+        public const string ERRO_MODULO_NAO_ENCONTRADO = "Module {0} não encontrado.";
         /// <summary>
         /// Modulos criados fora do gerenciador nao podem ser reiniciados
         /// </summary>
@@ -50,7 +58,7 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// O tipo informado nao herda de IModule
         /// </summary>
-        public const string ERRO_TIPO_NAO_HERDADO = "O tipo não é herdado de IModule";
+        public const string ERRO_TIPO_NAO_HERDADO = "O tipo '{0}' não é herdado de IModule";
         /// <summary>
         /// A classe atual nao possui o atributo ModuloAttribute
         /// </summary>
@@ -60,5 +68,9 @@ namespace Propeus.Modulo.Abstrato
         /// </summary>
         public const string ERRO_MODULO_ID_NAO_ENCONTRADO = "Module nao encontrado pelo id '{0}'";
 
+        /// <summary>
+        /// Justificativa para exclusão de code-coverage para exceções 
+        /// </summary>
+        internal const string EXECEPTION_CODE_COVERAGE_JUSTIFICATION = "Implementação do Serializable Pattern";
     }
 }

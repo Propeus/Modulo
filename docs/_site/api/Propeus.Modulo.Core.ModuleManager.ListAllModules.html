@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method ListAllModules
@@ -138,6 +138,53 @@
 
 
 
+
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_ListAllModules_examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+}</code></pre>
+<p>Para listar todos os modulos</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              gerenciador.KeepAliveModuleAsync(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+              foreach(IModule module in gerenciador.ListAllModules())
+              {
+                 System.Console.WriteLine(module);
+              }    
+         }
+      }
+  }
+}</code></pre>
 
 
 

@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
 using Propeus.Modulo.Dinamico.Modules;
 
 namespace Propeus.Modulo.DinamicoTests
@@ -17,7 +16,7 @@ namespace Propeus.Modulo.DinamicoTests
 
         public IModuleManager GetModuleManager()
         {
-            return Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(ModuleManagerExtensions.CreateModuleManager());
+            return Dinamico.ModuleManagerExtensions.CreateModuleManager(Core.ModuleManagerExtensions.CreateModuleManager());
 
         }
 
@@ -44,7 +43,6 @@ namespace Propeus.Modulo.DinamicoTests
             using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
             {
                 ListenerModule listerner = gerenciador.CreateModule<ListenerModule>();
-                gerenciador.KeepAliveModuleAsync(gerenciador.GetModule<ModuleWatcherModule>());
                 Assert.IsNotNull(listerner);
                 listerner.SetOnLoadModule((obj) => { });
                 listerner.SetOnRebuildModule((obj) => { });

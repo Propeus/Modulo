@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method RecycleModule
@@ -154,11 +154,13 @@
 <h4 class="section" id="Propeus_Modulo_Dinamico_ModuleManager_RecycleModule__1___0__examples">Examples</h4>
 <p>Crie uma classe em um projeto separado</p>
 <pre><code class="lang-csharp">using System;
-using Propeus.ModuleProxy.Abstrato.Attributes;
-using Propeus.ModuleProxy.Core.ModuleManager;
-using Propeus.ModuleProxy.Dinamico.ModuleManager;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
 
-namespace Propeus.ModuleProxy.Exemplo
+namespace Propeus.Modulo.Example
 {
     [ModuleProxy]
     public class CalculadoraModulo : BaseModule
@@ -183,11 +185,13 @@ namespace Propeus.ModuleProxy.Exemplo
 }</code></pre>
 <p>No projeto principal, adicione uma interface de contrato e depois recicle</p>
 <pre><code class="lang-csharp">using System;
-using Propeus.ModuleProxy.Abstrato.Attributes;
-using Propeus.ModuleProxy.Core.ModuleManager;
-using Propeus.ModuleProxy.Dinamico.ModuleManager;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
 
-namespace Propeus.ModuleProxy.Exemplo
+namespace Propeus.Modulo.Example
 {
 
     [ModuloContrato("CalculadoraModulo")]
@@ -200,15 +204,21 @@ namespace Propeus.ModuleProxy.Exemplo
     {
         private static void Main(string[] args)
         {
-            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
             {
-                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
                 Console.WriteLine(modulo.Calcular(1,1));
-                _gerenciador.Recilcar(modulo);
+                gerenciador.RecycleModule(modulo);
             }
         }
     }
 }</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<div class="IMPORTANT"><h5>important</h5><p>
+ Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Off">Off</a> ou <a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Error">Error</a> e não pode ter sido coletado e nem descartado
+</p></div>
 
 
 
@@ -258,11 +268,13 @@ namespace Propeus.ModuleProxy.Exemplo
 <h4 class="section" id="Propeus_Modulo_Dinamico_ModuleManager_RecycleModule_System_String__examples">Examples</h4>
 <p>Crie uma classe em um projeto separado</p>
 <pre><code class="lang-csharp">using System;
-using Propeus.ModuleProxy.Abstrato.Attributes;
-using Propeus.ModuleProxy.Core.ModuleManager;
-using Propeus.ModuleProxy.Dinamico.ModuleManager;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
 
-namespace Propeus.ModuleProxy.Exemplo
+namespace Propeus.Modulo.Example
 {
     [ModuleProxy]
     public class CalculadoraModulo : BaseModule
@@ -287,11 +299,13 @@ namespace Propeus.ModuleProxy.Exemplo
 }</code></pre>
 <p>No projeto principal, adicione uma interface de contrato e depois recicle pelo ID</p>
 <pre><code class="lang-csharp">using System;
-using Propeus.ModuleProxy.Abstrato.Attributes;
-using Propeus.ModuleProxy.Core.ModuleManager;
-using Propeus.ModuleProxy.Dinamico.ModuleManager;
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+using Propeus.Modulo.Dinamico;
 
-namespace Propeus.ModuleProxy.Exemplo
+namespace Propeus.Modulo.Example
 {
 
     [ModuloContrato("CalculadoraModulo")]
@@ -304,15 +318,21 @@ namespace Propeus.ModuleProxy.Exemplo
     {
         private static void Main(string[] args)
         {
-            using(ModuleManager _gerenciador = new ModuleManager(Propeus.ModuleProxy.Core.ModuleManager.Atual))
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
             {
-                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)_gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
+                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
                 Console.WriteLine(modulo.Calcular(1,1));
-                modulo =  _gerenciador.Recilcar(modulo.Id);
+                modulo = gerenciador.RecycleModule(modulo.Id);
             }
         }
     }
 }</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<div class="IMPORTANT"><h5>important</h5><p>
+ Garanta que o modulo a qual deseja reciclar esteja ativo, ou seja, seu status deve ser diferente de ,<a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Off">Off</a> ou <a class="xref" href="Propeus.Modulo.Abstrato.State.html#Propeus_Modulo_Abstrato_State_Error">Error</a> e não pode ter sido coletado e nem descartado
+</p></div>
 
 
 
@@ -326,9 +346,6 @@ namespace Propeus.ModuleProxy.Exemplo
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
   <dd><p>Instancia do modulo foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a> ou acionou o <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">Dispose()</a></p>
-</dd>
-  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
-  <dd><p>Parametro nulo</p>
 </dd>
 </dl>
 

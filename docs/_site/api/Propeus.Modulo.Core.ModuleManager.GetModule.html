@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
       <title>Method GetModule
@@ -145,6 +145,67 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_GetModule_System_Type__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para obter alguma instancia do tipo</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              _ = gerenciador.CreateModule(typeof(ModuloDeExemplo));
+              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+              {
+                 IModule module_a = gerenciador.GetModule(typeof(ModuloDeExemplo))
+                 System.Console.WriteLine(module_a);
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
+ <div class="IMPORTANT"><h5>important</h5><p>
+ O retorno deste método sempre será <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a>, tome cuidado ao realizar o cast para um tipo não compatível.
+ </p></div>
+
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_GetModule_System_Type__remarks">Remarks</h4>
 <div class="markdown level1 remarks"><p>Caso exista mais de uma instancia do mesmo tipo, o primeiro modulo sempre será retornado</p>
@@ -168,7 +229,7 @@
   <dd><p>A classe informada não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.html">ModuleAttribute</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+  <dd><p>Não existe uma instancia valida do tipo do module no gerenciador</p>
 </dd>
 </dl>
 
@@ -208,6 +269,64 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_GetModule__1_examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para obter alguma instancia do tipo</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              _ = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+              {
+                 ModuloDeExemplo module_a = gerenciador.GetModule&lt;ModuloDeExemplo&gt;();
+                 System.Console.WriteLine(module_a);
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -228,7 +347,7 @@
   <dd><p>A classe informada não possui o atributo <a class="xref" href="Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.html">ModuleAttribute</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+  <dd><p>Não existe uma instancia valida do tipo do module no gerenciador</p>
 </dd>
 </dl>
 
@@ -268,6 +387,64 @@
 
 
 
+<h4 class="section" id="Propeus_Modulo_Core_ModuleManager_GetModule_System_String__examples">Examples</h4>
+<p>Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato</p>
+<pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Example
+{
+  [Module]
+  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
+  {
+
+      public ModuloDeExemploParaPropeusModuloCore() : base(false)
+      {
+      }
+
+      public void EscreverOlaMundo()
+      {
+          System.Console.WriteLine("Ola mundo!");
+          System.Console.WriteLine("Este é um module em funcionamento!");
+      }
+
+  }
+
+  [ModuleContract(typeof(ModuloDeExemplo))]
+  internal interface IInterfaceDeContratoDeExemplo : IModule
+  {
+      void EscreverOlaMundo();
+  }
+}</code></pre>
+<div class="TIP"><h5>tip</h5><p>
+Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
+</p></div>
+<p>Para obter instancia pelo Id</p>
+<pre><code class="lang-csharp">using System;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Example
+{
+  internal class Program
+  {
+      private static void Main()
+      {
+         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
+         {
+              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
+              if(gerenciador.ExistsModule(typeof(IInterfaceDeContratoDeExemplo))
+              {
+                 IModule module_b = gerenciador.GetModule(module_a.Id);
+                 System.Console.WriteLine(module_b);
+              }else{
+                 System.Console.WriteLine("Algo de errado nao esta certo...");
+              }
+         }
+      }
+  }
+}</code></pre>
+
 
 
 <h4 class="section">Exceptions</h4>
@@ -276,13 +453,13 @@
   <dd><p>Parâmetro nulo ou vazio</p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi coletado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html">ModuleDisposedException</a></dt>
-  <dd><p>O modulo informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
+  <dd><p>O module informado foi apagado pelo <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.gc">GC</a></p>
 </dd>
   <dt><a class="xref" href="Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html">ModuleNotFoundException</a></dt>
-  <dd><p>Não existe uma instancia valida do tipo do modulo no gerenciador</p>
+  <dd><p>Não existe uma instancia valida do tipo do module no gerenciador</p>
 </dd>
 </dl>
 

@@ -1,21 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Core;
-using Propeus.Modulo.Dinamico;
-using Propeus.Modulo.Dinamico.Modules;
+using Propeus.Modulo.Dinamico.Contracts;
 
 namespace Propeus.Modulo.DinamicoTests
 {
     [TestClass()]
     public class ModuleProviderTests
     {
-        private ModuleWatcherModule provider;
+        private IModuleWatcherModule provider;
 
         [TestInitialize]
         public void Init()
         {
             Abstrato.Interfaces.IModuleManager gen = Core.ModuleManagerExtensions.CreateModuleManager();
-            provider = Dinamico.ModuleManagerExtensions.CreateModuleManager(gen).CreateModule<ModuleWatcherModule>();
+            provider = Dinamico.ModuleManagerExtensions.CreateModuleManager(gen).GetModule<IModuleWatcherModule>();
         }
         [TestCleanup]
         public void Cleanup()
