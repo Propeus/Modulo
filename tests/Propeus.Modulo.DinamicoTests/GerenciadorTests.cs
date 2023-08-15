@@ -48,7 +48,7 @@ namespace Propeus.Modulo.DinamicoTests
                 listerner.SetOnRebuildModule((obj) => { });
                 listerner.SetOnUnloadModule((obj) => { });
                 var module = gerenciador.CreateModule<IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf>();
-                gerenciador.KeepAliveModuleAsync(module).Wait();
+                gerenciador.KeepAliveModule(module);
                 Assert.IsNotNull(listerner.GetAllModules().ToList());
 
             }

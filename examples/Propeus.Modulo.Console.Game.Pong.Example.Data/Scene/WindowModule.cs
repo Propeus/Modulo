@@ -13,12 +13,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
         private readonly IModuleManagerArguments gerenciador;
         private readonly float multiplier;
 
-        public WindowModule(IModuleManager gerenciador) : this(gerenciador, null, null)
-        {
 
-        }
 
-        public WindowModule(IModuleManager gerenciador, int? width, int? height) : base(true)
+        public WindowModule(IModuleManager gerenciador, int? width, int? height, ControlsModule controlsModule) : base(true)
         {
             this.gerenciador = gerenciador as IModuleManagerArguments;
             multiplier = 1.1f;
@@ -26,7 +23,13 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
             Width = width ?? System.Console.WindowWidth;
             Height = height ?? System.Console.WindowHeight;
-            Stopwatch = new Stopwatch();
+
+            _controlsModule = controlsModule;
+            _controlsModule.Up += _controlsModule_Up;
+            _controlsModule.Down += _controlsModule_Down;
+            _controlsModule.Exit += _controlsModule_Exit;
+
+
             enemyStopwatch = new Stopwatch();
             enemyInputDelay = TimeSpan.FromMilliseconds(100);
             delay = TimeSpan.FromMilliseconds(10);
@@ -35,14 +38,44 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
 
             PaddleA = this.gerenciador.CreateModule<PaddleModule>(new object[] { Height });
+            PaddleA.ScoreEvent += PaddleA_ScoreEvent;
             PaddleB = this.gerenciador.CreateModule<PaddleModule>(new object[] { Height });
+            PaddleB.ScoreEvent += PaddleB_ScoreEvent;
+
             BallModule = this.gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
+
+        }
+
+        private void PaddleB_ScoreEvent(int obj)
+        {
+            flg_loop=false;
+        }
+
+        private void PaddleA_ScoreEvent(int obj)
+        {
+            flg_loop=false;
+
+        }
+
+        private void _controlsModule_Exit()
+        {
+            System.Console.Clear();
+            System.Console.Write("Pong was closed.");
+        }
+
+        private void _controlsModule_Down()
+        {
+            PaddleA.Paddle = Math.Min(PaddleA.Paddle + 1, Height - PaddleA.PaddleSize - 1);
+        }
+
+        private void _controlsModule_Up()
+        {
+            PaddleA.Paddle = Math.Max(PaddleA.Paddle - 1, 0);
         }
 
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public Stopwatch Stopwatch { get; }
         private readonly Stopwatch enemyStopwatch;
         private readonly TimeSpan enemyInputDelay;
         private readonly TimeSpan delay;
@@ -52,6 +85,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
         private readonly PaddleModule PaddleA;
         private readonly PaddleModule PaddleB;
+        private readonly ControlsModule _controlsModule;
         private BallModule BallModule;
 
         private RenderModule RenderModule
@@ -62,36 +96,40 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
                 {
                     return gerenciador.GetModule<RenderModule>();
                 }
+                else
+                {
 
-                return gerenciador.CreateModule<RenderModule>();
+                    var render = gerenciador.CreateModule<RenderModule>();
+                    gerenciador.KeepAliveModule(render);
+                    return render;
+                }
+
             }
         }
         #endregion
 
         public async Task Main()
         {
-            System.Console.Clear();
-            Stopwatch.Restart();
+            RenderModule.Clear();
+            BallModule.StopWatch.Restart();
             enemyStopwatch.Restart();
             while (PaddleA.Score < 3 && PaddleB.Score < 3)
             {
                 while (flg_loop)
                 {
                     Update(PaddleA, PaddleB);
-                    Stopwatch.Restart();
+                    BallModule.StopWatch.Restart();
                     await Task.Delay(delay);
                 }
 
-
-                System.Console.SetCursorPosition((int)BallModule.X, (int)BallModule.Y);
-                System.Console.Write(' ');
+                RenderModule.RenderBalls(BallModule, true);
 
                 flg_loop = true;
 
                 gerenciador.RemoveModule(BallModule);
                 BallModule = gerenciador.CreateModule<BallModule>(new object[] { Width, Height });
             }
-            System.Console.Clear();
+            RenderModule.Clear();
             if (PaddleA.Score > PaddleB.Score)
             {
                 System.Console.Write("You win.");
@@ -105,7 +143,6 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
         public void Update(PaddleModule paddleA, PaddleModule paddleB)
         {
             UpdateBall(paddleA, paddleB);
-            UpdatePlayerPaddle(paddleA);
             UpdateComputerPaddle(paddleB);
             RenderModule.RenderPaddles(paddleA, paddleB, Height, Width);
 
@@ -113,97 +150,28 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
         private void UpdateBall(PaddleModule paddleA, PaddleModule paddleB)
         {
+
+            float time = (float)BallModule.StopWatch.Elapsed.TotalSeconds * 15;
+
             #region Update Ball
 
-            // Compute Time And New Ball Position
-            float time = (float)Stopwatch.Elapsed.TotalSeconds * 15;
-            (float X2, float Y2) = (BallModule.X + (time * BallModule.DX), BallModule.Y + (time * BallModule.DY));
-
-            // Collisions With Up/Down Walls
-            if (Y2 < 0 || Y2 > Height)
-            {
-                BallModule.DY = -BallModule.DY;
-                Y2 = BallModule.Y + BallModule.DY;
-            }
-
             // Collision With Paddle A
-            if (Math.Min(BallModule.X, X2) <= 2 && 2 <= Math.Max(BallModule.X, X2))
-            {
-                int ballPathAtPaddleA = Height - (int)GetLineValue(((BallModule.X, Height - BallModule.Y), (X2, Height - Y2)), 2);
-                ballPathAtPaddleA = Math.Max(0, ballPathAtPaddleA);
-                ballPathAtPaddleA = Math.Min(Height - 1, ballPathAtPaddleA);
-                if (paddleA.Paddle <= ballPathAtPaddleA && ballPathAtPaddleA <= paddleA.Paddle + paddleA.PaddleSize)
-                {
-                    BallModule.DX = -BallModule.DX;
-                    BallModule.DX *= multiplier;
-                    BallModule.DY *= multiplier;
-                    X2 = BallModule.X + (time * BallModule.DX);
-                }
-            }
+            paddleA.CalculateColisionBall(BallModule, false, Height, Width, multiplier, time);
 
             // Collision With Paddle B
-            if (Math.Min(BallModule.X, X2) <= Width - 2 && Width - 2 <= Math.Max(BallModule.X, X2))
-            {
-                int ballPathAtPaddleB = Height - (int)GetLineValue(((BallModule.X, Height - BallModule.Y), (X2, Height - Y2)), Width - 2);
-                ballPathAtPaddleB = Math.Max(0, ballPathAtPaddleB);
-                ballPathAtPaddleB = Math.Min(Height - 1, ballPathAtPaddleB);
-                if (paddleB.Paddle <= ballPathAtPaddleB && ballPathAtPaddleB <= paddleB.Paddle + paddleB.PaddleSize)
-                {
-                    BallModule.DX = -BallModule.DX;
-                    BallModule.DX *= multiplier;
-                    BallModule.DY *= multiplier;
-                    X2 = BallModule.X + (time * BallModule.DX);
-                }
-            }
+            paddleB.CalculateColisionBall(BallModule, true, Height, Width, multiplier, time);
 
-            // Collisions With Left/Right Walls
-            if (X2 < 0)
+            if (flg_loop)
             {
-                paddleB.Score++;
-                flg_loop = false;
-                return;
-            }
-            if (X2 > Width)
-            {
-                paddleA.Score++;
-                flg_loop = false;
-                return;
-            }
-
-            // Updating Ball Position
-            System.Console.SetCursorPosition((int)BallModule.X, (int)BallModule.Y);
-            System.Console.Write(' ');
-            BallModule.X += time * BallModule.DX;
-            BallModule.Y += time * BallModule.DY;
-            System.Console.SetCursorPosition((int)BallModule.X, (int)BallModule.Y);
-            System.Console.Write('O');
-
-            #endregion
-        }
-        private void UpdatePlayerPaddle(PaddleModule paddleA)
-        {
-            #region Update Player Paddle
-
-            if (System.Console.KeyAvailable)
-            {
-                switch (System.Console.ReadKey(intercept: true).Key)
-                {
-                    case ConsoleKey.UpArrow: paddleA.Paddle = Math.Max(paddleA.Paddle - 1, 0); break;
-                    case ConsoleKey.DownArrow: paddleA.Paddle = Math.Min(paddleA.Paddle + 1, Height - paddleA.PaddleSize - 1); break;
-                    case ConsoleKey.Escape:
-                        System.Console.Clear();
-                        System.Console.Write("Pong was closed.");
-                        return;
-                }
-            }
-            while (System.Console.KeyAvailable)
-            {
-                System.Console.ReadKey(true);
+                // Updating Ball Position
+                RenderModule.RenderBalls(BallModule, true);
+                BallModule.UpdateBallNewPosition(time);
+                RenderModule.RenderBalls(BallModule, false);
             }
 
             #endregion
-
         }
+
         private void UpdateComputerPaddle(PaddleModule paddleB)
         {
             #region Update Computer Paddle

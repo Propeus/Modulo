@@ -1,4 +1,6 @@
-﻿using Propeus.Modulo.Abstrato;
+﻿using System.Diagnostics;
+
+using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
@@ -13,14 +15,18 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 
         private readonly Random random;
 
+        public Stopwatch StopWatch { get; }
 
         public BallModule()
         {
             random = new Random();
-
+            StopWatch = Stopwatch.StartNew();
+            BallCharacterIcon = 'O';
+            BallCharacterEraseIcon = ' ';
         }
 
-
+        public char BallCharacterIcon { get; set; }
+        public char BallCharacterEraseIcon { get; set; }
 
         public void CriarInstancia(float x = 0, float y = 0)
         {
@@ -37,6 +43,12 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
             {
                 DY = -DY;
             }
+        }
+
+        public void UpdateBallNewPosition(float time)
+        {
+            X += time * DX;
+            Y += time * DY;
         }
 
     }

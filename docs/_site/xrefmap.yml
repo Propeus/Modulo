@@ -1192,6 +1192,24 @@ references:
   fullName.vb: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerArguments.CreateModule(Of T)(Object())
   nameWithType: IModuleManagerArguments.CreateModule<T>(object[])
   nameWithType.vb: IModuleManagerArguments.CreateModule(Of T)(Object())
+- uid: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver
+  name: IModuleManagerResolver
+  href: api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.html
+  commentId: T:Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver
+  fullName: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver
+  nameWithType: IModuleManagerResolver
+- uid: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract(System.Type)
+  name: ResolveContract(Type)
+  href: api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract.html#Propeus_Modulo_Abstrato_Interfaces_IModuleManagerResolver_ResolveContract_System_Type_
+  commentId: M:Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract(System.Type)
+  fullName: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract(System.Type)
+  nameWithType: IModuleManagerResolver.ResolveContract(Type)
+- uid: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract*
+  name: ResolveContract
+  href: api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract.html
+  commentId: Overload:Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract
+  fullName: Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract
+  nameWithType: IModuleManagerResolver.ResolveContract
 - uid: Propeus.Modulo.Abstrato.Interfaces.IModuleType
   name: IModuleType
   href: api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.html
@@ -1612,18 +1630,18 @@ references:
   commentId: Overload:Propeus.Modulo.Core.ModuleManager.InitializedModules
   fullName: Propeus.Modulo.Core.ModuleManager.InitializedModules
   nameWithType: ModuleManager.InitializedModules
-- uid: Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  name: KeepAliveModuleAsync(IModule)
-  href: api/Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync.html#Propeus_Modulo_Core_ModuleManager_KeepAliveModuleAsync_Propeus_Modulo_Abstrato_Interfaces_IModule_
-  commentId: M:Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  fullName: Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  nameWithType: ModuleManager.KeepAliveModuleAsync(IModule)
-- uid: Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync*
-  name: KeepAliveModuleAsync
-  href: api/Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync.html
-  commentId: Overload:Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync
-  fullName: Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync
-  nameWithType: ModuleManager.KeepAliveModuleAsync
+- uid: Propeus.Modulo.Core.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name: KeepAliveModule(IModule)
+  href: api/Propeus.Modulo.Core.ModuleManager.KeepAliveModule.html#Propeus_Modulo_Core_ModuleManager_KeepAliveModule_Propeus_Modulo_Abstrato_Interfaces_IModule_
+  commentId: M:Propeus.Modulo.Core.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  fullName: Propeus.Modulo.Core.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  nameWithType: ModuleManager.KeepAliveModule(IModule)
+- uid: Propeus.Modulo.Core.ModuleManager.KeepAliveModule*
+  name: KeepAliveModule
+  href: api/Propeus.Modulo.Core.ModuleManager.KeepAliveModule.html
+  commentId: Overload:Propeus.Modulo.Core.ModuleManager.KeepAliveModule
+  fullName: Propeus.Modulo.Core.ModuleManager.KeepAliveModule
+  nameWithType: ModuleManager.KeepAliveModule
 - uid: Propeus.Modulo.Core.ModuleManager.LastUpdate
   name: LastUpdate
   href: api/Propeus.Modulo.Core.ModuleManager.LastUpdate.html#Propeus_Modulo_Core_ModuleManager_LastUpdate
@@ -1771,6 +1789,78 @@ references:
   commentId: N:Propeus.Modulo.Dinamico
   fullName: Propeus.Modulo.Dinamico
   nameWithType: Propeus.Modulo.Dinamico
+- uid: Propeus.Modulo.Dinamico.Contracts
+  name: Propeus.Modulo.Dinamico.Contracts
+  href: api/Propeus.Modulo.Dinamico.Contracts.html
+  commentId: N:Propeus.Modulo.Dinamico.Contracts
+  fullName: Propeus.Modulo.Dinamico.Contracts
+  nameWithType: Propeus.Modulo.Dinamico.Contracts
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule
+  name: IModuleWatcherModule
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.html
+  commentId: T:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule
+  nameWithType: IModuleWatcherModule
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules
+  name: GetAllModules()
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules.html#Propeus_Modulo_Dinamico_Contracts_IModuleWatcherModule_GetAllModules
+  commentId: M:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules()
+  nameWithType: IModuleWatcherModule.GetAllModules()
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules*
+  name: GetAllModules
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules.html
+  commentId: Overload:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules
+  nameWithType: IModuleWatcherModule.GetAllModules
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  name: GetModuleFromContract(Type)
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract.html#Propeus_Modulo_Dinamico_Contracts_IModuleWatcherModule_GetModuleFromContract_System_Type_
+  commentId: M:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  nameWithType: IModuleWatcherModule.GetModuleFromContract(Type)
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract*
+  name: GetModuleFromContract
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract.html
+  commentId: Overload:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract
+  nameWithType: IModuleWatcherModule.GetModuleFromContract
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item(System.String)
+  name: this[string]
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item.html#Propeus_Modulo_Dinamico_Contracts_IModuleWatcherModule_Item_System_String_
+  commentId: P:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item(System.String)
+  name.vb: this[](String)
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.this[string]
+  fullName.vb: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.this[](String)
+  nameWithType: IModuleWatcherModule.this[string]
+  nameWithType.vb: IModuleWatcherModule.this[](String)
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item*
+  name: this
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item.html
+  commentId: Overload:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item
+  name.vb: this[]
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.this
+  fullName.vb: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.this[]
+  nameWithType: IModuleWatcherModule.this
+  nameWithType.vb: IModuleWatcherModule.this[]
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnLoadModule
+  name: OnLoadModule
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnLoadModule.html
+  commentId: E:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnLoadModule
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnLoadModule
+  nameWithType: IModuleWatcherModule.OnLoadModule
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnReloadModule
+  name: OnReloadModule
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnReloadModule.html
+  commentId: E:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnReloadModule
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnReloadModule
+  nameWithType: IModuleWatcherModule.OnReloadModule
+- uid: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule
+  name: OnUnloadModule
+  href: api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule.html
+  commentId: E:Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule
+  fullName: Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule
+  nameWithType: IModuleWatcherModule.OnUnloadModule
 - uid: Propeus.Modulo.Dinamico.ModuleManager
   name: ModuleManager
   href: api/Propeus.Modulo.Dinamico.ModuleManager.html
@@ -1936,18 +2026,18 @@ references:
   commentId: Overload:Propeus.Modulo.Dinamico.ModuleManager.InitializedModules
   fullName: Propeus.Modulo.Dinamico.ModuleManager.InitializedModules
   nameWithType: ModuleManager.InitializedModules
-- uid: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  name: KeepAliveModuleAsync(IModule)
-  href: api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync.html#Propeus_Modulo_Dinamico_ModuleManager_KeepAliveModuleAsync_Propeus_Modulo_Abstrato_Interfaces_IModule_
-  commentId: M:Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  fullName: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync(Propeus.Modulo.Abstrato.Interfaces.IModule)
-  nameWithType: ModuleManager.KeepAliveModuleAsync(IModule)
-- uid: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync*
-  name: KeepAliveModuleAsync
-  href: api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync.html
-  commentId: Overload:Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync
-  fullName: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync
-  nameWithType: ModuleManager.KeepAliveModuleAsync
+- uid: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  name: KeepAliveModule(IModule)
+  href: api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule.html#Propeus_Modulo_Dinamico_ModuleManager_KeepAliveModule_Propeus_Modulo_Abstrato_Interfaces_IModule_
+  commentId: M:Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  fullName: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule(Propeus.Modulo.Abstrato.Interfaces.IModule)
+  nameWithType: ModuleManager.KeepAliveModule(IModule)
+- uid: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule*
+  name: KeepAliveModule
+  href: api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule.html
+  commentId: Overload:Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule
+  fullName: Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule
+  nameWithType: ModuleManager.KeepAliveModule
 - uid: Propeus.Modulo.Dinamico.ModuleManager.LastUpdate
   name: LastUpdate
   href: api/Propeus.Modulo.Dinamico.ModuleManager.LastUpdate.html#Propeus_Modulo_Dinamico_ModuleManager_LastUpdate
@@ -2086,18 +2176,6 @@ references:
   commentId: Overload:Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager
   fullName: Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager
   nameWithType: ModuleManagerExtensions.CreateModuleManager
-- uid: Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  name: CreateModuleManagerDefault(IModuleManager)
-  href: api/Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault.html#Propeus_Modulo_Dinamico_ModuleManagerExtensions_CreateModuleManagerDefault_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
-  commentId: M:Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  fullName: Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  nameWithType: ModuleManagerExtensions.CreateModuleManagerDefault(IModuleManager)
-- uid: Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault*
-  name: CreateModuleManagerDefault
-  href: api/Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault.html
-  commentId: Overload:Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault
-  fullName: Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault
-  nameWithType: ModuleManagerExtensions.CreateModuleManagerDefault
 - uid: Propeus.Modulo.Dinamico.Modules
   name: Propeus.Modulo.Dinamico.Modules
   href: api/Propeus.Modulo.Dinamico.Modules.html
@@ -2110,15 +2188,15 @@ references:
   commentId: T:Propeus.Modulo.Dinamico.Modules.ListenerModule
   fullName: Propeus.Modulo.Dinamico.Modules.ListenerModule
   nameWithType: ListenerModule
-- uid: Propeus.Modulo.Dinamico.Modules.ListenerModule.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  name: ListenerModule(IModuleManager)
-  href: api/Propeus.Modulo.Dinamico.Modules.ListenerModule.-ctor.html#Propeus_Modulo_Dinamico_Modules_ListenerModule__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
-  commentId: M:Propeus.Modulo.Dinamico.Modules.ListenerModule.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  name.vb: New(IModuleManager)
-  fullName: Propeus.Modulo.Dinamico.Modules.ListenerModule.ListenerModule(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  fullName.vb: Propeus.Modulo.Dinamico.Modules.ListenerModule.New(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
-  nameWithType: ListenerModule.ListenerModule(IModuleManager)
-  nameWithType.vb: ListenerModule.New(IModuleManager)
+- uid: Propeus.Modulo.Dinamico.Modules.ListenerModule.#ctor(Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule)
+  name: ListenerModule(IModuleWatcherModule)
+  href: api/Propeus.Modulo.Dinamico.Modules.ListenerModule.-ctor.html#Propeus_Modulo_Dinamico_Modules_ListenerModule__ctor_Propeus_Modulo_Dinamico_Contracts_IModuleWatcherModule_
+  commentId: M:Propeus.Modulo.Dinamico.Modules.ListenerModule.#ctor(Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule)
+  name.vb: New(IModuleWatcherModule)
+  fullName: Propeus.Modulo.Dinamico.Modules.ListenerModule.ListenerModule(Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule)
+  fullName.vb: Propeus.Modulo.Dinamico.Modules.ListenerModule.New(Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule)
+  nameWithType: ListenerModule.ListenerModule(IModuleWatcherModule)
+  nameWithType.vb: ListenerModule.New(IModuleWatcherModule)
 - uid: Propeus.Modulo.Dinamico.Modules.ListenerModule.#ctor*
   name: ListenerModule
   href: api/Propeus.Modulo.Dinamico.Modules.ListenerModule.-ctor.html
@@ -2221,6 +2299,18 @@ references:
   commentId: Overload:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao
   fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao
   nameWithType: ModuleWatcherModule.CriarConfiguracao
+- uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name: CriarInstancia(IModuleManager)
+  href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_CriarInstancia_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
+  commentId: M:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  nameWithType: ModuleWatcherModule.CriarInstancia(IModuleManager)
+- uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia*
+  name: CriarInstancia
+  href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html
+  commentId: Overload:Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia
+  fullName: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia
+  nameWithType: ModuleWatcherModule.CriarInstancia
 - uid: Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetAllModules
   name: GetAllModules()
   href: api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetAllModules.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_GetAllModules
@@ -4906,6 +4996,21 @@ references:
   commentId: T:Propeus.Modulo.IL.Core.Helpers.ClasseHelpers
   fullName: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers
   nameWithType: ClasseHelpers
+- uid: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse(Propeus.Modulo.IL.Geradores.ILModulo,System.Type,System.Type[],System.Type[])
+  name: CriarOuObterProxyClasse(ILModulo, Type, Type[], Type[])
+  href: api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse.html#Propeus_Modulo_IL_Core_Helpers_ClasseHelpers_CriarOuObterProxyClasse_Propeus_Modulo_IL_Geradores_ILModulo_System_Type_System_Type___System_Type___
+  commentId: M:Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse(Propeus.Modulo.IL.Geradores.ILModulo,System.Type,System.Type[],System.Type[])
+  name.vb: CriarOuObterProxyClasse(ILModulo, Type, Type(), Type())
+  fullName: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse(Propeus.Modulo.IL.Geradores.ILModulo, System.Type, System.Type[], System.Type[])
+  fullName.vb: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse(Propeus.Modulo.IL.Geradores.ILModulo, System.Type, System.Type(), System.Type())
+  nameWithType: ClasseHelpers.CriarOuObterProxyClasse(ILModulo, Type, Type[], Type[])
+  nameWithType.vb: ClasseHelpers.CriarOuObterProxyClasse(ILModulo, Type, Type(), Type())
+- uid: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse*
+  name: CriarOuObterProxyClasse
+  href: api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse.html
+  commentId: Overload:Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse
+  fullName: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse
+  nameWithType: ClasseHelpers.CriarOuObterProxyClasse
 - uid: Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarProxyClasse(Propeus.Modulo.IL.Core.Geradores.ILClasseProvider,System.Type,System.Type[])
   name: CriarProxyClasse(ILClasseProvider, Type, Type[])
   href: api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarProxyClasse.html#Propeus_Modulo_IL_Core_Helpers_ClasseHelpers_CriarProxyClasse_Propeus_Modulo_IL_Core_Geradores_ILClasseProvider_System_Type_System_Type___
@@ -5116,6 +5221,204 @@ references:
   commentId: Overload:Propeus.Modulo.IL.Geradores.ILModulo.ToString
   fullName: Propeus.Modulo.IL.Geradores.ILModulo.ToString
   nameWithType: ILModulo.ToString
+- uid: Propeus.Modulo.ModuleWatcher
+  name: Propeus.Modulo.ModuleWatcher
+  href: api/Propeus.Modulo.ModuleWatcher.html
+  commentId: N:Propeus.Modulo.ModuleWatcher
+  fullName: Propeus.Modulo.ModuleWatcher
+  nameWithType: Propeus.Modulo.ModuleWatcher
+- uid: Propeus.Modulo.ModuleWatcher.Contracts
+  name: Propeus.Modulo.ModuleWatcher.Contracts
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.html
+  commentId: N:Propeus.Modulo.ModuleWatcher.Contracts
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts
+  nameWithType: Propeus.Modulo.ModuleWatcher.Contracts
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule
+  name: IModuleWatcherModule
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.html
+  commentId: T:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule
+  nameWithType: IModuleWatcherModule
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules
+  name: GetAllModules()
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules.html#Propeus_Modulo_ModuleWatcher_Contracts_IModuleWatcherModule_GetAllModules
+  commentId: M:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules()
+  nameWithType: IModuleWatcherModule.GetAllModules()
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules*
+  name: GetAllModules
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules
+  nameWithType: IModuleWatcherModule.GetAllModules
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  name: GetModuleFromContract(Type)
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract.html#Propeus_Modulo_ModuleWatcher_Contracts_IModuleWatcherModule_GetModuleFromContract_System_Type_
+  commentId: M:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract(System.Type)
+  nameWithType: IModuleWatcherModule.GetModuleFromContract(Type)
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract*
+  name: GetModuleFromContract
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract
+  nameWithType: IModuleWatcherModule.GetModuleFromContract
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item(System.String)
+  name: this[string]
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item.html#Propeus_Modulo_ModuleWatcher_Contracts_IModuleWatcherModule_Item_System_String_
+  commentId: P:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item(System.String)
+  name.vb: this[](String)
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.this[string]
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.this[](String)
+  nameWithType: IModuleWatcherModule.this[string]
+  nameWithType.vb: IModuleWatcherModule.this[](String)
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item*
+  name: this
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item
+  name.vb: this[]
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.this
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.this[]
+  nameWithType: IModuleWatcherModule.this
+  nameWithType.vb: IModuleWatcherModule.this[]
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnLoadModule
+  name: OnLoadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnLoadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnLoadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnLoadModule
+  nameWithType: IModuleWatcherModule.OnLoadModule
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnReloadModule
+  name: OnReloadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnReloadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnReloadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnReloadModule
+  nameWithType: IModuleWatcherModule.OnReloadModule
+- uid: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnUnloadModule
+  name: OnUnloadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnUnloadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnUnloadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnUnloadModule
+  nameWithType: IModuleWatcherModule.OnUnloadModule
+- uid: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions
+  name: ModuleManagerExtensions
+  href: api/Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.html
+  commentId: T:Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions
+  fullName: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions
+  nameWithType: ModuleManagerExtensions
+- uid: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name: AddModuleWatcherModule(IModuleManager)
+  href: api/Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule.html#Propeus_Modulo_ModuleWatcher_ModuleManagerExtensions_AddModuleWatcherModule_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
+  commentId: M:Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  fullName: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  nameWithType: ModuleManagerExtensions.AddModuleWatcherModule(IModuleManager)
+- uid: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule*
+  name: AddModuleWatcherModule
+  href: api/Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule
+  fullName: Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule
+  nameWithType: ModuleManagerExtensions.AddModuleWatcherModule
+- uid: Propeus.Modulo.ModuleWatcher.Modules
+  name: Propeus.Modulo.ModuleWatcher.Modules
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.html
+  commentId: N:Propeus.Modulo.ModuleWatcher.Modules
+  fullName: Propeus.Modulo.ModuleWatcher.Modules
+  nameWithType: Propeus.Modulo.ModuleWatcher.Modules
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule
+  name: ModuleWatcherModule
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.html
+  commentId: T:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule
+  nameWithType: ModuleWatcherModule
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name: ModuleWatcherModule(IModuleManager)
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.-ctor.html#Propeus_Modulo_ModuleWatcher_Modules_ModuleWatcherModule__ctor_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_
+  commentId: M:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.#ctor(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  name.vb: New(IModuleManager)
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.ModuleWatcherModule(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.New(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)
+  nameWithType: ModuleWatcherModule.ModuleWatcherModule(IModuleManager)
+  nameWithType.vb: ModuleWatcherModule.New(IModuleManager)
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.#ctor*
+  name: ModuleWatcherModule
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.-ctor.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.#ctor
+  name.vb: New
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.ModuleWatcherModule
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.New
+  nameWithType: ModuleWatcherModule.ModuleWatcherModule
+  nameWithType.vb: ModuleWatcherModule.New
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao
+  name: CriarConfiguracao()
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao.html#Propeus_Modulo_ModuleWatcher_Modules_ModuleWatcherModule_CriarConfiguracao
+  commentId: M:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao()
+  nameWithType: ModuleWatcherModule.CriarConfiguracao()
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao*
+  name: CriarConfiguracao
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao
+  nameWithType: ModuleWatcherModule.CriarConfiguracao
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules
+  name: GetAllModules()
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules.html#Propeus_Modulo_ModuleWatcher_Modules_ModuleWatcherModule_GetAllModules
+  commentId: M:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules()
+  nameWithType: ModuleWatcherModule.GetAllModules()
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules*
+  name: GetAllModules
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules
+  nameWithType: ModuleWatcherModule.GetAllModules
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract(System.Type)
+  name: GetModuleFromContract(Type)
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract.html#Propeus_Modulo_ModuleWatcher_Modules_ModuleWatcherModule_GetModuleFromContract_System_Type_
+  commentId: M:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract(System.Type)
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract(System.Type)
+  nameWithType: ModuleWatcherModule.GetModuleFromContract(Type)
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract*
+  name: GetModuleFromContract
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract
+  nameWithType: ModuleWatcherModule.GetModuleFromContract
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item(System.String)
+  name: this[string]
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item.html#Propeus_Modulo_ModuleWatcher_Modules_ModuleWatcherModule_Item_System_String_
+  commentId: P:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item(System.String)
+  name.vb: this[](String)
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.this[string]
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.this[](String)
+  nameWithType: ModuleWatcherModule.this[string]
+  nameWithType.vb: ModuleWatcherModule.this[](String)
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item*
+  name: this
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item.html
+  commentId: Overload:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item
+  name.vb: this[]
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.this
+  fullName.vb: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.this[]
+  nameWithType: ModuleWatcherModule.this
+  nameWithType.vb: ModuleWatcherModule.this[]
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnLoadModule
+  name: OnLoadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnLoadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnLoadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnLoadModule
+  nameWithType: ModuleWatcherModule.OnLoadModule
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnReloadModule
+  name: OnReloadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnReloadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnReloadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnReloadModule
+  nameWithType: ModuleWatcherModule.OnReloadModule
+- uid: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnUnloadModule
+  name: OnUnloadModule
+  href: api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnUnloadModule.html
+  commentId: E:Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnUnloadModule
+  fullName: Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnUnloadModule
+  nameWithType: ModuleWatcherModule.OnUnloadModule
 - uid: Propeus.Modulo.Taskjob
   name: Propeus.Modulo.Taskjob
   href: api/Propeus.Modulo.Taskjob.html

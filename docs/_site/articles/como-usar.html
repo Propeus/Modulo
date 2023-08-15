@@ -10,7 +10,7 @@
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
       
@@ -79,13 +79,1089 @@
 <h1 id="como-usar">Como usar</h1>
 
 <p>Esta pagina irá te mostrar como usar o gerenciador de modulos em diversas situações, desde console até sistema web MVC (Razor)</p>
-<h2 id="console-aplication">Console Aplication</h2>
-<h3 id="basico">Basico</h3>
-<h3 id="jogos-conceito">Jogos (conceito)</h3>
-<h2 id="worker-service">Worker Service</h2>
-<h2 id="mvc-razor">MVC Razor</h2>
-<h3 id="api">API</h3>
-<h3 id="views">Views</h3>
+<h2 id="metodo">Metodo</h2>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S_d" data-tab="d" tabindex="0" aria-selected="true">Dinamico</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S_nd" data-tab="nd" tabindex="-1">Não dinamico</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S_d" role="tabpanel" data-tab="d">
+
+<p>Os tutoriais abaixo irão utilziar o Gerenciador Dinamico</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S_nd" role="tabpanel" data-tab="nd" aria-hidden="true" hidden="hidden">
+
+<p>Os tutoriais abaixo irão utilziar o Gerenciador Core</p>
+</section>
+</div>
+<h2 id="inicialização">Inicialização</h2>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_ca_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_ca_d" data-tab="ca" data-condition="d" tabindex="0" aria-selected="true">Console Aplication</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_jgs_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_jgs_d" data-tab="jgs" data-condition="d" tabindex="-1">Jogos</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_ws_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_ws_d" data-tab="ws" data-condition="d" tabindex="-1">Worker Service</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_mvc_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_mvc_d" data-tab="mvc" data-condition="d" tabindex="-1">MVC Razor</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-1_ca_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_ca_nd" data-tab="ca" data-condition="nd" tabindex="-1">Console Aplication</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-1_jgs_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_jgs_nd" data-tab="jgs" data-condition="nd" tabindex="-1">Jogos</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-1_ws_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_ws_nd" data-tab="ws" data-condition="nd" tabindex="-1">Worker Service</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-1_mvc_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_mvc_nd" data-tab="mvc" data-condition="nd" tabindex="-1">MVC Razor</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S-1_ca_d" role="tabpanel" data-tab="ca" data-condition="d">
+
+<p>Para usar o gerenciador dinamico</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Example
+{
+    internal class Program
+    {
+        private static void Main()
+        {
+            ExemploPropeusModuloCore();
+            System.Console.ResetColor();
+        }
+
+        private static void ExemploPropeusModuloCore()
+        {
+           /**
+            * Este gerenciador é um **modulo** porém se comporta como um gerenciador
+            * 
+            * Para inicializar ele é necessário passar um gerenciador &quot;nativo&quot; ou de nível superior
+            * **/
+           using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            {
+                //Adicione seu codigo aqui...
+            }
+
+            //Caso deseje um exemplo mais completo, acesse o projeto Propeus.Modulo.Console.Example
+        }
+    }
+}
+</code></pre>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_jgs_d" role="tabpanel" data-tab="jgs" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Para o exemplo abaixo utiliza o projeto pong da <a href="https://github.com/dotnet/dotnet-console-games/blob/main/Projects/Pong">Microsoft</a> porém, foi modificado para o contexto de modulos</p>
+</div>
+<p>Para inicializar, crie um projeto console</p>
+<pre><code class="lang-cs">using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example
+{
+    internal class Program
+    {
+        private static async Task Main(string[] args)
+        {
+            using (IModuleManager gen = Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            {
+                //Gerencie o seu jogo aqui...
+            }
+        }
+    }
+}
+</code></pre>
+<p>O seu projeto principal deve</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_ws_d" role="tabpanel" data-tab="ws" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<div class="TIP">
+<h5>Tip</h5>
+<p>Os exemplos abaixo inicializam automaticamente os modulos de worker service</p>
+</div>
+<pre><code class="lang-cs">using Propeus.Modulo.WorkerService;
+
+IHost host = Host.CreateDefaultBuilder(args)
+    .UseGerenciador(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+    .Build();
+
+host.Run();
+</code></pre>
+<p>ou</p>
+<pre><code class="lang-cs">using Propeus.Modulo.WorkerService;
+
+IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices(services =&gt;
+    {
+        services.AddSingleton(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()));
+    })
+    .Build();
+
+host.Run();
+</code></pre>
+<p>ou metodo padrão de inicializar o worker service no .NET</p>
+<pre><code class="lang-cs">using Propeus.Modulo.WorkerService;
+
+IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices(services =&gt;
+    {
+      
+        services.AddHostedService&lt;Propeus.Modulo.WorkerService.Exmaple.DLL.Worker&gt;();
+    })
+    .Build();
+
+host.Run();
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Este metodo demonstra que é possivel inicializar um modulo sem qualquer gerenciador, como se o modulo fosse somente um worker service qualquer</p>
+</div>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_mvc_d" role="tabpanel" data-tab="mvc" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<p>d</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_ca_nd" role="tabpanel" data-tab="ca" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>Para usar o gerenciador core</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Example
+{
+    internal class Program
+    {
+        private static void Main()
+        {
+            ExemploPropeusModuloCore();
+            System.Console.ResetColor();
+        }
+
+        private static void ExemploPropeusModuloCore()
+        {
+            /**
+             * Este gerenciador basicamente é uma DI em formato de modulo
+             * Uma vez que termina o escopo, todos os modulos criados dentro dele são eliminados assim como o gerenciador, 
+             * más ao chamar a propriedade Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager() Uma nova instancia será criada
+             * **/
+            using (IModuleManager gerenciador = ModuleManagerExtensions.CreateModuleManager())
+            {
+                //Adicione seu codigo aqui...
+            }
+
+            //Caso deseje um exemplo mais completo, acesse o projeto Propeus.Modulo.Console.Example
+        }
+    }
+}
+</code></pre>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_jgs_nd" role="tabpanel" data-tab="jgs" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>b</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_ws_nd" role="tabpanel" data-tab="ws" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>c</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_mvc_nd" role="tabpanel" data-tab="mvc" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>d</p>
+</section>
+</div>
+<h2 id="como-usar-1">Como usar</h2>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-2_ca_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_ca_d" data-tab="ca" data-condition="d" tabindex="0" aria-selected="true">Console Aplication</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-2_jgs_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_jgs_d" data-tab="jgs" data-condition="d" tabindex="-1">Jogos</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-2_ws_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_ws_d" data-tab="ws" data-condition="d" tabindex="-1">Worker Service</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-2_mvc_d" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_mvc_d" data-tab="mvc" data-condition="d" tabindex="-1">MVC Razor</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-2_ca_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_ca_nd" data-tab="ca" data-condition="nd" tabindex="-1">Console Aplication</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-2_jgs_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_jgs_nd" data-tab="jgs" data-condition="nd" tabindex="-1">Jogos</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-2_ws_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_ws_nd" data-tab="ws" data-condition="nd" tabindex="-1">Worker Service</a>
+</li>
+<li role="presentation" aria-hidden="true" hidden="hidden">
+<a href="#tabpanel_bHGHmlrG6S-2_mvc_nd" role="tab" aria-controls="tabpanel_bHGHmlrG6S-2_mvc_nd" data-tab="mvc" data-condition="nd" tabindex="-1">MVC Razor</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S-2_ca_d" role="tabpanel" data-tab="ca" data-condition="d">
+
+<p>Esse tutorial é para demonstrar como usa o gerenciador dinamico. Para iniciar o tutorial adicione o modulo abaixo no seu projeto e sua interface de contrato</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+
+namespace Propeus.Modulo.Console.Example
+{
+    
+    /**
+     * Para criar um modulo, é necessário ter o atributo ModuleProxy e herdar de IModule, entretanto é recomendável usar a classe BaseModule, 
+     * pois ja foi implementado os recursos necessários para o modulo funcionar
+     * 
+     * Observação, durante o uso do gerenciador dinâmico, lembre-se sempre de deixar o contrato como **public** pois por ser dinâmico haverá erro de acessibilidade 
+     * durante a criação do modulo
+     * **/
+    [Module]
+    public class ModuloDeExemploParaPropeusModuloDinamico : BaseModule
+    {
+        //O parâmetro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilizando uma unica instancia quando houver.
+        //Por padrão o valor para instanciaUnica é false
+        public ModuloDeExemploParaPropeusModuloDinamico() : base(false)
+        {
+        }
+
+        //Implemente os metodos e propriedades que o modulo deve possuir.
+        public void EscreverOlaMundo()
+        {
+            System.Console.WriteLine(&quot;Ola mundo!&quot;);
+            System.Console.WriteLine(&quot;Este é um modulo dinamico em funcionamento!&quot;);
+        }
+
+        public void EscreverOutraCoisaParaOutroContrato()
+        {
+            System.Console.WriteLine(&quot;Esta função está em outro contrato !!!&quot;);
+        }
+
+        public void EscreverOutraCoisaQueOContratoNaoPossui()
+        {
+            System.Console.WriteLine(&quot;Esta função não está no contrato ;)&quot;);
+        }
+
+        /**Obs.:
+         * Qualquer modulo, possui a liberdade de manipular o gerenciador, sendo assim, podendo até mesmo remover outros módulos ou até este mesmo.
+         * Este projeto da a liberdade de criar um novo modulo que nao precise de um IModuleManager como parâmetro, entretendo, será necessário criar um novo nível de gerenciador 
+         * que consiga realizar esta operação
+        **/
+    }
+
+    /**
+     * Para criar um contrato, é necessário ter o atributo ModuloContrato e herdar de IModule
+     * O atributo ModuloContrato aceita tanto tipo como o nome dele, más para o cao do Propeus.Modulo.Core, recomendo utilizar o tipo
+     * 
+     * Observação, durante o uso do gerenciador dinâmico, lembre-se sempre de deixar o contrato como **public** pois por ser dinâmico haverá erro de acessibilidade 
+     * durante a criação do modulo
+     * **/
+    [ModuleContract(typeof(ModuloDeExemploParaPropeusModuloDinamico))]
+    public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamico : IModule
+    {
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        void EscreverOlaMundo();
+    }
+    
+   [ModuleContract(typeof(ModuloDeExemploParaPropeusModuloDinamico))]
+    public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodo : IModule
+    {
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        void EscreverOutraCoisaParaOutroContrato();
+    }
+
+    /**
+     * Para o caso de carregamento dinâmico, é necessário o uso do nome do modulo no atributo ModuloContrato, já que se considera que 
+     * o projeto atual nao possui qualquer referencia com o projeto que implementa o modulo
+     * **/
+    [ModuleContract(&quot;ModuloDeExemploParaPropeusModuloDinamico&quot;)]
+    public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf : IModule
+    {
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        void EscreverOutraCoisaParaOutroContrato();
+    }
+}
+</code></pre>
+<p>Com o modulo e contratos criados, vá para o metodo Main() do seu projeto console e adicione este código abaixo</p>
+<pre><code class="lang-cs">System.Console.ForegroundColor = System.ConsoleColor.Yellow;
+System.Console.WriteLine(&quot;Exemplo de uso do Propeus.ModuleProxy.Dinamico&quot;);
+
+/**
+    * Este gerenciador é um **modulo** porém se comporta como um gerenciador
+    * 
+    * Para inicializar ele é necessário passar um gerenciador &quot;nativo&quot; ou de nível superior
+    * **/
+using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+{
+    //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
+    IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule&lt;IInterfaceDeContratoDeExemploParaPropeusModuloDinamico&gt;();
+    modulo.EscreverOlaMundo();
+    //Veja em seu console o funcionamento do modulo
+}
+</code></pre>
+<p>O resultado final deve ser isso aqui:</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Example
+{
+    internal class Program
+    {
+        private static void Main()
+        {
+          System.Console.ForegroundColor = System.ConsoleColor.Yellow;
+          System.Console.WriteLine(&quot;Exemplo de uso do Propeus.ModuleProxy.Dinamico&quot;);
+
+            /**
+             * Este gerenciador é um **modulo** porém se comporta como um gerenciador
+             * 
+             * Para inicializar ele é necessário passar um gerenciador &quot;nativo&quot; ou de nível superior
+             * **/
+            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            {
+                //Note que o modulo ModuloDeExemploParaPropeusModuloDinamico **não** implementa a interface de contrato, normalmente haveria um erro de cast por parte do programa
+                IInterfaceDeContratoDeExemploParaPropeusModuloDinamico modulo = gerenciador.CreateModule&lt;IInterfaceDeContratoDeExemploParaPropeusModuloDinamico&gt;();
+                modulo.EscreverOlaMundo();
+                //Veja em seu console o funcionamento do modulo
+            }
+
+            //Caso deseje um exemplo mais completo, acesse o projeto Propeus.Modulo.Console.Example
+        }
+    }
+}
+</code></pre>
+<p>A saida em seu console deve ser:</p>
+<pre><code class="lang-txt">Ola mundo!
+Este é um modulo dinamico em funcionamento!
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Observe que o modulo <strong>não possui a interface de contrato implementado</strong>, isso mostra que o gerenciador dinamico funciona para o seu proposito.</p>
+</div>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_jgs_d" role="tabpanel" data-tab="jgs" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<div class="NOTE">
+<h5>Note</h5>
+<p>Para o exemplo abaixo utiliza o projeto pong da <a href="https://github.com/dotnet/dotnet-console-games/blob/main/Projects/Pong">Microsoft</a> porém, foi modificado para o contexto de modulos</p>
+</div>
+<p>Para inicializar o jogo, crie uma interface de contrato para chamar a cena principal</p>
+<pre><code class="lang-cs">using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example
+{
+    [ModuleContract(&quot;WindowModule&quot;)]
+    public interface IWindowModuleContract : IModule
+    {
+        Task Main();
+    }
+}
+</code></pre>
+<p>Depois crie a chamada dentro do <code>using</code> do seu programa principal</p>
+<pre><code class="lang-cs">    if (!gen.ExistsModule(typeof(IWindowModuleContract)))
+    {
+        await gen.CreateModule&lt;IWindowModuleContract&gt;().Main();
+    }
+    else
+    {
+        await gen.GetModule&lt;IWindowModuleContract&gt;().Main();
+    }
+</code></pre>
+<p>O resultado deverá ser semelhante a isso:</p>
+<pre><code class="lang-cs">using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example
+{
+    internal class Program
+    {
+        private static async Task Main(string[] args)
+        {
+            using (IModuleManager gen = Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            {
+                if (!gen.ExistsModule(typeof(IWindowModuleContract)))
+                {
+                    await gen.CreateModule&lt;IWindowModuleContract&gt;().Main();
+                }
+                else
+                {
+                    await gen.GetModule&lt;IWindowModuleContract&gt;().Main();
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Antes de construir o programa principal do jogo, devemos construir os modulos necessários</p>
+</div>
+<p>Crie um modulo para controlar a bola</p>
+<pre><code class="lang-cs">using System.Diagnostics;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
+{
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class BallModule : BaseModule
+    {
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float DX { get; set; }
+        public float DY { get; set; }
+
+        private readonly Random random;
+
+        public Stopwatch StopWatch { get; }
+
+        public BallModule()
+        {
+            random = new Random();
+            StopWatch = Stopwatch.StartNew();
+            BallCharacterIcon = 'O';
+            BallCharacterEraseIcon = ' ';
+        }
+
+        public char BallCharacterIcon { get; set; }
+        public char BallCharacterEraseIcon { get; set; }
+
+        public void CriarInstancia(float x = 0, float y = 0)
+        {
+            float randomFloat = (float)random.NextDouble() * 2f;
+            DX = Math.Max(randomFloat, 1f - randomFloat);
+            DY = 1f - DX;
+            X = x / 2f;
+            Y = y / 2f;
+            if (random.Next(2) == 0)
+            {
+                DX = -DX;
+            }
+            if (random.Next(2) == 0)
+            {
+                DY = -DY;
+            }
+        }
+
+        public void UpdateBallNewPosition(float time)
+        {
+            X += time * DX;
+            Y += time * DY;
+        }
+
+    }
+}
+</code></pre>
+<p>Depois crie o modulo para controlar as paletas</p>
+<pre><code class="lang-cs">using System.Diagnostics;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
+{
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class PaddleModule : BaseModule
+    {
+        public event Action&lt;int&gt; ScoreEvent;
+
+        public PaddleModule(int height = 0) : base(false)
+        {
+            Score = 0;
+        }
+
+        public void CriarInstancia(int height = 0)
+        {
+            Paddle = height / 3;
+            PaddleSize = height / 4;
+        }
+
+        public int Paddle { get; set; }
+        public int PaddleSize { get; set; }
+        public int Score { get; set; }
+
+        public void CalculateColisionBall(BallModule ballModule, bool enemy, int height, int width, float multiplier,float time)
+        {
+
+
+            // Compute Time And New Ball Position
+            (float X2, float Y2) = (ballModule.X + (time * ballModule.DX), ballModule.Y + (time * ballModule.DY));
+
+            // Collisions With Up/Down Walls
+            if (Y2 &lt; 0 || Y2 &gt; height)
+            {
+                ballModule.DY = -ballModule.DY;
+                Y2 = ballModule.Y + ballModule.DY;
+            }
+
+
+            if (enemy)
+            {
+                if (Math.Min(ballModule.X, X2) &lt;= width - 2 &amp;&amp; width - 2 &lt;= Math.Max(ballModule.X, X2))
+                {
+                    int ballPathAtPaddleB = height - (int)GetLineValue(((ballModule.X, height - ballModule.Y), (X2, height - Y2)), width - 2);
+                    ballPathAtPaddleB = Math.Max(0, ballPathAtPaddleB);
+                    ballPathAtPaddleB = Math.Min(height - 1, ballPathAtPaddleB);
+                    if (Paddle &lt;= ballPathAtPaddleB &amp;&amp; ballPathAtPaddleB &lt;= Paddle + PaddleSize)
+                    {
+                        ballModule.DX = -ballModule.DX;
+                        ballModule.DX *= multiplier;
+                        ballModule.DY *= multiplier;
+                        X2 = ballModule.X + (time * ballModule.DX);
+                    }
+                }
+
+                if (X2 &lt; 0)
+                {
+                    Score++;
+                    this.ScoreEvent?.Invoke(Score);
+                }
+            }
+            else
+            {
+                if (Math.Min(ballModule.X, X2) &lt;= 2 &amp;&amp; 2 &lt;= Math.Max(ballModule.X, X2))
+                {
+                    int ballPathAtPaddleA = height - (int)GetLineValue(((ballModule.X, height - ballModule.Y), (X2, height - Y2)), 2);
+                    ballPathAtPaddleA = Math.Max(0, ballPathAtPaddleA);
+                    ballPathAtPaddleA = Math.Min(height - 1, ballPathAtPaddleA);
+                    if (Paddle &lt;= ballPathAtPaddleA &amp;&amp; ballPathAtPaddleA &lt;= Paddle + PaddleSize)
+                    {
+                        ballModule.DX = -ballModule.DX;
+                        ballModule.DX *= multiplier;
+                        ballModule.DY *= multiplier;
+                        X2 = ballModule.X + (time * ballModule.DX);
+                    }
+                }
+
+                if (X2 &gt; width)
+                {
+                    Score++;
+                    this.ScoreEvent?.Invoke(Score);
+                }
+            }
+        }
+        private float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
+        {
+            // order points from least to greatest X
+            if (line.B.X &lt; line.A.X)
+            {
+                (line.A, line.B) = (line.B, line.A);
+            }
+            // find the slope
+            float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
+            // find the y-intercept
+            float yIntercept = line.A.Y - (line.A.X * slope);
+            // find the function's value at parameter &quot;x&quot;
+            return (x * slope) + yIntercept;
+        }
+    }
+}
+
+</code></pre>
+<p>Crie um modulo para gerenciar o controle, que no caso será o teclado</p>
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
+{
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class ControlsModule : BaseModule
+    {
+        private CancellationTokenSource _cancelationTokenSouce;
+        Task _controlPlayer;
+        bool _exit;
+
+        public event Action Up;
+        public event Action Down;
+        public event Action Exit;
+
+        public ControlsModule() : base(true)
+        {
+            _exit = false;
+            _cancelationTokenSouce = new CancellationTokenSource();
+            _controlPlayer = Task.Run(ControlPlayer, _cancelationTokenSouce.Token);
+        }
+
+        private void ControlPlayer()
+        {
+            #region Update Player Paddle
+            do
+            {
+                while (System.Console.KeyAvailable)
+                {
+
+                    switch (System.Console.ReadKey(intercept: true).Key)
+                    {
+                        case ConsoleKey.W:
+                        case ConsoleKey.UpArrow:
+                            Up?.Invoke();
+                            break;
+                        case ConsoleKey.S:
+                        case ConsoleKey.DownArrow:
+                            Down?.Invoke();
+                            break;
+                        case ConsoleKey.Backspace:
+                        case ConsoleKey.Spacebar:
+                        case ConsoleKey.Escape:
+                            Exit?.Invoke();
+                            _exit = true;
+                            break;
+                    }
+                }
+            } while (_controlPlayer.Status == TaskStatus.Running &amp;&amp; !_exit);
+
+            #endregion
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                _exit = true;
+                try
+                {
+                    if(_controlPlayer.Status == TaskStatus.Running)
+                    {
+                        _cancelationTokenSouce?.Cancel();
+                    }
+                }
+                catch (TaskCanceledException)
+                {
+                    //Jogo finalizado
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+    }
+}
+
+</code></pre>
+<p>Por fim, crie o modulo que irá renderizar os objetos na tela do console</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example.Data
+{
+    [Module(AutoUpdate = false, AutoStartable = false)]
+    public class RenderModule : BaseModule
+    {
+        public RenderModule() : base(true)
+        {
+
+        }
+
+        public void RenderPaddles(PaddleModule paddleA, PaddleModule paddleB, int height, int width)
+        {
+            #region Render Paddles
+
+            for (int i = 0; i &lt; height; i++)
+            {
+                System.Console.SetCursorPosition(2, i);
+                System.Console.Write(paddleA.Paddle &lt;= i &amp;&amp; i &lt;= paddleA.Paddle + paddleA.PaddleSize ? '█' : ' ');
+                System.Console.SetCursorPosition(width - 2, i);
+                System.Console.Write(paddleB.Paddle &lt;= i &amp;&amp; i &lt;= paddleB.Paddle + paddleB.PaddleSize ? '█' : ' ');
+            }
+
+            #endregion
+        }
+
+        public void RenderBalls(BallModule ballModule, bool clearBall)
+        {
+
+
+            System.Console.SetCursorPosition((int)ballModule.X, (int)ballModule.Y);
+
+            if (clearBall)
+            {
+                System.Console.Write(ballModule.BallCharacterEraseIcon);
+            }
+            else
+            {
+                System.Console.Write(ballModule.BallCharacterIcon);
+            }
+        }
+
+        public void Clear()
+        {
+            System.Console.Clear();
+        }
+
+    }
+}
+
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Obviamente, por ser um jogo simples, não há necessidade de criar um modulo para renderizar os objetos na tela, porém, como este tutorial é para exemplificar o uso de modulos em
+um contexto de jogos, foi feito desta forma.</p>
+</div>
+<p>Agora com todos os objetos criados, crie o modulo principal que irá juntar todos os objetos necessarios para o jogo funcionar e o renderizador para exibir em tela:</p>
+<pre><code class="lang-cs">using System.Diagnostics;
+
+using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
+
+namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
+{
+    [Module(AutoUpdate = true, AutoStartable = false)]
+    public class WindowModule : BaseModule
+    {
+        private readonly IModuleManagerArguments gerenciador;
+        private readonly float multiplier;
+
+
+
+        public WindowModule(IModuleManager gerenciador, int? width, int? height, ControlsModule controlsModule) : base(true)
+        {
+            this.gerenciador = gerenciador as IModuleManagerArguments;
+            multiplier = 1.1f;
+
+
+            Width = width ?? System.Console.WindowWidth;
+            Height = height ?? System.Console.WindowHeight;
+
+            _controlsModule = controlsModule;
+            _controlsModule.Up += _controlsModule_Up;
+            _controlsModule.Down += _controlsModule_Down;
+            _controlsModule.Exit += _controlsModule_Exit;
+
+
+            enemyStopwatch = new Stopwatch();
+            enemyInputDelay = TimeSpan.FromMilliseconds(100);
+            delay = TimeSpan.FromMilliseconds(10);
+            flg_loop = true;
+            System.Console.CursorVisible = false;
+
+
+            PaddleA = this.gerenciador.CreateModule&lt;PaddleModule&gt;(new object[] { Height });
+            PaddleA.ScoreEvent += PaddleA_ScoreEvent;
+            PaddleB = this.gerenciador.CreateModule&lt;PaddleModule&gt;(new object[] { Height });
+            PaddleB.ScoreEvent += PaddleB_ScoreEvent;
+
+            BallModule = this.gerenciador.CreateModule&lt;BallModule&gt;(new object[] { Width, Height });
+
+        }
+
+        private void PaddleB_ScoreEvent(int obj)
+        {
+            flg_loop=false;
+        }
+
+        private void PaddleA_ScoreEvent(int obj)
+        {
+            flg_loop=false;
+
+        }
+
+        private void _controlsModule_Exit()
+        {
+            System.Console.Clear();
+            System.Console.Write(&quot;Pong was closed.&quot;);
+        }
+
+        private void _controlsModule_Down()
+        {
+            PaddleA.Paddle = Math.Min(PaddleA.Paddle + 1, Height - PaddleA.PaddleSize - 1);
+        }
+
+        private void _controlsModule_Up()
+        {
+            PaddleA.Paddle = Math.Max(PaddleA.Paddle - 1, 0);
+        }
+
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        private readonly Stopwatch enemyStopwatch;
+        private readonly TimeSpan enemyInputDelay;
+        private readonly TimeSpan delay;
+        private bool flg_loop;
+
+        #region Objects
+
+        private readonly PaddleModule PaddleA;
+        private readonly PaddleModule PaddleB;
+        private readonly ControlsModule _controlsModule;
+        private BallModule BallModule;
+
+        private RenderModule RenderModule
+        {
+            get
+            {
+                if (gerenciador.ExistsModule(typeof(RenderModule)))
+                {
+                    return gerenciador.GetModule&lt;RenderModule&gt;();
+                }
+                else
+                {
+
+                    var render = gerenciador.CreateModule&lt;RenderModule&gt;();
+                    gerenciador.KeepAliveModule(render);
+                    return render;
+                }
+
+            }
+        }
+        #endregion
+
+        public async Task Main()
+        {
+            RenderModule.Clear();
+            BallModule.StopWatch.Restart();
+            enemyStopwatch.Restart();
+            while (PaddleA.Score &lt; 3 &amp;&amp; PaddleB.Score &lt; 3)
+            {
+                while (flg_loop)
+                {
+                    Update(PaddleA, PaddleB);
+                    BallModule.StopWatch.Restart();
+                    await Task.Delay(delay);
+                }
+
+                RenderModule.RenderBalls(BallModule, true);
+
+                flg_loop = true;
+
+                gerenciador.RemoveModule(BallModule);
+                BallModule = gerenciador.CreateModule&lt;BallModule&gt;(new object[] { Width, Height });
+            }
+            RenderModule.Clear();
+            if (PaddleA.Score &gt; PaddleB.Score)
+            {
+                System.Console.Write(&quot;You win.&quot;);
+            }
+            if (PaddleA.Score &lt; PaddleB.Score)
+            {
+                System.Console.Write(&quot;You lose.&quot;);
+            }
+        }
+
+        public void Update(PaddleModule paddleA, PaddleModule paddleB)
+        {
+            UpdateBall(paddleA, paddleB);
+            UpdateComputerPaddle(paddleB);
+            RenderModule.RenderPaddles(paddleA, paddleB, Height, Width);
+
+        }
+
+        private void UpdateBall(PaddleModule paddleA, PaddleModule paddleB)
+        {
+
+            float time = (float)BallModule.StopWatch.Elapsed.TotalSeconds * 15;
+
+            #region Update Ball
+
+            // Collision With Paddle A
+            paddleA.CalculateColisionBall(BallModule, false, Height, Width, multiplier, time);
+
+            // Collision With Paddle B
+            paddleB.CalculateColisionBall(BallModule, true, Height, Width, multiplier, time);
+
+            if (flg_loop)
+            {
+                // Updating Ball Position
+                RenderModule.RenderBalls(BallModule, true);
+                BallModule.UpdateBallNewPosition(time);
+                RenderModule.RenderBalls(BallModule, false);
+            }
+
+            #endregion
+        }
+
+        private void UpdateComputerPaddle(PaddleModule paddleB)
+        {
+            #region Update Computer Paddle
+
+            if (enemyStopwatch.Elapsed &gt; enemyInputDelay)
+            {
+                if (BallModule.Y &lt; paddleB.Paddle + (paddleB.PaddleSize / 2) &amp;&amp; BallModule.DY &lt; 0)
+                {
+                    paddleB.Paddle = Math.Max(paddleB.Paddle - 1, 0);
+                }
+                else if (BallModule.Y &gt; paddleB.Paddle + (paddleB.PaddleSize / 2) &amp;&amp; BallModule.DY &gt; 0)
+                {
+                    paddleB.Paddle = Math.Min(paddleB.Paddle + 1, Height - paddleB.PaddleSize - 1);
+                }
+                enemyStopwatch.Restart();
+            }
+
+            #endregion
+        }
+
+
+        private float GetLineValue(((float X, float Y) A, (float X, float Y) B) line, float x)
+        {
+            // order points from least to greatest X
+            if (line.B.X &lt; line.A.X)
+            {
+                (line.A, line.B) = (line.B, line.A);
+            }
+            // find the slope
+            float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
+            // find the y-intercept
+            float yIntercept = line.A.Y - (line.A.X * slope);
+            // find the function's value at parameter &quot;x&quot;
+            return (x * slope) + yIntercept;
+        }
+    }
+}
+</code></pre>
+<p>Agora execute o jogo :)</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Este exemplo está na pasta <code>examples</code> com o nome <code>Propeus.Modulo.Console.Game.Pong.Example</code> e <code>Propeus.Modulo.Console.Game.Pong.Example.Data</code></p>
+</div>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_ws_d" role="tabpanel" data-tab="ws" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<p>c</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_mvc_d" role="tabpanel" data-tab="mvc" data-condition="d" aria-hidden="true" hidden="hidden">
+
+<p>d</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_ca_nd" role="tabpanel" data-tab="ca" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>Esse tutorial é para demonstrar como usa o gerenciador core. Para iniciar o tutorial adicione o modulo abaixo no seu projeto e sua interface de contrato</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
+
+namespace Propeus.Modulo.Console.Example
+{
+    
+    //Para criar um modulo, é necessário ter o atributo ModuleProxy e herdar de IModule, entretanto é recomendável usar a classe BaseModule, pois ja foi implementado os recursos necessários para o modulo funcionar
+    //Deve ser implementado a interface de contrato para que o Propeus.Modulo.Core funcione corretamente
+    [Module]
+    internal class ModuloDeExemploParaPropeusModuloCore : BaseModule, IInterfaceDeContratoDeExemploParaPropeusModuloCore
+    {
+        //O parâmetro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilizando uma unica instancia quando houver.
+        //Por padrão o valor para instanciaUnica é false
+        public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        {
+        }
+
+        //Implemente os métodos e propriedades que o modulo deve possuir.
+        public void EscreverOlaMundo()
+        {
+            System.Console.WriteLine(&quot;Ola mundo!&quot;);
+            System.Console.WriteLine(&quot;Este é um modulo em funcionamento!&quot;);
+        }
+
+        /**Obs.:
+         * Qualquer modulo, possui a liberdade de manipular o gerenciador, sendo assim, podendo até mesmo remover outros módulos ou até este mesmo.
+         * Este projeto da a liberdade de criar um novo modulo que nao precise de um IModuleManager como parâmetro, entretendo, será necessário criar um novo nível de gerenciador 
+         * que consiga realizar esta operação
+        **/
+    }
+
+    //Para criar um contrato, é necessário ter o atributo ModuloContrato e herdar de IModule
+    //O atributo ModuloContrato aceita tanto tipo como o nome dele, más para o cao do Propeus.Modulo.Core, recomendo utilizar o tipo
+    [ModuleContract(typeof(ModuloDeExemploParaPropeusModuloCore))]
+    internal interface IInterfaceDeContratoDeExemploParaPropeusModuloCore : IModule
+    {
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        void EscreverOlaMundo();
+    }
+}
+</code></pre>
+<p>Com o modulo e contrato criados, vá para o metodo Main() do seu projeto console e adicione este código abaixo</p>
+<pre><code class="lang-cs">System.Console.ForegroundColor = System.ConsoleColor.Green;
+System.Console.WriteLine(&quot;Exemplo de uso do Propeus.Modulo.Core&quot;);
+
+/**
+    * Este gerenciador basicamente é uma DI em formato de modulo
+    * Uma vez que termina o escopo, todos os modulos criados dentro dele são eliminados assim como o gerenciador, 
+    * más ao chamar a propriedade Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager() Uma nova instancia será criada
+    * **/
+using (IModuleManager gerenciador = ModuleManagerExtensions.CreateModuleManager())
+{
+    IInterfaceDeContratoDeExemploParaPropeusModuloCore modulo = gerenciador.CreateModule&lt;IInterfaceDeContratoDeExemploParaPropeusModuloCore&gt;();
+    modulo.EscreverOlaMundo();
+    //Veja em seu console o funcionamento do modulo
+}
+</code></pre>
+<p>O resultado final deve ser isso aqui:</p>
+<pre><code class="lang-cs">using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Modulo.Core;
+
+namespace Propeus.Modulo.Console.Example
+{
+    internal class Program
+    {
+        private static void Main()
+        {
+           /**
+             * Este gerenciador basicamente é uma DI em formato de modulo
+             * Uma vez que termina o escopo, todos os modulos criados dentro dele são eliminados assim como o gerenciador, 
+             * más ao chamar a propriedade Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager() Uma nova instancia será criada
+             * **/
+            using (IModuleManager gerenciador = ModuleManagerExtensions.CreateModuleManager())
+            {
+                IInterfaceDeContratoDeExemploParaPropeusModuloCore modulo = gerenciador.CreateModule&lt;IInterfaceDeContratoDeExemploParaPropeusModuloCore&gt;();
+                modulo.EscreverOlaMundo();
+                //Veja em seu console o funcionamento do modulo
+            }
+
+            //Caso deseje um exemplo mais completo, acesse o projeto Propeus.Modulo.Console.Example
+        }
+    }
+}
+</code></pre>
+<p>A saida em seu console deve ser:</p>
+<pre><code class="lang-txt">Ola mundo!
+Este é um modulo em funcionamento!
+</code></pre>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_jgs_nd" role="tabpanel" data-tab="jgs" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>b</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_ws_nd" role="tabpanel" data-tab="ws" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>c</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-2_mvc_nd" role="tabpanel" data-tab="mvc" data-condition="nd" aria-hidden="true" hidden="hidden">
+
+<p>d</p>
+</section>
+</div>
 </article>
 
         <div class="contribution d-print-none">

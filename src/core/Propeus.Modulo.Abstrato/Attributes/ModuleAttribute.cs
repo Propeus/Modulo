@@ -10,7 +10,7 @@ namespace Propeus.Modulo.Abstrato.Attributes
     {
 
         /// <summary>
-        /// Indica se o modulo e auto inicializavel
+        /// Indica se o modulo e auto inicializava
         /// </summary>
         public bool AutoStartable { get; set; } = false;
         /// <summary>
@@ -22,5 +22,10 @@ namespace Propeus.Modulo.Abstrato.Attributes
         /// </summary>
         /// <value>Por padrão é <see langword="false"/></value>
         public bool Singleton { get; set; } = false;
+        /// <summary>
+        /// Indica se o modulo deve ser mantido vivo ou não em caso de ausência de referencia
+        /// </summary>
+        /// <value>Por padrão é <see langword="false"/></value>
+        public bool KeepAlive { get; set; } = false;
     }
 }

@@ -1,14 +1,22 @@
-- name: Inicio
-  href: README.md
-  homepage: api/index.md
-- name: Como usar
-  href: articles/como-usar.md
-- name: Código de conduta
-  href: CODE_OF_CONDUCT.md
-- name: Documentação técnica
+# This is an automatically generated file
+items:
+- name: Docs
+  href: index.md
+- name: Api
   href: api/
-  homepage: api/index.md
-- name: Q & A
-  href: articles/qea.md
-- name: Exemplos
-  href: articles/recomendacoes.md
+- name: Articles
+  href: articles/como-usar.md
+  items:
+  - name: Como usar
+    href: articles/como-usar.md
+  - name: FAQs
+    href: articles/FAQs/Desenvolvimento.md
+    items:
+    - name: Desenvolvimento
+      href: articles/FAQs/Desenvolvimento.md
+    - name: Geral
+      href: articles/FAQs/Geral.md
+  - name: Recomendacoes
+    href: articles/Recomendacoes.md
+- name: Contributor Covenant Code of Conduct
+  href: CODE_OF_CONDUCT.md

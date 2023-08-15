@@ -97,7 +97,7 @@
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Module]
-public class ModuleWatcherModule : BaseModule, IModule, IBaseModel, IDisposable</code></pre>
+public class ModuleWatcherModule : BaseModule, IModuleWatcherModule, IModule, IBaseModel, IDisposable</code></pre>
   </div>
 
 
@@ -116,6 +116,7 @@ public class ModuleWatcherModule : BaseModule, IModule, IBaseModel, IDisposable<
   <dl class="typelist implements">
     <dt>Implements</dt>
     <dd>
+      <div><a class="xref" href="Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.html">IModuleWatcherModule</a></div>
       <div><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModule.html">IModule</a></div>
       <div><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html">IBaseModel</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
@@ -210,6 +211,12 @@ public class ModuleWatcherModule : BaseModule, IModule, IBaseModel, IDisposable<
       <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
   </div>
   <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.IsNullable.html#Propeus_Modulo_Util_Objetos_Helper_IsNullable__1___0_">Helper.IsNullable&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
+  </div>
+  <div>
       <a class="xref" href="Propeus.Modulo.Util.Objetos.Helper.To.html#Propeus_Modulo_Util_Objetos_Helper_To_System_Object_System_Type_">Helper.To(object, Type)</a>
   </div>
   <div>
@@ -268,6 +275,11 @@ public class ModuleWatcherModule : BaseModule, IModule, IBaseModel, IDisposable<
   <dl class="jumplist">
     <dt><a class="xref" href="Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_CriarConfiguracao">CriarConfiguracao()</a></dt>
     <dd><p>Metodo para configuracao do modulo</p>
+</dd>
+  </dl>
+  <dl class="jumplist">
+    <dt><a class="xref" href="Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html#Propeus_Modulo_Dinamico_Modules_ModuleWatcherModule_CriarInstancia_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_">CriarInstancia(IModuleManager)</a></dt>
+    <dd><p>Metodo para criar instancias de objetos essenciais para o funcionamento do modulo</p>
 </dd>
   </dl>
   <dl class="jumplist">

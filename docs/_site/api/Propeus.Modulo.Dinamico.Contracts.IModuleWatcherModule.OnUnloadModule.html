@@ -2,10 +2,10 @@
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
-      <title>Method CreateModuleManagerDefault
+      <title>Event OnUnloadModule
  </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Method CreateModuleManagerDefault
+      <meta name="title" content="Event OnUnloadModule
  ">
       
       <link rel="icon" href="../favicon.ico">
@@ -77,68 +77,35 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault*">
+        <article data-uid="Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule">
 
 
 
 
-
-<h1 id="Propeus_Modulo_Dinamico_ModuleManagerExtensions_CreateModuleManagerDefault_" data-uid="Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault*" class="text-break">
-  Method CreateModuleManagerDefault
+<h1 id="Propeus_Modulo_Dinamico_Contracts_IModuleWatcherModule_OnUnloadModule" data-uid="Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule" class="text-break">
+  Event OnUnloadModule
   
 </h1>
 
 <div class="facts text-secondary">
-  <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.Dinamico.html">Dinamico</a></dd></dl>
+  <dl><dt>Namespace</dt><dd><a class="xref" href="Propeus.html">Propeus</a>.<a class="xref" href="Propeus.Modulo.html">Modulo</a>.<a class="xref" href="Propeus.Modulo.Dinamico.html">Dinamico</a>.<a class="xref" href="Propeus.Modulo.Dinamico.Contracts.html">Contracts</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Propeus.Modulo.Dinamico.dll</dd></dl>
 </div>
 
-<div class="markdown summary"></div>
+<div class="markdown summary"><p>Evento para descarregamento de um modulo existente</p>
+</div>
 <div class="markdown conceptual"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<a id="Propeus_Modulo_Dinamico_ModuleManagerExtensions_CreateModuleManagerDefault_" data-uid="Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault*"></a>
-
-<h3 id="Propeus_Modulo_Dinamico_ModuleManagerExtensions_CreateModuleManagerDefault_Propeus_Modulo_Abstrato_Interfaces_IModuleManager_" data-uid="Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Modulo.Abstrato.Interfaces.IModuleManager)">
-  CreateModuleManagerDefault(IModuleManager)
-  
-</h3>
-
-<div class="markdown level1 summary"><p>Cria uma nova instancia do gereciador com alguns modulos adicionais</p>
-</div>
-<div class="markdown level1 conceptual"></div>
-
 <div class="codewrapper">
-  <pre><code class="lang-csharp hljs">public static IModuleManager CreateModuleManagerDefault(IModuleManager moduleManagerCore)</code></pre>
+  <pre><code class="lang-csharp hljs">event Action&lt;Type&gt;? OnUnloadModule</code></pre>
 </div>
 
-<h4 class="section">Parameters</h4>
-<dl class="parameters">
-  <dt><code>moduleManagerCore</code> <a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.html">IModuleManager</a></dt>
-  <dd></dd>
-</dl>
 
 <h4 class="section">Returns</h4>
 <dl class="parameters">
-  <dt><a class="xref" href="Propeus.Modulo.Abstrato.Interfaces.IModuleManager.html">IModuleManager</a></dt>
+  <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;</dt>
   <dd></dd>
 </dl>
-
-
 
 
 

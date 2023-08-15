@@ -10,18 +10,18 @@ using Propeus.Modulo.Dinamico.Contracts;
 namespace Propeus.Modulo.Dinamico.Modules
 {
     /// <summary>
-    /// Modulo para definir ouvintes para o <see cref="IModuleWatcherModule"/>
+    /// Modulo para definir ouvintes para o <see cref="IModuleWatcherContract"/>
     /// </summary>
     [Module]
     public class ListenerModule : BaseModule
     {
-        private readonly IModuleWatcherModule _moduleManager;
+        private readonly IModuleWatcherContract _moduleManager;
 
         /// <summary>
         /// Construtor padrão
         /// </summary>
         /// <param name="moduleManager">Qualquer gerenciador de modulo</param>
-        public ListenerModule(IModuleWatcherModule moduleManager)
+        public ListenerModule(IModuleWatcherContract moduleManager)
         {
             _moduleManager = moduleManager;
         }

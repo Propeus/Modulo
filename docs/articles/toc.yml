@@ -1,2 +1,13 @@
-- name: Introduction
+# This is an automatically generated file
+items:
+- name: Como usar
+  href: como-usar.md
+- name: FAQs
+  href: FAQs/Desenvolvimento.md
+  items:
+  - name: Desenvolvimento
+    href: FAQs/Desenvolvimento.md
+  - name: Geral
+    href: FAQs/Geral.md
+- name: Recomendacoes
   href: Recomendacoes.md

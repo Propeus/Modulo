@@ -11,7 +11,7 @@ namespace Propeus.Modulo.Dinamico.Contracts
     /// Contrato para o modulo de nome 'ModuleWatcherModule'
     /// </summary>
     [ModuleContract("ModuleWatcherModule")]
-    public interface IModuleWatcherModule : IModule
+    public interface IModuleWatcherContract : IModule
     {
         /// <summary>
         /// Obtém o tipo real ou proxy com base no nome do tipo do contrato ou nome do tipo real

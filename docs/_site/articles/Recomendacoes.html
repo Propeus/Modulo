@@ -87,6 +87,7 @@
 <li>No gerenciador sempre crie novos modulos e evite obter um ja existente se o modulo não for de instancia unica.</li>
 <li>Evite de criar modulos que persistam dados, crie para processar algo e finalizar a sua tarefa. Modulos são volateis.</li>
 <li>Evite de usar a funcao <code>RemoveAllModules</code> do Gerenciador Core quando o Gerenciador Dinamico estiver em uso, o Gerenciador Core, enxerga todos como <code>Modulo</code>.</li>
+<li>Não utilize o prefixo <code>Microsoft</code> em seus projetos de modulo, o sistema que verifica os arquivos ignora todas as DLLs que possuem este prefixo</li>
 </ol>
 <div class="WARNING">
 <h5>Warning</h5>
@@ -114,76 +115,6 @@
 <li>O status do <code>Modulo</code> é controlado pelo Gerenciador, modulo e voce. O Gerenciador, tem a capacidade de manipular os seguintes estados de um modulo, <code>Created</code> e <code>Ready</code>, já o modulo em si, pode manipular os seguintes estados, <code>Off</code> e <code>Error</code> e o <code>Initialized</code> é atribuido quando voce achar melhor para o seu modulo.</li>
 <li>O Gerenciador dinamico é um <code>Modulo</code> e um <code>ModuleManager</code>, ou seja, ele é um modulo que se comporta como um gerenciador, perceba que tudo fica sob o Gerenciador Core, incluindo outros gerenciadores. A principal funcao do Gerenciador dinamico é gerar um modulo em tempo de execução anexando um novo contrato a ele e depois é repassado o tipo para o gerenciador core criar a instancia do mesmo.</li>
 </ul>
-<h2 id="duvidas">Duvidas</h2>
-<h3 id="geral">Geral</h3>
-<blockquote>
-<p>Porque nao é utilizado componentes de terceiros para a manipulação de classes em tempo de execução como o Castle Project?
-São diversos pontos más o principal é porque eu não queria depender de varios projetos de terceiros, pois iria contra a ideia de ser modular.</p>
-</blockquote>
-<blockquote>
-<p>Qual a vantagem de usar esse projeto?
-A ideia surgiu dentro de 2 ocasioes jogo e web. Hoje em dia temos diversas ferramentas que possibilitam o deploy rapido e garantia de disponibilidade, porém nem todos possuem recursos para adquirir essas ferramentes, então sugiu a ideia da necessidade de realizar o deploy de uma parte sem precisar parar uma aplicação por completo ou ate mesmo aquela parte afetada. Para os jogos, a ideia seria a mesma, seria legal receber atualizações sem a necessidade de fechar ou reiniciar o jogo.</p>
-</blockquote>
-<blockquote>
-<p>Como funciona a atualização de modulo no Gerenciador dinamico?
-O gerencenciador verifica se existe algum evento no arquivo e caso exista, ele descarrega o assembly antigo e carrega o novo, porém os objetos que utilizam o assembly antigo continuarao até que finalize seu ciclo de vida. Para evitar que um modulo antigo permaneca ativo por muito tempo após a sua eliminação, o gerenciador sempre irá te retornar uma nova instancia de modulo ao invés de retornar o existente.</p>
-</blockquote>
-<blockquote>
-<p>É possivel usar esse projeto em sistemas WEB MVC?
-Sim, más há resalvas, para consegui utilziar o gerenciador como controle de DI, foi necessario copiar o controle de DI da microsoft e modifica-la para quando não houver registro de serviço, ele irá buscar no gerenciador. Para manter os padrões de DI, a Microsoft decidiu que ou criaria um do zero ou utilizaria o já existente.
-Obs.: A Microsft não possui responsabilidade sobre o codigo de injeção de dependencia que foi copiado e modificado no projeto <code>Propeus.Modulo.Hosting</code></p>
-</blockquote>
-<h3 id="desenvolvimento">Desenvolvimento</h3>
-<blockquote>
-<p>Para que serve cada projeto?
-Os projetos estão separados na seguinte ordem:
-1 - Propeus.Modulo.Util: É um conjunto de funcoes que ajuda no desenvolvimento.
-2 - Propeus.Modulo.IL: É um projeto para criar proxy dinamico, utilizado em conjunto com o <code>Propeus.Modulo.Dinamico</code>
-3 - Propeus.Modulo.Abstrato: É um projeto que possui todos os modelos e base para desenvolver qualquer modulo ou gerenciador
-4 - Propeus.Modulo.Core: É o gerenciador principal que orquestra todos os outros modulos
-5 - Propeus.Modulo.Dinamico: É o segundo gerenciador, ele é gerenciado pelo gerenciador core e serve para realizar proxy dinamico dos modulos e contratos
-6 - Propeus.Modulo.Workservice: É um modulo que implementa o <code>IHostedService</code>, resumindo, serve para criar modulos como um Work Service
-7 - Propeus.Modulo.Hosting: É um projeto que modifica o programa WEB MVC para permitir o uso do gerenciador dinamico, permitindo o carregamento de novos controllers e views em tempo de execução</p>
-</blockquote>
-<blockquote>
-<p>Um modulo pode manipular um gerenciador?
-Sim, porém só consegue manipular os metodos expostos pelo <code>IModuleManager</code>, um exemplo é o proprio gerenciador dinamico.</p>
-</blockquote>
-<blockquote>
-<p>Para usar os gerenciadores em um projeto WEB MVC, eu preciso carregar o <code>Propeus.Modulo.Hosting</code> junto?
-Não, se fosse assim não faria sentido o projeto como um todo. O <code>Propeus.Modulo.Hosting</code> serve para &quot;embutir&quot; o gerenciador dentro do sistema de DI da microsoft, voce pode carregar o gerenciador como singleton e fazer as chamadas dela para seus services e controllers como um servico qualquer, criar services como modulo tambem não te impede de usar como uma classe comum ou service no MVC.</p>
-</blockquote>
-<blockquote>
-<p>Da para carregar views e controllers usando a ferramenta?
-Sim, para este caso será necessario o uso do <code>Propeus.Modulo.Hosting</code> e <code>Propeus.Modulo.Dinamico</code> para funcionar de forma correta, além de precisar realizar a seguinte modificação no seu csproj do modulo.</p>
-</blockquote>
-<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
-<ul role="tablist">
-<li role="presentation">
-<a href="#tabpanel_bHGHmlrG6S_xml" role="tab" aria-controls="tabpanel_bHGHmlrG6S_xml" data-tab="xml" tabindex="0" aria-selected="true">XML</a>
-</li>
-</ul>
-<section id="tabpanel_bHGHmlrG6S_xml" role="tabpanel" data-tab="xml">
-
-<pre><code class="lang-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Razor&quot;&gt;
-	&lt;PropertyGroup&gt;
-		&lt;GenerateEmbeddedFilesManifest&gt;true&lt;/GenerateEmbeddedFilesManifest&gt;
-	&lt;/PropertyGroup&gt;
-&lt;/Project&gt;
-</code></pre>
-</section>
-</div>
-
-<p>No sdk deverá utilziar o <code>Microsoft.NET.Sdk.Razor</code> e no PropertyGroup do seu projeto devera definir a tag <code>GenerateEmbeddedFilesManifest</code> como <code>true</code>.
-Esta modificação é para os modulos que estão fora do projeto principal e precisam carregar views.</p>
-<blockquote>
-<p>Se eu remover um modulo controller do MVC em execução, o controller deixará de existir?
-Não, para manter a integridade, ele só deixará de existir quando reiniciar o programa, voce pode criar uma versão de circuit break para evitar uso indevido.</p>
-</blockquote>
-<blockquote>
-<p>Existe algum lugar que possa ver as informacoes do modulo?
-Sim, voce pode usar a função <code>.ToString()</code> para mostrar as informacoes do modulo, caso implemente com base no <code>BaseModule</code></p>
-</blockquote>
 </article>
 
         <div class="contribution d-print-none">

@@ -27,5 +27,26 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data
             #endregion
         }
 
+        public void RenderBalls(BallModule ballModule, bool clearBall)
+        {
+
+
+            System.Console.SetCursorPosition((int)ballModule.X, (int)ballModule.Y);
+
+            if (clearBall)
+            {
+                System.Console.Write(ballModule.BallCharacterEraseIcon);
+            }
+            else
+            {
+                System.Console.Write(ballModule.BallCharacterIcon);
+            }
+        }
+
+        public void Clear()
+        {
+            System.Console.Clear();
+        }
+
     }
 }

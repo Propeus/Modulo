@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
+using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Dinamico.Contracts;
 using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
+using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
 
@@ -64,6 +66,7 @@ namespace Propeus.Modulo.Dinamico
         }
 
 
+
         private readonly IModuleManager _gerenciador;
 
         /// <summary>
@@ -79,6 +82,54 @@ namespace Propeus.Modulo.Dinamico
 
         private Dictionary<string, ILClasseProvider> ModuloProvider { get; set; }
 
+        private IModule CreateModuleNonConfigurated(Type moduleType)
+        {
+            if (moduleType is null)
+            {
+                throw new ArgumentNullException(nameof(moduleType));
+            }
+
+            if (moduleType.IsInterface)
+            {
+                moduleType = ResolveContract(moduleType);
+            }
+
+
+            ConstructorInfo? ctor = moduleType.GetConstructors()
+                .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException(moduleType);
+
+            ParameterInfo[] @params = ctor.GetParameters();
+            foreach (ParameterInfo @param in @params)
+            {
+                if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuleContractAttribute>())
+                {
+                    if (param.IsOptional)
+                    {
+                        try
+                        {
+                            _ = CreateModule(param.ParameterType);
+                        }
+                        catch (ModuleNotFoundException)
+                        {
+                            //Ignora erro neste caso
+                        }
+                        catch (ModuleContractInvalidException)
+                        {
+                            //Ignora erro neste caso
+                        }
+                    }
+                    else
+                    {
+                        if (!ExistsModule(param.ParameterType))
+                            _ = CreateModule(param.ParameterType);
+                    }
+                }
+
+            }
+
+            var module = _gerenciador.CreateModule(moduleType);
+            return module;
+        }
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -238,52 +289,9 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(Type moduleType)
         {
-            if (moduleType is null)
-            {
-                throw new ArgumentNullException(nameof(moduleType));
-            }
-
-            if (moduleType.IsInterface)
-            {
-                moduleType = ResolveContract(moduleType);
-            }
-
-
-            ConstructorInfo? ctor = moduleType.GetConstructors()
-                .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException(moduleType);
-
-            ParameterInfo[] @params = ctor.GetParameters();
-            foreach (ParameterInfo @param in @params)
-            {
-                if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuleContractAttribute>())
-                {
-                    if (param.IsOptional)
-                    {
-                        try
-                        {
-                            _ = CreateModule(param.ParameterType);
-                        }
-                        catch (ModuleNotFoundException)
-                        {
-                            //Ignora erro neste caso
-                        }
-                        catch (ModuleContractInvalidException)
-                        {
-                            //Ignora erro neste caso
-                        }
-                    }
-                    else
-                    {
-                        if (!ExistsModule(param.ParameterType))
-                            _ = CreateModule(param.ParameterType);
-                    }
-                }
-
-            }
-
-            return _gerenciador.CreateModule(moduleType);
-
-
+            var module = CreateModuleNonConfigurated(moduleType);
+            InvocarInstanciaConfiguracao(Array.Empty<object>(), module);
+            return module;
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parametro nulo</exception>
@@ -371,7 +379,9 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(string moduleName)
         {
-            return CreateModule(GetModule<IModuleWatcherModule>()[moduleName]);
+            var module = CreateModuleNonConfigurated(GetModule<IModuleWatcherContract>()[moduleName]);
+            InvocarInstanciaConfiguracao(Array.Empty<object>(), module);
+            return module;
         }
 
 
@@ -459,7 +469,8 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public T CreateModule<T>(object[] args) where T : IModule
         {
-            T modulo = (T)CreateModule(typeof(T));
+            T modulo = (T)CreateModuleNonConfigurated(typeof(T));
+
             InvocarInstanciaConfiguracao(args, modulo);
             return modulo;
         }
@@ -550,7 +561,7 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(Type moduleType, object[] args)
         {
-            IModule iModulo = CreateModule(moduleType);
+            IModule iModulo = CreateModuleNonConfigurated(moduleType);
             InvocarInstanciaConfiguracao(args, iModulo);
             return iModulo;
         }
@@ -647,10 +658,9 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(string moduleName, object[] args)
         {
-            IModule iModulo = CreateModule(moduleName);
-            InvocarInstanciaConfiguracao(args, iModulo);
-
-            return iModulo;
+            var module = CreateModuleNonConfigurated(GetModule<IModuleWatcherContract>()[moduleName]);
+            InvocarInstanciaConfiguracao(args, module);
+            return module;
         }
 
         ///<inheritdoc/>
@@ -1690,9 +1700,9 @@ namespace Propeus.Modulo.Dinamico
         ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         ///</note>
         ///</example>
-        public async Task KeepAliveModuleAsync(IModule moduleInstance)
+        public void KeepAliveModule(IModule moduleInstance)
         {
-            await _gerenciador.KeepAliveModuleAsync(moduleInstance).ConfigureAwait(true);
+            _gerenciador.KeepAliveModule(moduleInstance);
         }
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)
@@ -1746,7 +1756,7 @@ namespace Propeus.Modulo.Dinamico
             }
             else
             {
-                return _gerenciador.GetModule<IModuleWatcherModule>().GetModuleFromContract(contractType);
+                return _gerenciador.GetModule<IModuleWatcherContract>().GetModuleFromContract(contractType);
             }
 
         }
@@ -1761,5 +1771,64 @@ namespace Propeus.Modulo.Dinamico
             _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
         }
 
+        internal void ModuleManager_OnReloadModule(Type type)
+        {
+            ModuleAttribute? attr = type.GetModuleAttribute();
+            if (attr.AutoUpdate)
+            {
+                IModule? module = null;
+                if (attr.Singleton)
+                {
+                    if (ExistsModule(type))
+                    {
+                        RemoveModule(GetModule(type));
+                        module = CreateModule(type);
+                        if (attr.KeepAlive)
+                        {
+                            KeepAliveModule(module);
+                        }
+                    }
+                    else
+                    {
+                        module = CreateModule(type);
+                        if (attr.KeepAlive)
+                        {
+                            KeepAliveModule(module);
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    var modules = ListAllModules().Where(x => x.GetType() == type).ToList();
+                    foreach (var item in modules)
+                    {
+                        RemoveModule(item);
+
+                    }
+
+                    module = CreateModule(type);
+                    if (attr.KeepAlive)
+                    {
+                        KeepAliveModule(module);
+                    }
+                }
+            }
+        }
+
+        internal void ModuleManager_OnLoadModule(Type obj)
+        {
+            ModuleAttribute? attr = obj.GetModuleAttribute();
+            if (attr.AutoStartable && (!ExistsModule(obj) || (!attr.Singleton && ExistsModule(obj))))
+            {
+                IModule? module = CreateModule(obj);
+                if (attr.KeepAlive)
+                {
+                    KeepAliveModule(module);
+                }
+
+            }
+        }
     }
 }

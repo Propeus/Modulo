@@ -720,7 +720,10 @@ namespace Propeus.Modulo.Core
             CheckModuleManagerStatus();
 
             moduleType = ResolveContract(moduleType);
+            
             IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException(moduleType);
+         
+           
             return moduloInstancia.Module;
         }
         ///<inheritdoc/>
@@ -1328,7 +1331,7 @@ namespace Propeus.Modulo.Core
         ///         {
         ///              IModule module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
         ///              System.Console.WriteLine(module_a);
-        ///              gerenciador.KeepAliveModuleAsync(module_a).Wait();
+        ///              gerenciador.KeepAliveModule(module_a).Wait();
         ///              System.Console.WriteLine(module_a);
         ///         }
         ///      }
@@ -1336,7 +1339,7 @@ namespace Propeus.Modulo.Core
         ///}
         ///</code>
         ///</example>
-        public async Task KeepAliveModuleAsync(IModule moduleInstance)
+        public void KeepAliveModule(IModule moduleInstance)
         {
             if (moduleInstance is null)
             {
@@ -1354,7 +1357,6 @@ namespace Propeus.Modulo.Core
                 throw new ModuleNotFoundException(moduleInstance.Id);
 
             }
-            await Task.CompletedTask;
         }
 
         ///<inheritdoc/>
@@ -1400,7 +1402,7 @@ namespace Propeus.Modulo.Core
         ///      {
         ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
         ///         {
-        ///              gerenciador.KeepAliveModuleAsync(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+        ///              gerenciador.KeepAliveModule(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
         ///              foreach(IModule module in gerenciador.ListAllModules())
         ///              {
         ///                 System.Console.WriteLine(module);

@@ -4,37 +4,37 @@ using Propeus.Modulo.Abstrato.Interfaces;
 namespace Propeus.Modulo.Console.Example
 {
     /**
-     * Para criar um contrato, é necessario ter o atributo ModuloContrato e herdar de IModule
-     * O atributo ModuloContrato aceita tanto tipo como o nome dele, más para o cao do Propeus.ModuleProxy.Core, recomendo utilizar o tipo
+     * Para criar um contrato, é necessário ter o atributo ModuloContrato e herdar de IModule
+     * O atributo ModuloContrato aceita tanto tipo como o nome dele, más para o cao do Propeus.Modulo.Core, recomendo utilizar o tipo
      * 
-     * Observação, durante o uso do gerenciador dinamico, lembre-se sempre de deixar o contrato como **public** pois por ser dinamico haverá erro de assecibilidade 
+     * Observação, durante o uso do gerenciador dinâmico, lembre-se sempre de deixar o contrato como **public** pois por ser dinâmico haverá erro de acessibilidade 
      * durante a criação do modulo
      * **/
     [ModuleContract(typeof(ModuloDeExemploParaPropeusModuloDinamico))]
     public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamico : IModule
     {
-        //Crie os metodos e propriedades que o modulo deve possuir.
-        //Não é necessario escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
         void EscreverOlaMundo();
     }
 
     [ModuleContract(typeof(ModuloDeExemploParaPropeusModuloDinamico))]
     public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodo : IModule
     {
-        //Crie os metodos e propriedades que o modulo deve possuir.
-        //Não é necessario escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
         void EscreverOutraCoisaParaOutroContrato();
     }
 
     /**
-     * Para o caso de carregamento dinamico, é necessario o uso do nome do modulo no atributo ModuloContrato, já que se considera que 
+     * Para o caso de carregamento dinâmico, é necessário o uso do nome do modulo no atributo ModuloContrato, já que se considera que 
      * o projeto atual nao possui qualquer referencia com o projeto que implementa o modulo
      * **/
     [ModuleContract("ModuloDeExemploParaPropeusModuloDinamico")]
     public interface IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf : IModule
     {
-        //Crie os metodos e propriedades que o modulo deve possuir.
-        //Não é necessario escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
+        //Crie os métodos e propriedades que o modulo deve possuir.
+        //Não é necessário escrever todas as funcionalidades do modulo no contrato, somente aquilo que será utilizado.
         void EscreverOutraCoisaParaOutroContrato();
     }
 

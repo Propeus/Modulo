@@ -1,4 +1,6 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using System;
+
+using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Dinamico.Contracts;
 using Propeus.Modulo.Dinamico.Modules;
 
@@ -9,7 +11,7 @@ namespace Propeus.Modulo.Dinamico
     /// </summary>
     public static partial class ModuleManagerExtensions
     {
-    
+
         /// <summary>
         /// Cria uma nova instancia do gereciador 
         /// </summary>
@@ -17,7 +19,9 @@ namespace Propeus.Modulo.Dinamico
         public static IModuleManager CreateModuleManager(IModuleManager moduleManagerCore)
         {
             ModuleManager gen = moduleManagerCore.CreateModule<ModuleManager>();
-            gen.KeepAliveModuleAsync(gen.CreateModule<ModuleWatcherModule>()).Wait();
+            Action<Type>? arg1 = gen.ModuleManager_OnLoadModule, arg2 = gen.ModuleManager_OnReloadModule;
+            var module = gen.CreateModule<ModuleWatcherModule>(new object[] { arg1, arg2});
+            gen.KeepAliveModule(module);
             return gen;
         }
     }

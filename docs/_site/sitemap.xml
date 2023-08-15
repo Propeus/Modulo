@@ -2,2113 +2,2311 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://propeus.github.io/Modulo/api/index.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.AutoStartable.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.AutoUpdate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleAttribute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.IsValid.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.ModuleName.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.ModuleType.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.ModuleContractAttribute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Attributes.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.disposedValue.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.Version.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.State.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.Name.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.Id.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.ManifestId.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModel.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModule.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModule.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModule.IsSingleInstance.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.BaseModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.METODO_CONFIGURACAO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.METODO_INSTANCIA.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_ATRIBUTO_MODULO_CONTRATO_OMISSO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_CONSTRUTOR_NAO_ENCONTRADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_MODULO_ID_DESCARTADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_MODULO_INSTANCIA_UNICA.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_MODULO_NAO_ENCONTRADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_MODULO_NEW_REINICIAR.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_NOME_MODULO_NAO_ENCONTRADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_TIPO_INVALIDO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_TIPO_NAO_HERDADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_TIPO_NAO_MARCADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Constantes.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleBuilderAbsentException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractInvalidException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleContractNotFoundException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleDisposedException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleManagerDisposedException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleNotFoundException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleSingleInstanceException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleNotInheritedException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.TypeModuleUnmarkedException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeInvalidException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.ModuleTypeNotFoundException.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Exceptions.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Helpers.Helper.GetModuleAttribute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Helpers.Helper.GetAttributeContractModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Helpers.Helper.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Helpers.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.Version.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.State.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.Name.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.Id.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.ManifestId.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.Version.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.State.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IBaseModel.Name.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModule.IsSingleInstance.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.CreateModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RemoveAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.GetModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ExistsModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.RecycleModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.ListAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.KeepAliveModuleAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.StartDate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.LastUpdate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.InitializedModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManager.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerArguments.CreateModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerArguments.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.ResolveContract.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleManagerResolver.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.KeepAliveModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.IsCollected.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.IsDeleted.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.IsKeepAlive.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.IdModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.IsSingleInstance.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.Module.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.ModuleType.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.WeakReference.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.IModuleType.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.Interfaces.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.State.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Abstrato.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.CliModulo.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.CliModulo.CriarInstancia.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.CliModulo.ExecutarCLI.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.CliModulo.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.CliModulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.CLI.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.ConsoleModulo.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.ConsoleModulo.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.ConsoleModulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.IModuloCliContrato.ExecutarCLI.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.IModuloCliContrato.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Console.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.LastUpdate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.InitializedModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.StartDate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.CreateModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.ExistsModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.GetModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.RemoveModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.RemoveAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.RecycleModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.KeepAliveModuleAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.KeepAliveModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.ListAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.LastUpdate.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.InitializedModules.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.StartDate.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManager.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManagerExtensions.CreateOrGetModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.ModuleManagerExtensions.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Core.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetModuleFromContract.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.Item.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnLoadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnReloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.OnUnloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.IModuleWatcherModule.GetAllModules.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Contracts.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.CreateModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.RemoveModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.RemoveAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.RecycleModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.GetModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.ExistsModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.ListAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModuleAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.KeepAliveModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.ModuleDirectory.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.StartDate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.LastUpdate.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.InitializedModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManager.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.ModuleManagerExtensions.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.SetOnLoadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.SetOnUnloadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.SetOnRebuildModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.GetAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ListenerModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarInstancia.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.CriarConfiguracao.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetModuleFromContract.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.GetAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.Item.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.OnLoadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.OnUnloadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.OnReloadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.ModuleWatcherModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.Modules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Dinamico.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.IModuleProviderModuleContract.SetOnLoadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.IModuleProviderModuleContract.SetOnUnloadModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.IModuleProviderModuleContract.SetOnRebuildModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.IModuleProviderModuleContract.GetAllModules.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.IModuleProviderModuleContract.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Contracts.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Extensions.ConfigureGerenciador.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.Extensions.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.GetChangeToken.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.Instance.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.TokenSource.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.HasChanged.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuleActionDescriptorChangeProvider.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.Json.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecuting.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecuted.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecutionAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.ViewData.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.TempData.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.ViewBag.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.View.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.PartialView.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.ViewComponent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.Json.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecuting.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecuted.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.OnActionExecutionAsync.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.-ctor.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.ViewData.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.TempData.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.ViewBag.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloController.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.CreateBuilder.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.CreateServiceProvider.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ModuloServiceProviderFactory.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.StatusCode.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Content.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.NoContent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Ok.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Redirect.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectPermanent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectPermanentPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.LocalRedirect.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.LocalRedirectPermanent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.LocalRedirectPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.LocalRedirectPermanentPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToAction.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToActionPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToActionPermanent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToActionPermanentPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToRoute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToRoutePreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToRoutePermanent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToRoutePermanentPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToPage.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToPagePermanent.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToPagePreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RedirectToPagePermanentPreserveMethod.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.File.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.PhysicalFile.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Unauthorized.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.NotFound.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.BadRequest.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.UnprocessableEntity.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Conflict.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ValidationProblem.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Created.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.CreatedAtAction.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.CreatedAtRoute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Accepted.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.AcceptedAtAction.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.AcceptedAtRoute.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Challenge.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Forbid.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.SignIn.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.SignOut.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryUpdateModelAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.TryValidateModel.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.HttpContext.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Request.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Response.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.RouteData.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelState.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ControllerContext.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.MetadataProvider.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ModelBinderFactory.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.Url.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.ObjectValidator.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.User.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.ModuloControllerBase.-ctor.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.MS_MVC.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.CreateReadStream.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.Exists.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.Length.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.PhysicalPath.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.Name.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.LastModified.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.IsDirectory.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.ModuloFileInfo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.ViewEngine.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Hosting.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Enums.Token.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Enums.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.NovaVersao.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Executar.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Versao.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Nome.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Namespace.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Base.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Interfaces.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Acessadores.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Atributos.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.Executado.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.ILClasseProvider.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Geradores.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarProxyClasse.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.CriarOuObterProxyClasse.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.ObterTipoGerado.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.ClasseHelpers.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.GeradorHelper.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.GeradorHelper.Modulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.GeradorHelper.Gerador.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.GeradorHelper.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Helpers.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Interfaces.IILExecutor.Executar.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Interfaces.IILExecutor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.Interfaces.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Core.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILGerador.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILGerador.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILGerador.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.Executar.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.ToString.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.ILModulo.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.Geradores.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.IL.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetAllModules.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.GetModuleFromContract.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.Item.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnLoadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnReloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.OnUnloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.IModuleWatcherModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Contracts.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.AddModuleWatcherModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.ModuleManagerExtensions.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetModuleFromContract.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.GetAllModules.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.Item.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnLoadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnUnloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.OnReloadModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.-ctor.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.ModuleWatcherModule.CriarConfiguracao.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.Modules.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.ModuleWatcher.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.RegisterJob.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.UnregisterJob.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.WaitAll.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.ToString.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.ToStringView.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.TaskJobModule.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Taskjob.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Atributos.Helper.PossuiAtributo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Atributos.Helper.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Atributos.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Objetos.Helper.To.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Objetos.Helper.IsNullable.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Objetos.Helper.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Objetos.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.QueueTask.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.TryExecuteTaskInline.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.TryDequeue.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.GetScheduledTasks.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.MaximumConcurrencyLevel.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.LimitedConcurrencyLevelTaskScheduler.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Thread.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Tipos.Helper.Default.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Tipos.Helper.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.Tipos.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.Util.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.-ctor.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.CriarInstancia.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.ExecuteAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.StartAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.StopAsync.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.Dispose.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.ExecuteTask.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.BackgroundServiceModulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.Extensions.UseGerenciador.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.Extensions.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.WorkerService.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/api/Propeus.Modulo.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/articles/como-usar.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://propeus.github.io/Modulo/articles/qea.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <loc>https://propeus.github.io/Modulo/articles/FAQs/Desenvolvimento.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://propeus.github.io/Modulo/articles/FAQs/Geral.html</loc>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/articles/Recomendacoes.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/CODE_OF_CONDUCT.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/index.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://propeus.github.io/Modulo/README.html</loc>
-    <lastmod>2023-07-28T08:23:23-03:00</lastmod>
+    <lastmod>2023-08-06T10:28:17-03:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

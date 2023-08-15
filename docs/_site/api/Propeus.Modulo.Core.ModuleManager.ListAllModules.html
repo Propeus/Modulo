@@ -140,7 +140,7 @@
 
 
 <h4 class="section" id="Propeus_Modulo_Core_ModuleManager_ListAllModules_examples">Examples</h4>
-<p>Para os exemplos abaixo será utilizado o seguinte modulo e sua interface de contrato</p>
+<p>Para os exemplos abaixo será utilizado o seguinte contractType e sua interface de contrato</p>
 <pre><code class="lang-csharp">using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
@@ -176,7 +176,7 @@ namespace Propeus.Modulo.Example
       {
          using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
          {
-              gerenciador.KeepAliveModuleAsync(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
+              gerenciador.KeepAliveModule(gerenciador.CreateModule&lt;ModuloDeExemplo&gt;());
               foreach(IModule module in gerenciador.ListAllModules())
               {
                  System.Console.WriteLine(module);

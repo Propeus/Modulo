@@ -1,0 +1,8 @@
+Criar um utilziario bat que:
+- crie uma estrutura de pasta
+- Inicie o docfx
+- Que configure o arquivo docfx.json
+- Instale os utilitarios
+- Compile o projeto
+- Crie os arquivos iniciais
+- Configure os TOCs
