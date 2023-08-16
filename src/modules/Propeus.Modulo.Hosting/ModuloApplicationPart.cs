@@ -195,11 +195,11 @@ namespace Propeus.Modulo.Hosting
 
             IEnumerable<Type> modules = moduleProviderModuleContract.GetAllModules();
 
-            //foreach (Type moduleType in modules)
-            //{
-            //    LoadModuleController(moduleType);
-            //}
-            //CommitChange();
+            foreach (Type moduleType in modules)
+            {
+                OnLoadModuleController(moduleType);
+            }
+            CommitChange();
 
 
             moduleProviderModuleContract.SetOnLoadModule(OnLoadModuleController);
