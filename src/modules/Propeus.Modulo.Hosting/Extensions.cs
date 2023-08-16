@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Propeus.Module.DependencyInjection;
 using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Hosting
@@ -14,15 +16,17 @@ namespace Propeus.Modulo.Hosting
         /// <param name="configureHostBuilder">O builder</param>
         /// <param name="gerenciador">O gerenciador a ser anexado na aplicacao</param>
         /// <returns></returns>
-        public static IHostBuilder ConfigureGerenciador(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
+        public static IHostBuilder ConfigureModuleManagerForMvc(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
         {
-            configureHostBuilder.UseServiceProviderFactory(new ModuloServiceProviderFactory());
-            configureHostBuilder.ConfigureServices(configureDelegate: (HostBuilderContext ctx, IServiceCollection serviceDescriptors) =>
-            {
+            configureHostBuilder.ConfigureModuleManager(gerenciador,(module, serviceDescriptors) => {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
-                //serviceDescriptors.AddSingleton<IModuleManager>(gerenciador);
-                serviceDescriptors.AddSingleton(new ModuloApplicationPart(serviceDescriptors.AddMvcCore().PartManager, gerenciador));
+                serviceDescriptors.AddSingleton(gerenciador);
+
+                ServiceDescriptor descriptor = serviceDescriptors.FirstOrDefault(s => s.ServiceType == typeof(IViewCompilerProvider));
+                serviceDescriptors.Remove(descriptor);
+                serviceDescriptors.AddSingleton<IViewCompilerProvider, ModuleViewCompilerProvider>();
             });
+
             return configureHostBuilder;
 
         }

@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+    <ProjectReference Include="..\Propeus.Module.DependencyInjection\Propeus.Module.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
