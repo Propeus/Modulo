@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Propeus.Modulo.Abstrato.Exceptions;
+using Propeus.Module.Abstract.Exceptions;
 
-namespace Propeus.Modulo.Abstrato.Attributes
+namespace Propeus.Module.Abstract.Attributes
 {
     /// <summary>
     /// Atributo de identificação de moduleType.

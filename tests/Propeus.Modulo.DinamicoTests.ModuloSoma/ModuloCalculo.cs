@@ -1,6 +1,6 @@
-﻿using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.DinamicoTests.ModuloSoma
 {

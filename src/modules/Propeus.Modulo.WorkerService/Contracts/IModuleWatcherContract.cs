@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Exceptions;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Exceptions;
 
 namespace Propeus.Modulo.WorkerService.Contracts
 {

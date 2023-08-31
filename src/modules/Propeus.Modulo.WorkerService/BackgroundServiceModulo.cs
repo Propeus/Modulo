@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Hosting;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.WorkerService
 {

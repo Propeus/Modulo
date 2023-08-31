@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Abstrato.Exceptions
+namespace Propeus.Module.Abstract.Exceptions
 {
     /// <summary>
     /// Exceção para quando é acionado alguma ação no <see cref="IModuleManager"/> após a chamada do método <see cref="IDisposable.Dispose"/>

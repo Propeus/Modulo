@@ -1,4 +1,4 @@
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Module.Abstract
 {
     /// <summary>
     /// Classe para adicionar valores constantes

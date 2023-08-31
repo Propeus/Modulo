@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Abstrato.Helpers
+namespace Propeus.Module.Abstract.Helpers
 {
     /// <summary>
     /// Classe estatica para ajuda

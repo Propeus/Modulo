@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Module.Manager
 {
     /// <summary>
     /// Metodos de extensao para criar gerenciadores

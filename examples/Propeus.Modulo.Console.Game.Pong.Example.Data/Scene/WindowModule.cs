@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
 using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene

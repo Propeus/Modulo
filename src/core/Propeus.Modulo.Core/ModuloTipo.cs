@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Helpers;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Helpers;
+using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Module.Manager
 {
 
     /// <summary>

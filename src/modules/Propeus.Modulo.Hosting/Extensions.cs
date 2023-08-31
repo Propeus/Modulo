@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Propeus.Module.DependencyInjection;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.Hosting
 {

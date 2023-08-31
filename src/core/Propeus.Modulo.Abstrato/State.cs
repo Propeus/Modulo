@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Module.Abstract
 {
     /// <summary>
     /// Informa o estado do modulo

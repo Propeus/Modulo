@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Abstrato.Exceptions
+namespace Propeus.Module.Abstract.Exceptions
 {
     /// <summary>
     /// Exceção para quando há mais de um modulo valido e de mesmo nome

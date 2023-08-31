@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 using Propeus.Modulo.Hosting.Contracts;
 
 namespace Propeus.Modulo.Hosting.ViewEngine

@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {

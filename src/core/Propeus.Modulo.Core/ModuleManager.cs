@@ -7,16 +7,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Exceptions;
-using Propeus.Modulo.Abstrato.Helpers;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Exceptions;
+using Propeus.Module.Abstract.Helpers;
+using Propeus.Module.Abstract.Interfaces;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Objetos;
 using Propeus.Modulo.Util.Tipos;
 
-namespace Propeus.Modulo.Core
+namespace Propeus.Module.Manager
 {
     /// <summary>
     /// Controlador de módulos
@@ -66,9 +66,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -103,7 +103,7 @@ namespace Propeus.Modulo.Core
         ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -123,7 +123,7 @@ namespace Propeus.Modulo.Core
         ///Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -157,8 +157,8 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -185,7 +185,7 @@ namespace Propeus.Modulo.Core
         ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -240,9 +240,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -277,7 +277,7 @@ namespace Propeus.Modulo.Core
         ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -297,7 +297,7 @@ namespace Propeus.Modulo.Core
         ///Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -419,9 +419,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -456,7 +456,7 @@ namespace Propeus.Modulo.Core
         ///Para verificar se existe alguma instancia do tipo
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -509,9 +509,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -546,7 +546,7 @@ namespace Propeus.Modulo.Core
         ///Para verificar se a instancia está registrado no gerenciador
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -578,9 +578,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -615,7 +615,7 @@ namespace Propeus.Modulo.Core
         ///Para verificar se existe o module pelo Id
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -662,9 +662,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -699,7 +699,7 @@ namespace Propeus.Modulo.Core
         ///Para obter alguma instancia do tipo
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -747,9 +747,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -784,7 +784,7 @@ namespace Propeus.Modulo.Core
         ///Para obter alguma instancia do tipo
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -820,9 +820,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -857,7 +857,7 @@ namespace Propeus.Modulo.Core
         ///Para obter instancia pelo Id
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -911,9 +911,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -948,7 +948,7 @@ namespace Propeus.Modulo.Core
         ///Para remover algum contractType pela instancia
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -986,9 +986,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1023,7 +1023,7 @@ namespace Propeus.Modulo.Core
         ///Para remover algum contractType pelo Id
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1065,9 +1065,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1102,7 +1102,7 @@ namespace Propeus.Modulo.Core
         ///Para remover todos os módulos ativos
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1146,9 +1146,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1183,7 +1183,7 @@ namespace Propeus.Modulo.Core
         ///Para reciclar um contractType
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1225,9 +1225,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1262,7 +1262,7 @@ namespace Propeus.Modulo.Core
         ///Para reciclar um contractType pelo id
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1301,9 +1301,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte contractType e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1330,7 +1330,7 @@ namespace Propeus.Modulo.Core
         ///Para manter vivo um contractType 
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1374,9 +1374,9 @@ namespace Propeus.Modulo.Core
         ///<example>
         ///Para os exemplos abaixo será utilizado o seguinte contractType e sua interface de contrato
         ///<code>
-        ///using Propeus.Modulo.Abstrato;
-        ///using Propeus.Modulo.Abstrato.Attributes;
-        ///using Propeus.Modulo.Abstrato.Interfaces;
+        ///using Propeus.Module.Abstract;
+        ///using Propeus.Module.Abstract.Attributes;
+        ///using Propeus.Module.Abstract.Interfaces;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1403,7 +1403,7 @@ namespace Propeus.Modulo.Core
         ///Para listar todos os modulos
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Core;
+        ///using Propeus.Module.Manager;
         ///
         ///namespace Propeus.Modulo.Example
         ///{

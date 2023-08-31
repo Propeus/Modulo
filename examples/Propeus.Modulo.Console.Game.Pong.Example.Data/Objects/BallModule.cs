@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {

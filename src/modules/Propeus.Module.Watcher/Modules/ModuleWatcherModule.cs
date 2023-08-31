@@ -8,10 +8,10 @@ using System.Threading;
 
 using Propeus.Module.Watcher.Contracts;
 using Propeus.Module.Watcher.Models;
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Exceptions;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Exceptions;
+using Propeus.Module.Abstract.Interfaces;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Thread;
 
@@ -114,7 +114,7 @@ namespace Propeus.Module.Watcher.Modules
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
 
-            State = Propeus.Modulo.Abstrato.State.Ready;
+            State = Propeus.Module.Abstract.State.Ready;
         }
         #endregion
 

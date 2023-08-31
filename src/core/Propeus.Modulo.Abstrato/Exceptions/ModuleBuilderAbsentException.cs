@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Abstrato.Exceptions
+namespace Propeus.Module.Abstract.Exceptions
 {
     /// <summary>
     /// Exceção para quando o modulo nao possuir nenhum construtor publico

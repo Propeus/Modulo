@@ -2,9 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Abstrato.Exceptions
+namespace Propeus.Module.Abstract.Exceptions
 {
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Propeus.Module.Watcher.Modules;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.Dinamico
 {

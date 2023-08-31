@@ -1,5 +1,5 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
+﻿using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.Manager;
 
 namespace Propeus.Modulo.Console.Example
 {
@@ -36,7 +36,7 @@ namespace Propeus.Modulo.Console.Example
             }
 
             /**
-             * Assim como o Propeus.Modulo.Core, este gerenciador não exige que tenha uma interface de contrato para que possa criar novos modulos.
+             * Assim como o Propeus.Module.Manager, este gerenciador não exige que tenha uma interface de contrato para que possa criar novos modulos.
              * Portanto que o modulo seja valido, ele pode ser criado diretamente no gerenciador
              * **/
             using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
@@ -82,7 +82,7 @@ namespace Propeus.Modulo.Console.Example
 
 
             /**
-             * Tanto no gerenciador do Propeus.Modulo.Core quanto no Propeus.ModuleProxy.Dinamico existe a possibilidade de injetar dependencias durante a sua criação.
+             * Tanto no gerenciador do Propeus.Module.Manager quanto no Propeus.ModuleProxy.Dinamico existe a possibilidade de injetar dependencias durante a sua criação.
              * 
              * Existem duas formas de injeção nos gerenciadores, a obrigatoria, quando o modulo requer outro modulo e a opcional, quando o modulo pode aceitar 
              * um modulo quando estiver disponivel.
@@ -137,9 +137,9 @@ namespace Propeus.Modulo.Console.Example
              * Estes são alguns meios e funcionalidades do Propeus.ModuleProxy.Dinamico, entretanto deve levar em consideração alguns pontos
              * 
              * 1 - Evite a criação e substituição de modulos a qualuqer momento, pois o custo de processamento é elevado por conta da construção do proxy e suas validações em tempo de execução
-             * 2 - Assim como o Propeus.Modulo.Core, este gerenciador te permite uma infinidade de possibilidades com um modulo, pois este gerenciador é um modulo que gerencia outros modulos
+             * 2 - Assim como o Propeus.Module.Manager, este gerenciador te permite uma infinidade de possibilidades com um modulo, pois este gerenciador é um modulo que gerencia outros modulos
              * aplicando a suas regras
-             * 3 - Assim como o Propeus.Modulo.Core, o uso do using limita o seu tempo de vida à aquele escopo, uma vez que chega ao seu fim, o Propeus.Modulo.Core e Propeus.ModuleProxy.Dinamico são eliminados
+             * 3 - Assim como o Propeus.Module.Manager, o uso do using limita o seu tempo de vida à aquele escopo, uma vez que chega ao seu fim, o Propeus.Module.Manager e Propeus.ModuleProxy.Dinamico são eliminados
              * 
              * **/
 
@@ -157,12 +157,12 @@ namespace Propeus.Modulo.Console.Example
         private static void ExemploPropeusModuloCore()
         {
             System.Console.ForegroundColor = System.ConsoleColor.Green;
-            System.Console.WriteLine("Exemplo de uso do Propeus.Modulo.Core");
+            System.Console.WriteLine("Exemplo de uso do Propeus.Module.Manager");
 
             /**
              * Este gerenciador basicamente é uma DI em formato de modulo
              * Uma vez que termina o escopo, todos os modulos criados dentro dele são eliminados assim como o gerenciador, 
-             * más ao chamar a propriedade Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager() Uma nova instancia será criada
+             * más ao chamar a propriedade Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager() Uma nova instancia será criada
              * **/
             using (IModuleManager gerenciador = ModuleManagerExtensions.CreateModuleManager())
             {
@@ -232,7 +232,7 @@ namespace Propeus.Modulo.Console.Example
              * Os modulos podem ser criados de divesas formas, como workers, regra de negocio ou gerenciadores como é o caso do Propeus.ModuleProxy.Dinamico
              * **/
 
-            System.Console.WriteLine("Fim do exemplo com Propeus.Modulo.Core");
+            System.Console.WriteLine("Fim do exemplo com Propeus.Module.Manager");
 
         }
     }

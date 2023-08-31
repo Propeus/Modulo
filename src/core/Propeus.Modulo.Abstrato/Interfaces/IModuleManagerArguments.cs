@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Propeus.Modulo.Abstrato.Interfaces
+namespace Propeus.Module.Abstract.Interfaces
 {
     /// <summary>
     /// Interface para criar instancias de moduleType passando argumentos

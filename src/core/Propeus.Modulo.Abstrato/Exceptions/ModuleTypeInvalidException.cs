@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
-namespace Propeus.Modulo.Abstrato.Exceptions
+namespace Propeus.Module.Abstract.Exceptions
 {
     /// <summary>
     /// Excecao para quando o modulo nao seguir os padroes de implementacao

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Propeus.Modulo.Abstrato.Interfaces
+namespace Propeus.Module.Abstract.Interfaces
 {
     /// <summary>
     /// Modelo base para todos os objetos do projeto

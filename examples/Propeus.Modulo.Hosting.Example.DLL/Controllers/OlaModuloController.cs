@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
 {

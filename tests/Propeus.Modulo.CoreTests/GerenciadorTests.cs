@@ -2,10 +2,10 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Abstrato.Exceptions;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Exceptions;
+using Propeus.Module.Abstract.Interfaces;
 using Propeus.Modulo.CoreTests.Modulos;
-using Propeus.Modulo.Core;
+using Propeus.Module.Manager;
 
 namespace Propeus.Modulo.CoreTests
 {

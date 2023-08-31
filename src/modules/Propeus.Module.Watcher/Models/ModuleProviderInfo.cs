@@ -8,8 +8,8 @@ using System.Reflection.PortableExecutable;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Watcher.Models
 {

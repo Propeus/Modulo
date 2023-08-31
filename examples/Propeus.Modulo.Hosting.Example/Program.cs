@@ -1,4 +1,4 @@
-using Propeus.Modulo.Core;
+using Propeus.Module.Manager;
 
 namespace Propeus.Modulo.Hosting.Example
 {

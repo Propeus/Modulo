@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Core;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.Manager;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example
 {

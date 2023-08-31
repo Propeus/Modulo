@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
 
-using Propeus.Modulo.Abstrato.Attributes;
+using Propeus.Module.Abstract.Attributes;
 using Propeus.Modulo.Hosting.MS_MVC;
 
 namespace Propeus.Modulo.Hosting

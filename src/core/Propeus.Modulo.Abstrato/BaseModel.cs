@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Abstrato
+namespace Propeus.Module.Abstract
 {
     /// <summary>
     /// Classe com o modelo base para o projeto

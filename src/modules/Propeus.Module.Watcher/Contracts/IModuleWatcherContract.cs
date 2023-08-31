@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Exceptions;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Exceptions;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Watcher.Contracts
 {

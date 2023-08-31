@@ -1,5 +1,5 @@
-﻿using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
+﻿using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.CoreTests.Modulos
 {
