@@ -1,10 +1,10 @@
 ﻿using System;
 
-using Propeus.Modulo.IL.Core.Enums;
-using Propeus.Modulo.IL.Core.Geradores;
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores;
 using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Core.API
+namespace Propeus.Module.IL.Core.API
 {
     internal class ClasseAPI
     {

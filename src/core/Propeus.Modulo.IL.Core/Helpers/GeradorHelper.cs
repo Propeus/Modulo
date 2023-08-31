@@ -1,6 +1,6 @@
 ﻿using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Core.Helpers
+namespace Propeus.Module.IL.Core.Helpers
 {
     public static class GeradorHelper
     {

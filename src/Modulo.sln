@@ -17,13 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CB241CDA-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Abstract", "core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj", "{3179428F-B363-4EC8-A9BE-A51628EE6F12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Util", "core\Propeus.Modulo.Util\Propeus.Modulo.Util.csproj", "{5DA6D3F8-DD51-4C5E-804B-79532CE30371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Utils", "core\Propeus.Modulo.Util\Propeus.Module.Utils.csproj", "{5DA6D3F8-DD51-4C5E-804B-79532CE30371}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.IL.Core", "core\Propeus.Modulo.IL.Core\Propeus.Modulo.IL.Core.csproj", "{838AC310-CDE2-4565-B117-69032DC2EE61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.IL.Core", "core\Propeus.Modulo.IL.Core\Propeus.Module.IL.Core.csproj", "{838AC310-CDE2-4565-B117-69032DC2EE61}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager", "core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj", "{B0898E88-3391-4165-8681-9E68C365E22E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Dinamico", "core\Propeus.Modulo.Dinamico\Propeus.Modulo.Dinamico.csproj", "{00118310-E7C1-4483-9DA2-8E03BF005C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dinamic", "core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj", "{00118310-E7C1-4483-9DA2-8E03BF005C15}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console.Example", "..\examples\Propeus.Modulo.Console.Example\Propeus.Modulo.Console.Example.csproj", "{38ED0905-9F5E-417D-86D7-957F2AA554FF}"
 EndProject

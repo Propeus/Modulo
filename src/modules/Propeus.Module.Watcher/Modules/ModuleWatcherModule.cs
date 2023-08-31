@@ -12,8 +12,8 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.Util.Atributos;
-using Propeus.Modulo.Util.Thread;
+using Propeus.Module.Utils.Atributos;
+using Propeus.Module.Utils.Thread;
 
 namespace Propeus.Module.Watcher.Modules
 {

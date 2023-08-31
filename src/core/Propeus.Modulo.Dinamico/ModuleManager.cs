@@ -11,11 +11,11 @@ using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.IL.Core.Geradores;
-using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.Util.Atributos;
+using Propeus.Module.IL.Core.Geradores;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.Utils.Atributos;
 
-namespace Propeus.Modulo.Dinamico
+namespace Propeus.Module.Manager.Dinamic
 {
 
 
@@ -35,7 +35,7 @@ namespace Propeus.Modulo.Dinamico
         ///Criar uma instancia do gerenciador dinamico
         ///<code>
         ///using System;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -43,7 +43,7 @@ namespace Propeus.Modulo.Dinamico
         ///  {
         ///      private static void Main()
         ///      {
-        ///         using (gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///         using (gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///         {
         ///            //Seu codigo aqui...
         ///         }
@@ -147,7 +147,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -173,7 +173,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -188,7 +188,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;();
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -226,7 +226,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -251,7 +251,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -266,7 +266,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule(typeof(ICalculadoraModuloContrato));
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -309,7 +309,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -335,7 +335,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -350,7 +350,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato");
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -401,7 +401,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -434,7 +434,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -449,7 +449,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;(new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -490,7 +490,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -523,7 +523,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -538,7 +538,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule(typeof(ICalculadoraModuloContrato),new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -581,7 +581,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -614,7 +614,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -629,7 +629,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManagerArguments gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -669,7 +669,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -702,7 +702,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -717,7 +717,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///           using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///           using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -747,7 +747,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -780,7 +780,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -795,7 +795,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -822,7 +822,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -855,7 +855,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -870,7 +870,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -897,7 +897,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -930,7 +930,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -945,7 +945,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -979,7 +979,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1012,7 +1012,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1027,7 +1027,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1063,7 +1063,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1096,7 +1096,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1111,7 +1111,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1140,7 +1140,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1173,7 +1173,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1188,7 +1188,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1221,7 +1221,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1254,7 +1254,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1269,7 +1269,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1303,7 +1303,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1336,7 +1336,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1351,7 +1351,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1395,7 +1395,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1427,7 +1427,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1442,7 +1442,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1476,7 +1476,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1509,7 +1509,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1524,7 +1524,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1558,7 +1558,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1591,7 +1591,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1606,7 +1606,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));
@@ -1634,7 +1634,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1667,7 +1667,7 @@ namespace Propeus.Modulo.Dinamico
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///using Propeus.Module.Manager;
-        ///using Propeus.Modulo.Dinamico;
+        ///using Propeus.Module.Manager.Dinamic;
         ///
         ///namespace Propeus.Modulo.Example
         ///{
@@ -1682,7 +1682,7 @@ namespace Propeus.Modulo.Dinamico
         ///    {
         ///        private static void Main(string[] args)
         ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
         ///            {
         ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
         ///                Console.WriteLine(modulo.Calcular(1,1));

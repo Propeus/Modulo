@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Module.Abstract.Attributes;
-using Propeus.Modulo.IL.Core.Geradores;
-using Propeus.Modulo.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Geradores;
+using Propeus.Module.IL.Core.Helpers;
 
 namespace Propeus.Modulo.IL.CoreTests.Helpers
 {
@@ -90,7 +90,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
             Assert.IsNotNull(Proxy);
             for (int i = 0; i < 20; i++)
             {
-                Proxy = Proxy.NovaVersao("Teste.NovaVersao.Namespace", typeof(object), new Type[] { typeof(ITeste) }, new Core.Enums.Token[] { Core.Enums.Token.Publico }).CriarProxyClasse(typeof(Teste));
+                Proxy = Proxy.NovaVersao("Teste.NovaVersao.Namespace", typeof(object), new Type[] { typeof(ITeste) }, new Module.IL.Core.Enums.Token[] { Module.IL.Core.Enums.Token.Publico }).CriarProxyClasse(typeof(Teste));
                 Assert.IsNotNull(Proxy);
                 Proxy.Executar();
                 tpProxy = Proxy.ObterTipoGerado();

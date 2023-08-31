@@ -5,8 +5,8 @@ using System.Text;
 
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
-using Propeus.Modulo.IL.Core.Geradores;
-using Propeus.Modulo.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Geradores;
+using Propeus.Module.IL.Core.Helpers;
 
 namespace Propeus.Module.Watcher.Models
 {

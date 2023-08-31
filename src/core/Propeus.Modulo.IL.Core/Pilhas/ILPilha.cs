@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Interfaces;
-using Propeus.Modulo.IL.Core.Proxy;
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Core.Proxy;
 
-namespace Propeus.Modulo.IL.Core.Pilhas
+namespace Propeus.Module.IL.Core.Pilhas
 {
     internal class ILPilha : IILPilha
     {

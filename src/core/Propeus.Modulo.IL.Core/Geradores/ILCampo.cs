@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-using Propeus.Modulo.IL.Core.Enums;
-using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.IL.Core.Interfaces;
-using Propeus.Modulo.IL.Core.Proxy;
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Modulo.IL.Geradores
 {

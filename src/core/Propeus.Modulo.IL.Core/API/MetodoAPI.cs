@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 
-using Propeus.Modulo.IL.Core.Pilhas;
-using Propeus.Modulo.IL.Core.Pilhas.Campos;
+using Propeus.Module.IL.Core.Pilhas;
+using Propeus.Module.IL.Core.Pilhas.Campos;
 using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Core.API
+namespace Propeus.Module.IL.Core.API
 {
     internal class MetodoAPI
     {

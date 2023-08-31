@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Propeus.Modulo.Util.Thread
+namespace Propeus.Module.Utils.Thread
 {
     /// <summary>
     /// https://docs.microsoft.com/pt-br/dotnet/api/system.threading._tasks.taskscheduler?view=netcore-3.1

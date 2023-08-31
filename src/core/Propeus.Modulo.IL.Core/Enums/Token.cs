@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Propeus.Modulo.IL.Core.Enums
+namespace Propeus.Module.IL.Core.Enums
 {
     /// <summary>
     /// Enumerador para identificar o tipo de acessador de uma classe, metodo, propriedade etc.

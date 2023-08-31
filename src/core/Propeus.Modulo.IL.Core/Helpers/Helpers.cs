@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.Util.Objetos;
+using Propeus.Module.Utils.Objetos;
 
-namespace Propeus.Modulo.IL.Core.Helpers
+namespace Propeus.Module.IL.Core.Helpers
 {
     internal static class Helpers
     {

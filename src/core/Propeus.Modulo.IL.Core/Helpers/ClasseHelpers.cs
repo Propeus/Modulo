@@ -4,12 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.API;
-using Propeus.Modulo.IL.Core.Enums;
-using Propeus.Modulo.IL.Core.Geradores;
+using Propeus.Module.IL.Core.API;
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores;
 using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Core.Helpers
+namespace Propeus.Module.IL.Core.Helpers
 {
     public static class ClasseHelpers
     {

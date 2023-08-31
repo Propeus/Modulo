@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace Propeus.Modulo.Util.Atributos
+namespace Propeus.Module.Utils.Atributos
 {
     /// <summary>
     /// Classe de ajuda para <see cref="Attribute"/>

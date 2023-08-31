@@ -3,7 +3,7 @@
 using Propeus.Module.Watcher.Modules;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Dinamico
+namespace Propeus.Module.Manager.Dinamic
 {
     /// <summary>
     /// Classe de extensão para o gerenciador dinâmico

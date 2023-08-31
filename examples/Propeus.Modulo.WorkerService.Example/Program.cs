@@ -31,7 +31,7 @@ using Propeus.Modulo.WorkerService;
 * **/
 IHost host = Host.CreateDefaultBuilder(args)
     //Pode usar a extensão UseModuleManager passando o modulo dinâmico
-    .UseModuleManager(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+    .UseModuleManager(Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
     .ConfigureServices(services =>
     {
         /**

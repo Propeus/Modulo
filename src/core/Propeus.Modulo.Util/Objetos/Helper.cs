@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Propeus.Modulo.Util.Objetos
+namespace Propeus.Module.Utils.Objetos
 {
     /// <summary>
     /// Classe de ajuda para tipos variados

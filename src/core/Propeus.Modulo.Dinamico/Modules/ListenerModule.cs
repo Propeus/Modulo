@@ -5,7 +5,7 @@ using Propeus.Module.Watcher.Contracts;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Dinamico.Modules
+namespace Propeus.Module.Manager.Dinamic.Modules
 {
     /// <summary>
     /// Modulo para definir ouvintes para o <see cref="IModuleWatcherContract"/>

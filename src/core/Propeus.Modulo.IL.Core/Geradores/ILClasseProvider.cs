@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Enums;
-using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.IL.Core.Interfaces;
-using Propeus.Modulo.IL.Core.Proxy;
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Core.Proxy;
 using Propeus.Modulo.IL.Geradores;
 
-namespace Propeus.Modulo.IL.Core.Geradores
+namespace Propeus.Module.IL.Core.Geradores
 {
 
 

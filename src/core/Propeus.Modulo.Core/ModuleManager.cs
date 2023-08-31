@@ -12,9 +12,9 @@ using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.Util.Atributos;
-using Propeus.Modulo.Util.Objetos;
-using Propeus.Modulo.Util.Tipos;
+using Propeus.Module.Utils.Atributos;
+using Propeus.Module.Utils.Objetos;
+using Propeus.Module.Utils.Tipos;
 
 namespace Propeus.Module.Manager
 {

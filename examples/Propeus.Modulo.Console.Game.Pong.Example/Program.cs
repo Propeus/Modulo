@@ -20,7 +20,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
     {
         private static async Task Main(string[] args)
         {
-            using (IModuleManager gen = Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            using (IModuleManager gen = Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
             {
                 if (!gen.ExistsModule(typeof(IWindowModuleContract)))
                 {

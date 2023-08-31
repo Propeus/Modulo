@@ -1,8 +1,8 @@
 ﻿using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Proxy;
+using Propeus.Module.IL.Core.Proxy;
 
-namespace Propeus.Modulo.IL.Core.Pilhas
+namespace Propeus.Module.IL.Core.Pilhas
 {
     /// <summary>
     /// Carrega o agumento no indice desejado

@@ -13,7 +13,7 @@ namespace Propeus.Modulo.DinamicoTests
         public void Init()
         {
             Propeus.Module.Abstract.Interfaces.IModuleManager gen = Module.Manager.ModuleManagerExtensions.CreateModuleManager();
-            provider = Dinamico.ModuleManagerExtensions.CreateModuleManager(gen).GetModule<IModuleWatcherContract>();
+            provider = Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(gen).GetModule<IModuleWatcherContract>();
         }
         [TestCleanup]
         public void Cleanup()

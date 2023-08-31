@@ -4,10 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.IL.Core.Proxy;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Proxy;
 
-namespace Propeus.Modulo.IL.Core.Pilhas
+namespace Propeus.Module.IL.Core.Pilhas
 {
     /// <summary>
     /// Chama uma função

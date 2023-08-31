@@ -1,4 +1,4 @@
-﻿namespace Propeus.Modulo.IL.Core.Interfaces
+﻿namespace Propeus.Module.IL.Core.Interfaces
 {
     /// <summary>
     /// Interface para execução de função

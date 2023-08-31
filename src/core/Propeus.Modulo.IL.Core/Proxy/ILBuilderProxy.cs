@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Propeus.Modulo.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Helpers;
 
-namespace Propeus.Modulo.IL.Core.Proxy
+namespace Propeus.Module.IL.Core.Proxy
 {
     /// <summary>
     /// Abstração de <see cref="PropertyBuilder"/>, <see cref="MethodBuilder"/>, <see cref="FieldBuilder"/>, <see cref="EventBuilder"/> em um unico objeto
