@@ -367,7 +367,13 @@ namespace Propeus.Modulo.Core
 
                         if (args[i] is null)
                         {
-                            args[i] = CreateModule(paramCtor[i].ParameterType);
+                            args[i] = CreateModule(paramCtor[i].ParameterType);  
+                        }
+
+                        var attr = args[i].GetType().GetModuleAttribute();
+                        if (attr.Singleton && attr.KeepAlive || attr.AutoStartable && attr.Singleton)
+                        {
+                            KeepAliveModule(args[i] as IModule);
                         }
                     }
                     catch (ModuleTypeNotFoundException)
@@ -725,10 +731,10 @@ namespace Propeus.Modulo.Core
             CheckModuleManagerStatus();
 
             moduleType = ResolveContract(moduleType);
-            
+
             IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException(moduleType);
-         
-           
+
+
             return moduloInstancia.Module;
         }
         ///<inheritdoc/>
@@ -1476,6 +1482,7 @@ namespace Propeus.Modulo.Core
 
         }
 
+        [Obsolete("Não tem mais servintia, será removido na proxima otimização",false)]
         /// <summary>
         /// Registra um module no gerenciador
         /// </summary>

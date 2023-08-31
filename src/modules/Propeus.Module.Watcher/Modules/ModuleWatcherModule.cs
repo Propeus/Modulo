@@ -168,11 +168,7 @@ namespace Propeus.Module.Watcher.Modules
         }
 
         #region Eventos & Funcoes
-        private void TesteFuncao(ModuleProviderInfo info)
-        {
-
-        }
-
+    
         private void _fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
             if (_modulesInfo.ContainsKey(e.OldFullPath))
