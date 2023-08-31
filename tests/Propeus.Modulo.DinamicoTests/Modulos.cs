@@ -15,7 +15,7 @@ namespace Propeus.Modulo.DinamicoTests
     {
         //O parametro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilziando uma unica instancia quando houver.
         //Por padrao o valor para instanciaUnica é false
-        public ModuloDeExemploParaPropeusModuloDinamico() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamico() : base()
         {
         }
 
@@ -48,7 +48,7 @@ namespace Propeus.Modulo.DinamicoTests
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base()
         {
             this.outroModulo = outroModulo;
         }
@@ -65,7 +65,7 @@ namespace Propeus.Modulo.DinamicoTests
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(bool instanciaUnica = false, IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base(instanciaUnica)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base()
         {
             this.outroModulo = outroModulo;
         }
@@ -92,7 +92,7 @@ namespace Propeus.Modulo.DinamicoTests
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base()
         {
 
         }
@@ -133,7 +133,7 @@ namespace Propeus.Modulo.DinamicoTests
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao() : base()
         {
 
         }

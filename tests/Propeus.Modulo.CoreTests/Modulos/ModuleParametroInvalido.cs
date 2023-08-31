@@ -8,7 +8,7 @@ namespace Propeus.Modulo.CoreTests
         [Module]
         public class ModuleParametroInvalido : BaseModule, IModuleValido
         {
-            public ModuleParametroInvalido(int a) : base(false)
+            public ModuleParametroInvalido(int a) : base()
             {
             }
         }

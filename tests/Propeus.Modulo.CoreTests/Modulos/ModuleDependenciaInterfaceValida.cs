@@ -8,7 +8,7 @@ namespace Propeus.Modulo.CoreTests
         [Module]
         public class ModuleDependenciaInterfaceValida : BaseModule
         {
-            public ModuleDependenciaInterfaceValida(IModuleValido iModule) : base(false)
+            public ModuleDependenciaInterfaceValida(IModuleValido iModule) : base()
             {
             }
         }

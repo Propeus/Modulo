@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 using Propeus.Modulo.Abstrato.Interfaces;
 
@@ -12,19 +13,12 @@ namespace Propeus.Modulo.Abstrato
         /// <summary>
         /// Inicializa um modulo
         /// </summary>
-        /// <param name="isSingleInstance">Informa se a instancia é unica ou multipla</param>
-        protected BaseModule(bool isSingleInstance = false) : base()
+        protected BaseModule() : base()
         {
-            IsSingleInstance = isSingleInstance;
             Name = GetType().Name;
-
-
         }
 
-        /// <summary>
-        /// Informa se o modulo é instancia unica
-        /// </summary>
-        public bool IsSingleInstance { get; }
+
 
         /// <summary>
         /// Exibe informacoes basicas sobre o modulo
@@ -34,7 +28,7 @@ namespace Propeus.Modulo.Abstrato
         {
             StringBuilder sb = new(base.ToString());
 
-            _ = sb.AppendLine($"Instancia Unica: {IsSingleInstance}");
+            _ = sb.AppendLine($"Nome: {Name}");
 
             return sb.ToString();
         }

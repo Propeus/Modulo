@@ -8,7 +8,7 @@ namespace Propeus.Modulo.CoreTests
         [Module]
         public class ModuleParametroInvalidoOpcional : BaseModule, IModuleValido
         {
-            public ModuleParametroInvalidoOpcional(bool instanciaUnica = false) : base(instanciaUnica)
+            public ModuleParametroInvalidoOpcional() : base()
             {
             }
         }

@@ -7,7 +7,7 @@ using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 {
-    [Module(AutoUpdate = true, AutoStartable = false)]
+    [Module(AutoUpdate = true, AutoStartable = false, Singleton = true)]
     public class WindowModule : BaseModule
     {
         private readonly IModuleManagerArguments gerenciador;
@@ -15,7 +15,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
 
 
-        public WindowModule(IModuleManager gerenciador, int? width, int? height, ControlsModule controlsModule) : base(true)
+        public WindowModule(IModuleManager gerenciador, int? width, int? height, ControlsModule controlsModule) : base()
         {
             this.gerenciador = gerenciador as IModuleManagerArguments;
             multiplier = 1.1f;
@@ -48,12 +48,12 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
         private void PaddleB_ScoreEvent(int obj)
         {
-            flg_loop=false;
+            flg_loop = false;
         }
 
         private void PaddleA_ScoreEvent(int obj)
         {
-            flg_loop=false;
+            flg_loop = false;
 
         }
 

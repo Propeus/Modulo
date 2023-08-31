@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 
 using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 using Propeus.Modulo.Hosting.Contracts;
 
@@ -145,7 +146,7 @@ namespace Propeus.Modulo.Hosting
         public ModuleViewCompilerProvider(ApplicationPartManager applicationPartManager, ILoggerFactory loggerFactory, IModuleManager moduleManager)
         {
             this.Compiler = new ModuleViewCompiler(applicationPartManager, loggerFactory);
-            this.moduloApplicationPart = new ModuloApplicationPart(this.Compiler, moduleManager,applicationPartManager);
+            this.moduloApplicationPart = new ModuloApplicationPart(this.Compiler, moduleManager, applicationPartManager);
         }
 
         protected IViewCompiler Compiler { get; }
@@ -171,7 +172,7 @@ namespace Propeus.Modulo.Hosting
         }
     }
 
-
+    [Module(Singleton = true)]
     internal class ModuloApplicationPart : BaseModule
     {
         private IViewCompiler ViewCompiler { get; set; }
@@ -179,7 +180,7 @@ namespace Propeus.Modulo.Hosting
 
         private readonly bool _sincronizado = false;
 
-        public ModuloApplicationPart(IViewCompiler ViewCompiler, IModuleManager moduleManager, ApplicationPartManager applicationPartManager) : base(true)
+        public ModuloApplicationPart(IViewCompiler ViewCompiler, IModuleManager moduleManager, ApplicationPartManager applicationPartManager) : base()
         {
             this.ViewCompiler = ViewCompiler;
             ApplicationPartManager = applicationPartManager;
@@ -259,7 +260,7 @@ namespace Propeus.Modulo.Hosting
         {
             if (moduleType.Name.Contains("Controller"))
             {
-               
+
                 UnloadModuleController(moduleType.Assembly);
                 CommitChange();
 
@@ -271,7 +272,7 @@ namespace Propeus.Modulo.Hosting
             if (moduleType.Name.Contains("Controller"))
             {
                 LoadModuleController(moduleType.Assembly);
-               
+
                 CommitChange();
             }
         }

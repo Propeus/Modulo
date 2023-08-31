@@ -3,10 +3,10 @@ using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.CoreTests.Modulos
 {
-    [Module]
+    [Module(Singleton = true)]
     public class TesteInstanciaUnicaModule : BaseModule
     {
-        public TesteInstanciaUnicaModule() : base(true)
+        public TesteInstanciaUnicaModule() : base()
         {
         }
 

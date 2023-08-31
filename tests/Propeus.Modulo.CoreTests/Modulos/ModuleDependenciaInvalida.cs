@@ -5,10 +5,10 @@ namespace Propeus.Modulo.CoreTests
 {
     public partial class GerenciadorTests
     {
-        [Module]
+        [Module(Singleton = true)]
         public class ModuleDependenciaInvalida : BaseModule
         {
-            public ModuleDependenciaInvalida(ModuleInvallido ModuleInvallido) : base(true)
+            public ModuleDependenciaInvalida(ModuleInvallido ModuleInvallido) : base()
             {
             }
         }

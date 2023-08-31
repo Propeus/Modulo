@@ -30,8 +30,8 @@ using Propeus.Modulo.WorkerService;
 * o modulo ate que ele mesmo pare por alguma circunstancia que nao seja a atualização de modulo.
 * **/
 IHost host = Host.CreateDefaultBuilder(args)
-    //Pode usar a extinção UseModuleManager passando o modulo dinâmico
-    .ConfigureModuleManager(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
+    //Pode usar a extensão UseModuleManager passando o modulo dinâmico
+    .UseModuleManager(Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(Propeus.Modulo.Core.ModuleManagerExtensions.CreateModuleManager()))
     .ConfigureServices(services =>
     {
         /**

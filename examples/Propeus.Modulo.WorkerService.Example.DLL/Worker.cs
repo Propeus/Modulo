@@ -2,7 +2,7 @@ using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.WorkerService.Example.DLL;
 
-[Module(AutoStartable = true, AutoUpdate = true, KeepAlive = true,Singleton =true)]
+[Module(AutoStartable = true, AutoUpdate = true, KeepAlive = true, Singleton = false)]
 public class Worker : BackgroundServiceModulo
 {
 
@@ -10,7 +10,7 @@ public class Worker : BackgroundServiceModulo
     * Use este worker no projeto de exemplo 'Propeus.Module.WorkerService.Example'
     * **/
 
-    public Worker() : base(false)
+    public Worker() : base()
     {
 
     }

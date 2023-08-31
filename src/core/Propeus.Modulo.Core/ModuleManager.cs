@@ -328,6 +328,11 @@ namespace Propeus.Modulo.Core
             }
             moduleType = ResolveContract(moduleType);
 
+            if (moduleType.GetModuleAttribute().Singleton && ExistsModule(moduleType))
+            {
+                throw new ModuleSingleInstanceException(moduleType);
+            }
+
             ConstructorInfo ctor = moduleType.GetConstructors().MaxBy(x => x.GetParameters().Length);
             if (ctor is null)
             {
@@ -347,14 +352,14 @@ namespace Propeus.Modulo.Core
                         .FirstOrDefault(x => x.Module is IModuleManager);
                     args[i] = gen?.Module as IModuleManager ?? this;
                 }
-                else if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) || paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>())
+                else if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) && paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>())
                 {
                     try
                     {
                         if (ExistsModule(paramCtor[i].ParameterType))
                         {
                             var module = GetModule(paramCtor[i].ParameterType);
-                            if (module.IsSingleInstance)
+                            if (module.GetType().GetModuleAttribute().Singleton)
                             {
                                 args[i] = module;
                             }
@@ -1478,11 +1483,6 @@ namespace Propeus.Modulo.Core
         /// <exception cref="ModuleSingleInstanceException">O module não pode ser registrado, pois já existe uma instancia em execução</exception>
         private void Register(IModule module)
         {
-            if (module.IsSingleInstance && ExistsModule(module.GetType()))
-            {
-                throw new ModuleSingleInstanceException(module);
-            }
-
             modules.TryAdd(module.Id, new ModuloTipo(module));
         }
 

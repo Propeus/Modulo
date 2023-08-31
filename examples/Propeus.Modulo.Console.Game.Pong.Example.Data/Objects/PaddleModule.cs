@@ -11,7 +11,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
     {
         public event Action<int> ScoreEvent;
 
-        public PaddleModule(int height = 0) : base(false)
+        public PaddleModule(int height = 0) : base()
         {
             Score = 0;
         }

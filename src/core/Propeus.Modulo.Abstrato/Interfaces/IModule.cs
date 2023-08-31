@@ -5,10 +5,6 @@
     /// </summary>
     public interface IModule : IBaseModel
     {
-        /// <summary>
-        /// Informa se o modulo é instancia unica
-        /// </summary>
-        /// <value><see langword="false"/></value>
-        bool IsSingleInstance { get; }
+        
     }
 }

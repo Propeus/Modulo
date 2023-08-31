@@ -15,7 +15,7 @@ namespace Propeus.Modulo.Console.Example
     {
         //O parâmetro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilizando uma unica instancia quando houver.
         //Por padrão o valor para instanciaUnica é false
-        public ModuloDeExemploParaPropeusModuloDinamico() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamico() : base()
         {
         }
 
@@ -48,7 +48,7 @@ namespace Propeus.Modulo.Console.Example
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaObrigatoria(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComOutroMetodoSemUsoDeTypeOf outroModulo) : base()
         {
             this.outroModulo = outroModulo;
         }
@@ -65,7 +65,7 @@ namespace Propeus.Modulo.Console.Example
     {
         private readonly IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(bool instanciaUnica = false, IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base(instanciaUnica)
+        public ModuloDeExemploParaPropeusModuloDinamicoComDependenciaOpcional(IInterfaceDeContratoDeExemploParaPropeusModuloDinamicoComModuloInexistente outroModulo = null) : base()
         {
             this.outroModulo = outroModulo;
         }
@@ -92,7 +92,7 @@ namespace Propeus.Modulo.Console.Example
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base()
         {
 
         }
@@ -127,13 +127,13 @@ namespace Propeus.Modulo.Console.Example
     }
 
     [Module]
-    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao : BaseModule
+    public class ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample : BaseModule
     {
         private string mensagem;
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao() : base(false)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample() : base()
         {
 
         }

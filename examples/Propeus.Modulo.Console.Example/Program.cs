@@ -128,7 +128,7 @@ namespace Propeus.Modulo.Console.Example
              * */
             using (IModuleManagerArguments gerenciador = Propeus.Modulo.Dinamico.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()) as IModuleManagerArguments)
             {
-                ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao>(new object[] { 15, 20 });
+                ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample>(new object[] { 15, 20 });
                 modulo.EscreverOlaMundo();
                 //Veja em seu console o funcionamento do modulo
             }

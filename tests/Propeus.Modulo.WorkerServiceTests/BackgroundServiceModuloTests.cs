@@ -51,7 +51,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         {
             _ = gerenciador.CreateModule<ModuloTesteWorker>();
             ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
-            Assert.AreEqual(Abstrato.State.Created, worker.State);
+            Assert.AreEqual(Abstrato.State.Initialized, worker.State);
         }
 
         [TestMethod()]
@@ -67,7 +67,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         {
             _ = gerenciador.CreateModule<ModuloTesteWorker>();
             ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
-            Assert.AreEqual(Abstrato.State.Created, worker.State);
+            Assert.AreEqual(Abstrato.State.Initialized, worker.State);
             gerenciador.RemoveModule(worker);
             Assert.AreEqual(Abstrato.State.Off, worker.State);
         }

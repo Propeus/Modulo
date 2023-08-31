@@ -57,7 +57,7 @@ namespace Propeus.Modulo.Dinamico
         ///}
         ///</code>
         ///</example>
-        public ModuleManager(IModuleManager moduleManager) : base(true)
+        public ModuleManager(IModuleManager moduleManager) : base()
         {
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             StartDate = DateTime.Now;
@@ -658,7 +658,8 @@ namespace Propeus.Modulo.Dinamico
         ///</example>
         public IModule CreateModule(string moduleName, object[] args)
         {
-            var module = CreateModuleNonConfigurated(GetModule<IModuleWatcherContract>()[moduleName]);
+            var moduleWatcher = GetModule<IModuleWatcherContract>();
+            var module = CreateModuleNonConfigurated(moduleWatcher[moduleName]);
             InvocarInstanciaConfiguracao(args, module);
             return module;
         }

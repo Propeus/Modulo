@@ -2,6 +2,7 @@
 using System.Text;
 
 using Propeus.Modulo.Abstrato;
+using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
 
 namespace Propeus.Modulo.Core
@@ -21,7 +22,7 @@ namespace Propeus.Modulo.Core
         public ModuloTipo(IModule modulo)
         {
             WeakReference = new WeakReference(modulo);
-            IsSingleInstance = modulo.IsSingleInstance;
+            IsSingleInstance = modulo.GetType().GetModuleAttribute().Singleton;
             IdModule = modulo.Id;
             Version = modulo.Version;
             Name = modulo.Name;

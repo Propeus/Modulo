@@ -16,7 +16,7 @@ namespace Propeus.Modulo.WorkerService
     {
 
         ///<inheritdoc/>
-        protected BackgroundServiceModulo(bool instanciaUnica = false) : base(instanciaUnica)
+        protected BackgroundServiceModulo() : base()
         {
 
         }

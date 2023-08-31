@@ -10,7 +10,7 @@ using Propeus.Modulo.Abstrato.Attributes;
 
 namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 {
-    [Module(AutoUpdate = false, AutoStartable = false)]
+    [Module(AutoUpdate = false, AutoStartable = false, Singleton = true)]
     public class ControlsModule : BaseModule
     {
         private CancellationTokenSource _cancelationTokenSouce;
@@ -21,7 +21,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
         public event Action Down;
         public event Action Exit;
 
-        public ControlsModule() : base(true)
+        public ControlsModule() : base()
         {
             _exit = false;
             _cancelationTokenSouce = new CancellationTokenSource();
@@ -67,7 +67,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
                 _exit = true;
                 try
                 {
-                    if(_controlPlayer.Status == TaskStatus.Running)
+                    if (_controlPlayer.Status == TaskStatus.Running)
                     {
                         _cancelationTokenSouce?.Cancel();
                     }

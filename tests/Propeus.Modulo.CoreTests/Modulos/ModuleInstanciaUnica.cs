@@ -8,7 +8,7 @@ namespace Propeus.Modulo.CoreTests
         [Module]
         public class ModuleInstanciaUnica : BaseModule, IModuleInstanciaUnica
         {
-            public ModuleInstanciaUnica() : base(true)
+            public ModuleInstanciaUnica() : base()
             {
             }
         }

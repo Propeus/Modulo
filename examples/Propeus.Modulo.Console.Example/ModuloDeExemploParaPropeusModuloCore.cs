@@ -10,7 +10,7 @@ namespace Propeus.Modulo.Console.Example
     {
         //O parâmetro instanciaUnica indica se o gerenciador pode criar uma nova instancia sempre que for solicitado ou se deve ser utilizando uma unica instancia quando houver.
         //Por padrão o valor para instanciaUnica é false
-        public ModuloDeExemploParaPropeusModuloCore() : base(false)
+        public ModuloDeExemploParaPropeusModuloCore() : base()
         {
         }
 

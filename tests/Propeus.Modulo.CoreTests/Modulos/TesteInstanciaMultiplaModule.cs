@@ -6,7 +6,7 @@ namespace Propeus.Modulo.CoreTests.Modulos
     [Module]
     public class TesteInstanciaMultiplaModule : BaseModule
     {
-        public TesteInstanciaMultiplaModule() : base(false)
+        public TesteInstanciaMultiplaModule() : base()
         {
         }
 

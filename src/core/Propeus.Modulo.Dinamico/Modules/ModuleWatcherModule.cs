@@ -19,7 +19,7 @@ namespace Propeus.Modulo.Dinamico.Modules
     /// <summary>
     /// Modulo para mapear e atualizar outros modulos em tempo de execucao
     /// </summary>
-    [Module]
+    [Module(Singleton = true)]
     public class ModuleWatcherModule : BaseModule, IModuleWatcherContract
     {
         ///<inheritdoc/>
@@ -36,8 +36,8 @@ namespace Propeus.Modulo.Dinamico.Modules
         {
             get
             {
-                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType));
-                if (info.Any() && info.Count() == 1 && info.First().Value.Modules[nameType].IsValid)
+                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType) && x.Value.Modules[nameType].IsValid);
+                if (info.Count() == 1)
                 {
                     if (info.First().Value.Modules[nameType].ModuleProxy is not null && info.First().Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
                     {
@@ -47,6 +47,22 @@ namespace Propeus.Modulo.Dinamico.Modules
                     {
                         return target;
                     }
+                }
+                else if (info.Count() > 1)
+                {
+                    List<Type> modulosduplicados = new List<Type>();
+                    foreach (var item in info)
+                    {
+                        if (item.Value.Modules[nameType].ModuleProxy is not null && item.Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
+                        {
+                            modulosduplicados.Add(proxy);
+                        }
+                        if (item.Value.Modules[nameType].Module.TryGetTarget(out Type? target))
+                        {
+                            modulosduplicados.Add(target);
+                        }
+                    }
+                    throw new ModuleAmbiguousException(modulosduplicados);
                 }
 
                 return default;
@@ -69,7 +85,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// Construtor padrao
         /// </summary>
         /// <param name="moduleManager">Gerenciador de modulos</param>
-        public ModuleWatcherModule(IModuleManager moduleManager) : base(true)
+        public ModuleWatcherModule(IModuleManager moduleManager) : base()
         {
             _moduleManager = moduleManager;
         }
@@ -121,7 +137,7 @@ namespace Propeus.Modulo.Dinamico.Modules
             _fileSystemWatcher.Deleted += _fileSystemWatcher_OnEvent;
             _fileSystemWatcher.Renamed += _fileSystemWatcher_Renamed;
             _fileSystemWatcher.Filter = "*.dll";
-            _fileSystemWatcher.IncludeSubdirectories = true;
+            _fileSystemWatcher.IncludeSubdirectories = false; //Desabilitado pois o fine coverage copia as dll, duplicando e causando erros inesperados
             _fileSystemWatcher.Path = _currentDirectory;
             _fileSystemWatcher.EnableRaisingEvents = true;
 
@@ -142,7 +158,7 @@ namespace Propeus.Modulo.Dinamico.Modules
                 ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, true, _moduleManager);
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
-            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.AllDirectories).Except(_assmLibsPath))
+            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.TopDirectoryOnly).Except(_assmLibsPath))
             {
                 FileInfo fi = new FileInfo(modulePath);
                 _fileSystemWatcher_OnEvent(null, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));

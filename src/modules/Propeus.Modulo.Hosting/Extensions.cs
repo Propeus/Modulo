@@ -16,9 +16,9 @@ namespace Propeus.Modulo.Hosting
         /// <param name="configureHostBuilder">O builder</param>
         /// <param name="gerenciador">O gerenciador a ser anexado na aplicacao</param>
         /// <returns></returns>
-        public static IHostBuilder ConfigureModuleManagerForMvc(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
+        public static IHostBuilder UseModuleManagerForMvc(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
         {
-            configureHostBuilder.ConfigureModuleManager(gerenciador,(module, serviceDescriptors) => {
+            configureHostBuilder.UseModuleManager(gerenciador,(module, serviceDescriptors) => {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
                 serviceDescriptors.AddSingleton(gerenciador);
 
