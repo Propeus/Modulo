@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
-		
-		<Product>Propeus.Modulo.Dinamico</Product>
+
+		<Product>Propeus.Module.Watcher</Product>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente para gerenciar modulos em tempo de execução</Description>
+		<Description>Modulo para mapear outros modulos em disco</Description>
 
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
@@ -16,31 +16,25 @@
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
 
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Dinamico</PackageTags>
-		<PackageId>Propeus.Modulo.Dinamico</PackageId>
+		<PackageTags>Propeus Net Modulo Watcher</PackageTags>
+		<PackageId>Propeus.Module.Watcher</PackageId>
 		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
-		<AssemblyName>Propeus.Modulo.Dinamico</AssemblyName>
-		<RootNamespace>Propeus.Modulo.Dinamico</RootNamespace>
+		<AssemblyName>Propeus.Module.Watcher</AssemblyName>
+		<RootNamespace>Propeus.Module.Watcher</RootNamespace>
 
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		
+
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\modules\Propeus.Module.Watcher\Propeus.Module.Watcher.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="LICENCE">
-	    <PackagePath>\</PackagePath>
-	    <Pack>True</Pack>
-	  </None>
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Modulo.Abstrato.csproj" />
+    <ProjectReference Include="..\..\core\Propeus.Modulo.IL.Core\Propeus.Modulo.IL.Core.csproj" />
+  </ItemGroup>
 
 </Project>

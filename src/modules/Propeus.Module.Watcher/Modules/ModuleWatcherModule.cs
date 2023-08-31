@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
+using Propeus.Module.Watcher.Contracts;
+using Propeus.Module.Watcher.Models;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Dinamico.Contracts;
-using Propeus.Modulo.Dinamico.Models;
 using Propeus.Modulo.Util.Atributos;
 using Propeus.Modulo.Util.Thread;
 
-namespace Propeus.Modulo.Dinamico.Modules
+namespace Propeus.Module.Watcher.Modules
 {
     /// <summary>
     /// Modulo para mapear e atualizar outros modulos em tempo de execucao
     /// </summary>
-    [Module(Singleton = true)]
+    [Module(Singleton = true, AutoUpdate = false, AutoStartable = false, KeepAlive = true)]
     public class ModuleWatcherModule : BaseModule, IModuleWatcherContract
     {
         ///<inheritdoc/>
@@ -31,54 +32,7 @@ namespace Propeus.Modulo.Dinamico.Modules
 
         private ConcurrentDictionary<string, ModuleProviderInfo> _modulesInfo;
         private FileSystemWatcher _fileSystemWatcher;
-        ///<inheritdoc/>
-        public Type? this[string nameType]
-        {
-            get
-            {
-                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType) && x.Value.Modules[nameType].IsValid);
-                if (info.Count() == 1)
-                {
-                    if (info.First().Value.Modules[nameType].ModuleProxy is not null && info.First().Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
-                    {
-                        return proxy;
-                    }
-                    if (info.First().Value.Modules[nameType].Module.TryGetTarget(out Type? target))
-                    {
-                        return target;
-                    }
-                }
-                else if (info.Count() > 1)
-                {
-                    List<Type> modulosduplicados = new List<Type>();
-                    foreach (var item in info)
-                    {
-                        if (item.Value.Modules[nameType].ModuleProxy is not null && item.Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
-                        {
-                            modulosduplicados.Add(proxy);
-                        }
-                        if (item.Value.Modules[nameType].Module.TryGetTarget(out Type? target))
-                        {
-                            modulosduplicados.Add(target);
-                        }
-                    }
-                    throw new ModuleAmbiguousException(modulosduplicados);
-                }
-
-                return default;
-
-
-            }
-            set
-            {
-
-                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType));
-                if (info.Any() && info.Count() == 1 && info.First().Value.Modules[nameType].IsValid)
-                {
-                    info.First().Value.Modules[nameType].ModuleProxy.SetTarget(value);
-                }
-            }
-        }
+        SemaphoreSlim _semaphoreSlimChangeFile;
 
         #region init
         /// <summary>
@@ -87,7 +41,12 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// <param name="moduleManager">Gerenciador de modulos</param>
         public ModuleWatcherModule(IModuleManager moduleManager) : base()
         {
+            _semaphoreSlimChangeFile = new SemaphoreSlim(1);
             _moduleManager = moduleManager;
+            _listNameIgnoreModules = new List<string>() {
+            "Microsoft",
+            "System"
+            };
         }
 
 
@@ -147,28 +106,73 @@ namespace Propeus.Modulo.Dinamico.Modules
         /// </summary>
         public void CriarConfiguracao()
         {
-            foreach (string modulePath in _assmLibsPath)
-            {
-                if (string.IsNullOrEmpty(modulePath))
-                {
-                    continue;  //Por algum motivo a lista esta vindo com caminhos vazios
-                }
 
+            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.TopDirectoryOnly))
+            {
                 FileInfo fi = new FileInfo(modulePath);
-                ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, true, _moduleManager);
+                ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, _assmLibsPath.Contains(modulePath), _moduleManager, _listNameIgnoreModules);
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
-            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.TopDirectoryOnly).Except(_assmLibsPath))
-            {
-                FileInfo fi = new FileInfo(modulePath);
-                _fileSystemWatcher_OnEvent(null, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
-            }
 
-            State = Abstrato.State.Ready;
+            State = Propeus.Modulo.Abstrato.State.Ready;
         }
         #endregion
 
+        ///<inheritdoc/>
+        public Type? this[string nameType]
+        {
+            get
+            {
+                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType) && x.Value.Modules[nameType].IsValid);
+                if (info.Count() == 1)
+                {
+                    if (info.First().Value.Modules[nameType].ModuleProxy is not null && info.First().Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
+                    {
+                        return proxy;
+                    }
+                    if (info.First().Value.Modules[nameType].Module.TryGetTarget(out Type? target))
+                    {
+                        return target;
+                    }
+                }
+                else if (info.Count() > 1)
+                {
+                    List<Type> modulosduplicados = new List<Type>();
+                    foreach (var item in info)
+                    {
+                        if (item.Value.Modules[nameType].ModuleProxy is not null && item.Value.Modules[nameType].ModuleProxy.TryGetTarget(out Type? proxy))
+                        {
+                            modulosduplicados.Add(proxy);
+                        }
+                        if (item.Value.Modules[nameType].Module.TryGetTarget(out Type? target))
+                        {
+                            modulosduplicados.Add(target);
+                        }
+                    }
+                    throw new ModuleAmbiguousException(modulosduplicados);
+                }
+
+                return default;
+
+
+            }
+            set
+            {
+
+                IEnumerable<KeyValuePair<string, ModuleProviderInfo>> info = _modulesInfo.Where(x => x.Value.Modules.ContainsKey(nameType));
+                if (info.Any() && info.Count() == 1 && info.First().Value.Modules[nameType].IsValid)
+                {
+                    info.First().Value.Modules[nameType].ModuleProxy.SetTarget(value);
+                }
+            }
+        }
+
         #region Eventos & Funcoes
+        private void TesteFuncao(ModuleProviderInfo info)
+        {
+
+        }
+
         private void _fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
             if (_modulesInfo.ContainsKey(e.OldFullPath))
@@ -187,27 +191,22 @@ namespace Propeus.Modulo.Dinamico.Modules
 
         private void _fileSystemWatcher_OnEvent(object sender, FileSystemEventArgs e)
         {
+            ModuleProviderInfo mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, _assmLibsPath.Contains(e.FullPath), _moduleManager, _listNameIgnoreModules);
             switch (e.ChangeType)
             {
                 case WatcherChangeTypes.Created:
-                    ModuleProviderInfo mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, false, _moduleManager);
-                    if (_modulesInfo.TryAdd(e.FullPath, mpf))
+                    if ((_modulesInfo.TryAdd(e.FullPath, mpf) && mpf.Load()) || (_modulesInfo.TryGetValue(e.FullPath, out mpf) && mpf.Reload()))
                     {
-                        mpf.Load();
-                    }
-                    else if (_modulesInfo.TryGetValue(e.FullPath, out ModuleProviderInfo target))
-                    {
-                        target.Reload();
-                    }
-                    foreach (var item in mpf.Modules)
-                    {
-                        if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                        foreach (var item in mpf.Modules)
                         {
-                            OnLoadModule?.Invoke(target);
-                        }
-                        else if (item.Value.Module.TryGetTarget(out target))
-                        {
-                            OnLoadModule?.Invoke(target);
+                            if (item.Value.ModuleProxy.TryGetTarget(out var target))
+                            {
+                                OnReloadModule?.Invoke(target);
+                            }
+                            else if (item.Value.Module.TryGetTarget(out target))
+                            {
+                                OnReloadModule?.Invoke(target);
+                            }
                         }
                     }
 
@@ -231,69 +230,23 @@ namespace Propeus.Modulo.Dinamico.Modules
                     }
                     break;
                 case WatcherChangeTypes.Changed:
-                    if (_flgWatcherChange)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        _flgWatcherChange = true;
-                    }
+                    _semaphoreSlimChangeFile.Wait();
 
-                    if (_modulesInfo.ContainsKey(e.FullPath))
+                    if ((_modulesInfo.TryAdd(e.FullPath, mpf) && mpf.Load()) || (_modulesInfo.TryGetValue(e.FullPath, out mpf) && mpf.Reload()))
                     {
-                        if (_modulesInfo.TryGetValue(e.FullPath, out mpf))
+                        foreach (var item in mpf.Modules)
                         {
-                            if (mpf.Reload())
+                            if (item.Value.ModuleProxy.TryGetTarget(out var target))
                             {
-                                foreach (var item in mpf.Modules)
-                                {
-                                    if (item.Value.ModuleProxy.TryGetTarget(out var target))
-                                    {
-                                        OnReloadModule?.Invoke(target);
-                                    }
-                                    else if (item.Value.Module.TryGetTarget(out target))
-                                    {
-                                        OnReloadModule?.Invoke(target);
-                                    }
-                                }
+                                OnReloadModule?.Invoke(target);
                             }
-
-                        }
-                    }
-                    else if (_assmLibsPath.Contains(e.FullPath))
-                    {
-                        mpf = new ModuleProviderInfo(e.FullPath, true, _moduleManager);
-                        if (_modulesInfo.TryAdd(e.FullPath, mpf))
-                        {
-                            mpf.Load();
-                            foreach (var item in mpf.Modules)
+                            else if (item.Value.Module.TryGetTarget(out target))
                             {
-                                if (item.Value.ModuleProxy.TryGetTarget(out var target))
-                                {
-                                    OnLoadModule?.Invoke(target);
-                                }
-                                else if (item.Value.Module.TryGetTarget(out target))
-                                {
-                                    OnLoadModule?.Invoke(target);
-                                }
+                                OnReloadModule?.Invoke(target);
                             }
                         }
                     }
-                    else
-                    {
-                        mpf = sender as ModuleProviderInfo ?? new ModuleProviderInfo(e.FullPath, false, _moduleManager);
-                        if (_modulesInfo.TryAdd(e.FullPath, mpf))
-                        {
-                            mpf.Load();
-                        }
-                        else
-                        {
-                            mpf.Reload();
-                        }
-                    }
-
-                    _flgWatcherChange = false;
+                    _semaphoreSlimChangeFile.Release();
                     break;
                 case WatcherChangeTypes.All:
                     break;
@@ -309,6 +262,7 @@ namespace Propeus.Modulo.Dinamico.Modules
         private string _currentDirectory;
 
         private IModuleManager _moduleManager;
+        private List<string> _listNameIgnoreModules;
         private bool _flgWatcherChange;
         #endregion
 

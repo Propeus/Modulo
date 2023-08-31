@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
+using Propeus.Module.Watcher.Contracts;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Helpers;
 using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Dinamico.Contracts;
-using Propeus.Modulo.Dinamico.Modules;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
-using Propeus.Modulo.IL.Geradores;
 using Propeus.Modulo.Util.Atributos;
-using Propeus.Modulo.Util.Objetos;
 
 namespace Propeus.Modulo.Dinamico
 {

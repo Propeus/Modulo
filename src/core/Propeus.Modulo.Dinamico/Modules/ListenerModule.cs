@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
+using Propeus.Module.Watcher.Contracts;
 using Propeus.Modulo.Abstrato;
 using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
-using Propeus.Modulo.Dinamico.Contracts;
 
 namespace Propeus.Modulo.Dinamico.Modules
 {

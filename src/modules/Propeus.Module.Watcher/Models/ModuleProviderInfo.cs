@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Dinamico.Models
+namespace Propeus.Module.Watcher.Models
 {
     internal class ModuleProviderInfo
     {
 
 
 
-        public ModuleProviderInfo(string modulePath, bool isCurrentDomain, IModuleManager moduleManager)
+        public ModuleProviderInfo(string modulePath, bool isCurrentDomain, IModuleManager moduleManager, List<string> listNameIgnoreModules)
         {
             Modules = new Dictionary<string, ModuleInfo>();
 
@@ -27,10 +27,7 @@ namespace Propeus.Modulo.Dinamico.Models
             IsCurrentDomain = isCurrentDomain;
             this.moduleManager = moduleManager;
 
-            _listNameIgnoreModules = new List<string>() {
-            "Microsoft",
-            "System"
-            };
+            _listNameIgnoreModules = listNameIgnoreModules ?? new List<string>();
         }
 
         /// <summary>
@@ -194,7 +191,7 @@ namespace Propeus.Modulo.Dinamico.Models
         object _lockAssemblyLoadContext = new object();
         private void UpdateAssembly()
         {
-            if ((IsValidModule && !IsCurrentDomain) && (_assemblyLoadContext is null))
+            if (IsValidModule && !IsCurrentDomain && _assemblyLoadContext is null)
             {
                 lock (_lockAssemblyLoadContext)
                 {
@@ -352,7 +349,7 @@ namespace Propeus.Modulo.Dinamico.Models
                     }
                     break;
                 }
-                catch (System.IO.IOException)
+                catch (IOException)
                 {
 
                     if (i > 3)

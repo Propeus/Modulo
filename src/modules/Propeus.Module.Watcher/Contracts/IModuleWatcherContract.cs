@@ -5,7 +5,7 @@ using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.Abstrato.Exceptions;
 using Propeus.Modulo.Abstrato.Interfaces;
 
-namespace Propeus.Modulo.Dinamico.Contracts
+namespace Propeus.Module.Watcher.Contracts
 {
     /// <summary>
     /// Contrato para o modulo de nome 'ModuleWatcherModule'

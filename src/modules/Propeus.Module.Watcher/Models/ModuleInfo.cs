@@ -8,7 +8,7 @@ using Propeus.Modulo.Abstrato.Attributes;
 using Propeus.Modulo.IL.Core.Geradores;
 using Propeus.Modulo.IL.Core.Helpers;
 
-namespace Propeus.Modulo.Dinamico.Models
+namespace Propeus.Module.Watcher.Models
 {
     internal class ModuleInfo : BaseModel
     {

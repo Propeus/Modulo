@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Propeus.Modulo.Dinamico.Contracts;
+using Propeus.Module.Watcher.Contracts;
 
 namespace Propeus.Modulo.DinamicoTests
 {
