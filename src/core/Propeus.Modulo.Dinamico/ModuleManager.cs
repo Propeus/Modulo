@@ -24,7 +24,7 @@ namespace Propeus.Module.Manager.Dinamic
     /// ModuleProxy responsável por administrar modulos em tempo de execução
     /// </summary>
     [Module]
-    public class ModuleManager : BaseModule, IModuleManagerArguments
+    public class ModuleManager : BaseModule, IModuleManager
     {
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Propeus.Module.Manager.Dinamic
 
         private Dictionary<string, ILClasseProvider> ModuloProvider { get; set; }
 
-        private IModule CreateModuleNonConfigurated(Type moduleType)
+        private IModule CreateModuleNonConfigurated(Type moduleType, object[]? args = null)
         {
             if (moduleType is null)
             {
@@ -90,7 +90,8 @@ namespace Propeus.Module.Manager.Dinamic
             }
 
 
-            ConstructorInfo? ctor = moduleType.GetConstructors()
+            ConstructorInfo? ctor = moduleType
+                .GetConstructors()
                 .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException(moduleType);
 
             ParameterInfo[] @params = ctor.GetParameters();
@@ -121,261 +122,16 @@ namespace Propeus.Module.Manager.Dinamic
                 }
 
             }
+            IModule? module = null;
+            if (args != null && @params.Length > args.Length)
+            {
+                module = _gerenciador.CreateModule(moduleType, Propeus.Module.Utils.Objetos.Helper.JoinParameterValue(@params, args));
+            }
+            else
+            {
+                module = _gerenciador.CreateModule(moduleType);
+            }
 
-            var module = _gerenciador.CreateModule(moduleType);
-            return module;
-        }
-
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
-        ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo invalido</exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao herdado de <see cref="IModule"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao possui o atributo <see cref="ModuleAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">Parametro do construtor nao e um modulo valido</exception>
-        ///<exception cref="ModuleContractNotFoundException">ModuleType da interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType nao encontrado pelo nome no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType ausente no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleSingleInstanceException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuleBuilderAbsentException">Construtor ausente no modulo</exception>
-        ///<example>
-        ///Crie uma classe em um projeto separado
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///    [Module]
-        ///    public class CalculadoraModulo : BaseModule
-        ///    {
-        ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
-        ///        {
-        ///            
-        ///        }
-        ///        
-        ///        public int Calcular(int a, int b)
-        ///        {
-        ///            return a+b;
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///No projeto principal, adicione uma interface de contrato
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///
-        ///    [ModuleContract("CalculadoraModulo")]
-        ///    public interface ICalculadoraModuloContrato : IModule
-        ///    {
-        ///        public int Calcular(int a, int b);
-        ///    }
-        ///    
-        ///    internal class Program
-        ///    {
-        ///        private static void Main(string[] args)
-        ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
-        ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule&gt;ICalculadoraModuloContrato&lt;();
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///            }
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///<note type="tip">
-        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
-        ///</note>
-        ///</example>
-        public T CreateModule<T>() where T : IModule
-        {
-            return (T)CreateModule(typeof(T));
-        }
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
-        ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo invalido</exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao herdado de <see cref="IModule"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao possui o atributo <see cref="ModuleAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">Parametro do construtor nao e um modulo valido</exception>
-        ///<exception cref="ModuleContractNotFoundException">ModuleType da interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType nao encontrado pelo nome no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType ausente no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleSingleInstanceException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuleBuilderAbsentException">Construtor ausente no modulo</exception>
-        ///<example>
-        ///Crie uma classe em um projeto separado
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///    [Module]
-        ///    public class CalculadoraModulo : BaseModule
-        ///    {
-        ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
-        ///        {
-        ///            
-        ///        }
-        ///        
-        ///        public int Calcular(int a, int b)
-        ///        {
-        ///            return a+b;
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///No projeto principal, adicione uma interface de contrato
-        ///<code>
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///
-        ///    [ModuleContract("CalculadoraModulo")]
-        ///    public interface ICalculadoraModuloContrato : IModule
-        ///    {
-        ///        public int Calcular(int a, int b);
-        ///    }
-        ///    
-        ///    internal class Program
-        ///    {
-        ///        private static void Main(string[] args)
-        ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
-        ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule(typeof(ICalculadoraModuloContrato));
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///            }
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///<note type="tip">
-        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
-        ///</note>
-        ///<note type="important">
-        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
-        /// </note>
-        ///</example>
-        public IModule CreateModule(Type moduleType)
-        {
-            var module = CreateModuleNonConfigurated(moduleType);
-            InvocarInstanciaConfiguracao(Array.Empty<object>(), module);
-            return module;
-        }
-        ///<inheritdoc/>
-        ///<exception cref="ArgumentNullException">Parametro nulo</exception>
-        ///<exception cref="ArgumentException">O tipo informado não é uma interface</exception>
-        ///<exception cref="InvalidCastException">O tipo nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo invalido</exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao herdado de <see cref="IModule"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">ModuleType do modulo nao possui o atributo <see cref="ModuleAttribute"/></exception>
-        ///<exception cref="ModuleTypeInvalidException">Parametro do construtor nao e um modulo valido</exception>
-        ///<exception cref="ModuleContractNotFoundException">ModuleType da interface de contrato nao possui o atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType nao encontrado pelo nome no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleTypeNotFoundException">ModuleType ausente no atributo <see cref="ModuleContractAttribute"/></exception>
-        ///<exception cref="ModuleSingleInstanceException">Criacao de mais de uma instancia de modulo definido como instancia unica</exception>
-        ///<exception cref="ModuleBuilderAbsentException">Construtor ausente no modulo</exception>
-        ///<example>
-        ///Crie uma classe em um projeto separado
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///    [Module]
-        ///    public class CalculadoraModulo : BaseModule
-        ///    {
-        ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
-        ///        {
-        ///            
-        ///        }
-        ///        
-        ///        public int Calcular(int a, int b)
-        ///        {
-        ///            return a+b;
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///No projeto principal, adicione uma interface de contrato
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///
-        ///    [ModuleContract("CalculadoraModulo")]
-        ///    public interface ICalculadoraModuloContrato : IModule
-        ///    {
-        ///        public int Calcular(int a, int b);
-        ///    }
-        ///    
-        ///    internal class Program
-        ///    {
-        ///        private static void Main(string[] args)
-        ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
-        ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato");
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///            }
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        /// <note type="important">
-        /// Ao contrário do método do Gerenciador Core, este método consegue moduleWatcher interface de contrato pelo nome.
-        /// </note>
-        ///<note type="tip">
-        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
-        ///</note>
-        /// <note type="important">
-        /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
-        /// </note>
-        /// <note type="warning">
-        /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
-        /// </note>
-        ///</example>
-        public IModule CreateModule(string moduleName)
-        {
-            var module = CreateModuleNonConfigurated(GetModule<IModuleWatcherContract>()[moduleName]);
-            InvocarInstanciaConfiguracao(Array.Empty<object>(), module);
             return module;
         }
 
@@ -462,9 +218,9 @@ namespace Propeus.Module.Manager.Dinamic
         ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         ///</note>
         ///</example>
-        public T CreateModule<T>(object[] args) where T : IModule
+        public T CreateModule<T>(object[]? args = null) where T : IModule
         {
-            T modulo = (T)CreateModuleNonConfigurated(typeof(T));
+            T modulo = (T)CreateModuleNonConfigurated(typeof(T), args);
 
             InvocarInstanciaConfiguracao(args, modulo);
             return modulo;
@@ -554,9 +310,9 @@ namespace Propeus.Module.Manager.Dinamic
         /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
         /// </note>
         ///</example>
-        public IModule CreateModule(Type moduleType, object[] args)
+        public IModule CreateModule(Type moduleType, object[]? args = null)
         {
-            IModule iModulo = CreateModuleNonConfigurated(moduleType);
+            IModule iModulo = CreateModuleNonConfigurated(moduleType, args);
             InvocarInstanciaConfiguracao(args, iModulo);
             return iModulo;
         }
@@ -651,10 +407,10 @@ namespace Propeus.Module.Manager.Dinamic
         /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
         /// </note>
         ///</example>
-        public IModule CreateModule(string moduleName, object[] args)
+        public IModule CreateModule(string moduleName, object[]? args = null)
         {
             var moduleWatcher = GetModule<IModuleWatcherContract>();
-            var module = CreateModuleNonConfigurated(moduleWatcher[moduleName]);
+            var module = CreateModuleNonConfigurated(moduleWatcher[moduleName], args);
             InvocarInstanciaConfiguracao(args, module);
             return module;
         }
@@ -813,78 +569,7 @@ namespace Propeus.Module.Manager.Dinamic
         {
             _gerenciador.RemoveModule(idModule);
         }
-        ///<inheritdoc/>
-        ///<example>
-        ///Crie uma classe em um projeto separado
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///    [Module]
-        ///    public class CalculadoraModulo : BaseModule
-        ///    {
-        ///        public ModuloTesteA(IModuleManager _gerenciador) : base(_gerenciador, false)
-        ///        {
-        ///            
-        ///        }
-        ///        
-        ///        public int Calcular(int a, int b)
-        ///        {
-        ///            return a+b;
-        ///        }
-        ///        
-        ///        public void CriarInstancia(int valorTipoQualquer, string valorTipoString)
-        ///        {
-        ///          //Voce pode definir quantos parametros e tipos, portanto que seja compativel com a quantidade de argumentos informados ao criar o modulo.
-        ///          //Caso contrario, este metodo nao será invocado
-        ///        }
-        ///        
-        ///    }
-        ///}
-        ///</code>
-        ///No projeto principal, adicione uma interface de contrato e depois remova pelo ID
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///using Propeus.Module.Manager;
-        ///using Propeus.Module.Manager.Dinamic;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///
-        ///    [ModuleContract("CalculadoraModulo")]
-        ///    public interface ICalculadoraModuloContrato : IModule
-        ///    {
-        ///        public int Calcular(int a, int b);
-        ///    }
-        ///    
-        ///    internal class Program
-        ///    {
-        ///        private static void Main(string[] args)
-        ///        {
-        ///            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManagerDefault(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
-        ///            {
-        ///                ICalculadoraModuloContrato modulo = (ICalculadoraModuloContrato)gerenciador.CreateModule("ICalculadoraModuloContrato",new object[]{1,"Um valor qualquer para chamar a funcao CriarInstancia"});
-        ///                Console.WriteLine(modulo.Calcular(1,1));
-        ///                gerenciador.RemoveAllModules();
-        ///            }
-        ///        }
-        ///    }
-        ///}
-        ///</code>
-        ///</example>
-        public void RemoveAllModules()
-        {
-            _gerenciador.RemoveAllModules();
-        }
+
 
 
         ///<inheritdoc/>
@@ -1707,7 +1392,7 @@ namespace Propeus.Module.Manager.Dinamic
             if (disposing && State != State.Off)
             {
                 State = State.Off;
-                RemoveAllModules();
+                //RemoveAllModules(); usar um registry para controlar os modulos do dinamico
 
                 foreach (KeyValuePair<string, ILClasseProvider> item in ModuloProvider)
                 {
@@ -1758,11 +1443,12 @@ namespace Propeus.Module.Manager.Dinamic
         }
         private static void InvocarInstanciaConfiguracao<T>(object[] args, T modulo) where T : IModule
         {
+            if(args is null)
+            {
+                args = Array.Empty<object>();
+            }
 
-
-            MethodInfo? mthInstancia = modulo.GetType().GetMethod(Constantes.METODO_INSTANCIA, args.Select(x => x.GetType()).ToArray());
-            _ = args.GetType() == typeof(string[]) ? (mthInstancia?.Invoke(modulo, new object[] { args })) : (mthInstancia?.Invoke(modulo, args));
-
+         
             MethodInfo? mthConfiguracao = modulo.GetType().GetMethod(Constantes.METODO_CONFIGURACAO);
             _ = (mthConfiguracao?.Invoke(modulo, Array.Empty<object>()));
         }

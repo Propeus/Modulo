@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Primitives;
 
-using Propeus.Modulo.Hosting.Contracts;
+using Propeus.Module.Hosting.Contracts;
 
-namespace Propeus.Modulo.Hosting.ViewEngine
+namespace Propeus.Module.Hosting.ViewEngine
 {
     internal class ModuloChangeToken : IChangeToken
     {

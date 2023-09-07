@@ -92,20 +92,9 @@ namespace Propeus.Modulo.Console.Example
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base()
-        {
-
-        }
-
-        public void CriarInstancia(string mensagem, int a, int b)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia(string mensagem, int a, int b) : base()
         {
             this.mensagem = mensagem;
-            this.a = a;
-            this.b = b;
-        }
-
-        public void CriarInstancia(int a, int b)
-        {
             this.a = a;
             this.b = b;
         }
@@ -133,20 +122,9 @@ namespace Propeus.Modulo.Console.Example
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample() : base()
-        {
-
-        }
-
-        public void CriarInstancia(string mensagem, int a, int b)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample(string mensagem, int a, int b) : base()
         {
             this.mensagem = mensagem;
-            this.a = a;
-            this.b = b;
-        }
-
-        public void CriarInstancia(int a, int b)
-        {
             this.a = a;
             this.b = b;
         }

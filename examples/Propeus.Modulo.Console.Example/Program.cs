@@ -109,7 +109,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * O usuario pode criar quantos 'CriarInstancia' quiser, portanto que nao tenha a mesma assinatura dos outros.
              * **/
-            using (IModuleManagerArguments gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()) as IModuleManagerArguments)
+            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
             {
 
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia>(new object[] { "O resultado da soma é", 15, 20 });
@@ -126,7 +126,7 @@ namespace Propeus.Modulo.Console.Example
              * 
              * Não é obrigatorio o uso destes metodos, entretanto pode facilitar alguns fluxos de processos aonde se depende de outros modulos e/ou dados simultaneamente
              * */
-            using (IModuleManagerArguments gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()) as IModuleManagerArguments)
+            using (IModuleManager gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
             {
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracaoExample>(new object[] { 15, 20 });
                 modulo.EscreverOlaMundo();

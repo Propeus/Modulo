@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Hosting.Contracts
+namespace Propeus.Module.Hosting.Contracts
 {
     [ModuleContract("ListenerModule")]
     public interface IModuleProviderModuleContract : IModule

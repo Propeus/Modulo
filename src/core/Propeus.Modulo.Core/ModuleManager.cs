@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.Registry.Modules;
 using Propeus.Module.Utils.Atributos;
 using Propeus.Module.Utils.Objetos;
 using Propeus.Module.Utils.Tipos;
@@ -36,7 +36,7 @@ namespace Propeus.Module.Manager
         ///<inheritdoc/>
         public DateTime LastUpdate { get; private set; } = DateTime.Now;
         ///<inheritdoc/>
-        public int InitializedModules { get; private set; }
+        public int InitializedModules => Registry.InitializedModules;
 
 
         /// <summary>
@@ -45,16 +45,20 @@ namespace Propeus.Module.Manager
         internal ModuleManager()
         {
             StartDate = DateTime.Now;
+            Registry = new RegistryModule();
+            Registry.RegisterModule(Registry);
         }
 
         private readonly CancellationTokenSource _cancellationToken = new();
 
-        //K:Id | V:moduleInstance
-        private readonly ConcurrentDictionary<string, IModuleType> modules = new ConcurrentDictionary<string, IModuleType>();
+
+        private RegistryModule Registry;
+
 
         ///<inheritdoc/>
         ///<value>Data e hora que o gerenciador iniciou</value>
         public DateTime StartDate { get; private set; }
+
 
         ///<inheritdoc/>
         ///<exception cref="ModuleBuilderAbsentException">Não há um construtor publico disponível</exception>
@@ -100,26 +104,6 @@ namespace Propeus.Module.Manager
         /// Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
         /// </note>
         /// 
-        ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Manager;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///  internal class Program
-        ///  {
-        ///      private static void Main()
-        ///      {
-        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
-        ///         {
-        ///              IInterfaceDeContratoDeExemplo module_a = gerenciador.CreateModule&gt;ModuloDeExemplo&lt;();
-        ///              IInterfaceDeContratoDeExemplo module_b = gerenciador.CreateModule&gt;ModuloDeExemplo&lt;();
-        ///         }
-        ///      }
-        ///  }
-        ///}
-        ///</code>
         ///Para criar múltiplas instancias de um mesmo module por meio de uma interface de contrato
         ///<code>
         ///using System;
@@ -142,9 +126,9 @@ namespace Propeus.Module.Manager
         ///</code>
         /// 
         /// </example>
-        public T CreateModule<T>() where T : IModule
+        public T CreateModule<T>(object[]? args = null) where T : IModule
         {
-            return (T)CreateModule(typeof(T));
+            return (T)CreateModule(typeof(T), args);
         }
         ///<inheritdoc/>
         ///<exception cref="ModuleBuilderAbsentException">Não há um construtor publico disponível</exception>
@@ -181,27 +165,6 @@ namespace Propeus.Module.Manager
         ///}
         /// </code>
         /// 
-        /// 
-        ///Para criar múltiplas instancias de um mesmo module caso o <see cref="IModule.IsSingleInstance"/> seja <see langword="false"/>
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Manager;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///  internal class Program
-        ///  {
-        ///      private static void Main()
-        ///      {
-        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
-        ///         {
-        ///              IModule module_a = gerenciador.CreateModule("ModuloDeExemplo");
-        ///              IModule module_b = gerenciador.CreateModule("ModuloDeExemplo");
-        ///         }
-        ///      }
-        ///  }
-        ///}
-        ///</code>
         /// <note type="important">
         /// Este método não consegue resolver interface de contrato pelo nome, somente módulos.
         /// </note>
@@ -212,7 +175,7 @@ namespace Propeus.Module.Manager
         /// Tome cuidado ao escrever o nome do module, pois este método é case-sensitive, ou seja, letra maiúscula e minúscula faz diferença.
         /// </note>
         /// </example>
-        public IModule CreateModule(string moduleName)
+        public IModule CreateModule(string moduleName, object[]? args = null)
         {
             Type result = null;
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies().Reverse();
@@ -227,7 +190,7 @@ namespace Propeus.Module.Manager
 
             return result == null
                 ? throw new ModuleTypeNotFoundException(moduleName)
-                : CreateModule(result);
+                : CreateModule(result, args);
         }
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">O o parâmetro <paramref name="moduleType"/> é nulo</exception>
@@ -318,7 +281,7 @@ namespace Propeus.Module.Manager
         /// O retorno deste método sempre será <see cref="IModule"/>, tome cuidado ao realizar o cast para um tipo não compatível.
         /// </note>
         /// </example>
-        public IModule CreateModule(Type moduleType)
+        public IModule CreateModule(Type moduleType, object[]? args = null)
         {
             CheckModuleManagerStatus();
 
@@ -332,81 +295,110 @@ namespace Propeus.Module.Manager
             {
                 throw new ModuleSingleInstanceException(moduleType);
             }
-
-            ConstructorInfo ctor = moduleType.GetConstructors().MaxBy(x => x.GetParameters().Length);
+            var ctors = moduleType.GetConstructors();
+            ConstructorInfo ctor = null;
+            if (args != null)
+            {
+                ctor = ctors.FirstOrDefault(x => x.GetParameters().Length == args.Length) ?? ctors.MaxBy(x => x.GetParameters().Length);
+            }
+            else
+            {
+                ctor = ctors.MaxBy(x => x.GetParameters().Length);
+            }
             if (ctor is null)
             {
                 throw new ModuleBuilderAbsentException(moduleType);
             }
 
             ParameterInfo[] paramCtor = ctor.GetParameters();
-            object[] args = new object[paramCtor.Length];
 
-            for (int i = 0; i < paramCtor.Length; i++)
+            try
             {
-                if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModuleManager)))
-                {
-                    IModuleType gen = modules
-                        .Where(x => !x.Value.IsDeleted)
-                        .Select(x => x.Value)
-                        .FirstOrDefault(x => x.Module is IModuleManager);
-                    args[i] = gen?.Module as IModuleManager ?? this;
-                }
-                else if (paramCtor[i].ParameterType.IsAssignableTo(typeof(IModule)) && paramCtor[i].ParameterType.PossuiAtributo<ModuleContractAttribute>())
+                object[] nArgs = Propeus.Module.Utils.Objetos.Helper.JoinParameterValue(paramCtor, args, LoadModuleFromParameter);
+                IModule modulo = (IModule)Activator.CreateInstance(moduleType, nArgs);
+                Registry.RegisterModule(modulo);
+
+                return modulo;
+            }
+            catch (Exception)
+            {
+                //TODO: Customizar a exception aqui
+                throw;
+            }
+
+
+
+
+
+        }
+
+
+        private object LoadModuleFromParameter(ParameterInfo parameterInfo)
+        {
+            if (parameterInfo.ParameterType.IsAssignableTo(typeof(IModuleManager)))
+            {
+                IModuleInfo gen = Registry.GetAllModulesInformation()
+                    .Where(x => !x.IsDeleted)
+                    .LastOrDefault(x => x.Module is IModuleManager);
+                return gen?.Module as IModuleManager ?? this;
+            }
+            else if (parameterInfo.ParameterType.IsAssignableTo(typeof(IModule)))
+            {
+                if (parameterInfo.ParameterType.PossuiAtributo<ModuleContractAttribute>())
                 {
                     try
                     {
-                        if (ExistsModule(paramCtor[i].ParameterType))
+                        IModule aux = null;
+                        if (ExistsModule(parameterInfo.ParameterType))
                         {
-                            var module = GetModule(paramCtor[i].ParameterType);
+                            var module = GetModule(parameterInfo.ParameterType);
                             if (module.GetType().GetModuleAttribute().Singleton)
                             {
-                                args[i] = module;
+                                aux = module;
                             }
                         }
 
-                        if (args[i] is null)
-                        {
-                            args[i] = CreateModule(paramCtor[i].ParameterType);  
-                        }
+                        aux ??= CreateModule(parameterInfo.ParameterType);
 
-                        var attr = args[i].GetType().GetModuleAttribute();
+                        var attr = aux.GetType().GetModuleAttribute();
                         if (attr.Singleton && attr.KeepAlive || attr.AutoStartable && attr.Singleton)
                         {
-                            KeepAliveModule(args[i] as IModule);
+                            KeepAliveModule(aux);
                         }
+
+                        return aux;
                     }
                     catch (ModuleTypeNotFoundException)
                     {
-                        if (paramCtor[i].IsOptional)
+                        if (parameterInfo.IsOptional)
                         {
-                            args[i] = paramCtor[i].ParameterType.Default();
-                            continue;
+                            return parameterInfo.ParameterType.Default();
                         }
 
                         throw;
                     }
                 }
-
-
-                if (paramCtor[i].HasDefaultValue || paramCtor[i].IsOptional || paramCtor[i].IsNullable())
+                else if (parameterInfo.ParameterType.PossuiAtributo<ModuleAttribute>())
                 {
-                    if (!(paramCtor[i].DefaultValue is DBNull))
-                        args[i] = paramCtor[i].DefaultValue;
-                    continue;
+                    if (ExistsModule(parameterInfo.ParameterType))
+                    {
+                        return GetModule(parameterInfo.ParameterType);
+                    }
+                    else
+                    {
+                        return CreateModule(parameterInfo.ParameterType);
+                    }
                 }
-
-                throw new ModuleTypeInvalidException($"O tipo '{paramCtor[i].ParameterType.Name}' nao e um Module, Contrato ou ModuleManager");
+            }
+            else if (parameterInfo.HasDefaultValue || parameterInfo.IsOptional || parameterInfo.IsNullable())
+            {
+                if (!(parameterInfo.DefaultValue is DBNull))
+                    return parameterInfo.DefaultValue;
             }
 
-
-
-            IModule modulo = (IModule)Activator.CreateInstance(moduleType, args);
-            Register(modulo);
-            InitializedModules++;
-            return modulo;
-
+            return null;
         }
+
 
 
 
@@ -494,7 +486,7 @@ namespace Propeus.Module.Manager
             try
             {
                 moduleType = ResolveContract(moduleType);
-                IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name);
+                IModuleInfo moduloInstancia = Registry.GetAllModulesInformation().FirstOrDefault(x => x.Name == moduleType.Name);
 
                 return moduloInstancia is not null && !moduloInstancia.IsDeleted && !moduloInstancia.IsCollected;
             }
@@ -648,7 +640,7 @@ namespace Propeus.Module.Manager
             }
 
 
-            return modules.TryGetValue(idModule, out IModuleType moduleType) && !moduleType.IsCollected && !moduleType.IsDeleted;
+            return Registry.ExistsModule(idModule) && !Registry.GetModuleInformation(idModule).IsDeleted;
 
         }
 
@@ -732,7 +724,7 @@ namespace Propeus.Module.Manager
 
             moduleType = ResolveContract(moduleType);
 
-            IModuleType moduloInstancia = modules.Values.FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException(moduleType);
+            IModuleInfo moduloInstancia = Registry.GetAllModulesInformation().FirstOrDefault(x => x.Name == moduleType.Name && !x.IsDeleted && !x.IsCollected) ?? throw new ModuleNotFoundException(moduleType);
 
 
             return moduloInstancia.Module;
@@ -890,15 +882,15 @@ namespace Propeus.Module.Manager
                 throw new ArgumentException($"'{nameof(idModule)}' não pode ser nulo nem vazio.", nameof(idModule));
             }
 
-
-            if (modules.TryGetValue(idModule, out IModuleType moduloInstancia))
+            var module = Registry.GetModuleInformation(idModule);
+            if (module != null)
             {
-                if (moduloInstancia.IsDeleted || moduloInstancia.IsCollected)
+                if (module.IsDeleted || module.IsCollected)
                 {
-                    throw new ModuleDisposedException(moduloInstancia.IdModule);
+                    throw new ModuleDisposedException(module.IdModule);
                 }
 
-                return moduloInstancia.Module;
+                return module.Module;
             }
 
             throw new ModuleNotFoundException(idModule);
@@ -1054,83 +1046,10 @@ namespace Propeus.Module.Manager
                 throw new ArgumentException($"'{nameof(idModule)}' não pode ser nulo nem vazio.", nameof(idModule));
             }
 
-            if (modules.TryRemove(idModule, out IModuleType target))
-            {
-                target.Dispose();
-                InitializedModules--;
-            }
+            Registry.UnregisterModule(idModule);
 
         }
-        ///<inheritdoc/>
-        ///<example>
-        ///Para os exemplos abaixo será utilizado o seguinte module e sua interface de contrato
-        ///<code>
-        ///using Propeus.Module.Abstract;
-        ///using Propeus.Module.Abstract.Attributes;
-        ///using Propeus.Module.Abstract.Interfaces;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///  [Module]
-        ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
-        ///  {
-        ///
-        ///      public ModuloDeExemploParaPropeusModuloCore() : base(false)
-        ///      {
-        ///      }
-        ///
-        ///      public void EscreverOlaMundo()
-        ///      {
-        ///          System.Console.WriteLine("Ola mundo!");
-        ///          System.Console.WriteLine("Este é um module em funcionamento!");
-        ///      }
-        ///
-        ///  }
-        ///
-        ///  [ModuleContract(typeof(ModuloDeExemplo))]
-        ///  internal interface IInterfaceDeContratoDeExemplo : IModule
-        ///  {
-        ///      void EscreverOlaMundo();
-        ///  }
-        ///}
-        /// </code>
-        /// 
-        ///<note type="tip">
-        ///Um module não precisa obrigatoriamente possuir uma interface de contrato, porém é recomendável.
-        ///</note>
-        /// 
-        ///Para remover todos os módulos ativos
-        ///<code>
-        ///using System;
-        ///using Propeus.Module.Manager;
-        ///
-        ///namespace Propeus.Modulo.Example
-        ///{
-        ///  internal class Program
-        ///  {
-        ///      private static void Main()
-        ///      {
-        ///         using (gerenciador = ModuleManagerExtensions.CreateModuleManager())
-        ///         {
-        ///              ModuloDeExemplo module_a = gerenciador.CreateModule&lt;ModuloDeExemplo&gt;();
-        ///              gerenciador.RemoveAllModules();
-        ///              System.Console.WriteLine(module_a);
-        ///         }
-        ///      }
-        ///  }
-        ///}
-        ///</code>
-        /// </example>
-        public void RemoveAllModules()
-        {
-            foreach (KeyValuePair<string, IModuleType> item in modules)
-            {
-                RemoveModule(item.Key);
-            }
 
-            modules.Clear();
-
-        }
 
         ///<inheritdoc/>
         ///<exception cref="ArgumentNullException">Parâmetro nulo</exception>
@@ -1352,22 +1271,30 @@ namespace Propeus.Module.Manager
         ///</example>
         public void KeepAliveModule(IModule moduleInstance)
         {
+
+            CheckModuleManagerStatus();
+
             if (moduleInstance is null)
             {
                 throw new ArgumentNullException(nameof(moduleInstance));
             }
 
-            _ = GetModule(moduleInstance.Id);
-
-            if (modules.TryGetValue(moduleInstance.Id, out IModuleType moduloTipo))
+            var moduleInfo = Registry.GetModuleInformation(moduleInstance.Id);
+            if (moduleInfo != null)
             {
-                moduloTipo.KeepAliveModule(true);
+                if (moduleInfo.IsDeleted || moduleInfo.IsCollected)
+                {
+                    throw new ModuleDisposedException(moduleInstance.Id);
+                }
+
+                moduleInfo.KeepAliveModule(true);
             }
             else
             {
                 throw new ModuleNotFoundException(moduleInstance.Id);
-
             }
+
+
         }
 
         ///<inheritdoc/>
@@ -1426,7 +1353,9 @@ namespace Propeus.Module.Manager
         ///</example>
         public IEnumerable<IModule> ListAllModules()
         {
-            return modules.Select(x => x.Value.Module);
+            CheckModuleManagerStatus();
+
+            return Registry.GetAllModulesInformation().Select(x => x.Module);
         }
 
 
@@ -1451,9 +1380,9 @@ namespace Propeus.Module.Manager
                 contractType = attr.ModuleType;
                 if (contractType is null)
                 {
-                    foreach (var item in modules.Where(item => item.Value.Name == attr.ModuleName))
+                    foreach (var item in Registry.GetAllModulesInformation().Where(item => item.Name == attr.ModuleName))
                     {
-                        contractType = item.Value.ModuleType;
+                        contractType = item.ModuleType;
                     }
                 }
 
@@ -1481,18 +1410,6 @@ namespace Propeus.Module.Manager
             throw new ModuleTypeInvalidException(Constantes.ERRO_TIPO_INVALIDO);
 
         }
-
-        [Obsolete("Não tem mais servintia, será removido na proxima otimização",false)]
-        /// <summary>
-        /// Registra um module no gerenciador
-        /// </summary>
-        /// <param name="module">Instancia do module</param>
-        /// <exception cref="ModuleSingleInstanceException">O module não pode ser registrado, pois já existe uma instancia em execução</exception>
-        private void Register(IModule module)
-        {
-            modules.TryAdd(module.Id, new ModuloTipo(module));
-        }
-
 
         /// <summary>
         /// Verifica se o gerenciador esta desligado ou liberado (disposed)

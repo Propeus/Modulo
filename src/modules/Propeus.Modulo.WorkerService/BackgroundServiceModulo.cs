@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.WorkerService
+namespace Propeus.Module.WorkerService
 {
     /// <summary>
     /// Module para inicializar um <see cref="BackgroundService"/>
@@ -18,17 +18,13 @@ namespace Propeus.Modulo.WorkerService
         ///<inheritdoc/>
         protected BackgroundServiceModulo() : base()
         {
-
         }
 
 
         private Task _executeTask;
         private CancellationTokenSource _stoppingCts;
 
-        /// <summary>
-        /// Inicializa o servico
-        /// </summary>
-        public void CriarInstancia()
+        public void CriarConfiguracao()
         {
             StartAsync(new CancellationTokenSource().Token);
         }

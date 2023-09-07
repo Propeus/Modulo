@@ -15,7 +15,7 @@ namespace Propeus.Module.Manager.Dinamic
         /// Cria uma nova instancia do gereciador 
         /// </summary>
         /// <returns></returns>
-        public static IModuleManager CreateModuleManager(IModuleManager moduleManagerCore)
+        public static IModuleManager CreateModuleManager(this IModuleManager moduleManagerCore)
         {
             ModuleManager gen = moduleManagerCore.CreateModule<ModuleManager>();
             Action<Type>? arg1 = gen.ModuleManager_OnLoadModule, arg2 = gen.ModuleManager_OnReloadModule;

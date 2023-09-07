@@ -84,5 +84,70 @@ namespace Propeus.Module.Utils.Objetos
             return false; // value-type
         }
 
+        /// <summary>
+        /// Realiza uma validação de tipo com os ParameterInfo 
+        /// </summary>
+        /// <param name="parameterConstructor">parametros do metodo</param>
+        /// <param name="parameterUser">Valores do usuario</param>
+        /// <returns>Um array com os parametros do construtor</returns>
+        /// <exception cref="ArgumentException">Quando os valores do usaurio são incompativeis com os parametros do metodo</exception>
+        public static object[] JoinParameterValue(ParameterInfo[] parameterConstructor, object[] parameterUser, Func<ParameterInfo,object> resolveParamter = null)
+        {
+            if(parameterUser == null || parameterUser.Length == Array.Empty<object>().Length )
+            {
+                parameterUser = new object[parameterConstructor.Length];
+            }
+
+            if (parameterConstructor.Length < parameterUser.Length)
+            {
+                throw new ArgumentException("The number of constructor parameters cannot be less than the number of user parameters.");
+            }
+
+            object[] result = new object[parameterConstructor.Length];
+            int userIndex = 0;
+            int paramIndex = 0;
+
+            foreach (ParameterInfo constructorParam in parameterConstructor)
+            {
+                Type constructorParamType = constructorParam.ParameterType;
+
+                bool foundMatch = false;
+
+                for (int i = userIndex; i < parameterUser.Length; i++)
+                {
+                    Type userParamType = parameterUser[userIndex]?.GetType();
+
+                    if (constructorParamType.IsAssignableFrom(userParamType))
+                    {
+                        result[paramIndex] = parameterUser[userIndex];
+                        userIndex++;
+                        paramIndex++;
+                        foundMatch = true;
+                        break;
+                    }
+                }
+
+
+                // Se não houver correspondência, defina o valor padrão
+                if (!foundMatch)
+                {
+                    result[userIndex] = resolveParamter?.Invoke(constructorParam);
+
+                    if (parameterUser.Length > userIndex && parameterUser[userIndex] == null)
+                    {
+                        userIndex++;
+                    }
+                    paramIndex++;
+                }
+            }
+
+            if (userIndex < parameterUser.Length)
+            {
+                throw new ArgumentException("A ordem dos argumentos não é compativel com o construtor atual");
+            }
+
+            return result;
+        }
+
     }
 }

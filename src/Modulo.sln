@@ -25,19 +25,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager", "c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dinamic", "core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj", "{00118310-E7C1-4483-9DA2-8E03BF005C15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console.Example", "..\examples\Propeus.Modulo.Console.Example\Propeus.Modulo.Console.Example.csproj", "{38ED0905-9F5E-417D-86D7-957F2AA554FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.Example", "..\examples\Propeus.Modulo.Console.Example\Propeus.Module.Console.Example.csproj", "{38ED0905-9F5E-417D-86D7-957F2AA554FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Example", "..\examples\Propeus.Modulo.Hosting.Example\Propeus.Modulo.Hosting.Example.csproj", "{C6B3F49D-F5C6-4ED2-9CBF-45E45B35CEDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Hosting.Example", "..\examples\Propeus.Modulo.Hosting.Example\Propeus.Module.Hosting.Example.csproj", "{C6B3F49D-F5C6-4ED2-9CBF-45E45B35CEDF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting", "modules\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj", "{4399E2D7-9E20-4E4C-9104-C3BFDD1AACB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Hosting", "modules\Propeus.Modulo.Hosting\Propeus.Module.Hosting.csproj", "{4399E2D7-9E20-4E4C-9104-C3BFDD1AACB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.WorkerService.Example", "..\examples\Propeus.Modulo.WorkerService.Example\Propeus.Modulo.WorkerService.Example.csproj", "{F5A77FAC-74FC-4A5A-A4D5-BFB8E3625437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.WorkerService.Example", "..\examples\Propeus.Modulo.WorkerService.Example\Propeus.Module.WorkerService.Example.csproj", "{F5A77FAC-74FC-4A5A-A4D5-BFB8E3625437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Hosting.Example.DLL", "..\examples\Propeus.Modulo.Hosting.Example.DLL\Propeus.Modulo.Hosting.Example.DLL.csproj", "{5A93EA49-800D-4DA9-AFC1-1A86A94D535F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Hosting.Example.DLL", "..\examples\Propeus.Modulo.Hosting.Example.DLL\Propeus.Module.Hosting.Example.DLL.csproj", "{5A93EA49-800D-4DA9-AFC1-1A86A94D535F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.WorkerService.Example.DLL", "..\examples\Propeus.Modulo.WorkerService.Example.DLL\Propeus.Modulo.WorkerService.Example.DLL.csproj", "{87AF22EB-F30C-4062-A602-CB08FEC1F0E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.WorkerService.Example.DLL", "..\examples\Propeus.Modulo.WorkerService.Example.DLL\Propeus.Module.WorkerService.Example.DLL.csproj", "{87AF22EB-F30C-4062-A602-CB08FEC1F0E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.WorkerService", "modules\Propeus.Modulo.WorkerService\Propeus.Modulo.WorkerService.csproj", "{D5D337CA-CED6-4520-B9C5-30852FFB97C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.WorkerService", "modules\Propeus.Modulo.WorkerService\Propeus.Module.WorkerService.csproj", "{D5D337CA-CED6-4520-B9C5-30852FFB97C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{DF2D91EF-D111-4344-9B9F-60A00F82220F}"
 EndProject
@@ -47,19 +47,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "worker service", "worker se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "games", "games", "{56CED8E8-C2B9-4F72-822C-C331109C4A75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console.Game.Pong.Example", "..\examples\Propeus.Modulo.Console.Game.Pong.Example\Propeus.Modulo.Console.Game.Pong.Example.csproj", "{A7C1EA1E-C8EB-4C0F-87CD-330FD2FEE631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.Game.Pong.Example", "..\examples\Propeus.Modulo.Console.Game.Pong.Example\Propeus.Module.Console.Game.Pong.Example.csproj", "{A7C1EA1E-C8EB-4C0F-87CD-330FD2FEE631}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.Console.Game.Pong.Example.Data", "..\examples\Propeus.Modulo.Console.Game.Pong.Example.Data\Propeus.Modulo.Console.Game.Pong.Example.Data.csproj", "{820C9016-CB2E-4506-82DA-9D8060146609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.Game.Pong.Example.Data", "..\examples\Propeus.Modulo.Console.Game.Pong.Example.Data\Propeus.Module.Console.Game.Pong.Example.Data.csproj", "{820C9016-CB2E-4506-82DA-9D8060146609}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.CoreTests", "..\tests\Propeus.Modulo.CoreTests\Propeus.Modulo.CoreTests.csproj", "{1A90AB3A-7BC3-4664-9333-7F0722A35E0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.CoreTests", "..\tests\Propeus.Modulo.CoreTests\Propeus.Module.CoreTests.csproj", "{1A90AB3A-7BC3-4664-9333-7F0722A35E0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.DinamicoTests", "..\tests\Propeus.Modulo.DinamicoTests\Propeus.Modulo.DinamicoTests.csproj", "{E26743C8-B112-42C5-A266-1985743B656E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.DinamicoTests", "..\tests\Propeus.Modulo.DinamicoTests\Propeus.Module.DinamicoTests.csproj", "{E26743C8-B112-42C5-A266-1985743B656E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.DinamicoTests.ModuloSoma", "..\tests\Propeus.Modulo.DinamicoTests.ModuloSoma\Propeus.Modulo.DinamicoTests.ModuloSoma.csproj", "{99B1BBE5-7CC3-43EA-ABC9-528EAD94FC11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.DinamicoTests.ModuloSoma", "..\tests\Propeus.Modulo.DinamicoTests.ModuloSoma\Propeus.Module.DinamicoTests.ModuloSoma.csproj", "{99B1BBE5-7CC3-43EA-ABC9-528EAD94FC11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.IL.CoreTests", "..\tests\Propeus.Modulo.IL.CoreTests\Propeus.Modulo.IL.CoreTests.csproj", "{D626C5BE-BEB9-406B-AF07-C30CB76C28A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.IL.CoreTests", "..\tests\Propeus.Modulo.IL.CoreTests\Propeus.Module.IL.CoreTests.csproj", "{D626C5BE-BEB9-406B-AF07-C30CB76C28A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.WorkerServiceTests", "..\tests\Propeus.Modulo.WorkerServiceTests\Propeus.Modulo.WorkerServiceTests.csproj", "{91FB481D-11FD-4C2F-B737-8FC91C457D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.WorkerServiceTests", "..\tests\Propeus.Modulo.WorkerServiceTests\Propeus.Module.WorkerServiceTests.csproj", "{91FB481D-11FD-4C2F-B737-8FC91C457D95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{D7211E49-7B32-4CFB-923E-0C656EF4E7D1}"
 EndProject
@@ -75,7 +75,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Modulo.TaskJob", "a
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.DependencyInjection", "modules\Propeus.Module.DependencyInjection\Propeus.Module.DependencyInjection.csproj", "{CAC23F3A-983B-457C-A89F-8752C77D3FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Module.Watcher", "modules\Propeus.Module.Watcher\Propeus.Module.Watcher.csproj", "{115F6F50-3554-4007-BC0F-74AEC2D7503C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Watcher", "modules\Propeus.Module.Watcher\Propeus.Module.Watcher.csproj", "{115F6F50-3554-4007-BC0F-74AEC2D7503C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dinamic.Package", "core\Propeus.Module.Manager.Dinamic.Package\Propeus.Module.Manager.Dinamic.Package.csproj", "{4034662B-3512-4145-A0D0-F17195081A30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.CLI", "..\examples\Propeus.Module.Console.CLI\Propeus.Module.Console.CLI.csproj", "{51EE5E98-7320-4EC3-A17E-8594FC268995}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.HealthCheck", "modules\Propeus.Module.Manager.HealthCheck\Propeus.Module.Manager.HealthCheck.csproj", "{4B34F09C-DBB3-4176-942E-47A01A9C004E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Module.Registry", "modules\Propeus.Module.Registry\Propeus.Module.Registry.csproj", "{6051C292-2607-452D-A463-22F0DBE7FE73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +191,22 @@ Global
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4034662B-3512-4145-A0D0-F17195081A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4034662B-3512-4145-A0D0-F17195081A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4034662B-3512-4145-A0D0-F17195081A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4034662B-3512-4145-A0D0-F17195081A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B34F09C-DBB3-4176-942E-47A01A9C004E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B34F09C-DBB3-4176-942E-47A01A9C004E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B34F09C-DBB3-4176-942E-47A01A9C004E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B34F09C-DBB3-4176-942E-47A01A9C004E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6051C292-2607-452D-A463-22F0DBE7FE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6051C292-2607-452D-A463-22F0DBE7FE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6051C292-2607-452D-A463-22F0DBE7FE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6051C292-2607-452D-A463-22F0DBE7FE73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -217,6 +241,10 @@ Global
 		{FC157820-1B68-4D2B-9BB5-890B509F8A2F} = {320E28E9-BF13-4DEF-B5A1-232332867813}
 		{CAC23F3A-983B-457C-A89F-8752C77D3FE8} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
+		{4034662B-3512-4145-A0D0-F17195081A30} = {D7211E49-7B32-4CFB-923E-0C656EF4E7D1}
+		{51EE5E98-7320-4EC3-A17E-8594FC268995} = {DF2D91EF-D111-4344-9B9F-60A00F82220F}
+		{4B34F09C-DBB3-4176-942E-47A01A9C004E} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
+		{6051C292-2607-452D-A463-22F0DBE7FE73} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {709E8BF4-605B-43D3-84C0-A0C0EC4E58C0}

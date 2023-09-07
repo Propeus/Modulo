@@ -2,9 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using Propeus.Modulo.Hosting.Example.Models;
+using Propeus.Module.Hosting.Example.Models;
 
-namespace Propeus.Modulo.Hosting.Example.Controllers
+namespace Propeus.Module.Hosting.Example.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\addons\Propeus.Modulo.CLI\Propeus.Modulo.CLI.csproj" />
+    <ProjectReference Include="..\..\src\addons\Propeus.Modulo.Console\Propeus.Modulo.Console.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Hosting.Example.DLL.Controllers
+namespace Propeus.Module.Hosting.Example.DLL.Controllers
 {
     [Module]
     [Controller]

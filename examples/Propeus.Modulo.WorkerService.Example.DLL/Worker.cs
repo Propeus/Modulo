@@ -1,6 +1,6 @@
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.WorkerService.Example.DLL;
+namespace Propeus.Module.WorkerService.Example.DLL;
 
 [Module(AutoStartable = true, AutoUpdate = true, KeepAlive = true, Singleton = false)]
 public class Worker : BackgroundServiceModulo

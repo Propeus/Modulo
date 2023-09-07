@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Resources;
 
-namespace Propeus.Modulo.Hosting
+namespace Propeus.Module.Hosting
 {
     internal static class Resources
     {

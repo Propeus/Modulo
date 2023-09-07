@@ -1,37 +1,28 @@
 ﻿using System;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
     /// <summary>
     /// Exemplo de modulo auto inicializavel e funcional
     /// </summary>
-    [Module]
-    //[ModuloAutoInicializavel]
+    [Module(Singleton = true, AutoUpdate = true, AutoStartable = true, KeepAlive = true, Description = "Modulo para controlar sistema de modulos por meio de linha de comando")]
     public class CliModulo : BaseModule
     {
         private IModuleManager Gerenciador { get; }
-
+        
         /// <summary>
         /// Construtor padrao do <see cref="BaseModel"/>
         /// </summary>
         /// <param name="gerenciador"></param>
-        public CliModulo(IModuleManager gerenciador) : base(true)
+        public CliModulo(IModuleManager gerenciador) : base()
         {
             Gerenciador = gerenciador;
         }
 
-        /// <summary>
-        /// Exibe CLI para criar uma nova instancia
-        /// </summary>
-        /// <param name="args">Lista de argumentos</param>
-        public void CriarInstancia(string[] args)
-        {
-            Subcommands(args);
-        }
         /// <summary>
         /// Exibe CLI para criar uma nova instancia
         /// </summary>
@@ -44,7 +35,7 @@ namespace Propeus.Modulo.CLI
         ///<inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (!disposing)
+            if (!disposedValue)
             {
                 //Continua o disposing padrao
                 base.Dispose(disposing);

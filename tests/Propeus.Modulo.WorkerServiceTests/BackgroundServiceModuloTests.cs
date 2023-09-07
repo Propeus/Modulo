@@ -8,7 +8,7 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 using Propeus.Module.Manager;
-using Propeus.Modulo.WorkerService;
+using Propeus.Module.WorkerService;
 
 namespace Propeus.Modulo.WorkerServiceTests
 {

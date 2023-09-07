@@ -9,7 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
     <ProjectReference Include="..\..\src\core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj" />
-    <ProjectReference Include="..\Propeus.Modulo.Console.Game.Pong.Example.Data\Propeus.Modulo.Console.Game.Pong.Example.Data.csproj" />
+    <ProjectReference Include="..\Propeus.Modulo.Console.Game.Pong.Example.Data\Propeus.Module.Console.Game.Pong.Example.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace Propeus.Modulo.Hosting.MS_MVC
+namespace Propeus.Module.Hosting.MS_MVC
 {
     //https://github.com/aspnet/AspNetWebStack/blob/main/src/System.Web.Http/ModelBinding/ModelBindingHelper.cs
     internal static class ModelBindingHelper

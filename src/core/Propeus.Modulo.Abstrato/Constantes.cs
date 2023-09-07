@@ -10,10 +10,7 @@ namespace Propeus.Module.Abstract
         /// Metodo que o gerenciador irá chamar para realizar as configurações
         /// </summary>
         public const string METODO_CONFIGURACAO = "CriarConfiguracao";
-        /// <summary>
-        /// Metodo que o gerenciado deverá realizar a injeção de dependencias.
-        /// </summary>
-        public const string METODO_INSTANCIA = "CriarInstancia";
+   
 
 
         /// <summary>

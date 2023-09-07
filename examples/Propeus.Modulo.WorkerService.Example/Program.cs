@@ -1,6 +1,6 @@
 using Propeus.Module.DependencyInjection;
 
-using Propeus.Modulo.WorkerService;
+using Propeus.Module.WorkerService;
 /**
 * Este exemplo serve para mostrar como o sistema de modulo dinâmico funciona
 * 
@@ -41,7 +41,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         /**
          * Voce pode também adicionar o worker do modulo no AddHostedService como um worker normal do .NET (sem uso de gerenciadores)
-         * services.AddHostedService<Propeus.Modulo.WorkerService.Exmaple.DLL.Worker>();
+         * services.AddHostedService<Propeus.Module.WorkerService.Exmaple.DLL.Worker>();
          * **/
 
     })

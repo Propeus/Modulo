@@ -5,13 +5,13 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Module.Manager
+namespace Propeus.Module.Registry.Models
 {
 
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    internal class ModuloTipo : BaseModel, IModuleType
+    internal class ModuleInformation : BaseModel, IModuleInfo
     {
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace Propeus.Module.Manager
         /// </summary>
         /// <param name="modulo">Instancia do modulo</param>
         /// <exception cref="ArgumentNullException">Module nao pode ser nulo</exception>
-        public ModuloTipo(IModule modulo)
+        public ModuleInformation(IModule modulo)
         {
             WeakReference = new WeakReference(modulo);
             IsSingleInstance = modulo.GetType().GetModuleAttribute().Singleton;
@@ -100,6 +100,7 @@ namespace Propeus.Module.Manager
             WeakReference = null;
             base.Dispose(disposing);
         }
+
 
 
     }

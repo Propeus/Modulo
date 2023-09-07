@@ -5,9 +5,9 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.Hosting.Contracts;
+using Propeus.Module.Hosting.Contracts;
 
-namespace Propeus.Modulo.Hosting.ViewEngine
+namespace Propeus.Module.Hosting.ViewEngine
 {
     internal class ModuloFileProvider : IFileProvider
     {

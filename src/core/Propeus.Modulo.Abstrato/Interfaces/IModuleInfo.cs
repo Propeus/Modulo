@@ -4,7 +4,7 @@ namespace Propeus.Module.Abstract.Interfaces
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    public interface IModuleType : IBaseModel
+    public interface IModuleInfo : IBaseModel
     {
         /// <summary>
         /// Informa se o modulo foi coletado pelo <see cref="GC"/>

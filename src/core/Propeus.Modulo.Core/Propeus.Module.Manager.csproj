@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
 		
 		<Product>Propeus.Modulo.Core</Product>
 		<VersionPrefix>0.1.0</VersionPrefix>
@@ -29,6 +30,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\modules\Propeus.Module.Registry\Propeus.Module.Registry.csproj" />
 	  <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
 	</ItemGroup>
 

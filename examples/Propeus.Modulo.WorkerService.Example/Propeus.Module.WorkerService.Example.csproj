@@ -15,6 +15,6 @@
     <ProjectReference Include="..\..\src\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
     <ProjectReference Include="..\..\src\core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj" />
     <ProjectReference Include="..\..\src\modules\Propeus.Module.DependencyInjection\Propeus.Module.DependencyInjection.csproj" />
-    <ProjectReference Include="..\..\src\modules\Propeus.Modulo.WorkerService\Propeus.Modulo.WorkerService.csproj" />
+    <ProjectReference Include="..\..\src\modules\Propeus.Modulo.WorkerService\Propeus.Module.WorkerService.csproj" />
   </ItemGroup>
 </Project>

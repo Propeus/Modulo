@@ -7,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 using Propeus.Module.Abstract.Attributes;
-using Propeus.Modulo.Hosting.MS_MVC;
+using Propeus.Module.Hosting.MS_MVC;
 
-namespace Propeus.Modulo.Hosting
+namespace Propeus.Module.Hosting
 {
     //Obviamente que isto nao vai funcionar...
     internal sealed class ActionResultObjectValueAttribute : Attribute

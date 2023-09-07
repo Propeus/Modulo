@@ -3,6 +3,22 @@ using Propeus.Module.Abstract.Attributes;
 
 namespace Propeus.Modulo.DinamicoTests
 {
+
+    [Module]
+    public class ModuleDeExemploParaParametrosCustomizados : BaseModule
+    {
+        public readonly int parametro_A;
+        public readonly int parametro_B;
+        public readonly ModuloDeExemploParaPropeusModuloDinamico moduloQualquer;
+
+        public ModuleDeExemploParaParametrosCustomizados(int parametro_a, ModuloDeExemploParaPropeusModuloDinamico moduloQualquer, int parametro_b=10)
+        {
+            parametro_A = parametro_a;
+            parametro_B = parametro_b;
+            this.moduloQualquer = moduloQualquer;
+        }
+    }
+
     /**
     * Para criar um modulo, é necessario ter o atributo Modulo e herdar de IModulo, entretanto é recomentavel usar a classe ModuloBase, 
     * pois ja foi implementado os recusos necessarios para o modulo funcionar
@@ -92,20 +108,9 @@ namespace Propeus.Modulo.DinamicoTests
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia() : base()
-        {
-
-        }
-
-        public void CriarInstancia(string mensagem, int a, int b)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia(string mensagem, int a, int b) : base()
         {
             this.mensagem = mensagem;
-            this.a = a;
-            this.b = b;
-        }
-
-        public void CriarInstancia(int a, int b)
-        {
             this.a = a;
             this.b = b;
         }
@@ -133,20 +138,9 @@ namespace Propeus.Modulo.DinamicoTests
         private int a;
         private int b;
 
-        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao() : base()
-        {
-
-        }
-
-        public void CriarInstancia(string mensagem, int a, int b)
+        public ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao(string mensagem, int a, int b) : base()
         {
             this.mensagem = mensagem;
-            this.a = a;
-            this.b = b;
-        }
-
-        public void CriarInstancia(int a, int b)
-        {
             this.a = a;
             this.b = b;
         }

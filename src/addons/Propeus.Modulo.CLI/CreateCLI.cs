@@ -1,4 +1,4 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
@@ -16,7 +16,7 @@ namespace Propeus.Modulo.CLI
                         switch (args[3])
                         {
                             case "--args":
-                                _ = (gerenciador as IModuleManagerArguments).CreateModule(args[2], args[3..-1]);
+                                _ = gerenciador.CreateModule(args[2], args[3..-1]);
                                 break;
                             default:
                                 break;

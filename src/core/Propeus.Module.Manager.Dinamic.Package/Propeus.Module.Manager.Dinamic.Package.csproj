@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-    <ProjectReference Include="..\..\src\modules\Propeus.Modulo.WorkerService\Propeus.Modulo.WorkerService.csproj" />
+    <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

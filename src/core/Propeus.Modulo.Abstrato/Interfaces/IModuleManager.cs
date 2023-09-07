@@ -28,27 +28,29 @@ namespace Propeus.Module.Abstract.Interfaces
         /// <value>Quantidade de módulos instanciados</value>
         int InitializedModules { get; }
 
+
+
         /// <summary>
-        /// Cria uma nova instancia do modulo
+        /// Cria uma nova instancia do moduleType <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModule"/></typeparam>
-        /// <returns>Um modulo herdado de <see cref="IModule"/></returns>
-        T CreateModule<T>() where T : IModule;
+        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <returns></returns>
+        T CreateModule<T>(object[]? args = null) where T : IModule;
         /// <summary>
-        /// Cria uma nova instancia do modulo
+        /// Cria uma nova instancia do moduleType usando o tipo do parametro <paramref name="moduleType"/>
         /// </summary>
         /// <param name="moduleType">ModuleType do moduleType</param>
-        /// <returns>Um modulo herdado de <see cref="IModule"/></returns>
-        IModule CreateModule(Type moduleType);
+        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <returns><see cref="IModule"/></returns>
+        IModule CreateModule(Type moduleType, object[]? args = null);
         /// <summary>
-        /// Cria uma nova instancia do modulo baseado pelo nome
+        /// Cria uma nova instancia do moduleType buscando o tipo pelo nome
         /// </summary>
-        /// <remarks>
-        /// O nome do modulo é o nome da classe
-        /// </remarks>
-        /// <param name="moduleName">Nome do modulo</param>
-        /// <returns>Um modulo herdado de <see cref="IModule"/></returns>
-        IModule CreateModule(string moduleName);
+        /// <param name="moduleName">ModuleName do moduleType</param>
+        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <returns><see cref="IModule"/></returns>
+        IModule CreateModule(string moduleName, object[]? args = null);
 
         /// <summary>
         /// Remove um modulo pelo seu ID
@@ -61,10 +63,6 @@ namespace Propeus.Module.Abstract.Interfaces
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModule"/></typeparam>
         /// <param name="moduleInstance">Qualquer instancia de modulo herdado de <see cref="IModule"/></param>
         void RemoveModule<T>(T moduleInstance) where T : IModule;
-        /// <summary>
-        /// Remove todos os modulos
-        /// </summary>
-        void RemoveAllModules();
 
         /// <summary>
         /// Obtem a instancia do modulo pelo tipo
@@ -130,7 +128,7 @@ namespace Propeus.Module.Abstract.Interfaces
         /// <returns>Lista de modulos ativos</returns>
         IEnumerable<IModule> ListAllModules();
 
-       
+
         /// <summary>
         /// Mantem um modulo vivo mesmo não possuindo referencia alguma
         /// </summary>
@@ -138,6 +136,62 @@ namespace Propeus.Module.Abstract.Interfaces
         /// <returns>Retorna uma tarefa</returns>
         void KeepAliveModule(IModule moduleInstance);
 
+
+
+    }
+
+    /// <summary>
+    /// Modelo para monitorar chamadas de um gerenciador
+    /// </summary>
+    public interface IModuleManagerHealthCheck : IBaseModel
+    {
+        /// <summary>
+        /// Eventos para monitoramento do Gerenciador
+        /// </summary>
+        event Action<ModuleManagerHealthCheckEvent>? ModuleManagerEvent;
+        /// <summary>
+        /// Eventos para monitoramento de modulos
+        /// </summary>
+        event Action? ModuleRemoved;
+        /// <summary>
+        /// Eventos para monitoramento de modulos
+        /// </summary>
+        event Action<IModule>? ModuleCreated, ModuleRecycled;
+    }
+
+    /// <summary>
+    /// Tipos de eventos do Gerenciador
+    /// </summary>
+    public enum ModuleManagerHealthCheckEvent
+    {
+        /// <summary>
+        /// Qualquer outro evento nao listado
+        /// </summary>
+        Any = 0,
+        /// <summary>
+        /// Modulo criado
+        /// </summary>
+        Created,
+        /// <summary>
+        /// Modulo removido
+        /// </summary>
+        Removed,
+        /// <summary>
+        /// Modulo reciclado
+        /// </summary>
+        Recycled,
+        /// <summary>
+        /// Modulo listado
+        /// </summary>
+        Listed,
+        /// <summary>
+        /// Modulo obtido
+        /// </summary>
+        Obtained,
+        /// <summary>
+        /// Modulo existente
+        /// </summary>
+        Existed
 
 
     }

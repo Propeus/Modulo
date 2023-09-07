@@ -14,10 +14,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
         public PaddleModule(int height = 0) : base()
         {
             Score = 0;
-        }
 
-        public void CriarInstancia(int height = 0)
-        {
             Paddle = height / 3;
             PaddleSize = height / 4;
         }

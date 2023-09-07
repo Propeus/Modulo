@@ -39,7 +39,7 @@ namespace Propeus.Module.Watcher.Modules
         /// Construtor padrao
         /// </summary>
         /// <param name="moduleManager">Gerenciador de modulos</param>
-        public ModuleWatcherModule(IModuleManager moduleManager) : base()
+        public ModuleWatcherModule(IModuleManager moduleManager, Action<Type>? onLoadModule, Action<Type>? onReloadModule, Action<Type>? onUnloadModule) : base()
         {
             _semaphoreSlimChangeFile = new SemaphoreSlim(1);
             _moduleManager = moduleManager;
@@ -47,27 +47,7 @@ namespace Propeus.Module.Watcher.Modules
             "Microsoft",
             "System"
             };
-        }
 
-
-        /// <summary>
-        /// Metodo para criar instancias de objetos essenciais para o funcionamento do modulo
-        /// </summary>
-        public void CriarInstancia() => CriarInstancia(null, null, null);
-        /// <summary>
-        /// Metodo para criar instancias de objetos essenciais para o funcionamento do modulo
-        /// </summary>
-        public void CriarInstancia(Action<Type>? onLoadModule) => CriarInstancia(onLoadModule, null, null);
-        /// <summary>
-        /// Metodo para criar instancias de objetos essenciais para o funcionamento do modulo
-        /// </summary>
-        public void CriarInstancia(Action<Type>? onLoadModule, Action<Type>? onReloadModule) => CriarInstancia(onLoadModule, onReloadModule, null);
-
-        /// <summary>
-        /// Metodo para criar instancias de objetos essenciais para o funcionamento do modulo
-        /// </summary>
-        public void CriarInstancia(Action<Type>? onLoadModule, Action<Type>? onReloadModule, Action<Type>? onUnloadModule)
-        {
             _currentDirectory = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
             _assmLibsPath = AppDomain.CurrentDomain.GetAssemblies().Select(x => x.Location).Distinct();
             _modulesInfo = new ConcurrentDictionary<string, ModuleProviderInfo>();
@@ -99,8 +79,10 @@ namespace Propeus.Module.Watcher.Modules
             _fileSystemWatcher.IncludeSubdirectories = false; //Desabilitado pois o fine coverage copia as dll, duplicando e causando erros inesperados
             _fileSystemWatcher.Path = _currentDirectory;
             _fileSystemWatcher.EnableRaisingEvents = true;
-
         }
+
+
+       
         /// <summary>
         /// Metodo para configuracao do modulo
         /// </summary>

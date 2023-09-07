@@ -10,9 +10,9 @@ using Microsoft.Extensions.Primitives;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.Hosting.Contracts;
+using Propeus.Module.Hosting.Contracts;
 
-namespace Propeus.Modulo.Hosting
+namespace Propeus.Module.Hosting
 {
     //https://stackoverflow.com/questions/48206993/how-to-load-asp-net-core-razor-view-dynamically-at-runtime
     public class ModuleViewCompiler : IViewCompiler

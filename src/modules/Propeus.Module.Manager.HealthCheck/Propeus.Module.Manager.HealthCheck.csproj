@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<Product>Propeus.Module.Manager.HealthCheck</Product>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Componente com classes e interfaces para implementacao de modulos em sistemas MVC</Description>
+
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo</PackageTags>
+		<PackageId>Propeus.Module.Manager.HealthCheck</PackageId>
+
+		<AssemblyName>Propeus.Module.Manager.HealthCheck</AssemblyName>
+		<RootNamespace>Propeus.Module.Manager.HealthCheck</RootNamespace>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENCE">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
+	</ItemGroup>
+
+</Project>

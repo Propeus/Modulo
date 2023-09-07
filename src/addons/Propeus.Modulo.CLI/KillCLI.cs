@@ -1,4 +1,4 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
@@ -11,9 +11,6 @@ namespace Propeus.Modulo.CLI
             {
                 case "--id":
                     gerenciador.RemoveModule(args[2]);
-                    break;
-                case "--all":
-                    gerenciador.RemoveAllModules();
                     break;
                 case "help":
                     OptionsCreateHelp();

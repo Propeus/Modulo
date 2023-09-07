@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace Propeus.Modulo.Hosting.MS_MVC
+namespace Propeus.Module.Hosting.MS_MVC
 {
     internal sealed class DynamicViewData : DynamicObject
     {

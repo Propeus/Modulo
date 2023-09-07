@@ -27,5 +27,9 @@ namespace Propeus.Module.Abstract.Attributes
         /// </summary>
         /// <value>Por padrão é <see langword="false"/></value>
         public bool KeepAlive { get; set; } = false;
+        /// <summary>
+        /// Define uma descrição sobre o modulo
+        /// </summary>
+        public string Description { get;set; }
     }
 }

@@ -10,14 +10,14 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
     [Module(AutoUpdate = true, AutoStartable = false, Singleton = true)]
     public class WindowModule : BaseModule
     {
-        private readonly IModuleManagerArguments gerenciador;
+        private readonly IModuleManager gerenciador;
         private readonly float multiplier;
 
 
 
         public WindowModule(IModuleManager gerenciador, int? width, int? height, ControlsModule controlsModule) : base()
         {
-            this.gerenciador = gerenciador as IModuleManagerArguments;
+            this.gerenciador = gerenciador;
             multiplier = 1.1f;
 
 

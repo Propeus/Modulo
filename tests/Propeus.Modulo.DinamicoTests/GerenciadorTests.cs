@@ -37,10 +37,23 @@ namespace Propeus.Modulo.DinamicoTests
          * 2 - O tempo para inicializar um gerenciador vai depender da quantidade de DLLs que estiverem na pasta
          * **/
 
+
+        [TestMethod()]
+        public void Teste_11()
+        {
+            using (IModuleManager gerenciador = GetModuleManager())
+            {
+                var module = gerenciador.CreateModule<ModuleDeExemploParaParametrosCustomizados>(new object[] { 10, 12 });
+                Assert.IsNotNull(module);
+            }
+
+
+        }
+
         [TestMethod()]
         public void Teste_10()
         {
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
                 ListenerModule listerner = gerenciador.CreateModule<ListenerModule>();
                 Assert.IsNotNull(listerner);
@@ -59,13 +72,13 @@ namespace Propeus.Modulo.DinamicoTests
         [TestMethod()]
         public void Teste_9()
         {
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
                 Assert.ThrowsException<ArgumentNullException>(() => { gerenciador.CreateModule(default(Type)); });
 
             }
 
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
                 Assert.ThrowsException<ArgumentNullException>(() => { gerenciador.CreateModule(default(Type), Array.Empty<object>()); });
                 Assert.IsNotNull(gerenciador.CreateModule(typeof(ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao), Array.Empty<object>()));
@@ -85,7 +98,7 @@ namespace Propeus.Modulo.DinamicoTests
                          * 
                          * Para este caso é prossivel criar um modulo informando somente o nome dele, entretanto este meto é mais propenso a erros humanos
                          * **/
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
                 IModule modulo = (ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao)gerenciador.CreateModule("ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao", new object[] { 15, 20 });
                 Assert.IsNotNull(modulo);
@@ -103,7 +116,7 @@ namespace Propeus.Modulo.DinamicoTests
              * 
              * Não é obrigatorio o uso destes metodos, entretanto pode facilitar alguns fluxos de processos aonde se depende de outros modulos e/ou dados simultaneamente
              * */
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstanciaEConfiguracao>(new object[] { 15, 20 });
                 modulo.EscreverOlaMundo();
@@ -122,7 +135,7 @@ namespace Propeus.Modulo.DinamicoTests
              * 
              * O usuario pode criar quantos 'CriarInstancia' quiser, portanto que nao tenha a mesma assinatura dos outros.
              * **/
-            using (IModuleManagerArguments gerenciador = GetModuleManager() as IModuleManagerArguments)
+            using (IModuleManager gerenciador = GetModuleManager())
             {
 
                 ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia modulo = gerenciador.CreateModule<ModuloDeExemploParaPropeusModuloDinamicoComCriarInstancia>(new object[] { "O resultado da soma é", 15, 20 });

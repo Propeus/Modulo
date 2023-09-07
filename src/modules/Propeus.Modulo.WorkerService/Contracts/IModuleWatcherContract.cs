@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 
-namespace Propeus.Modulo.WorkerService.Contracts
+namespace Propeus.Module.WorkerService.Contracts
 {
     /// <summary>
     /// Contrato para o modulo de nome 'ModuleWatcherModule'

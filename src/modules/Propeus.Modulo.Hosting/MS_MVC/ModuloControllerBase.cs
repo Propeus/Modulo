@@ -7,7 +7,7 @@ using Microsoft.Net.Http.Headers;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Hosting.MS_MVC
+namespace Propeus.Module.Hosting.MS_MVC
 {
     [Module(AutoUpdate = true)]
     public class ModuloControllerBase : BaseModule

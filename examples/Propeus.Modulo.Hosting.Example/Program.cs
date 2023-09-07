@@ -1,6 +1,6 @@
 using Propeus.Module.Manager;
 
-namespace Propeus.Modulo.Hosting.Example
+namespace Propeus.Module.Hosting.Example
 {
     public class Program
     {

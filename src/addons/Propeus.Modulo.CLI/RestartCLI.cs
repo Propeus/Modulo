@@ -1,4 +1,6 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using System;
+
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {
@@ -7,10 +9,15 @@ namespace Propeus.Modulo.CLI
 
         public static void Execute(string[] args, IModuleManager gerenciador)
         {
+            if (gerenciador is null)
+            {
+                throw new ArgumentNullException(nameof(gerenciador));
+            }
+
             switch (args[1])
             {
                 case "--id":
-                    _ = (gerenciador as IModuleManagerArguments).RecycleModule(args[2]);
+                    _ = gerenciador.RecycleModule(args[2]);
                     break;
                 case "help":
                     ObtionsCreateHelp(args, gerenciador);

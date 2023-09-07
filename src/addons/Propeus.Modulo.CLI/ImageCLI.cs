@@ -1,4 +1,4 @@
-﻿using Propeus.Modulo.Abstrato.Interfaces;
+﻿using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Modulo.CLI
 {

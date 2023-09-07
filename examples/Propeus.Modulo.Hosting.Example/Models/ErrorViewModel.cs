@@ -1,4 +1,4 @@
-namespace Propeus.Modulo.Hosting.Example.Models
+namespace Propeus.Module.Hosting.Example.Models
 {
     public class ErrorViewModel
     {

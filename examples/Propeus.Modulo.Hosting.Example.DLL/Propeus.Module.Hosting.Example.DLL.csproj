@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\modules\Propeus.Modulo.Hosting\Propeus.Modulo.Hosting.csproj" />
+	  <ProjectReference Include="..\..\src\modules\Propeus.Modulo.Hosting\Propeus.Module.Hosting.csproj" />
 	</ItemGroup>
 
 </Project>

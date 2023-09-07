@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Propeus.Module.DependencyInjection;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Hosting
+namespace Propeus.Module.Hosting
 {
     public static class Extensions
     {

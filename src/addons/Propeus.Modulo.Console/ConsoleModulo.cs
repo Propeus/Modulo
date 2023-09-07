@@ -1,34 +1,21 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Abstrato.Interfaces;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
+using Propeus.Modulo.Console.Contracts;
 
 namespace Propeus.Modulo.Console
 {
-
-    /// <summary>
-    /// Interface de contrato para o Propeus.Modulo.CLI.CLIModulo
-    /// </summary>
-    [ModuleContract("CliModulo")]
-    public interface IModuloCliContrato : IModule
-    {
-        /// <summary>
-        /// Executa a CLI do Propeus.Modulo.CLI
-        /// </summary>
-        /// <param name="args"></param>
-        void ExecutarCLI(string[] args);
-    }
 
     //TODO: Caso o atributo possua AutoStartable, procurar o metodo Launch e anexar ao taskjob se estiver disponivel,
     //caso contrario inicar o launch de void e o usuario deve lidar com o ciclo de vida do modulo
     /// <summary>
     /// Exemplo de modulo auto inicializavel e funcional
     /// </summary>
-    [Module(AutoStartable = true)]
+    [Module(AutoStartable = true, Singleton = true)]
     public class ConsoleModulo : BaseModule
     {
         private readonly CancellationTokenSource cancellationTokenSource = new();
@@ -41,12 +28,13 @@ namespace Propeus.Modulo.Console
         /// </summary>
         /// <param name="moduleManager"></param>
         /// <param name="moduloCLI"></param>
-        public ConsoleModulo(IModuleManager moduleManager, IModuloCliContrato moduloCLI = null) : base(true)
+        public ConsoleModulo(IModuleManager moduleManager, IModuloCliContrato? moduloCLI = null) : base()
         {
             _moduleManager = moduleManager;
             //Inicia uma task para continuar a execucao do modulo apos a inicializacao dele.
-            tarefa = Task.Run(IniciarProcesso);
+            tarefa = Task.Run(IniciarProcesso, cancellationTokenSource.Token);
             System.Console.CancelKeyPress += Console_CancelKeyPress;
+            System.Console.CursorVisible = true;
             System.Console.Title = "Terminal - Gerenciador";
             this.moduloCLI = moduloCLI;
         }
@@ -56,9 +44,9 @@ namespace Propeus.Modulo.Console
             cancellationTokenSource.Cancel();
         }
 
-        private Task IniciarProcesso()
+        private void IniciarProcesso()
         {
-            
+
 
             if (moduloCLI != null)
             {
@@ -139,23 +127,16 @@ namespace Propeus.Modulo.Console
                                 break;
                             case "-rm":
                             case "--remover":
-                                if (cmd[1].ToLower() == "all")
-                                {
-                                    _moduleManager.RemoveAllModules();
-                                }
-                                else
-                                {
-                                    _moduleManager.RemoveModule(cmd[1]);
-                                }
+                                _moduleManager.RemoveModule(cmd[1]);
                                 break;
                             case "--s":
                             case "--sair":
                                 cancellationTokenSource.Cancel();
-                                this.Dispose();
+                                this.State = State.Off;
                                 break;
                             case "-v":
                             case "--versao":
-                               
+
                                 break;
                             case "--cp":
                                 switch (cmd[1])
@@ -209,18 +190,15 @@ namespace Propeus.Modulo.Console
 
             }
             System.Console.WriteLine("Console finaizado");
-            return Task.CompletedTask;
         }
-        /// <inheritdoc/>
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (!disposing)
+            if (!disposedValue)
             {
                 //Cancela a tarefa atual, pois o gerenciador nao tem os mesmos privilagios de um G.C. sob o objeto.
                 cancellationTokenSource.Cancel();
-                //Aguarta a tarefa se finalizada
-                tarefa.Wait();
 
                 cancellationTokenSource.Dispose();
 

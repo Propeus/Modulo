@@ -17,19 +17,13 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
 
         public Stopwatch StopWatch { get; }
 
-        public BallModule()
+        public BallModule(float x = 0, float y = 0)
         {
             random = new Random();
             StopWatch = Stopwatch.StartNew();
             BallCharacterIcon = 'O';
             BallCharacterEraseIcon = ' ';
-        }
 
-        public char BallCharacterIcon { get; set; }
-        public char BallCharacterEraseIcon { get; set; }
-
-        public void CriarInstancia(float x = 0, float y = 0)
-        {
             float randomFloat = (float)random.NextDouble() * 2f;
             DX = Math.Max(randomFloat, 1f - randomFloat);
             DY = 1f - DX;
@@ -44,6 +38,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
                 DY = -DY;
             }
         }
+
+        public char BallCharacterIcon { get; set; }
+        public char BallCharacterEraseIcon { get; set; }
 
         public void UpdateBallNewPosition(float time)
         {
