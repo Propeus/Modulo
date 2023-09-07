@@ -129,9 +129,10 @@ namespace Propeus.Modulo.Console.Example
             this.b = b;
         }
 
-        public void CriarConfiguracao()
+        public override void ConfigureModule()
         {
             mensagem ??= "O valor da some é...";
+            base.ConfigureModule();
         }
 
         //Implemente os metodos e propriedades que o modulo deve possuir.

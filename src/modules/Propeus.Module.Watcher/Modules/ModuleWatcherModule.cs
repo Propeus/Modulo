@@ -78,17 +78,11 @@ namespace Propeus.Module.Watcher.Modules
             _fileSystemWatcher.Filter = "*.dll";
             _fileSystemWatcher.IncludeSubdirectories = false; //Desabilitado pois o fine coverage copia as dll, duplicando e causando erros inesperados
             _fileSystemWatcher.Path = _currentDirectory;
-            _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-
-       
-        /// <summary>
-        /// Metodo para configuracao do modulo
-        /// </summary>
-        public void CriarConfiguracao()
+        ///<inheritdoc/>
+        public override void ConfigureModule()
         {
-
             foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.TopDirectoryOnly))
             {
                 FileInfo fi = new FileInfo(modulePath);
@@ -96,8 +90,17 @@ namespace Propeus.Module.Watcher.Modules
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
 
-            State = Propeus.Module.Abstract.State.Ready;
+            base.ConfigureModule();
         }
+
+        ///<inheritdoc/>
+        public override void Launch()
+        {
+            _fileSystemWatcher.EnableRaisingEvents = true;
+            base.Launch();
+        }
+
+
         #endregion
 
         ///<inheritdoc/>
@@ -150,7 +153,7 @@ namespace Propeus.Module.Watcher.Modules
         }
 
         #region Eventos & Funcoes
-    
+
         private void _fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
             if (_modulesInfo.ContainsKey(e.OldFullPath))

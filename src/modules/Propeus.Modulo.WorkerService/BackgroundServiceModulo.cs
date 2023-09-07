@@ -24,10 +24,20 @@ namespace Propeus.Module.WorkerService
         private Task _executeTask;
         private CancellationTokenSource _stoppingCts;
 
-        public void CriarConfiguracao()
+        ///<inheritdoc/>
+        public override void ConfigureModule()
+        {
+            base.ConfigureModule();
+        }
+
+        ///<inheritdoc/>
+        public override void Launch()
         {
             StartAsync(new CancellationTokenSource().Token);
+            base.Launch();
         }
+
+       
 
         /// <summary>
         /// Gets the Task that executes the background operation.

@@ -33,6 +33,16 @@ namespace Propeus.Modulo.CoreTests
                 }
             }
 
+            public void ConfigureModule()
+            {
+                //Nao faz nada aqui
+            }
+
+            public void Launch()
+            {
+                //Nao faz nada aqui
+
+            }
 
             public void Dispose()
             {

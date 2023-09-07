@@ -7,13 +7,6 @@ namespace Propeus.Module.Abstract
     {
 
         /// <summary>
-        /// Metodo que o gerenciador irá chamar para realizar as configurações
-        /// </summary>
-        public const string METODO_CONFIGURACAO = "CriarConfiguracao";
-   
-
-
-        /// <summary>
         /// O atributo não possui um nome de modulo ou tipo
         /// </summary>
         public const string ERRO_ATRIBUTO_MODULO_CONTRATO_INVALIDO = "O atributo deve possuir um nome ou tipo do modulo";

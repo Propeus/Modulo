@@ -11,7 +11,7 @@ namespace Propeus.Modulo.DinamicoTests
         public readonly int parametro_B;
         public readonly ModuloDeExemploParaPropeusModuloDinamico moduloQualquer;
 
-        public ModuleDeExemploParaParametrosCustomizados(int parametro_a, ModuloDeExemploParaPropeusModuloDinamico moduloQualquer, int parametro_b=10)
+        public ModuleDeExemploParaParametrosCustomizados(int parametro_a, ModuloDeExemploParaPropeusModuloDinamico moduloQualquer, int parametro_b = 10)
         {
             parametro_A = parametro_a;
             parametro_B = parametro_b;
@@ -145,10 +145,14 @@ namespace Propeus.Modulo.DinamicoTests
             this.b = b;
         }
 
-        public void CriarConfiguracao()
+        ///<inheritdoc/>
+        public override void ConfigureModule()
         {
             mensagem ??= "O valor da some é...";
+            base.ConfigureModule();
         }
+
+
 
         //Implemente os metodos e propriedades que o modulo deve possuir.
         public void EscreverOlaMundo()

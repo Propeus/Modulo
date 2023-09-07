@@ -55,6 +55,17 @@ namespace Propeus.Modulo.CoreTests
             }
 
             public string IdManifesto { get; }
+
+            public void ConfigureModule()
+            {
+               //Nao faz nada aqui
+            }
+
+            public void Launch()
+            {
+                //Nao faz nada aqui
+
+            }
         }
 
 

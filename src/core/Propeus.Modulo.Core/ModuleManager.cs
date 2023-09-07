@@ -316,6 +316,8 @@ namespace Propeus.Module.Manager
             {
                 object[] nArgs = Propeus.Module.Utils.Objetos.Helper.JoinParameterValue(paramCtor, args, LoadModuleFromParameter);
                 IModule modulo = (IModule)Activator.CreateInstance(moduleType, nArgs);
+                modulo.ConfigureModule();
+                modulo.Launch();
                 Registry.RegisterModule(modulo);
 
                 return modulo;

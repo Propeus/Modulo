@@ -24,7 +24,16 @@ namespace Propeus.Module.Abstract
             Name = GetType().Name;
         }
 
-
+        ///<inheritdoc/>
+        public virtual void ConfigureModule()
+        {
+            State = State.Ready;
+        }
+        ///<inheritdoc/>
+        public virtual void Launch()
+        {
+            State = State.Initialized;
+        }
 
         /// <summary>
         /// Exibe informacoes basicas sobre o modulo
@@ -42,5 +51,6 @@ namespace Propeus.Module.Abstract
 
             return sb.ToString();
         }
+     
     }
 }
