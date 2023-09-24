@@ -1,9 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		
+		<TargetName>Module</TargetName>
+
 		<Product>Propeus.Modulo.Console</Product>
 		<VersionPrefix>0.1.0</VersionPrefix>
 		<Description>Modulo para controle do gerenciador por linha de comando</Description>
@@ -18,7 +21,7 @@
 		<PackageTags>Propeus Net Modulo Console</PackageTags>
 		<PackageId>Propeus.Modulo.Console</PackageId>
 
-		<AssemblyName>Propeus.Modulo.Console</AssemblyName>
+		<AssemblyName>Module</AssemblyName>
 		<RootNamespace>Propeus.Modulo.Console</RootNamespace>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -30,14 +33,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+		<ProjectReference Include="..\..\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
 	</ItemGroup>
 
 </Project>
