@@ -1,6 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Tracing;
+using System.IO;
+using System.Linq;
+using System.Numerics;
 using System.Reflection;
+using System.Runtime.InteropServices.JavaScript;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 
 namespace Propeus.Module.Utils.Objetos
 {
@@ -32,7 +41,7 @@ namespace Propeus.Module.Utils.Objetos
             }
 
 
-            if (obj.GetType().IsAssignableTo(para))
+            if (obj.GetType().IsAssignableTo(para) || obj.GetType() == para)
             {
                 return obj;
             }
@@ -43,7 +52,14 @@ namespace Propeus.Module.Utils.Objetos
 
             if (box_explicito_implicito is null)
             {
-                throw new InvalidCastException();
+                try
+                {
+                    return Convert.ChangeType(obj, para);
+                }
+                catch (Exception)
+                {
+                    throw new InvalidCastException();
+                }
             }
             else if (box_explicito_implicito.ReturnType == para)
             {
@@ -51,7 +67,21 @@ namespace Propeus.Module.Utils.Objetos
             }
             else
             {
-                throw new InvalidCastException();
+                try
+                {
+                    if (para.IsEnum)
+                    {
+                        return Enum.Parse(para, obj.ToString());
+                    }
+                    else
+                    {
+                        return Convert.ChangeType(obj, para);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new InvalidCastException();
+                }
             }
 
         }
@@ -91,9 +121,9 @@ namespace Propeus.Module.Utils.Objetos
         /// <param name="parameterUser">Valores do usuario</param>
         /// <returns>Um array com os parametros do construtor</returns>
         /// <exception cref="ArgumentException">Quando os valores do usaurio são incompativeis com os parametros do metodo</exception>
-        public static object[] JoinParameterValue(ParameterInfo[] parameterConstructor, object[] parameterUser, Func<ParameterInfo,object> resolveParamter = null)
+        public static object[] JoinParameterValue(ParameterInfo[] parameterConstructor, object[] parameterUser, Func<ParameterInfo, object> resolveParamter = null)
         {
-            if(parameterUser == null || parameterUser.Length == Array.Empty<object>().Length )
+            if (parameterUser == null || parameterUser.Length == Array.Empty<object>().Length)
             {
                 parameterUser = new object[parameterConstructor.Length];
             }
@@ -148,6 +178,5 @@ namespace Propeus.Module.Utils.Objetos
 
             return result;
         }
-
     }
 }

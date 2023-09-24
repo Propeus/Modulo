@@ -235,20 +235,7 @@ namespace Propeus.Module.IL.Core.Helpers
             #endregion
 
             #region Operators
-            //TODO: Construir uma funcao para trocar proxy e criar uma interface para isso
-            //ClasseAPI.CriarMetodo(
-            //    cls.Atual,
-            //    new Token[] {Token.Publico,
-            //        Token.OcutarAssinatura,
-            //        Token.NomeEspecial,
-            //        Token.Estatico,
-            //        Token.Classe},
-            //    cls.Atual.Proxy.ObterBuilder<TypeBuilder>().AsType(),
-            //    "op_Explicit",
-            //    new ILParametro[] { new ILParametro("op_Explicit", tClasse, false, null, "proxyInstance") });
-
-            //ILMetodo mthProxy = cls.Atual.Metodos.Last();
-            //MetodoAPI.
+   
             #endregion
 
             return iLClasseProvider;

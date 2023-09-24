@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Propeus.Module.DependencyInjection.MS_DependencyInjection;
 
-internal partial class ServiceProvider
+internal partial class ServiceProviderModule
 {
     internal sealed class ExpressionResolverBuilder : CallSiteVisitor<object?, Expression>
     {
@@ -41,7 +41,7 @@ internal partial class ServiceProvider
 
         private readonly Func<ServiceCacheKey, ServiceCallSite, Func<ServiceProviderEngineScope, object>> _buildTypeDelegate;
 
-        public ExpressionResolverBuilder(ServiceProvider serviceProvider)
+        public ExpressionResolverBuilder(ServiceProviderModule serviceProvider)
         {
             _rootScope = serviceProvider.Root;
             _scopeResolverCache = new ConcurrentDictionary<ServiceCacheKey, Func<ServiceProviderEngineScope, object>>();
@@ -114,7 +114,7 @@ internal partial class ServiceProvider
                 Justification = "VerifyAotCompatibility ensures elementType is not a ValueType")]
             static MethodInfo GetArrayEmptyMethodInfo(Type elementType)
             {
-                Debug.Assert(!ServiceProvider.VerifyAotCompatibility || !elementType.IsValueType, "VerifyAotCompatibility=true will throw during building the IEnumerableCallSite if elementType is a ValueType.");
+                Debug.Assert(!ServiceProviderModule.VerifyAotCompatibility || !elementType.IsValueType, "VerifyAotCompatibility=true will throw during building the IEnumerableCallSite if elementType is a ValueType.");
 
                 return ServiceLookupHelpers.GetArrayEmptyMethodInfo(elementType);
             }

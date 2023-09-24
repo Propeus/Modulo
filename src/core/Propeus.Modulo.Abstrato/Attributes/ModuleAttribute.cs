@@ -30,6 +30,6 @@ namespace Propeus.Module.Abstract.Attributes
         /// <summary>
         /// Define uma descrição sobre o modulo
         /// </summary>
-        public string Description { get;set; }
+        public string? Description { get;set; }
     }
 }

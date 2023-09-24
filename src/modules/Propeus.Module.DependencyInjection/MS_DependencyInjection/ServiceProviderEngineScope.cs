@@ -16,7 +16,7 @@ internal sealed class ServiceProviderEngineScope : IServiceScope, IServiceProvid
     private bool _disposed;
     private List<object>? _disposables;
 
-    public ServiceProviderEngineScope(ServiceProvider provider, bool isRootScope)
+    public ServiceProviderEngineScope(ServiceProviderModule provider, bool isRootScope)
     {
         ResolvedServices = new Dictionary<ServiceCacheKey, object?>();
         RootProvider = provider;
@@ -32,7 +32,7 @@ internal sealed class ServiceProviderEngineScope : IServiceScope, IServiceProvid
 
     public bool IsRootScope { get; }
 
-    internal ServiceProvider RootProvider { get; }
+    internal ServiceProviderModule RootProvider { get; }
 
     public object? GetService(Type serviceType)
     {

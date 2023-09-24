@@ -3,7 +3,7 @@
 
 namespace Propeus.Module.DependencyInjection.MS_DependencyInjection;
 
-internal partial class ServiceProvider
+internal partial class ServiceProviderModule
 {
     internal abstract class CompiledServiceProviderEngine : ServiceProviderEngine
     {
@@ -14,7 +14,7 @@ internal partial class ServiceProvider
 #endif
 
         [RequiresDynamicCode("Creates DynamicMethods")]
-        public CompiledServiceProviderEngine(ServiceProvider provider)
+        public CompiledServiceProviderEngine(ServiceProviderModule provider)
         {
             ResolverBuilder = new(provider);
         }

@@ -8,6 +8,6 @@ internal sealed class ServiceProviderCallSite : ServiceCallSite
     }
 
     public override Type ServiceType { get; } = typeof(IServiceProvider);
-    public override Type ImplementationType { get; } = typeof(ServiceProvider);
+    public override Type ImplementationType { get; } = typeof(ServiceProviderModule);
     public override CallSiteKind Kind { get; } = CallSiteKind.ServiceProvider;
 }

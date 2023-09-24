@@ -53,7 +53,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
                     throw new ArgumentException("ArityOfOpenGenericServiceNotEqualArityOfOpenGenericImplementation");
                 }
 
-                if (ServiceProvider.VerifyOpenGenericServiceTrimmability)
+                if (ServiceProviderModule.VerifyOpenGenericServiceTrimmability)
                 {
                     ValidateTrimmingAnnotations(serviceType, serviceTypeGenericArguments, implementationType, implementationTypeGenericArguments);
                 }
@@ -235,7 +235,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
                 serviceType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
             {
                 Type itemType = serviceType.GenericTypeArguments[0];
-                if (ServiceProvider.VerifyAotCompatibility && itemType.IsValueType)
+                if (ServiceProviderModule.VerifyAotCompatibility && itemType.IsValueType)
                 {
                     // NativeAOT apps are not able to make Enumerable of ValueType services
                     // since there is no guarantee the ValueType[] code has been generated.
@@ -348,7 +348,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
         "Trimming annotations on the generic types are verified when 'Microsoft.Extensions.DependencyInjection.VerifyOpenGenericServiceTrimmability' is set, which is set by default when PublishTrimmed=true. " +
         "That check informs developers when these generic types don't have compatible trimming annotations.")]
     [UnconditionalSuppressMessage("AotAnalysis", "IL3050:RequiresDynamicCode",
-        Justification = "When ServiceProvider.VerifyAotCompatibility is true, which it is by default when PublishAot=true, " +
+        Justification = "When ServiceProviderModule.VerifyAotCompatibility is true, which it is by default when PublishAot=true, " +
         "this method ensures the generic types being created aren't using ValueTypes.")]
     private ServiceCallSite? TryCreateOpenGeneric(ServiceDescriptor descriptor, Type serviceType, CallSiteChain callSiteChain, int slot, bool throwOnConstraintViolation)
     {
@@ -367,7 +367,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
             try
             {
                 Type[] genericTypeArguments = serviceType.GenericTypeArguments;
-                if (ServiceProvider.VerifyAotCompatibility)
+                if (ServiceProviderModule.VerifyAotCompatibility)
                 {
                     VerifyOpenGenericAotCompatibility(serviceType, genericTypeArguments);
                 }
@@ -573,7 +573,7 @@ internal sealed class CallSiteFactory : IServiceProviderIsService
         }
 
         // These are the built in service types that aren't part of the list of service descriptors
-        // If you update these make sure to also update the code in ServiceProvider.ctor
+        // If you update these make sure to also update the code in ServiceProviderModule.ctor
         return serviceType == typeof(IServiceProvider) ||
                serviceType == typeof(IServiceScopeFactory) ||
                serviceType == typeof(IServiceProviderIsService);

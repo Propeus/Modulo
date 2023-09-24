@@ -20,7 +20,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         // Event source doesn't support large payloads so we chunk large payloads like formatted call site tree and descriptors
         private const int MaxChunkSize = 10 * 1024;
 
-        private readonly List<WeakReference<ServiceProvider>> _providers = new();
+        private readonly List<WeakReference<ServiceProviderModule>> _providers = new();
 
         private DependencyInjectionEventSource() : base(EventSourceSettings.EtwSelfDescribingEventFormat)
         {
@@ -89,7 +89,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         }
 
         [NonEvent]
-        public void ServiceResolved(ServiceProvider provider, Type serviceType)
+        public void ServiceResolved(ServiceProviderModule provider, Type serviceType)
         {
             if (IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {
@@ -98,7 +98,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         }
 
         [NonEvent]
-        public void CallSiteBuilt(ServiceProvider provider, Type serviceType, ServiceCallSite callSite)
+        public void CallSiteBuilt(ServiceProviderModule provider, Type serviceType, ServiceCallSite callSite)
         {
             if (IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {
@@ -117,7 +117,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         }
 
         [NonEvent]
-        public void DynamicMethodBuilt(ServiceProvider provider, Type serviceType, int methodSize)
+        public void DynamicMethodBuilt(ServiceProviderModule provider, Type serviceType, int methodSize)
         {
             if (IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {
@@ -135,26 +135,26 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         }
 
         [NonEvent]
-        public void ServiceProviderBuilt(ServiceProvider provider)
+        public void ServiceProviderBuilt(ServiceProviderModule provider)
         {
             lock (_providers)
             {
-                _providers.Add(new WeakReference<ServiceProvider>(provider));
+                _providers.Add(new WeakReference<ServiceProviderModule>(provider));
             }
 
             WriteServiceProviderBuilt(provider);
         }
 
         [NonEvent]
-        public void ServiceProviderDisposed(ServiceProvider provider)
+        public void ServiceProviderDisposed(ServiceProviderModule provider)
         {
             lock (_providers)
             {
                 for (int i = _providers.Count - 1; i >= 0; i--)
                 {
                     // remove the provider, along with any stale references
-                    WeakReference<ServiceProvider> reference = _providers[i];
-                    if (!reference.TryGetTarget(out ServiceProvider? target) || target == provider)
+                    WeakReference<ServiceProviderModule> reference = _providers[i];
+                    if (!reference.TryGetTarget(out ServiceProviderModule? target) || target == provider)
                     {
                         _providers.RemoveAt(i);
                     }
@@ -163,7 +163,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         }
 
         [NonEvent]
-        private void WriteServiceProviderBuilt(ServiceProvider provider)
+        private void WriteServiceProviderBuilt(ServiceProviderModule provider)
         {
             if (IsEnabled(EventLevel.Informational, Keywords.ServiceProviderInitialized))
             {
@@ -267,15 +267,15 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         {
             if (command.Command == EventCommand.Enable)
             {
-                // When this EventSource becomes enabled, write out the existing ServiceProvider information
-                // because building the ServiceProvider happens early in the process. This way a listener
+                // When this EventSource becomes enabled, write out the existing ServiceProviderModule information
+                // because building the ServiceProviderModule happens early in the process. This way a listener
                 // can get this information, even if they attach while the process is running.
 
                 lock (_providers)
                 {
-                    foreach (WeakReference<ServiceProvider> reference in _providers)
+                    foreach (WeakReference<ServiceProviderModule> reference in _providers)
                     {
-                        if (reference.TryGetTarget(out ServiceProvider? provider))
+                        if (reference.TryGetTarget(out ServiceProviderModule? provider))
                         {
                             WriteServiceProviderBuilt(provider);
                         }
@@ -290,7 +290,7 @@ namespace Propeus.Module.DependencyInjection.MS_DependencyInjection
         // This is an extension method because this assembly is trimmed at a "type granular" level in Blazor,
         // and the whole DependencyInjectionEventSource type can't be trimmed. So extracting this to a separate
         // type allows for the System.Linq.Expressions usage to be trimmed by the ILLinker.
-        public static void ExpressionTreeGenerated(this DependencyInjectionEventSource source, ServiceProvider provider, Type serviceType, Expression expression)
+        public static void ExpressionTreeGenerated(this DependencyInjectionEventSource source, ServiceProviderModule provider, Type serviceType, Expression expression)
         {
             if (source.IsEnabled(EventLevel.Verbose, EventKeywords.All))
             {

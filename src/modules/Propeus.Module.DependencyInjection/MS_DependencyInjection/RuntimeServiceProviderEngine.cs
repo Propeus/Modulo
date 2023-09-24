@@ -1,7 +1,7 @@
 ﻿
 namespace Propeus.Module.DependencyInjection.MS_DependencyInjection;
 
-internal partial class ServiceProvider
+internal partial class ServiceProviderModule
 {
     internal sealed class RuntimeServiceProviderEngine : ServiceProviderEngine
     {

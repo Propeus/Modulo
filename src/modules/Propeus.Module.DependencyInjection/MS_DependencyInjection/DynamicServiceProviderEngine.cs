@@ -3,14 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Propeus.Module.DependencyInjection.MS_DependencyInjection;
 
-internal partial class ServiceProvider
+internal partial class ServiceProviderModule
 {
     internal sealed class DynamicServiceProviderEngine : CompiledServiceProviderEngine
     {
-        private readonly ServiceProvider _serviceProvider;
+        private readonly ServiceProviderModule _serviceProvider;
 
         [RequiresDynamicCode("Creates DynamicMethods")]
-        public DynamicServiceProviderEngine(ServiceProvider serviceProvider) : base(serviceProvider)
+        public DynamicServiceProviderEngine(ServiceProviderModule serviceProvider) : base(serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

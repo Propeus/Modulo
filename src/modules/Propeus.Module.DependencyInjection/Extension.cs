@@ -20,7 +20,7 @@ namespace Propeus.Module.DependencyInjection
         /// <returns></returns>
         public static IHostBuilder UseModuleManager(this IHostBuilder configureHostBuilder, IModuleManager moduleManager, Action<IModuleManager, IServiceCollection>? configureServicesDelegate = null)
         {
-            configureHostBuilder.UseServiceProviderFactory(new ModuloServiceProviderFactory());
+            configureHostBuilder.UseServiceProviderFactory(moduleManager.CreateModule<ModuloServiceProviderFactoryModule>());
             configureHostBuilder.ConfigureServices(configureDelegate: (builder, sc) =>
             {
                 configureServicesDelegate?.Invoke(moduleManager, sc);

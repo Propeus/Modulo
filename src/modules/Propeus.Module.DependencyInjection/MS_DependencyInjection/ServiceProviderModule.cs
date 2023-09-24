@@ -4,12 +4,16 @@ using System.Runtime.CompilerServices;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+
 namespace Propeus.Module.DependencyInjection.MS_DependencyInjection;
 
 /// <summary>
 /// The default IServiceProvider.
 /// </summary>
-internal partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDisposable
+[Module(Description = "Provedor de serviços", AutoUpdate = false, AutoStartable = false, KeepAlive = false, Singleton = false)]
+internal partial class ServiceProviderModule : BaseModule, IServiceProvider, IDisposable, IAsyncDisposable
 {
     private readonly CallSiteValidator? _callSiteValidator;
 
@@ -36,7 +40,7 @@ internal partial class ServiceProvider : IServiceProvider, IDisposable, IAsyncDi
         !RuntimeFeature.IsDynamicCodeSupported;
 #endif
 
-    internal ServiceProvider(ICollection<ServiceDescriptor> serviceDescriptors, ServiceProviderOptions options)
+    public ServiceProviderModule(ICollection<ServiceDescriptor> serviceDescriptors, ServiceProviderOptions options)
     {
         // note that Root needs to be set before calling GetEngine(), because the engine may need to access Root
         Root = new ServiceProviderEngineScope(this, isRootScope: true);

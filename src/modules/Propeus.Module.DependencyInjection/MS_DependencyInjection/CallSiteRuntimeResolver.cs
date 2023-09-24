@@ -172,7 +172,7 @@ internal sealed class CallSiteRuntimeResolver : CallSiteVisitor<RuntimeResolverC
             Justification = "VerifyAotCompatibility ensures elementType is not a ValueType")]
         static Array CreateArray(Type elementType, int length)
         {
-            Debug.Assert(!ServiceProvider.VerifyAotCompatibility || !elementType.IsValueType, "VerifyAotCompatibility=true will throw during building the IEnumerableCallSite if elementType is a ValueType.");
+            Debug.Assert(!ServiceProviderModule.VerifyAotCompatibility || !elementType.IsValueType, "VerifyAotCompatibility=true will throw during building the IEnumerableCallSite if elementType is a ValueType.");
 
             return Array.CreateInstance(elementType, length);
         }
