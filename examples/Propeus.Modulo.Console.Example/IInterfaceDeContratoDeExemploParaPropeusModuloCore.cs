@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Console.Example
+namespace Propeus.Module.Console.Example
 {
     //Para criar um contrato, é necessário ter o atributo ModuloContrato e herdar de IModule
     //O atributo ModuloContrato aceita tanto tipo como o nome dele, más para o cao do Propeus.Module.Manager, recomendo utilizar o tipo

@@ -3,7 +3,6 @@
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
-
 using Propeus.Module.Registry.Contracts;
 using Propeus.Module.Registry.Models;
 

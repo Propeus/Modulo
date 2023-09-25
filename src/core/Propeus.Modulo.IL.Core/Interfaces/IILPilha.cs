@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection.Emit;
+﻿using System.Reflection.Emit;
 
 using Propeus.Module.IL.Core.Proxy;
 

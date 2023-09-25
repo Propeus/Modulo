@@ -1,10 +1,10 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
-using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
+using Propeus.Module.Console.Game.Pong.Example.Data.Objects;
 
-namespace Propeus.Modulo.Console.Game.Pong.Example.Data
+namespace Propeus.Module.Console.Game.Pong.Example.Data
 {
-    [Module(AutoUpdate = false, AutoStartable = false,Singleton =true)]
+    [Module(AutoUpdate = false, AutoStartable = false, Singleton = true)]
     public class RenderModule : BaseModule
     {
         public RenderModule() : base()

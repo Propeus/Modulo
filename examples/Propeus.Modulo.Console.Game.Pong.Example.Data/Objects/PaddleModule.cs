@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-
-using Propeus.Module.Abstract;
+﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
-using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
+namespace Propeus.Module.Console.Game.Pong.Example.Data.Objects
 {
     [Module(AutoUpdate = false, AutoStartable = false)]
     public class PaddleModule : BaseModule
@@ -23,12 +20,12 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
         public int PaddleSize { get; set; }
         public int Score { get; set; }
 
-        public void CalculateColisionBall(BallModule ballModule, bool enemy, int height, int width, float multiplier,float time)
+        public void CalculateColisionBall(BallModule ballModule, bool enemy, int height, int width, float multiplier, float time)
         {
 
 
             // Compute Time And New Ball Position
-            (float X2, float Y2) = (ballModule.X + (time * ballModule.DX), ballModule.Y + (time * ballModule.DY));
+            (float X2, float Y2) = (ballModule.X + time * ballModule.DX, ballModule.Y + time * ballModule.DY);
 
             // Collisions With Up/Down Walls
             if (Y2 < 0 || Y2 > height)
@@ -50,14 +47,14 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
                         ballModule.DX = -ballModule.DX;
                         ballModule.DX *= multiplier;
                         ballModule.DY *= multiplier;
-                        X2 = ballModule.X + (time * ballModule.DX);
+                        X2 = ballModule.X + time * ballModule.DX;
                     }
                 }
 
                 if (X2 < 0)
                 {
                     Score++;
-                    this.ScoreEvent?.Invoke(Score);
+                    ScoreEvent?.Invoke(Score);
                 }
             }
             else
@@ -72,14 +69,14 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
                         ballModule.DX = -ballModule.DX;
                         ballModule.DX *= multiplier;
                         ballModule.DY *= multiplier;
-                        X2 = ballModule.X + (time * ballModule.DX);
+                        X2 = ballModule.X + time * ballModule.DX;
                     }
                 }
 
                 if (X2 > width)
                 {
                     Score++;
-                    this.ScoreEvent?.Invoke(Score);
+                    ScoreEvent?.Invoke(Score);
                 }
             }
         }
@@ -93,9 +90,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
             // find the slope
             float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
             // find the y-intercept
-            float yIntercept = line.A.Y - (line.A.X * slope);
+            float yIntercept = line.A.Y - line.A.X * slope;
             // find the function's value at parameter "x"
-            return (x * slope) + yIntercept;
+            return x * slope + yIntercept;
         }
     }
 }

@@ -1,18 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>true</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Propeus.Module.DependencyInjection</Product>
+		<AssemblyName>Propeus.Module.DependencyInjection</AssemblyName>
+		<RootNamespace>Propeus.Module.DependencyInjection</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Modulo para controlar DI em projetos MVC</Description>
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo DependencyInjection</PackageTags>
+		<PackageId>Propeus.Module.DependencyInjection</PackageId>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+	</ItemGroup>
 
 </Project>

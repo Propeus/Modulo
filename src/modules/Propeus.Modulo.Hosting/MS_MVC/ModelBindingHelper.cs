@@ -433,7 +433,7 @@ namespace Propeus.Module.Hosting.MS_MVC
 
         internal static TModel? CastOrDefault<TModel>(object? model)
         {
-            return (model is TModel tModel) ? tModel : default;
+            return model is TModel tModel ? tModel : default;
         }
 
         /// <summary>

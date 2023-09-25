@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Module.Abstract.Attributes;
+﻿using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 
 namespace Propeus.Module.WorkerService.Contracts
@@ -20,7 +14,7 @@ namespace Propeus.Module.WorkerService.Contracts
         /// </summary>
         /// <param name="nameType">Nome do tipo ou contrato</param>
         /// <returns>Retorna o tipo implementado ou o proxy dele</returns>
-        Type? this[string nameType] { get; set; }
+        Type this[string nameType] { get; set; }
 
         /// <summary>
         /// Obtém todos tipos de módulos validos
@@ -39,14 +33,14 @@ namespace Propeus.Module.WorkerService.Contracts
         /// <summary>
         /// Evento para carregamento de um novo modulo
         /// </summary>
-        event Action<Type>? OnLoadModule;
+        event Action<Type> OnLoadModule;
         /// <summary>
         /// Evento para recarregamento de um novo modulo
         /// </summary>
-        event Action<Type>? OnReloadModule;
+        event Action<Type> OnReloadModule;
         /// <summary>
         /// Evento para descarregamento de um modulo existente
         /// </summary>
-        event Action<Type>? OnUnloadModule;
+        event Action<Type> OnUnloadModule;
     }
 }

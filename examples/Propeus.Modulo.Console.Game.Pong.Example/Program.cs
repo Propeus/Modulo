@@ -3,8 +3,9 @@
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
 
-namespace Propeus.Modulo.Console.Game.Pong.Example
+namespace Propeus.Module.Console.Game.Pong.Example
 {
     //https://github.com/dotnet/dotnet-console-games/blob/main/Projects/Pong
 
@@ -20,7 +21,7 @@ namespace Propeus.Modulo.Console.Game.Pong.Example
     {
         private static async Task Main(string[] args)
         {
-            using (IModuleManager gen = Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()))
+            using (IModuleManager gen = Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
             {
                 if (!gen.ExistsModule(typeof(IWindowModuleContract)))
                 {

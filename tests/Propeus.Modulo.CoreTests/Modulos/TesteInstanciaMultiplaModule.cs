@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.CoreTests.Modulos
+namespace Propeus.Module.CoreTests.Modulos
 {
     [Module]
     public class TesteInstanciaMultiplaModule : BaseModule

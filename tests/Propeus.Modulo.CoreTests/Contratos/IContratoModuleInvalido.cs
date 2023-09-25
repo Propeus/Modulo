@@ -1,6 +1,6 @@
 ﻿using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.CoreTests
+namespace Propeus.Module.CoreTests
 {
     public partial class GerenciadorTests
     {

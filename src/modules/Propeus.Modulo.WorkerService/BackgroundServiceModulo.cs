@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
@@ -37,7 +34,7 @@ namespace Propeus.Module.WorkerService
             base.Launch();
         }
 
-       
+
 
         /// <summary>
         /// Gets the Task that executes the background operation.
@@ -49,13 +46,13 @@ namespace Propeus.Module.WorkerService
 
 
         /// <summary>
-        /// This method is called when the <see cref="Microsoft.Extensions.Hosting.IHostedService"/> starts.
+        /// This method is called when the <see cref="IHostedService"/> starts.
         /// The implementation should return a task that represents the lifetime of the long running operation(s) being performed.
         /// </summary>
         /// <remarks>
         /// See Worker Services in .NET for implementation guidelines.
         /// </remarks>
-        /// <param name="stoppingToken">Triggered when <see cref="Microsoft.Extensions.Hosting.IHostedService.StopAsync(System.Threading.CancellationToken)"/> </param>
+        /// <param name="stoppingToken">Triggered when <see cref="IHostedService.StopAsync(CancellationToken)"/> </param>
         /// <returns>A System.Threading.Tasks.Task that represents the long running operations.</returns>
         protected abstract Task ExecuteAsync(CancellationToken stoppingToken);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace Propeus.Module.Abstract.Exceptions
@@ -15,9 +14,9 @@ namespace Propeus.Module.Abstract.Exceptions
         /// Construtor padrão
         /// </summary>
         /// <param name="type">Tipo do modulo</param>
-        public ModuleNotFoundException(Type type) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO,type.FullName))
+        public ModuleNotFoundException(Type type) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, type.FullName))
         {
-                
+
         }
         /// <summary>
         /// Construtor padrão
@@ -25,7 +24,7 @@ namespace Propeus.Module.Abstract.Exceptions
         /// <param name="idModule">Id do modulo</param>
         public ModuleNotFoundException(string idModule) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, idModule))
         {
-            
+
         }
 
         ///<inheritdoc/>

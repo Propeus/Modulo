@@ -3,30 +3,33 @@
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
-		
-		<Product>Propeus.Modulo.Core</Product>
-		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente para gerenciar modulos</Description>
-
-		<Authors>Propeus</Authors>
-		<Company>Propeus</Company>
-
-		<RepositoryType>GIT</RepositoryType>
-		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
-		
-		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Core</PackageTags>
-		<PackageId>Propeus.Modulo.Core</PackageId>
-
-		<AssemblyName>Propeus.Modulo.Core</AssemblyName>
-		<RootNamespace>Propeus.Modulo.Core</RootNamespace>
-		
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Propeus.Module.Manager</Product>
+		<AssemblyName>Propeus.Module.Manager</AssemblyName>
+		<RootNamespace>Propeus.Module.Manager</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Componente gerenciar modulos</Description>
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo Gerenciador</PackageTags>
+		<PackageId>Propeus.Module.Manager</PackageId>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<PackageLicenseFile>LICENCE</PackageLicenseFile>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -1,32 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
-
-		<Product>Propeus.Modulo.IL.Core</Product>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Propeus.Module.IL.Core</Product>
+		<AssemblyName>Propeus.Module.IL.Core</AssemblyName>
+		<RootNamespace>Propeus.Module.IL.Core</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente para manipulação de MSIL</Description>
-
+		<Description>Componente base para gerar modulos em tempo de execução</Description>
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<RepositoryType>GIT</RepositoryType>
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo IL</PackageTags>
-		<PackageId>Propeus.Modulo.IL.Core</PackageId>
-
-		<AssemblyName>Propeus.Modulo.IL.Core</AssemblyName>
-		<RootNamespace>Propeus.Modulo.IL.Core</RootNamespace>
-
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
+		<PackageId>Propeus.Module.IL.Core</PackageId>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<PackageLicenseFile>LICENCE</PackageLicenseFile>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	

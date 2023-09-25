@@ -1,4 +1,4 @@
-﻿using Propeus.Modulo.IL.Geradores;
+﻿using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.Helpers
 {

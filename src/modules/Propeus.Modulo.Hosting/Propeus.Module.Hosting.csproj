@@ -2,32 +2,34 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
-		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		
-		<Product>Propeus.Modulo.Hosting</Product>
-		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente com classes e interfaces para implementacao de modulos em sistemas MVC</Description>
-
-		<Authors>Propeus</Authors>
-		<Company>Propeus</Company>
-
-		<RepositoryType>GIT</RepositoryType>
-		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
-
-		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Hosting MVC Razor</PackageTags>
-		<PackageId>Propeus.Modulo.Hosting</PackageId>
-
-		<AssemblyName>Propeus.Modulo.Hosting</AssemblyName>
-		<RootNamespace>Propeus.Modulo.Hosting</RootNamespace>
-
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Propeus.Module.Hosting</Product>
+		<AssemblyName>Propeus.Module.Hosting</AssemblyName>
+		<RootNamespace>Propeus.Module.Hosting</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Modulo para controlar Views e Controllers em tempo de execução nos projetos MVC</Description>
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo Hosting</PackageTags>
+		<PackageId>Propeus.Module.Hosting</PackageId>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 
   <ItemGroup>

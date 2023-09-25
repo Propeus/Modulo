@@ -2,32 +2,34 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
-		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
 		<Product>Propeus.Module.Registry</Product>
+		<AssemblyName>Propeus.Module.Registry</AssemblyName>
+		<RootNamespace>Propeus.Module.Registry</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
 		<Description>Modulo para armazenar informações e instancias de outros modulos</Description>
-
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<RepositoryType>GIT</RepositoryType>
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo Registry</PackageTags>
 		<PackageId>Propeus.Module.Registry</PackageId>
-
-		<AssemblyName>Propeus.Module.Registry</AssemblyName>
-		<RootNamespace>Propeus.Module.Registry</RootNamespace>
-
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 
   <ItemGroup>

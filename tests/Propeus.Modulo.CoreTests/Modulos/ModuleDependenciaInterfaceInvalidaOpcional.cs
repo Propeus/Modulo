@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.CoreTests
+namespace Propeus.Module.CoreTests
 {
     public partial class GerenciadorTests
     {
@@ -12,7 +12,7 @@ namespace Propeus.Modulo.CoreTests
             {
             }
         }
-       
+
 
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-using Propeus.Module.Abstract.Exceptions;
+﻿using Propeus.Module.Abstract.Exceptions;
 
 namespace Propeus.Module.Abstract.Attributes
 {

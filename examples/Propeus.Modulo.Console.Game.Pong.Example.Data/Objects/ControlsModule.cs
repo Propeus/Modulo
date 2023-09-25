@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Propeus.Module.Abstract;
+﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Objects
+namespace Propeus.Module.Console.Game.Pong.Example.Data.Objects
 {
     [Module(AutoUpdate = false, AutoStartable = false, Singleton = true)]
     public class ControlsModule : BaseModule

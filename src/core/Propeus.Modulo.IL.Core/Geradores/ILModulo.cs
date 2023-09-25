@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Security.Cryptography;
+﻿using System.Reflection.Emit;
 using System.Text;
 
 using Propeus.Module.IL.Core.Enums;
@@ -10,7 +7,7 @@ using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
 
-namespace Propeus.Modulo.IL.Geradores
+namespace Propeus.Module.IL.Geradores
 {
 
     internal static partial class Constantes

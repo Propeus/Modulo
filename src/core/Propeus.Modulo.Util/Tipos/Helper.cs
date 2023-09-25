@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Module.Utils.Tipos
+﻿namespace Propeus.Module.Utils.Tipos
 {
 
     /// <summary>

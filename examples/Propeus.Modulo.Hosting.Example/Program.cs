@@ -1,4 +1,5 @@
 using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
 
 namespace Propeus.Module.Hosting.Example
 {
@@ -11,7 +12,7 @@ namespace Propeus.Module.Hosting.Example
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Host.UseModuleManagerForMvc(Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager()));
+            builder.Host.UseModuleManagerForMvc(Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()));
 
             WebApplication app = builder.Build();
 

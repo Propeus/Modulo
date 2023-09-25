@@ -2,7 +2,7 @@
 
 using Propeus.Module.IL.Core.Pilhas;
 using Propeus.Module.IL.Core.Pilhas.Campos;
-using Propeus.Modulo.IL.Geradores;
+using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.API
 {

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
-using System.Threading;
 
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
@@ -74,7 +69,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -109,7 +104,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -144,7 +139,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract;
         ///using Propeus.Module.Abstract.Attributes;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule
@@ -207,7 +202,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -242,7 +237,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -262,7 +257,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -314,7 +309,7 @@ namespace Propeus.Module.Manager
 
             try
             {
-                object[] nArgs = Propeus.Module.Utils.Objetos.Helper.JoinParameterValue(paramCtor, args, LoadModuleFromParameter);
+                object[] nArgs = Utils.Objetos.Helper.JoinParameterValue(paramCtor, args, LoadModuleFromParameter);
                 IModule modulo = (IModule)Activator.CreateInstance(moduleType, nArgs);
                 modulo.ConfigureModule();
                 modulo.Launch();
@@ -417,7 +412,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -452,7 +447,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -507,7 +502,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -542,7 +537,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -576,7 +571,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -611,7 +606,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -660,7 +655,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -695,7 +690,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -745,7 +740,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -780,7 +775,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -818,7 +813,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -853,7 +848,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -909,7 +904,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -944,7 +939,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -984,7 +979,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -1019,7 +1014,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -1071,7 +1066,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -1106,7 +1101,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -1150,7 +1145,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -1185,7 +1180,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -1226,7 +1221,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -1253,7 +1248,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {
@@ -1307,7 +1302,7 @@ namespace Propeus.Module.Manager
         ///using Propeus.Module.Abstract.Attributes;
         ///using Propeus.Module.Abstract.Interfaces;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  [Module]
         ///  internal class ModuloDeExemplo : BaseModule, IInterfaceDeContratoDeExemplo
@@ -1334,7 +1329,7 @@ namespace Propeus.Module.Manager
         ///using System;
         ///using Propeus.Module.Manager;
         ///
-        ///namespace Propeus.Modulo.Example
+        ///namespace Propeus.Module.Example
         ///{
         ///  internal class Program
         ///  {

@@ -103,7 +103,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewResult View()
         {
             return View(null);
@@ -119,7 +119,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewResult View(string viewName)
         {
             return View(viewName, ViewData.Model);
@@ -136,7 +136,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewResult View(object model)
         {
             return View(null, model);
@@ -156,7 +156,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewResult View(string viewName, object model)
         {
             //Vamos ter que fazer override na kcta da engine https://github.com/dotnet/aspnetcore/blob/4afe7f612d104b43b690e71d83c18a8bc48aae2d/src/Mvc/Mvc.ViewFeatures/src/ViewResultExecutor.cs#L21
@@ -178,7 +178,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.PartialViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual PartialViewResult PartialView()
         {
             return PartialView(null);
@@ -194,7 +194,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.PartialViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual PartialViewResult PartialView(string viewName)
         {
             return PartialView(viewName, ViewData.Model);
@@ -211,7 +211,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.PartialViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual PartialViewResult PartialView(object model)
         {
             return PartialView(null, model);
@@ -231,7 +231,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.PartialViewResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual PartialViewResult PartialView(string viewName, object model)
         {
             ViewData.Model = model;
@@ -255,7 +255,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewComponentResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewComponentResult ViewComponent(string componentName)
         {
             return ViewComponent(componentName, null);
@@ -272,7 +272,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewComponentResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewComponentResult ViewComponent(Type componentType)
         {
             return ViewComponent(componentType, null);
@@ -295,7 +295,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewComponentResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewComponentResult ViewComponent(string componentName, object arguments)
         {
             return new ViewComponentResult
@@ -323,7 +323,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.ViewComponentResult object for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual ViewComponentResult ViewComponent(Type componentType, object arguments)
         {
             return new ViewComponentResult
@@ -347,7 +347,7 @@ namespace Propeus.Module.Hosting
         // Devoluções:
         //     The created Microsoft.AspNetCore.Mvc.JsonResult that serializes the specified
         //     data to JSON format for the response.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual JsonResult Json(object data)
         {
             return new JsonResult(data);
@@ -372,7 +372,7 @@ namespace Propeus.Module.Hosting
         // Comentários:
         //     Callers should cache an instance of Newtonsoft.Json.JsonSerializerSettings to
         //     avoid recreating cached data with each call.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual JsonResult Json(object data, JsonSerializerSettings serializerSettings)
         {
             if (serializerSettings == null)
@@ -390,7 +390,7 @@ namespace Propeus.Module.Hosting
         // Parâmetros:
         //   context:
         //     The action executing context.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual void OnActionExecuting(ActionExecutingContext context)
         {
         }
@@ -402,7 +402,7 @@ namespace Propeus.Module.Hosting
         // Parâmetros:
         //   context:
         //     The action executed context.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual void OnActionExecuted(ActionExecutedContext context)
         {
         }
@@ -422,7 +422,7 @@ namespace Propeus.Module.Hosting
         //
         // Devoluções:
         //     A System.Threading.Tasks.Task instance.
-        [Microsoft.AspNetCore.Mvc.NonAction]
+        [NonAction]
         public virtual async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (context == null)

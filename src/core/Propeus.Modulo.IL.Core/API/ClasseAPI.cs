@@ -1,8 +1,6 @@
-﻿using System;
-
-using Propeus.Module.IL.Core.Enums;
+﻿using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Geradores;
-using Propeus.Modulo.IL.Geradores;
+using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.API
 {

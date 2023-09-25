@@ -11,15 +11,15 @@ namespace Propeus.Module.Hosting.ViewEngine
         public ModuloChangeToken(ModuloController moduloController, IModuleProviderModuleContract moduleProvider)
         {
             _name = moduloController.GetType().Name;
-            moduleProvider.SetOnLoadModule((Type moduleType) =>
+            moduleProvider.SetOnLoadModule((moduleType) =>
             {
                 HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
             });
-            moduleProvider.SetOnUnloadModule((Type moduleType) =>
+            moduleProvider.SetOnUnloadModule((moduleType) =>
             {
                 HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
             });
-            moduleProvider.SetOnRebuildModule((Type moduleType) =>
+            moduleProvider.SetOnRebuildModule((moduleType) =>
             {
                 HasChanged = moduleType.Name.Contains("Controller") && _name.Contains(moduleType.Name);
             });

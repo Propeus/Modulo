@@ -3,7 +3,7 @@
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.CoreTests
+namespace Propeus.Module.CoreTests
 {
     public partial class GerenciadorTests
     {
@@ -58,7 +58,7 @@ namespace Propeus.Modulo.CoreTests
 
             public void ConfigureModule()
             {
-               //Nao faz nada aqui
+                //Nao faz nada aqui
             }
 
             public void Launch()

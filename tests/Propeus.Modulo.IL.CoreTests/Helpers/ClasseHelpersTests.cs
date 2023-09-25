@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Geradores;
 using Propeus.Module.IL.Core.Helpers;
 
-namespace Propeus.Modulo.IL.CoreTests.Helpers
+namespace Propeus.Module.IL.CoreTests.Helpers
 {
     public interface ITeste
     {
@@ -90,7 +91,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
             Assert.IsNotNull(Proxy);
             for (int i = 0; i < 20; i++)
             {
-                Proxy = Proxy.NovaVersao("Teste.NovaVersao.Namespace", typeof(object), new Type[] { typeof(ITeste) }, new Module.IL.Core.Enums.Token[] { Module.IL.Core.Enums.Token.Publico }).CriarProxyClasse(typeof(Teste));
+                Proxy = Proxy.NovaVersao("Teste.NovaVersao.Namespace", typeof(object), new Type[] { typeof(ITeste) }, new Token[] { Token.Publico }).CriarProxyClasse(typeof(Teste));
                 Assert.IsNotNull(Proxy);
                 Proxy.Executar();
                 tpProxy = Proxy.ObterTipoGerado();
@@ -112,7 +113,7 @@ namespace Propeus.Modulo.IL.CoreTests.Helpers
         public void CriarProxyClasseTest2()
         {
 
-            ILClasseProvider Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste),typeof(ITeste1) });
+            ILClasseProvider Proxy = GeradorHelper.Modulo.CriarProxyClasse(typeof(Teste), new Type[] { typeof(ITeste), typeof(ITeste1) });
             Proxy.Executar();
             Type tpProxy = Proxy.ObterTipoGerado();
             Assert.IsNotNull(tpProxy);

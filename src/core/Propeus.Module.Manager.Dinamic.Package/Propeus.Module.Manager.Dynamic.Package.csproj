@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
@@ -6,15 +6,15 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<PropertyGroup>
-		<Product>Propeus.Module.Abstract</Product>
-		<AssemblyName>Propeus.Module.Abstract</AssemblyName>
-		<RootNamespace>Propeus.Module.Abstract</RootNamespace>
+		<Product>Propeus.Module.Manager.Dynamic.Package</Product>
+		<AssemblyName>Propeus.Module.Manager.Dynamic.Package</AssemblyName>
+		<RootNamespace>Propeus.Module.Manager.Dynamic.Package</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
 	</PropertyGroup>
 	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
-		<Description>Componente base para implementacao de modulos</Description>
+		<Description>Componente gerenciar modulos em tempo de execução por mieo de pacotes</Description>
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
 	</PropertyGroup>
@@ -24,23 +24,20 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
-		<PackageTags>Propeus Net Modulo Abstrato</PackageTags>
-		<PackageId>Propeus.Module.Abstract</PackageId>
+		<PackageTags>Propeus Net Modulo Gerenciador Dinamico Pacote</PackageTags>
+		<PackageId>Propeus.Module.Manager.Dynamic.Package</PackageId>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Propeus.Modulo.Util\Propeus.Module.Utils.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <None Update="LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 
 </Project>

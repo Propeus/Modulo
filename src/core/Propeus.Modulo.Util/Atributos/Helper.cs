@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Propeus.Module.Utils.Atributos
 {

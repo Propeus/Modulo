@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -10,7 +7,7 @@ using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
-using Propeus.Modulo.IL.Geradores;
+using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.Geradores
 {

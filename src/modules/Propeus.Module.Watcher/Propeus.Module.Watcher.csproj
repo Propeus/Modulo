@@ -2,32 +2,32 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
-		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
-
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
 		<Product>Propeus.Module.Watcher</Product>
+		<AssemblyName>Propeus.Module.Watcher</AssemblyName>
+		<RootNamespace>Propeus.Module.Watcher</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
 		<VersionPrefix>0.1.0</VersionPrefix>
 		<Description>Modulo para mapear outros modulos em disco</Description>
-
 		<Authors>Propeus</Authors>
 		<Company>Propeus</Company>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<RepositoryType>GIT</RepositoryType>
 		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
-
+	</PropertyGroup>
+	<PropertyGroup>
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo Watcher</PackageTags>
 		<PackageId>Propeus.Module.Watcher</PackageId>
-		<PackageLicenseFile>LICENCE</PackageLicenseFile>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-
-		<AssemblyName>Propeus.Module.Watcher</AssemblyName>
-		<RootNamespace>Propeus.Module.Watcher</RootNamespace>
-
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-		<IncludeSymbols>true</IncludeSymbols>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>

@@ -3,9 +3,9 @@
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.Console.Game.Pong.Example.Data.Objects;
+using Propeus.Module.Console.Game.Pong.Example.Data.Objects;
 
-namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
+namespace Propeus.Module.Console.Game.Pong.Example.Data.Scene
 {
     [Module(AutoUpdate = true, AutoStartable = false, Singleton = true)]
     public class WindowModule : BaseModule
@@ -178,11 +178,11 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
 
             if (enemyStopwatch.Elapsed > enemyInputDelay)
             {
-                if (BallModule.Y < paddleB.Paddle + (paddleB.PaddleSize / 2) && BallModule.DY < 0)
+                if (BallModule.Y < paddleB.Paddle + paddleB.PaddleSize / 2 && BallModule.DY < 0)
                 {
                     paddleB.Paddle = Math.Max(paddleB.Paddle - 1, 0);
                 }
-                else if (BallModule.Y > paddleB.Paddle + (paddleB.PaddleSize / 2) && BallModule.DY > 0)
+                else if (BallModule.Y > paddleB.Paddle + paddleB.PaddleSize / 2 && BallModule.DY > 0)
                 {
                     paddleB.Paddle = Math.Min(paddleB.Paddle + 1, Height - paddleB.PaddleSize - 1);
                 }
@@ -203,9 +203,9 @@ namespace Propeus.Modulo.Console.Game.Pong.Example.Data.Scene
             // find the slope
             float slope = (line.B.Y - line.A.Y) / (line.B.X - line.A.X);
             // find the y-intercept
-            float yIntercept = line.A.Y - (line.A.X * slope);
+            float yIntercept = line.A.Y - line.A.X * slope;
             // find the function's value at parameter "x"
-            return (x * slope) + yIntercept;
+            return x * slope + yIntercept;
         }
     }
 }

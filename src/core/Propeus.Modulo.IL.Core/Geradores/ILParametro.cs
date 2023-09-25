@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Propeus.Modulo.IL.Geradores
+﻿namespace Propeus.Module.IL.Geradores
 {
     internal static partial class Constantes
     {

@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.Console.Example
+namespace Propeus.Module.Console.Example
 {
     //Para criar um modulo, é necessário ter o atributo ModuleProxy e herdar de IModule, entretanto é recomendável usar a classe BaseModule, pois ja foi implementado os recursos necessários para o modulo funcionar
     //Deve ser implementado a interface de contrato para que o Propeus.Module.Manager funcione corretamente

@@ -1,8 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
 using Propeus.Module.Watcher.Contracts;
 
-namespace Propeus.Modulo.DinamicoTests
+namespace Propeus.Module.DinamicoTests
 {
     [TestClass()]
     public class ModuleProviderTests
@@ -12,8 +15,8 @@ namespace Propeus.Modulo.DinamicoTests
         [TestInitialize]
         public void Init()
         {
-            Propeus.Module.Abstract.Interfaces.IModuleManager gen = Module.Manager.ModuleManagerExtensions.CreateModuleManager();
-            provider = Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(gen).GetModule<IModuleWatcherContract>();
+            IModuleManager gen = Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager();
+            provider = gen.CreateModuleManager().GetModule<IModuleWatcherContract>();
         }
         [TestCleanup]
         public void Cleanup()

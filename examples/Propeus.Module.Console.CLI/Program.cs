@@ -1,11 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
-
-using Propeus.Module.Abstract;
-using Propeus.Module.Abstract.Attributes;
-using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.Utils.Objetos;
+﻿using Propeus.Module.Abstract;
 
 namespace Propeus.Module.Console.CLI
 {
@@ -74,9 +67,9 @@ namespace Propeus.Module.Console.CLI
 
             //using (IModuleManager moduleManager = Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager())
             //{
-            //    using (IModuleManager module = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(moduleManager))
+            //    using (IModuleManager module = Propeus.Module.Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(moduleManager))
             //    {
-            //        var console = module.CreateModule<Propeus.Modulo.Console.Program>();
+            //        var console = module.CreateModule<Propeus.Module.Console.Program>();
 
             //        //System.Console.WriteLine(ObjectSizeCalculator.CalculateObjectSize(module));
             //        //System.Console.WriteLine(ObjectSizeCalculator.CalculateObjectSize(moduleManager));

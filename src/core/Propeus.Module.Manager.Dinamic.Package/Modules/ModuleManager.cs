@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Propeus.Module.Abstract;
+﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Module.Manager.Dinamic.Package.Modules
+namespace Propeus.Module.Manager.Dynamic.Package.Modules
 {
-    
+
 
     [Module(AutoStartable = false, AutoUpdate = false, KeepAlive = true, Singleton = true)]
-    public class ModuleManager : BaseModule,IModuleManager
+    public class ModuleManager : BaseModule, IModuleManager
     {
         private readonly IModuleManager _moduleManager;
         private readonly string _extPackage;
@@ -60,7 +54,7 @@ namespace Propeus.Module.Manager.Dinamic.Package.Modules
             _moduleManager.RemoveModule(moduleInstance);
         }
 
-      
+
 
         public T GetModule<T>() where T : IModule
         {

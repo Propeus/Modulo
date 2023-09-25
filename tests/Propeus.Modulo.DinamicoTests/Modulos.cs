@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Modulo.DinamicoTests
+namespace Propeus.Module.DinamicoTests
 {
 
     [Module]
@@ -20,7 +20,7 @@ namespace Propeus.Modulo.DinamicoTests
     }
 
     /**
-    * Para criar um modulo, é necessario ter o atributo Modulo e herdar de IModulo, entretanto é recomentavel usar a classe ModuloBase, 
+    * Para criar um modulo, é necessario ter o atributo Module e herdar de IModulo, entretanto é recomentavel usar a classe ModuloBase, 
     * pois ja foi implementado os recusos necessarios para o modulo funcionar
     * 
     * Observação, durante o uso do gerenciador dinamico, lembre-se sempre de deixar o contrato como **public** pois por ser dinamico haverá erro de assecibilidade 

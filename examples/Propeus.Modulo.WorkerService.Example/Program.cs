@@ -1,6 +1,6 @@
 using Propeus.Module.DependencyInjection;
-
-using Propeus.Module.WorkerService;
+using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
 /**
 * Este exemplo serve para mostrar como o sistema de modulo dinâmico funciona
 * 
@@ -31,7 +31,7 @@ using Propeus.Module.WorkerService;
 * **/
 IHost host = Host.CreateDefaultBuilder(args)
     //Pode usar a extensão UseModuleManager passando o modulo dinâmico
-    .UseModuleManager(Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
+    .UseModuleManager(Propeus.Module.Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager()))
     .ConfigureServices(services =>
     {
         /**

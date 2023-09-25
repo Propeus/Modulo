@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Reflection;
-using System.Threading;
 
-using Propeus.Module.Watcher.Contracts;
-using Propeus.Module.Watcher.Models;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Interfaces;
 using Propeus.Module.Utils.Atributos;
-using Propeus.Module.Utils.Thread;
+using Propeus.Module.Watcher.Contracts;
+using Propeus.Module.Watcher.Models;
 
 namespace Propeus.Module.Watcher.Modules
 {
     /// <summary>
-    /// Modulo para mapear e atualizar outros modulos em tempo de execucao
+    /// Module para mapear e atualizar outros modulos em tempo de execucao
     /// </summary>
     [Module(Singleton = true, AutoUpdate = false, AutoStartable = false, KeepAlive = true)]
     public class ModuleWatcherModule : BaseModule, IModuleWatcherContract

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Propeus.Module.Abstract.Interfaces;
+﻿using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Abstract
 {

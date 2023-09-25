@@ -2,7 +2,7 @@
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.DinamicoTests.ModuloSoma
+namespace Propeus.Module.DinamicoTests.ModuloSoma
 {
     [ModuleContract("ModuloCalculo")]
     public interface ModuloCalculoContrato : IModule

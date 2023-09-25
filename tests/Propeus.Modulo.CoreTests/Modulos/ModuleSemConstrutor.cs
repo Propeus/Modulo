@@ -4,7 +4,7 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.CoreTests
+namespace Propeus.Module.CoreTests
 {
     public partial class GerenciadorTests
     {

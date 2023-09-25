@@ -8,9 +8,10 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
 using Propeus.Module.WorkerService;
 
-namespace Propeus.Modulo.WorkerServiceTests
+namespace Propeus.Module.WorkerServiceTests
 {
     [Module]
     public class ModuloTesteWorker : BackgroundServiceModulo
@@ -38,7 +39,7 @@ namespace Propeus.Modulo.WorkerServiceTests
         [TestInitialize]
         public void Begin()
         {
-            gerenciador = Propeus.Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(ModuleManagerExtensions.CreateModuleManager());
+            gerenciador = Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager());
         }
 
         [TestCleanup]

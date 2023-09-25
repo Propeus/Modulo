@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Tracing;
-using System.IO;
-using System.Linq;
-using System.Numerics;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Runtime.InteropServices.JavaScript;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 
 namespace Propeus.Module.Utils.Objetos
 {

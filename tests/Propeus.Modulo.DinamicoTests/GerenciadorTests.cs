@@ -4,9 +4,11 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.Manager.Dinamic.Modules;
+using Propeus.Module.Manager;
+using Propeus.Module.Manager.Dynamic;
+using Propeus.Module.Manager.Dynamic.Modules;
 
-namespace Propeus.Modulo.DinamicoTests
+namespace Propeus.Module.DinamicoTests
 {
 
 
@@ -16,17 +18,17 @@ namespace Propeus.Modulo.DinamicoTests
 
         public IModuleManager GetModuleManager()
         {
-            return Module.Manager.Dinamic.ModuleManagerExtensions.CreateModuleManager(Module.Manager.ModuleManagerExtensions.CreateModuleManager());
+            return Manager.Dynamic.ModuleManagerExtensions.CreateModuleManager(Propeus.Module.Manager.ModuleManagerExtensions.CreateModuleManager());
 
         }
 
         /**
-        * Estes são alguns meios e funcionalidades do Propeus.Module.Manager.Dinamic, entretanto deve levar em consideração alguns pontos
+        * Estes são alguns meios e funcionalidades do Propeus.Module.Manager.Dynamic, entretanto deve levar em consideração alguns pontos
         * 
         * 1 - Evite a criação e substituição de modulos a qualuqer momento, pois o custo de processamento é elevado por conta da construção do proxy e suas validações em tempo de execução
         * 2 - Assim como o Propeus.Module.Manager, este gerenciador te permite uma infinidade de possibilidades com um modulo, pois este gerenciador é um modulo que gerencia outros modulos
         * aplicando a suas regras
-        * 3 - Assim como o Propeus.Module.Manager, o uso do using limita o seu tempo de vida à aquele escopo, uma vez que chega ao seu fim, o Propeus.Module.Manager e Propeus.Module.Manager.Dinamic são eliminados
+        * 3 - Assim como o Propeus.Module.Manager, o uso do using limita o seu tempo de vida à aquele escopo, uma vez que chega ao seu fim, o Propeus.Module.Manager e Propeus.Module.Manager.Dynamic são eliminados
         * 
         * **/
 
@@ -150,7 +152,7 @@ namespace Propeus.Modulo.DinamicoTests
         public void Teste_5()
         {
             /**
-             * Tanto no gerenciador do Propeus.Module.Manager quanto no Propeus.Module.Manager.Dinamic existe a possibilidade de injetar dependencias durante a sua criação.
+             * Tanto no gerenciador do Propeus.Module.Manager quanto no Propeus.Module.Manager.Dynamic existe a possibilidade de injetar dependencias durante a sua criação.
              * 
              * Existem duas formas de injeção nos gerenciadores, a obrigatoria, quando o modulo requer outro modulo e a opcional, quando o modulo pode aceitar 
              * um modulo quando estiver disponivel.

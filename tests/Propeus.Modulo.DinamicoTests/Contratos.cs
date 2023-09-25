@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Modulo.DinamicoTests
+namespace Propeus.Module.DinamicoTests
 {
     /**
       * Para criar um contrato, é necessario ter o atributo ModuloContrato e herdar de IModulo

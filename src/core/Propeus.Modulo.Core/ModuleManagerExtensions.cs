@@ -1,6 +1,4 @@
-﻿using System;
-
-using Propeus.Module.Abstract.Interfaces;
+﻿using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Manager
 {

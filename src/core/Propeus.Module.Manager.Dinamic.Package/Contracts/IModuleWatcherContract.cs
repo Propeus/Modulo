@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Propeus.Module.Abstract.Attributes;
+﻿using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Interfaces;
 
-namespace Propeus.Module.Watcher.Contracts
+namespace Propeus.Module.Manager.Dynamic.Package.Contracts
 {
     /// <summary>
     /// Contrato para o modulo de nome 'ModuleWatcherModule'

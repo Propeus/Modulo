@@ -4,16 +4,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Modulo.CoreTests.Modulos;
+using Propeus.Module.CoreTests.Modulos;
 using Propeus.Module.Manager;
 
-namespace Propeus.Modulo.CoreTests
+namespace Propeus.Module.CoreTests
 {
 
     [TestClass()]
     public partial class GerenciadorTests
     {
-        
+
 
         public void TesteLogAviso(Type fonte, string mensagem, Exception exception)
         {
@@ -38,7 +38,7 @@ namespace Propeus.Modulo.CoreTests
             Console.ResetColor();
         }
 
-    
+
 
         //Criar
         [TestMethod()]
@@ -256,7 +256,7 @@ namespace Propeus.Modulo.CoreTests
 
         }
 
-      
+
         [TestMethod()]
         [TestCategory("Remover")]
         public void RemoverModuleInexistente()

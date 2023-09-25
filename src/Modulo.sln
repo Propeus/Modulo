@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.IL.Core", "c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager", "core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj", "{B0898E88-3391-4165-8681-9E68C365E22E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dinamic", "core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dinamic.csproj", "{00118310-E7C1-4483-9DA2-8E03BF005C15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dynamic", "core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dynamic.csproj", "{00118310-E7C1-4483-9DA2-8E03BF005C15}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.Example", "..\examples\Propeus.Modulo.Console.Example\Propeus.Module.Console.Example.csproj", "{38ED0905-9F5E-417D-86D7-957F2AA554FF}"
 EndProject
@@ -71,7 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.DependencyIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Watcher", "modules\Propeus.Module.Watcher\Propeus.Module.Watcher.csproj", "{115F6F50-3554-4007-BC0F-74AEC2D7503C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dinamic.Package", "core\Propeus.Module.Manager.Dinamic.Package\Propeus.Module.Manager.Dinamic.Package.csproj", "{4034662B-3512-4145-A0D0-F17195081A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dynamic.Package", "core\Propeus.Module.Manager.Dinamic.Package\Propeus.Module.Manager.Dynamic.Package.csproj", "{4034662B-3512-4145-A0D0-F17195081A30}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.CLI", "..\examples\Propeus.Module.Console.CLI\Propeus.Module.Console.CLI.csproj", "{51EE5E98-7320-4EC3-A17E-8594FC268995}"
 EndProject

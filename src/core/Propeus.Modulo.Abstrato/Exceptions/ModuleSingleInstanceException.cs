@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
-
-using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Abstract.Exceptions
 {
@@ -17,7 +14,7 @@ namespace Propeus.Module.Abstract.Exceptions
         /// Construtor padrão
         /// </summary>
         /// <param name="moduleType">Instancia do modulo</param>
-        public ModuleSingleInstanceException(Type moduleType) : base(string.Format( Constantes.ERRO_MODULO_INSTANCIA_UNICA,moduleType.Name)) { }
+        public ModuleSingleInstanceException(Type moduleType) : base(string.Format(Constantes.ERRO_MODULO_INSTANCIA_UNICA, moduleType.Name)) { }
 
         ///<inheritdoc/>
         [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]

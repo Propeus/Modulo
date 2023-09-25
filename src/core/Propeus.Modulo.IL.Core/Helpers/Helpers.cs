@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
+using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.Utils.Objetos;
 
 namespace Propeus.Module.IL.Core.Helpers
@@ -254,7 +252,7 @@ namespace Propeus.Module.IL.Core.Helpers
 
         //https://stackoverflow.com/questions/2503645/reflect-emit-dynamic-type-memory-blowup
         /// <summary>
-        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.TypeBuilder"/>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="TypeBuilder"/>
         /// </summary>
         /// <remarks>
         /// Este metodo e necessario para evitar vazamentos de memoria
@@ -308,7 +306,7 @@ namespace Propeus.Module.IL.Core.Helpers
             tbGenTypeParArr.SetValue(tb, null);
         }
         /// <summary>
-        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.MethodBuilder"/>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="MethodBuilder"/>
         /// </summary>
         /// <remarks>
         /// Este metodo e necessario para evitar vazamentos de memoria
@@ -345,7 +343,7 @@ namespace Propeus.Module.IL.Core.Helpers
             mbMod.SetValue(mb, null);
         }
         /// <summary>
-        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.SignatureHelper"/>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="SignatureHelper"/>
         /// </summary>
         /// <remarks>
         /// Este metodo e necessario para evitar vazamentos de memoria
@@ -365,7 +363,7 @@ namespace Propeus.Module.IL.Core.Helpers
             shModule.SetValue(sh, null);
         }
         /// <summary>
-        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.ILGenerator"/>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="ILGenerator"/>
         /// </summary>
         /// <remarks>
         /// Este metodo e necessario para evitar vazamentos de memoria
@@ -387,7 +385,7 @@ namespace Propeus.Module.IL.Core.Helpers
             ilSigHelp.SetValue(ilGen, null);
         }
         /// <summary>
-        /// Libera objetos da memoria durante a utlizacao do <see cref="System.Reflection.Emit.ModuleBuilder"/>
+        /// Libera objetos da memoria durante a utlizacao do <see cref="ModuleBuilder"/>
         /// </summary>
         /// <remarks>
         /// Este metodo e necessario para evitar vazamentos de memoria

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Propeus.Module.DependencyInjection;
 using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.DependencyInjection;
 
 namespace Propeus.Module.Hosting
 {
@@ -18,7 +18,8 @@ namespace Propeus.Module.Hosting
         /// <returns></returns>
         public static IHostBuilder UseModuleManagerForMvc(this IHostBuilder configureHostBuilder, IModuleManager gerenciador)
         {
-            configureHostBuilder.UseModuleManager(gerenciador,(module, serviceDescriptors) => {
+            configureHostBuilder.UseModuleManager(gerenciador, (module, serviceDescriptors) =>
+            {
                 serviceDescriptors.AddSingleton<IActionDescriptorChangeProvider>(ModuleActionDescriptorChangeProvider.Instance);
                 serviceDescriptors.AddSingleton(gerenciador);
 

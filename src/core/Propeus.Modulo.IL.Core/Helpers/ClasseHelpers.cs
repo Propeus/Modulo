@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
 
 using Propeus.Module.IL.Core.API;
 using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Geradores;
-using Propeus.Modulo.IL.Geradores;
+using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.Helpers
 {
@@ -223,6 +220,7 @@ namespace Propeus.Module.IL.Core.Helpers
             foreach (Attribute attr in attrs)
             {
                 ConstructorInfo ctor = attr.GetType().GetConstructors().MinBy(x => x.GetParameters().Length);
+                //TODO: Esta duplicando algo aqui
                 if (ctor != null && attr.GetType().Name.Contains("Modulo"))
                 {
 
@@ -235,7 +233,7 @@ namespace Propeus.Module.IL.Core.Helpers
             #endregion
 
             #region Operators
-   
+
             #endregion
 
             return iLClasseProvider;

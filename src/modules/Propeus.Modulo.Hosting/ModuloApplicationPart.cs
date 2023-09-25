@@ -22,12 +22,12 @@ namespace Propeus.Module.Hosting
 
         public ModuleViewCompiler(ApplicationPartManager applicationPartManager, ILoggerFactory loggerFactory)
         {
-            this.ApplicationPartManager = applicationPartManager;
-            this.Logger = loggerFactory.CreateLogger<ModuleViewCompiler>();
-            this.CancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
-            this.NormalizedPathCache = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
-            this.PopulateCompiledViews();
-            ModuleViewCompiler.Current = this;
+            ApplicationPartManager = applicationPartManager;
+            Logger = loggerFactory.CreateLogger<ModuleViewCompiler>();
+            CancellationTokenSources = new Dictionary<string, CancellationTokenSource>();
+            NormalizedPathCache = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
+            PopulateCompiledViews();
+            Current = this;
         }
 
         protected ApplicationPartManager ApplicationPartManager { get; }
@@ -45,16 +45,16 @@ namespace Propeus.Module.Hosting
             if (moduleAssembly == null)
                 throw new ArgumentNullException(nameof(moduleAssembly));
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            this.CancellationTokenSources.Add(moduleAssembly.FullName, cancellationTokenSource);
+            CancellationTokenSources.Add(moduleAssembly.FullName, cancellationTokenSource);
             ViewsFeature feature = new ViewsFeature();
-            this.ApplicationPartManager.PopulateFeature(feature);
+            ApplicationPartManager.PopulateFeature(feature);
             foreach (CompiledViewDescriptor compiledView in feature.ViewDescriptors
                 .Where(v => v.Type.Assembly == moduleAssembly))
             {
-                if (!this.CompiledViews.ContainsKey(compiledView.RelativePath))
+                if (!CompiledViews.ContainsKey(compiledView.RelativePath))
                 {
                     compiledView.ExpirationTokens = new List<IChangeToken>() { new CancellationChangeToken(cancellationTokenSource.Token) };
-                    this.CompiledViews.Add(compiledView.RelativePath, compiledView);
+                    CompiledViews.Add(compiledView.RelativePath, compiledView);
                 }
             }
         }
@@ -63,28 +63,28 @@ namespace Propeus.Module.Hosting
         {
             if (moduleAssembly == null)
                 throw new ArgumentNullException(nameof(moduleAssembly));
-            foreach (KeyValuePair<string, CompiledViewDescriptor> entry in this.CompiledViews
+            foreach (KeyValuePair<string, CompiledViewDescriptor> entry in CompiledViews
                 .Where(kvp => kvp.Value.Type.Assembly.ManifestModule.ScopeName == moduleAssembly.ManifestModule.ScopeName))
             {
-                this.CompiledViews.Remove(entry.Key);
+                CompiledViews.Remove(entry.Key);
             }
-            if (this.CancellationTokenSources.TryGetValue(moduleAssembly.FullName, out CancellationTokenSource cancellationTokenSource))
+            if (CancellationTokenSources.TryGetValue(moduleAssembly.FullName, out CancellationTokenSource cancellationTokenSource))
             {
                 cancellationTokenSource.Cancel();
-                this.CancellationTokenSources.Remove(moduleAssembly.FullName);
+                CancellationTokenSources.Remove(moduleAssembly.FullName);
             }
         }
 
         private void PopulateCompiledViews()
         {
             ViewsFeature feature = new ViewsFeature();
-            this.ApplicationPartManager.PopulateFeature(feature);
-            this.CompiledViews = new Dictionary<string, CompiledViewDescriptor>(feature.ViewDescriptors.Count, StringComparer.OrdinalIgnoreCase);
+            ApplicationPartManager.PopulateFeature(feature);
+            CompiledViews = new Dictionary<string, CompiledViewDescriptor>(feature.ViewDescriptors.Count, StringComparer.OrdinalIgnoreCase);
             foreach (CompiledViewDescriptor compiledView in feature.ViewDescriptors)
             {
-                if (this.CompiledViews.ContainsKey(compiledView.RelativePath))
+                if (CompiledViews.ContainsKey(compiledView.RelativePath))
                     continue;
-                this.CompiledViews.Add(compiledView.RelativePath, compiledView);
+                CompiledViews.Add(compiledView.RelativePath, compiledView);
             };
         }
 
@@ -92,10 +92,10 @@ namespace Propeus.Module.Hosting
         {
             if (relativePath == null)
                 throw new ArgumentNullException(nameof(relativePath));
-            if (this.CompiledViews.TryGetValue(relativePath, out CompiledViewDescriptor cachedResult))
+            if (CompiledViews.TryGetValue(relativePath, out CompiledViewDescriptor cachedResult))
                 return cachedResult;
-            string normalizedPath = this.GetNormalizedPath(relativePath);
-            if (this.CompiledViews.TryGetValue(normalizedPath, out cachedResult))
+            string normalizedPath = GetNormalizedPath(relativePath);
+            if (CompiledViews.TryGetValue(normalizedPath, out cachedResult))
                 return cachedResult;
             return await Task.FromResult(new CompiledViewDescriptor()
             {
@@ -108,10 +108,10 @@ namespace Propeus.Module.Hosting
         {
             if (relativePath.Length == 0)
                 return relativePath;
-            if (!this.NormalizedPathCache.TryGetValue(relativePath, out var normalizedPath))
+            if (!NormalizedPathCache.TryGetValue(relativePath, out var normalizedPath))
             {
-                normalizedPath = this.NormalizePath(relativePath);
-                this.NormalizedPathCache[relativePath] = normalizedPath;
+                normalizedPath = NormalizePath(relativePath);
+                NormalizedPathCache[relativePath] = normalizedPath;
             }
             return normalizedPath;
         }
@@ -145,15 +145,15 @@ namespace Propeus.Module.Hosting
 
         public ModuleViewCompilerProvider(ApplicationPartManager applicationPartManager, ILoggerFactory loggerFactory, IModuleManager moduleManager)
         {
-            this.Compiler = new ModuleViewCompiler(applicationPartManager, loggerFactory);
-            this.moduloApplicationPart = new ModuloApplicationPart(this.Compiler, moduleManager, applicationPartManager);
+            Compiler = new ModuleViewCompiler(applicationPartManager, loggerFactory);
+            moduloApplicationPart = new ModuloApplicationPart(Compiler, moduleManager, applicationPartManager);
         }
 
         protected IViewCompiler Compiler { get; }
 
         public IViewCompiler GetCompiler()
         {
-            return this.Compiler;
+            return Compiler;
         }
 
     }

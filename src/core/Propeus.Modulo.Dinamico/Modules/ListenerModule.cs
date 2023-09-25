@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Propeus.Module.Watcher.Contracts;
-using Propeus.Module.Abstract;
+﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Watcher.Contracts;
 
-namespace Propeus.Module.Manager.Dinamic.Modules
+namespace Propeus.Module.Manager.Dynamic.Modules
 {
     /// <summary>
-    /// Modulo para definir ouvintes para o <see cref="IModuleWatcherContract"/>
+    /// Module para definir ouvintes para o <see cref="IModuleWatcherContract"/>
     /// </summary>
     [Module]
     public class ListenerModule : BaseModule

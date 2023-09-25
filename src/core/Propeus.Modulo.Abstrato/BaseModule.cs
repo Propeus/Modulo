@@ -1,10 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Text;
 
 using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
@@ -44,13 +38,13 @@ namespace Propeus.Module.Abstract
             StringBuilder sb = new(base.ToString());
 
             _ = sb.AppendLine($"Nome: {Name}");
-            if(GetType().GetModuleAttribute()!= null)
+            if (GetType().GetModuleAttribute() != null)
             {
                 _ = sb.AppendLine($"Descricao: {GetType().GetModuleAttribute()?.Description}");
             }
 
             return sb.ToString();
         }
-     
+
     }
 }

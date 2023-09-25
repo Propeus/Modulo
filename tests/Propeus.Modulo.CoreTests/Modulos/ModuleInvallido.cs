@@ -1,4 +1,4 @@
-﻿namespace Propeus.Modulo.CoreTests
+﻿namespace Propeus.Module.CoreTests
 {
     public partial class GerenciadorTests
     {

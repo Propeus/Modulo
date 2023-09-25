@@ -1,7 +1,6 @@
-﻿using System;
-using System.Reflection.Emit;
+﻿using System.Reflection.Emit;
 
-namespace Propeus.Modulo.IL.Geradores
+namespace Propeus.Module.IL.Geradores
 {
 
     internal static partial class Constantes

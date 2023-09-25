@@ -1,12 +1,11 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
 
-namespace Propeus.Modulo.IL.Geradores
+namespace Propeus.Module.IL.Geradores
 {
     internal static partial class Constantes
     {
