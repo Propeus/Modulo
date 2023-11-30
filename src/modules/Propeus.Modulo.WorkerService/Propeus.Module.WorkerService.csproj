@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+    <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
   </ItemGroup>
 
   <ItemGroup>

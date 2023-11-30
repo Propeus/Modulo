@@ -4,6 +4,7 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.IL.Core.Geradores;
 using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.Watcher.Models
 {
@@ -48,14 +49,15 @@ namespace Propeus.Module.Watcher.Models
             {
                 if (_proxyBuilder is null)
                 {
-                    _proxyBuilder = GeradorHelper.Modulo.CriarOuObterProxyClasse(target, GetContractsType().ToArray(), new Type[] { typeof(ModuleAttribute) });
+                    GeradorHelper.GetCurrentInstanceOrNew(out ILGerador iLGerador);
+                    _proxyBuilder = iLGerador.Modulo.CriarOuObterProxyClasse(target, GetContractsType().ToArray(), new Type[] { typeof(ModuleAttribute) });
                 }
                 else
                 {
-                    _proxyBuilder.NovaVersao(interfaces: GetContractsType().ToArray()).CriarProxyClasse(target, GetContractsType().ToArray());
+                    _proxyBuilder.NewVersion(interfaces: GetContractsType().ToArray()).CriarProxyClasse(target, GetContractsType().ToArray());
                 }
 
-                _proxyBuilder.Executar();
+                _proxyBuilder.Apply();
                 ModuleProxy.SetTarget(_proxyBuilder.ObterTipoGerado());
             }
         }

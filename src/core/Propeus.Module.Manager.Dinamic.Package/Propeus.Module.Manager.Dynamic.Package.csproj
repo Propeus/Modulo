@@ -33,11 +33,11 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

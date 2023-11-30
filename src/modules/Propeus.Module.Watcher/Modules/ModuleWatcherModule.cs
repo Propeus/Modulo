@@ -30,7 +30,7 @@ namespace Propeus.Module.Watcher.Modules
 
         #region init
         /// <summary>
-        /// Construtor padrao
+        /// ObjectBuilder padrao
         /// </summary>
         /// <param name="moduleManager">Gerenciador de modulos</param>
         public ModuleWatcherModule(IModuleManager moduleManager, Action<Type>? onLoadModule, Action<Type>? onReloadModule, Action<Type>? onUnloadModule) : base()
@@ -77,7 +77,7 @@ namespace Propeus.Module.Watcher.Modules
         ///<inheritdoc/>
         public override void ConfigureModule()
         {
-            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, "*.dll", SearchOption.TopDirectoryOnly))
+            foreach (string? modulePath in Directory.GetFiles(_currentDirectory, searchPattern: "*.dll", SearchOption.TopDirectoryOnly))
             {
                 FileInfo fi = new FileInfo(modulePath);
                 ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, _assmLibsPath.Contains(modulePath), _moduleManager, _listNameIgnoreModules);

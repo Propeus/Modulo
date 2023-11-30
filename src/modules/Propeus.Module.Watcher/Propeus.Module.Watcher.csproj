@@ -26,16 +26,16 @@
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo Watcher</PackageTags>
 		<PackageId>Propeus.Module.Watcher</PackageId>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-    <ProjectReference Include="..\..\core\Propeus.Modulo.IL.Core\Propeus.Module.IL.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
+	  <ProjectReference Include="..\..\core\Propeus.Module.IL.Core\Propeus.Module.IL.Core.csproj" />
+	  <ProjectReference Include="..\..\core\Propeus.Module.Utils\Propeus.Module.Utils.csproj" />
+	</ItemGroup>
 
   <ItemGroup>
     <None Update="LICENCE">

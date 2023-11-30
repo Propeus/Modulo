@@ -64,10 +64,10 @@ namespace Propeus.Module.Watcher.Models
         /// </summary>
         public string FullPathModule { get; set; }
         /// <summary>
-        /// Nome do arquivo
+        /// ClassName do arquivo
         /// </summary>
         public string FileNameModule { get; private set; }
-
+    
         /// <summary>
         /// Identificação unica do modulo
         /// </summary>

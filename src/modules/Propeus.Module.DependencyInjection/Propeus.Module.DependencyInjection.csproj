@@ -26,7 +26,7 @@
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo DependencyInjection</PackageTags>
 		<PackageId>Propeus.Module.DependencyInjection</PackageId>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -38,7 +38,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
+	  <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENCE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>

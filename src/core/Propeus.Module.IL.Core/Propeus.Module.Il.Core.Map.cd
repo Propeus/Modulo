@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Propeus.Module.IL.Core.Properties.Resources" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAABEAAAAQAAAAAAAAIQAAAAgJA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.API.ClassApi" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAoAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>API\ClassApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.API.MetodoApi" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAACAAAAAAAAQAAEAAQAAAAAAAAAAAAABAAAAAIA=</HashCode>
+      <FileName>API\MetodoApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.Constantes" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAACAAAEEAAAAYAAgJAAAAAAAAAAQAkAIgBAoA=</HashCode>
+      <FileName>Geradores\ILCampo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILCampo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAEAAAAAAgAAACAAAQAAAAAAgAEAAA=</HashCode>
+      <FileName>Geradores\ILCampo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILGerador" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICAAAAAAAAAAAAgAAAAAAAAAAAAACgAAAAA=</HashCode>
+      <FileName>Geradores\ILGerador.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILMetodo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAACEAAAAAAgABAAAAAEAAIACAgAEAAA=</HashCode>
+      <FileName>Geradores\ILMetodo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILModulo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIDEAAAAEAAAAAAAAAAAgAAAgAAAAAiAAAAA=</HashCode>
+      <FileName>Geradores\ILModulo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILParametro" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAACAAAQAEAABAAAAAAAAAAAEAAAQ=</HashCode>
+      <FileName>Geradores\ILParametro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Geradores.ILPropriedade" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAADAAAAAEAIAAAAAAAAAAAAAEACAAChEAQAA=</HashCode>
+      <FileName>Geradores\ILPropriedade.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Geradores.ILClasse" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAACDCAQAAEAAAAAAgAAAAAIQAAACEAAgAAAAA=</HashCode>
+      <FileName>Geradores\ILClasse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Geradores.ILClasseProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAIACDCAQAAEAAAAAAgQAABAIBAAAABAAgABAAA=</HashCode>
+      <FileName>Geradores\ILClasseProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Helpers.ClasseHelpers" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAEAAAAAACAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ClasseHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Helpers.GeradorHelper" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAABA=</HashCode>
+      <FileName>Helpers\GeradorHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Helpers.Helpers" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQANQAAAAEEAAAAARAAEAAIAIIAAAAAAQAAIAAIAA=</HashCode>
+      <FileName>Helpers\Helpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.Campos.ILLdfld" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAADAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\Campos\ILLdfld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.Campos.ILStfld" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAADAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\Campos\ILStfld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILCall" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\ILCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILCallVirt" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\ILCallVirt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILLdarg" Collapsed="true">
+    <Position X="17.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Pilhas\ILLdarg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILNewObj" Collapsed="true">
+    <Position X="19.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\ILNewObj.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILRet" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pilhas\ILRet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Pilhas.ILStack" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAAAAIAAgAAAABAAAAAAAAAAAQgAAAAA=</HashCode>
+      <FileName>Pilhas\ILStack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Propeus.Module.IL.Core.Proxy.ILBuilderProxy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACQAAAAAAAAAEBAAgAAAIAAAAAEAAgAAABA=</HashCode>
+      <FileName>Proxy\ILBuilderProxy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Propeus.Module.IL.Core.Interfaces.IILExecutor" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IILExecutor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Propeus.Module.IL.Core.Interfaces.IILPilha" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Interfaces\IILPilha.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Propeus.Module.IL.Core.Enums.Token" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUQAQAAAEAAAAAFCAIoAAAAABQAAAAAAIBAMCBABAA=</HashCode>
+      <FileName>Enums\Token.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

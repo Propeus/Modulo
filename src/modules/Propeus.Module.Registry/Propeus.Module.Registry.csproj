@@ -26,15 +26,14 @@
 		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
 		<PackageTags>Propeus Net Modulo Registry</PackageTags>
 		<PackageId>Propeus.Module.Registry</PackageId>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	</PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
+	</ItemGroup>
 
   <ItemGroup>
     <None Update="LICENCE">

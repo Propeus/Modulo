@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <SonarQubeTestProject>True</SonarQubeTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Module.IL.Core\Propeus.Module.IL.Core.csproj" />
+  </ItemGroup>
+
+</Project>

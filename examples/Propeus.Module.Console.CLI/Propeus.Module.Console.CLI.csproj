@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Abstrato\Propeus.Module.Abstract.csproj" />
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

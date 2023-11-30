@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Core\Propeus.Module.Manager.csproj" />
-    <ProjectReference Include="..\..\src\core\Propeus.Modulo.Dinamico\Propeus.Module.Manager.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Module.Manager.Dynamic\Propeus.Module.Manager.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\core\Propeus.Module.Manager\Propeus.Module.Manager.csproj" />
     <ProjectReference Include="..\..\src\modules\Propeus.Modulo.Hosting\Propeus.Module.Hosting.csproj" />
   </ItemGroup>
 

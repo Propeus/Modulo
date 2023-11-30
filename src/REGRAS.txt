@@ -1,0 +1,11 @@
+REGRAS
+==========
+
+> Não pode existir propriedade privada
+> Campos privados devem possuir o prefixo '_'
+
+
+A FAZER
+==========
+> Colocar tudo em ingles pasta core, exceto a documentação em codigo
+> Adicionar documentação no codigo-fonte da pasta core

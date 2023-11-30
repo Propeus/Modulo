@@ -6,7 +6,7 @@ namespace Propeus.Module.Manager.Dynamic.Package.Modules
 {
 
 
-    [Module(AutoStartable = false, AutoUpdate = false, KeepAlive = true, Singleton = true)]
+    [Module(Description = "Gerenciador de pacotes para modulo", AutoStartable = false, AutoUpdate = false, KeepAlive = true, Singleton = true)]
     public class ModuleManager : BaseModule, IModuleManager
     {
         private readonly IModuleManager _moduleManager;
@@ -15,7 +15,8 @@ namespace Propeus.Module.Manager.Dynamic.Package.Modules
         public ModuleManager(IModuleManager moduleManager)
         {
             _moduleManager = moduleManager;
-            _extPackage = ".mde";
+            //Propeus Modulo Pacote (PMP)
+            _extPackage = ".pmp";
             /**
              * Criar um gerenciador de modulo que faça...:
              * 1 - Olhe e monitore todos os arquivos .mde
