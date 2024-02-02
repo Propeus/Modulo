@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Product>Propeus.Module.AssmblyLoadContext</Product>
+		<AssemblyName>Propeus.Module.AssmblyLoadContext</AssemblyName>
+		<RootNamespace>Propeus.Module.AssmblyLoadContext</RootNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+	</PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<Description>Modulo para carregar dinamicamente os modulos .net</Description>
+		<Authors>Propeus</Authors>
+		<Company>Propeus</Company>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RepositoryType>GIT</RepositoryType>
+		<RepositoryUrl>https://github.com/Propeus/Modulo</RepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/Propeus/Modulo</PackageProjectUrl>
+		<PackageTags>Propeus Net Modulo AssmblyLoadContext</PackageTags>
+		<PackageId>Propeus.Module.AssmblyLoadContext</PackageId>
+		<PackageLicenseFile>LICENCE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="LICENCE">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
+
+</Project>

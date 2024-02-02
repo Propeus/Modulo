@@ -1,9 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Text;
 
-using Propeus.Modulo.Abstrato;
-using Propeus.Modulo.Abstrato.Attributes;
-using Propeus.Modulo.Util.Thread;
+using Propeus.Module.Abstract;
+using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Utils.Thread;
+
+
 
 namespace Propeus.Modulo.Taskjob
 {
@@ -74,7 +76,7 @@ namespace Propeus.Modulo.Taskjob
         private readonly CancellationTokenSource _cancellationTokenSource;
         private readonly TaskFactory _taskFactory;
 
-        public TaskJobModule(int threads = 2) : base(true)
+        public TaskJobModule(int threads = 2) : base()
         {
             _runners = new ConcurrentDictionary<string, Runner>();
             _cancellationTokenSource = new CancellationTokenSource();

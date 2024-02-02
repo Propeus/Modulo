@@ -1,0 +1,236 @@
+<mxfile host="65bd71144e">
+    <diagram id="r76CJDtJNLVr6FcPyLCQ" name="Visao geral">
+        <mxGraphModel dx="746" dy="307" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="8" value="Modules" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="10" width="310" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Core Dynamic" style="swimlane;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="10" y="40" width="290" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Core" style="swimlane;whiteSpace=wrap;html=1;" parent="6" vertex="1">
+                    <mxGeometry x="10" y="40" width="270" height="180" as="geometry">
+                        <mxRectangle x="10" y="40" width="70" height="30" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="Utils" style="rounded=0;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="10" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Abstract" style="rounded=0;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="140" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Managemet" style="rounded=0;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="10" y="110" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Management Dynamic" style="rounded=0;whiteSpace=wrap;html=1;" parent="6" vertex="1">
+                    <mxGeometry x="10" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Management Dynamic" style="rounded=0;whiteSpace=wrap;html=1;" parent="6" vertex="1">
+                    <mxGeometry x="140" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Depedency Injection" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="10" y="350" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Hosting" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="10" y="420" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Registry" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="10" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Watcher" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="140" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="WorkService" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="140" y="350" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Assembly Load Context" style="rounded=0;whiteSpace=wrap;html=1;" parent="8" vertex="1">
+                    <mxGeometry x="140" y="420" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Addons" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="10" width="270" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Package" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
+                    <mxGeometry x="10" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="TaskJob" style="rounded=0;whiteSpace=wrap;html=1;" parent="15" vertex="1">
+                    <mxGeometry x="140" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;h1&gt;Core&lt;/h1&gt;&lt;p&gt;São componentes que constroem a regra de negócio base do projeto&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="150" width="190" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;h1&gt;Core Dynamic&lt;/h1&gt;&lt;p&gt;São componentes que permitem aplicar as mesmas regras do core em tempo de execução em uma aplicação compilada. Apesar do nome, o Core Dynamic pertence ao grupo Core&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="270" width="190" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;h1&gt;Modules&lt;/h1&gt;&lt;p&gt;São componentes que podem complementar ou extender o projeto para outras areas, exemplo, permitir o uso do projeot em jogos ou sistemas WEB.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="430" width="190" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="&lt;h1&gt;Addons&lt;/h1&gt;&lt;p&gt;São componentes que não dependem obrigatóriamente de outros modulos. Eles podem ser executados de forma independente sem afetar o sistema em execução&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="630" y="150" width="190" height="140" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="iNi1jKqdmQ7sUWD8tydA" name="Page-2">
+        <mxGraphModel dx="1002" dy="563" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="GfkGS-guN7bBtISFSswG-1" value="Modulo.DLL" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="390" width="140" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-2" value="Modulo A" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-1" vertex="1">
+                    <mxGeometry x="10" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-3" value="&lt;h1&gt;Definição&lt;/h1&gt;&lt;p&gt;No .NET a definicição de &quot;Modulo&quot; é baseado em Assembly que está contido em um arquivo DLL. No projeto o modulo é um sinonimo de Classe no Dotnet.&lt;/p&gt;&lt;p&gt;Um arquivo DLL pode conter mais de um modulo, entretanto não é recomendavél exceto em algumas circustancias&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="300" width="190" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-4" value="Classe = Modulo" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-5" value="Modulo.DLL" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="540" width="270" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-6" value="Modulo A" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-5" vertex="1">
+                    <mxGeometry x="10" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-7" value="Modulo Satelite A" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-5" vertex="1">
+                    <mxGeometry x="10" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-8" value="Modulo Satelite B" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-5" vertex="1">
+                    <mxGeometry x="140" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-9" value="&lt;h1&gt;Modulos Satelites&lt;/h1&gt;&lt;p&gt;Existem casos onde não é inviavel ou complexo demais em manter toda a regra de negocio dentro de um unico modulo. Este modulos adicionais são chamados de &quot;Modulos Satelites&quot; pois eles existem exclusivamente para o modulo principal, nascem, vivem e morrem para o modulo principal.&lt;/p&gt;&lt;p&gt;Esse tipo de modulo não possui diferenca nenhuma, na visão do projeto, todos são modulos&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="530" width="230" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-10" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="800" as="sourcePoint"/>
+                        <mxPoint x="760" y="800" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-11" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="240" as="sourcePoint"/>
+                        <mxPoint x="760" y="240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-13" value="Modulo.DLL" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="840" width="140" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-14" value="Modulo A" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-13" vertex="1">
+                    <mxGeometry x="10" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-15" value="Modulo Satelite A" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-13" vertex="1">
+                    <mxGeometry x="10" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-18" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="1050" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-19" value="" style="endArrow=classic;startArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="GfkGS-guN7bBtISFSswG-13" target="GfkGS-guN7bBtISFSswG-18" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="560" y="950" as="sourcePoint"/>
+                        <mxPoint x="610" y="900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-20" value="Modulo.DLL" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="1150" width="140" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="GfkGS-guN7bBtISFSswG-21" value="Modulo B" style="rounded=0;whiteSpace=wrap;html=1;" parent="GfkGS-guN7bBtISFSswG-20" vertex="1">
+                    <mxGeometry x="10" y="30" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-7" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="GfkGS-guN7bBtISFSswG-20" target="GfkGS-guN7bBtISFSswG-18" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="340" y="1070" as="sourcePoint"/>
+                        <mxPoint x="390" y="1020" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-8" value="&lt;h1&gt;Gerenciamento de dependencia&lt;/h1&gt;&lt;p&gt;O projeto segue o mesmo principio de Injeção de Dependencia, entretanto as regras para o DI podem varia entre gerenciadores, porém uma não pode negar a outra.&lt;/p&gt;&lt;p&gt;Neste exemplo é mostrado que o &quot;Modulo 2.DLL&quot; possui uma dependencia com o &quot;Modulo A&quot; do &quot;Modulo.DLL&quot; e para obter a instancia deste modulo, é necessário solicitar ao gerenciador a instancia do objeto.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="840" width="430" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-9" value="&lt;h1&gt;Regras gerais&lt;/h1&gt;&lt;p&gt;Um gerenciador sempre irá prover uma nova instancia do modulo ao chamar a função responsavel pela tarefa, entretanto, se houver regras aplicadas no modulo alvo pode ocorrer exceções de negócio, como por exemplo, utilização de modulos em instancia unica (singleton)&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="1010" width="430" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-10" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="1280" as="sourcePoint"/>
+                        <mxPoint x="760" y="1280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-17" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-11" target="_C4qiUecLU-7w1XhGeF5-13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-18" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="_C4qiUecLU-7w1XhGeF5-11" target="_C4qiUecLU-7w1XhGeF5-14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-19" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="_C4qiUecLU-7w1XhGeF5-11" target="_C4qiUecLU-7w1XhGeF5-15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="_C4qiUecLU-7w1XhGeF5-11" target="_C4qiUecLU-7w1XhGeF5-12" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-11" value="Manager" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="1320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-12" value="Criar" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="1460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-13" value="Remover" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="1460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-14" value="Obter" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="1460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-15" value="Existir" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="590" y="1460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-21" value="&lt;h1&gt;Funções basicas&lt;/h1&gt;&lt;p&gt;Todo gerenciador deve implementar as cinco funções basicas que são: Criar, Obter, Remover, Existir e Reciclar. Cada função aplica sobre o modulo aqulilo que ele foi descrito.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="190" y="1540" width="530" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-22" value="Manager 0" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="1640" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-26" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-23" target="_C4qiUecLU-7w1XhGeF5-22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-23" value="Manager 1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="1760" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-25" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-24" target="_C4qiUecLU-7w1XhGeF5-23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-24" value="Manager 2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="1890" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-27" value="&lt;h1&gt;Niveis de gerenciamento&lt;/h1&gt;&lt;p&gt;Existe uma taltologia no projeto que diz o seguinte &quot;Um gerenciador deve gerenciar um ou mais modulos abaixo dele&quot;.&lt;/p&gt;&lt;p&gt;Com base na premissa acima, o projeto conta com um unico e &quot;verdadeiro&quot; gerenciador de modulo, este por sua vez controla todo o ciclo de vida dos modulos. Os demais gerencadores são modulos que implementam a interface de gerenciador poerém não possuem a autonomia de um, eles sempre irão repassar a instrução para o gerenciador pai até chegar ao de nivel 0.&lt;/p&gt;&lt;p&gt;Os gerenciadores de nivel acima do 0 implementam novas regras de negocio a fim de complementar aquilo que não existe no gerenciador base, facilitando a modularização e manutenção, sendo o objetivo principal deste projeto.&lt;/p&gt;&lt;p&gt;Cada gerenciador deve respeitar as regras impostas pelos gerenciadores de niveis inferiores até chegar ao gerenciador de nivel 0, isso permite a compatibilidade e a remoção de dependencias entre eles.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1630" width="360" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-28" value="&lt;h1&gt;Multiplos gerenciadores&lt;/h1&gt;&lt;p&gt;É extremamente desaconselhavel criar multiplos gerenciadores em um mesmo executavel, pois os modulos podem se comportar fora do padrão, gerando erros inesperados, como por exemplo, modulos de instancia unica criados um em cada gerenciador.&amp;nbsp;&lt;/p&gt;&lt;p&gt;O projeto não impede, más tambem não aconselha, use por conta própria e risco.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="1970" width="520" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-38" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-36" target="_C4qiUecLU-7w1XhGeF5-37" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-36" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="70" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-40" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-37" target="_C4qiUecLU-7w1XhGeF5-39" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-37" value="Modulos" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="210" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-42" style="edgeStyle=none;html=1;" parent="1" source="_C4qiUecLU-7w1XhGeF5-39" target="_C4qiUecLU-7w1XhGeF5-41" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-39" value="Dependencias" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="770" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="_C4qiUecLU-7w1XhGeF5-41" value="Gerenciadores" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="1250" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

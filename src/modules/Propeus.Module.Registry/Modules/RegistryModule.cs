@@ -9,7 +9,7 @@ using Propeus.Module.Registry.Models;
 namespace Propeus.Module.Registry.Modules
 {
 
-    [Module(KeepAlive = false, Singleton = false, AutoStartable = false, AutoUpdate = false)]
+    [Module(Description ="Modulo paa armazenar e gerenciar informações de outros módulos", KeepAlive = false, Singleton = false, AutoStartable = false, AutoUpdate = false)]
     public class RegistryModule : BaseModule, IRegistryContract
     {
         //TODO: Criar uma funcao de sincronismo para evitar duplicidade de objetos entre modulos

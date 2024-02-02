@@ -12,8 +12,6 @@
      * 4.2 - Esta propriedade é ativado implicitamente quando a propriedade "AutoStartable" é ativado, pois não foi solicitado pelo o usuário/sistema diretamente.
      * 5 - A propriedade "Description" exibe a descrição do modulo quando for chamado pelo método ".ToString()"
      * 
-     * TODOS
-     * TODO: Mover as propriedades "AutoStartable" e "AutoUpdate" para o pacote dinamico
      * **/
 
     /// <summary>
@@ -25,7 +23,20 @@
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class ModuleAttribute : Attribute
     {
-
+        /// <summary>
+        /// Define uma descrição sobre o modulo
+        /// </summary>
+        public string? Description { get; set; }
+        /// <summary>
+        /// Informa que o tipo deve ser de instancia unica ou não
+        /// </summary>
+        /// <value>Por padrão é <see langword="false"/></value>
+        public bool Singleton { get; set; } = false;
+        /// <summary>
+        /// Indica se o modulo deve ser mantido vivo ou não em caso de ausência de referencia
+        /// </summary>
+        /// <value>Por padrão é <see langword="false"/></value>
+        public bool KeepAlive { get; set; } = false;
         /// <summary>
         /// Indica se o modulo e auto inicializava
         /// </summary>
@@ -33,7 +44,7 @@
         /// Por padrão o valor é <see langword="false"/>
         /// </remarks>
         /// <value>
-        /// <see langword="true"/> para caso seja auto inicializavél, caso contrario <see langword="false"/>
+        /// <see langword="true"/> para caso seja auto inicializava, caso contrario <see langword="false"/>
         /// </value>
         public bool AutoStartable { get; set; } = false;
         /// <summary>
@@ -46,19 +57,5 @@
         /// <see langword="true"/> para caso seja auto atualizavel, caso contrario <see langword="false"/>
         /// </value>
         public bool AutoUpdate { get; set; } = false;
-        /// <summary>
-        /// Informa que o tipo deve ser de instancia unica ou não
-        /// </summary>
-        /// <value>Por padrão é <see langword="false"/></value>
-        public bool Singleton { get; set; } = false;
-        /// <summary>
-        /// Indica se o modulo deve ser mantido vivo ou não em caso de ausência de referencia
-        /// </summary>
-        /// <value>Por padrão é <see langword="false"/></value>
-        public bool KeepAlive { get; set; } = false;
-        /// <summary>
-        /// Define uma descrição sobre o modulo
-        /// </summary>
-        public string? Description { get; set; }
     }
 }

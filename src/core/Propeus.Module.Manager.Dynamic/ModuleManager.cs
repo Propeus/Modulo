@@ -294,7 +294,7 @@ namespace Propeus.Module.Manager.Dynamic
 
             }
             IModule? module = null;
-            if (args != null && @params.Length > args.Length)
+            if (args != null && @params.Length >= args.Length)
             {
                 module = _gerenciador.CreateModule(moduleType, Utils.Objetos.Helper.JoinParameterValue(@params, args));
             }

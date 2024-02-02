@@ -53,14 +53,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.DependencyIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Watcher", "modules\Propeus.Module.Watcher\Propeus.Module.Watcher.csproj", "{115F6F50-3554-4007-BC0F-74AEC2D7503C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.Dynamic.Package", "core\Propeus.Module.Manager.Dinamic.Package\Propeus.Module.Manager.Dynamic.Package.csproj", "{4034662B-3512-4145-A0D0-F17195081A30}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Console.CLI", "..\examples\Propeus.Module.Console.CLI\Propeus.Module.Console.CLI.csproj", "{51EE5E98-7320-4EC3-A17E-8594FC268995}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Registry", "modules\Propeus.Module.Registry\Propeus.Module.Registry.csproj", "{6051C292-2607-452D-A463-22F0DBE7FE73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "regras", "regras", "{C886695D-75E3-4466-92E9-3767F9B6224D}"
 	ProjectSection(SolutionItems) = preProject
+		Estudos.txt = Estudos.txt
 		REGRAS.txt = REGRAS.txt
 	EndProjectSection
 EndProject
@@ -81,6 +80,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Manager.DynamicTests.ModuloSoma", "..\tests\Propeus.Module.Manager.DynamicTests.ModuloSoma\Propeus.Module.Manager.DynamicTests.ModuloSoma.csproj", "{4AFAE707-D8CB-420E-8808-70095B8715FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.IL.CoreTests", "..\tests\Propeus.Module.IL.CoreTests\Propeus.Module.IL.CoreTests.csproj", "{769FADC1-BCEC-4A6C-A1F2-F4A8C5B51A67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Propeus.Module.Package", "addons\Propeus.Module.Package\Propeus.Module.Package.csproj", "{81177FF8-094E-4188-979C-70CAF5922F3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Module.AssmblyLoadContext", "modules\Propeus.Module.AssmblyLoadContext\Propeus.Module.AssmblyLoadContext.csproj", "{F38E0B5F-EE39-4AE0-B843-C2533504DBB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Propeus.Module.Console.Playground", "..\examples\Propeus.Module.Console.Playground\Propeus.Module.Console.Playground.csproj", "{4060F701-8A8C-43F1-A036-5B8045E4232A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagramas", "Diagramas", "{6A9AC7DA-D11C-4BD9-A574-7DFDE17486FA}"
+	ProjectSection(SolutionItems) = preProject
+		Propeus.Module.drawio = Propeus.Module.drawio
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,10 +150,6 @@ Global
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4034662B-3512-4145-A0D0-F17195081A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4034662B-3512-4145-A0D0-F17195081A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4034662B-3512-4145-A0D0-F17195081A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4034662B-3512-4145-A0D0-F17195081A30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51EE5E98-7320-4EC3-A17E-8594FC268995}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -188,6 +194,18 @@ Global
 		{769FADC1-BCEC-4A6C-A1F2-F4A8C5B51A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{769FADC1-BCEC-4A6C-A1F2-F4A8C5B51A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{769FADC1-BCEC-4A6C-A1F2-F4A8C5B51A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81177FF8-094E-4188-979C-70CAF5922F3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81177FF8-094E-4188-979C-70CAF5922F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81177FF8-094E-4188-979C-70CAF5922F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81177FF8-094E-4188-979C-70CAF5922F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F38E0B5F-EE39-4AE0-B843-C2533504DBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F38E0B5F-EE39-4AE0-B843-C2533504DBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F38E0B5F-EE39-4AE0-B843-C2533504DBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F38E0B5F-EE39-4AE0-B843-C2533504DBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4060F701-8A8C-43F1-A036-5B8045E4232A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4060F701-8A8C-43F1-A036-5B8045E4232A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4060F701-8A8C-43F1-A036-5B8045E4232A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4060F701-8A8C-43F1-A036-5B8045E4232A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,7 +228,6 @@ Global
 		{FC157820-1B68-4D2B-9BB5-890B509F8A2F} = {320E28E9-BF13-4DEF-B5A1-232332867813}
 		{CAC23F3A-983B-457C-A89F-8752C77D3FE8} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
 		{115F6F50-3554-4007-BC0F-74AEC2D7503C} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
-		{4034662B-3512-4145-A0D0-F17195081A30} = {D7211E49-7B32-4CFB-923E-0C656EF4E7D1}
 		{51EE5E98-7320-4EC3-A17E-8594FC268995} = {DF2D91EF-D111-4344-9B9F-60A00F82220F}
 		{6051C292-2607-452D-A463-22F0DBE7FE73} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
 		{19F64AF1-7F81-48D3-A4A4-2D4C24C4B758} = {D7211E49-7B32-4CFB-923E-0C656EF4E7D1}
@@ -222,6 +239,10 @@ Global
 		{95B496F6-1877-4124-B0F6-6A8539A3A056} = {F3158107-9AB3-45C9-BADE-08C75E2F164C}
 		{4AFAE707-D8CB-420E-8808-70095B8715FF} = {F3158107-9AB3-45C9-BADE-08C75E2F164C}
 		{769FADC1-BCEC-4A6C-A1F2-F4A8C5B51A67} = {F3158107-9AB3-45C9-BADE-08C75E2F164C}
+		{81177FF8-094E-4188-979C-70CAF5922F3F} = {320E28E9-BF13-4DEF-B5A1-232332867813}
+		{F38E0B5F-EE39-4AE0-B843-C2533504DBB8} = {70177D4E-0500-43FE-BE94-14C053D3AE90}
+		{4060F701-8A8C-43F1-A036-5B8045E4232A} = {DF2D91EF-D111-4344-9B9F-60A00F82220F}
+		{6A9AC7DA-D11C-4BD9-A574-7DFDE17486FA} = {CB241CDA-7B9C-46BE-87B3-D645C2E14273}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {709E8BF4-605B-43D3-84C0-A0C0EC4E58C0}

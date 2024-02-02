@@ -1,0 +1,15 @@
+﻿{
+	"name": "moduleManifestExample",
+	"version": "1.0.0",
+	"modules": [
+		{
+			"name": "module1",
+			"version": "1.0.0",
+			"dependences": [
+				"d1.dll",
+				"d2.dll",
+				"dN.dll"
+			]
+		}
+	]
+}

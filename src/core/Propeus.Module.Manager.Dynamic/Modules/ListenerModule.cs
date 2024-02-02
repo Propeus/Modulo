@@ -7,7 +7,7 @@ namespace Propeus.Module.Manager.Dynamic.Modules
     /// <summary>
     /// Module para definir ouvintes para o <see cref="IModuleWatcherContract"/>
     /// </summary>
-    [Module]
+    [Module(Description = "Module para definir ouvintes para o IModuleWatcherContract")]
     public class ListenerModule : BaseModule
     {
         private readonly IModuleWatcherContract _moduleManager;

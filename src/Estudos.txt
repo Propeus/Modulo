@@ -1,0 +1,75 @@
+[001] - Estudo de desempenho: PEReader vs AppDomain 
+===
+Foi realizado um estudo para verificar a troca do PEReader pelo AppDomain para o carregamento de informações de um assembly. 
+
+
+AMOSTRAS
+===
+PEReader Propeus.Module.Abstract.dll: 00:00:00.0006260
+PEReader Propeus.Module.Hosting.dll: 00:00:00.0070501
+PEReader Propeus.Module.Hosting.Example.dll: 00:00:00.0009362
+PEReader Propeus.Module.IL.Core.dll: 00:00:00.0005250
+PEReader Propeus.Module.Manager.dll: 00:00:00.0008071
+PEReader Propeus.Module.Manager.Dynamic.dll: 00:00:00.0012575
+PEReader Propeus.Module.Registry.dll: 00:00:00.0009813
+PEReader Propeus.Module.Utils.dll: 00:00:00.0007329
+PEReader Propeus.Module.Watcher.dll: 00:00:00.2365705
+
+AppDomain Propeus.Module.Abstract.dll: 00:00:00.0042546
+AppDomain Propeus.Module.Hosting.dll: 00:00:00.0091723
+AppDomain Propeus.Module.Hosting.Example.dll: 00:00:00.0070542
+AppDomain Propeus.Module.IL.Core.dll: 00:00:00.0053700
+AppDomain Propeus.Module.Manager.dll: 00:00:00.0034480
+AppDomain Propeus.Module.Manager.Dynamic.dll: 00:00:00.0035827
+AppDomain Propeus.Module.Registry.dll: 00:00:00.0036347
+AppDomain Propeus.Module.Utils.dll: 00:00:00.0049279
+AppDomain Propeus.Module.Watcher.dll: 00:00:00.1690749
+
+RESULTADOS
+===
+Propeus.Module.Abstract.dll -85%
+Propeus.Module.Hosting.dll -25%
+Propeus.Module.Hosting.Example.dll -153%
+Propeus.Module.IL.Core.dll -164%
+Propeus.Module.Manager.dll -124%
+Propeus.Module.Manager.Dynamic.dll -96%
+Propeus.Module.Registry.dll  -114%
+Propeus.Module.Utils.dll -148%
+Propeus.Module.Watcher.dll -33%
+
+Os resultados mostraram um aumento no tempo de carregamento em média de 104%.
+
+DECISAO
+===
+Manter o PEReader
+
+[002] - Estudo de desempenho: List Vs Array
+===
+Foi realizado um estudo para verificar a troca do List pelo Array para o carregamento de informações de um assembly. 
+
+AMOSTRAS
+===
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0020048
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0066846
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0006265
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0003370
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0002882
+Name: 002 - List Vs Array | description: List | date & time start: 01/12/2023 13:54:10 | duration: 00:00:00.0003259
+
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0015532
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0011040
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0006085
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0002353
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0002374
+Name: 002 - List Vs Array | description: Array | date & time start: 01/12/2023 13:55:21 | duration: 00:00:00.0001752
+
+RESULTADOS
+===
+Media de tempo List: 0.001711166666666667
+Media de tempo Array: 0.0006522666666666667
+
+Porcentagem de diferença: 89.60%
+
+DECISAO
+===
+Alterar para Array

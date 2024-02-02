@@ -30,7 +30,7 @@ namespace Propeus.Module.Abstract
         }
 
         /// <summary>
-        /// Exibe informacoes basicas sobre o modulo
+        /// Exibe informações básicas sobre o modulo
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -40,7 +40,7 @@ namespace Propeus.Module.Abstract
             _ = sb.AppendLine($"Nome: {Name}");
             if (GetType().GetModuleAttribute() != null)
             {
-                _ = sb.AppendLine($"Descricao: {GetType().GetModuleAttribute()?.Description}");
+                _ = sb.AppendLine($"Descrição: {GetType().GetModuleAttribute()?.Description}");
             }
 
             return sb.ToString();

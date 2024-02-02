@@ -1,10 +1,15 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Reflection;
 using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using System.Runtime.Loader;
 
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
+using Propeus.Module.AssmblyLoadContext.Contracts;
+using Propeus.Module.Utils.Tests;
+using Propeus.Module.Watcher.Contracts;
 
 namespace Propeus.Module.Watcher.Models
 {
@@ -13,15 +18,15 @@ namespace Propeus.Module.Watcher.Models
 
 
 
-        public ModuleProviderInfo(string modulePath, bool isCurrentDomain, IModuleManager moduleManager, List<string> listNameIgnoreModules)
+        public ModuleProviderInfo(string modulePath, bool isCurrentDomain, IAssemblyLoadContextContract assemblyLoadContextContract, List<string> listNameIgnoreModules)
         {
             Modules = new Dictionary<string, ModuleInfo>();
 
             FullPathModule = modulePath;
             FileNameModule = new FileInfo(modulePath).Name;
             IsCurrentDomain = isCurrentDomain;
-            this.moduleManager = moduleManager;
-
+            
+            _assemblyLoadContextModule = assemblyLoadContextContract;
             _listNameIgnoreModules = listNameIgnoreModules ?? new List<string>();
         }
 
@@ -67,7 +72,7 @@ namespace Propeus.Module.Watcher.Models
         /// ClassName do arquivo
         /// </summary>
         public string FileNameModule { get; private set; }
-    
+
         /// <summary>
         /// Identificação unica do modulo
         /// </summary>
@@ -79,16 +84,16 @@ namespace Propeus.Module.Watcher.Models
         public Dictionary<string, ModuleInfo> Modules { get; private set; }
 
 
-        private Task? _loadModuletask;
-        private AssemblyLoadContext? _assemblyLoadContext;
-        private readonly IModuleManager moduleManager;
+        private readonly IAssemblyLoadContextContract _assemblyLoadContextModule;
         private readonly List<string> _listNameIgnoreModules;
 
         public bool Reload(string? newFullPath = null)
         {
 
-            GetModuleInfo();
+            if (newFullPath is not null)
+                FullPathModule = newFullPath;
 
+            GetModuleInfo();
             UpdateAssembly();
             MapModules();
 
@@ -105,6 +110,7 @@ namespace Propeus.Module.Watcher.Models
         /// <returns>Retorna um valor booleano informando de o modulo foi efetivamente carregado ou não</returns>
         public bool Load(string? newFullPath = null)
         {
+
             if (!IsLoaded)
             {
                 GetModuleInfo();
@@ -116,11 +122,15 @@ namespace Propeus.Module.Watcher.Models
             IsLoaded = true;
             IsChanged = false;
 
+
             return result;
         }
 
         private void GetModuleInfo()
         {
+
+            // Caso questione o motivo de usar o PEReader ao inves do AppDomain, verifique no arquivo "estudos.txt" sessao "[001] - Estudo de desempenho: PEReader vs AppDomain"
+
             if (Exists)
             {
                 foreach (string ignoreModule in _listNameIgnoreModules)
@@ -183,83 +193,43 @@ namespace Propeus.Module.Watcher.Models
                 }
             }
         }
-        object _lockAssemblyLoadContext = new object();
+     
         private void UpdateAssembly()
         {
-            if (IsValidModule && !IsCurrentDomain && _assemblyLoadContext is null)
+            if (IsValidModule && !IsCurrentDomain && !_assemblyLoadContextModule.ExistsAssemblyLoadContext(FullPathModule))
             {
-                lock (_lockAssemblyLoadContext)
-                {
-                    _assemblyLoadContext = new AssemblyLoadContext(FullPathModule, true);
-                    using (MemoryStream ms = LoadModuleStream(FullPathModule))
-                    {
-                        _assemblyLoadContext.LoadFromStream(ms);
-                    }
-                }
+                _assemblyLoadContextModule.RegisterAssemblyLoadContext(FullPathModule);
             }
-            else if (_assemblyLoadContext is not null && IsChanged)
+            else if (_assemblyLoadContextModule.ExistsAssemblyLoadContext(FullPathModule) && IsChanged)
             {
-                lock (_lockAssemblyLoadContext)
-                {
-                    _assemblyLoadContext.Unload();
-                    _assemblyLoadContext = null;
-                }
-                UpdateAssembly();
+                _assemblyLoadContextModule.UnregisterAssemblyLoadContext(FullPathModule);
+                _assemblyLoadContextModule.RegisterAssemblyLoadContext(FullPathModule);
             }
         }
         private void MapModules()
         {
             if (IsValidModule && (!IsLoaded || IsChanged))
             {
-
-
-                Dictionary<string, ModuleInfo> auxTypes = new Dictionary<string, ModuleInfo>();
-                List<Type> types = new List<Type>();
+                //[002] - Estudo de desempenho: List Vs Array
+                Type[] types = Array.Empty<Type>();
                 if (Exists)
                 {
-                    if (!IsCurrentDomain)
+                    try
                     {
-                        try
-                        {
-                            foreach (Assembly item in _assemblyLoadContext.Assemblies)
-                            {
-                                foreach (Type item1 in item.ExportedTypes)
-                                {
-                                    types.Add(item1);
-                                }
-                            }
-
-                            //types = _assemblyLoadContext.Assemblies.SelectMany(x => x.ExportedTypes);
-                        }
-                        catch (Exception ex)
-                        {
-                            Error = ex;
-                            return;
-                        }
+                        types = !IsCurrentDomain ?
+                                        _assemblyLoadContextModule.GetAssemblyLoadContext(FullPathModule).Assemblies.First().GetExportedTypes()
+                                        : AppDomain.CurrentDomain.GetAssemblies().First(x => x.Location == FullPathModule).GetExportedTypes();
                     }
-                    else
+                    catch (Exception ex)
                     {
-
-                        try
-                        {
-                            foreach (Assembly? item in AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == FullPathModule))
-                            {
-                                foreach (Type item1 in item.ExportedTypes)
-                                {
-                                    types.Add(item1);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Error = ex;
-                            return;
-                        }
+                        Error = ex;
+                        return;
                     }
 
                 }
 
-
+                //[003] - Estudo de desempenho: Sequencial Vs Paralelo
+                Dictionary<string, ModuleInfo> auxTypes = new Dictionary<string, ModuleInfo>();
                 foreach (Type type in types)
                 {
                     ModuleAttribute? moduleAttr = type.GetCustomAttribute<ModuleAttribute>();
@@ -323,6 +293,8 @@ namespace Propeus.Module.Watcher.Models
                 }
 
                 Modules = auxTypes;
+
+
             }
         }
 
