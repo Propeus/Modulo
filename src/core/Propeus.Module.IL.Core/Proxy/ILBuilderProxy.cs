@@ -14,6 +14,27 @@ namespace Propeus.Module.IL.Core.Proxy
     /// </summary>
     internal class ILBuilderProxy : IDisposable
     {
+        private static string GetNameFromPogNet(object instanceBuilder)
+        {
+            //:Bug 001
+            return instanceBuilder.GetType().FullName switch
+            {
+                "System.Reflection.Emit.RuntimeAssemblyBuilder" => "AssemblyBuilder",
+                "System.Reflection.Emit.RuntimeModuleBuilder" => "ModuleBuilder",
+                "System.Reflection.Emit.RuntimeTypeBuilder" => "TypeBuilder",
+                "System.Reflection.Emit.RuntimeLocalBuilder" => "LocalBuilder",
+                "System.Reflection.Emit.RuntimeMethodBuilder" => "MethodBuilder",
+                "System.Reflection.Emit.RuntimeParameterBuilder" => "ParameterBuilder",
+                "System.Reflection.Emit.RuntimePropertyBuilder" => "PropertyBuilder",
+                "System.Reflection.Emit.RuntimeFieldBuilder" => "FieldBuilder",
+                "System.Reflection.Emit.RuntimeEventBuilder" => "EventBuilder",
+                "System.Reflection.Emit.RuntimeEnumBuilder" => "EnumBuilder",
+                "System.Reflection.Emit.RuntimeCustomAttributeBuilder" => "CustomAttributeBuilder",
+                "System.Reflection.Emit.RuntimeConstructorBuilder" => "ConstructorBuilder",
+                _ => instanceBuilder.GetType().Name,
+            };
+        }
+
         /// <summary>
         /// Define o tamanho inicial do dicionário.
         /// </summary>
@@ -96,7 +117,7 @@ namespace Propeus.Module.IL.Core.Proxy
                         continue;
                     }
 
-                    _parent.Builders.Add(_key + builder.GetType().Name, builder);
+                    _parent.Builders.Add(_key + GetNameFromPogNet(builder), builder);
 
                 }
             }
@@ -174,7 +195,7 @@ namespace Propeus.Module.IL.Core.Proxy
         /// <param name="builder">Um builder que seja <see cref="PropertyBuilder"/>, <see cref="MethodBuilder"/>, <see cref="FieldBuilder"/> ou <see cref="EventBuilder"/></param>
         private ILBuilderProxy(object builder) : this()
         {
-            Builders.Add(builder.GetType().Name, builder);
+            RegisterBuilders(builder);
         }
         /// <summary>
         /// Inicializa o builder com um array de builders
@@ -218,6 +239,7 @@ namespace Propeus.Module.IL.Core.Proxy
         /// <returns>Retorna o builder quando encontrado caso contrário <see langword="default"/></returns>
         public TBuilder? GetBuilder<TBuilder>()
         {
+            string nameBuider = typeof(TBuilder).Name;
             if (Builders.TryGetValue(typeof(TBuilder).Name, out object? builder))
             {
                 return (TBuilder?)builder;
@@ -244,7 +266,8 @@ namespace Propeus.Module.IL.Core.Proxy
                     continue;
                 }
 
-                Builders.Add(builder.GetType().Name, builder);
+                //:Bug 001
+                Builders.Add(GetNameFromPogNet(builder), builder);
 
             }
         }

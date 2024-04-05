@@ -353,20 +353,21 @@ namespace Propeus.Module.IL.Core.Helpers
             FieldInfo mbLocSigHelp = mbType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
             FieldInfo mbSigHelp = mbType.GetField("m_signature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
 #pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
-
-            ILGenerator tempIlGen = mbILGen.GetValue(mb) as ILGenerator;
-            tempIlGen.DisposeILGenerator();
-            SignatureHelper tempmbSigHelp = mbLocSigHelp.GetValue(mb) as SignatureHelper;
-            tempmbSigHelp.DisposeSignature();
-            tempmbSigHelp = mbSigHelp.GetValue(mb) as SignatureHelper;
-            tempmbSigHelp.DisposeSignature();
+            if (mbILGen is not null)
+            {
+                ILGenerator tempIlGen = mbILGen.GetValue(mb) as ILGenerator;
+                tempIlGen.DisposeILGenerator();
+                SignatureHelper tempmbSigHelp = mbLocSigHelp.GetValue(mb) as SignatureHelper;
+                tempmbSigHelp.DisposeSignature();
+                tempmbSigHelp = mbSigHelp.GetValue(mb) as SignatureHelper;
+                tempmbSigHelp.DisposeSignature();
+            }
 #pragma warning restore CS8600, CS8604
-
-            mbILGen.SetValue(mb, null);
-            mbContType.SetValue(mb, null);
-            mbLocSigHelp.SetValue(mb, null);
-            mbSigHelp.SetValue(mb, null);
-            mbMod.SetValue(mb, null);
+            mbILGen?.SetValue(mb, null);
+            mbContType?.SetValue(mb, null);
+            mbLocSigHelp?.SetValue(mb, null);
+            mbSigHelp?.SetValue(mb, null);
+            mbMod?.SetValue(mb, null);
 #pragma warning restore CS8602
 
         }
