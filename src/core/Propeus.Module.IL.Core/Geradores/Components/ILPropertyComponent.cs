@@ -1,13 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores.Components;
+using Propeus.Module.IL.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-
-using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Geradores
@@ -28,7 +25,7 @@ namespace Propeus.Module.IL.Geradores
         /// <summary>
         /// Proxy builder do componente
         /// </summary>
-        internal PropertyBuilder? Builder => this.BuilderProxy.GetBuilder<PropertyBuilder>();
+        internal PropertyBuilder? Builder => BuilderProxy.GetBuilder<PropertyBuilder>();
 
         /// <summary>
         /// Indica se o componente atual é um proxy para outra propriedade
@@ -46,7 +43,7 @@ namespace Propeus.Module.IL.Geradores
         /// <summary>
         /// Lista de parâmetros da propriedade
         /// </summary>
-        private ILParametro[] Parameters { get;  set; }
+        private ILParametro[] Parameters { get; set; }
 
         /// <summary>
         /// Cria uma nova propriedade
@@ -60,15 +57,15 @@ namespace Propeus.Module.IL.Geradores
         [SetsRequiredMembers]
         public ILPropertyComponent(IILBuilderProxyScope iLBuilderProxy, Token[] modifyAccess, Type type, string name, ILParametro[]? parameters = null) : base(iLBuilderProxy, modifyAccess, type, name)
         {
-           
+
             Parameters = parameters ?? Array.Empty<ILParametro>();
 
 
-            var typeBuilder = this.BuilderProxy.GetBuilder<TypeBuilder>() ?? throw new NotImplementedException();
-            var propertyBuilder = typeBuilder.DefineProperty(name, PropertyAttributes.HasDefault, type, parameters?.Select(x=> x.Tipo).ToArray());
-            this.BuilderProxy.RegisterBuilders(propertyBuilder);
+            TypeBuilder typeBuilder = BuilderProxy.GetBuilder<TypeBuilder>() ?? throw new NotImplementedException();
+            PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(name, PropertyAttributes.HasDefault, type, parameters?.Select(x => x.Tipo).ToArray());
+            BuilderProxy.RegisterBuilders(propertyBuilder);
 
-       
+
             Getter = default;
             Setter = default;
         }
@@ -80,16 +77,22 @@ namespace Propeus.Module.IL.Geradores
         /// <exception cref="InvalidOperationException">O Builder do Setter está nulo</exception>
         public void Apply()
         {
-            if(disposedValue)
+            if (disposedValue)
+            {
                 throw new ObjectDisposedException(GetType().FullName);
+            }
 
-            if(Builder is null)
+            if (Builder is null)
+            {
                 throw new InvalidOperationException(nameof(Builder));
+            }
 
             if (Getter != null)
             {
                 if (Getter.Builder is null)
+                {
                     throw new InvalidOperationException(nameof(Getter.Builder));
+                }
 
                 Getter.Apply();
                 Builder.SetGetMethod(Getter.Builder);
@@ -98,7 +101,9 @@ namespace Propeus.Module.IL.Geradores
             if (Setter != null)
             {
                 if (Setter.Builder is null)
+                {
                     throw new InvalidOperationException(nameof(Setter.Builder));
+                }
 
                 Setter.Apply();
                 Builder.SetSetMethod(Setter.Builder);
@@ -181,7 +186,7 @@ namespace Propeus.Module.IL.Geradores
                 }
 
                 Parameters = Array.Empty<ILParametro>();
-                
+
                 disposedValue = true;
             }
         }

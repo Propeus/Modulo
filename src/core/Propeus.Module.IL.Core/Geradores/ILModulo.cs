@@ -1,13 +1,9 @@
-﻿using System.Reflection.Emit;
-using System.Text;
-
-using Propeus.Module.IL.Core.Enums;
+﻿using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Geradores;
-using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
-
-using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
+using System.Reflection.Emit;
+using System.Text;
 
 namespace Propeus.Module.IL.Geradores
 {
@@ -66,10 +62,7 @@ namespace Propeus.Module.IL.Geradores
         /// <exception cref="ObjectDisposedException">Classe com a chamada <see cref="Dispose()"/> acionado</exception>
         internal bool ExisteClasseProvider(string nomeClasse, string @namespace)
         {
-            if (disposedValue)
-                throw new ObjectDisposedException(GetType().FullName);
-
-            return Classes.ContainsKey(@namespace + nomeClasse);
+            return disposedValue ? throw new ObjectDisposedException(GetType().FullName) : Classes.ContainsKey(@namespace + nomeClasse);
         }
 
         /// <summary>
@@ -82,10 +75,7 @@ namespace Propeus.Module.IL.Geradores
         /// <exception cref="KeyNotFoundException">Acionado quando não houver a chave no dicionário</exception>
         internal ILClasseProvider ObterClasseProvider(string nomeClasse, string @namespace)
         {
-            if (disposedValue)
-                throw new ObjectDisposedException(GetType().FullName);
-
-            return Classes[@namespace + nomeClasse];
+            return disposedValue ? throw new ObjectDisposedException(GetType().FullName) : Classes[@namespace + nomeClasse];
         }
 
         /// <summary>

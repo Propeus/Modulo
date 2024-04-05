@@ -1,7 +1,6 @@
-﻿using System.Globalization;
+﻿using Propeus.Module.IL.Core.Proxy;
+using System.Globalization;
 using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas.Campos
 {
@@ -13,7 +12,7 @@ namespace Propeus.Module.IL.Core.Pilhas.Campos
     /// </remarks>
     internal class ILLdfld : ILStack
     {
-        
+
         ///<inheritdoc/>
         public ILLdfld(ILBuilderProxy ScopeBuilder, FieldBuilder fieldBuilder) : base(ScopeBuilder, OpCodes.Ldfld)
         {
@@ -28,7 +27,7 @@ namespace Propeus.Module.IL.Core.Pilhas.Campos
         public override void Apply()
         {
             base.Apply();
-            if(ObjectBuilder is null)
+            if (ObjectBuilder is null)
             {
                 throw new ObjectDisposedException(nameof(ObjectBuilder));
             }

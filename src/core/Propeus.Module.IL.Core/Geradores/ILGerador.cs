@@ -1,6 +1,5 @@
-﻿using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Proxy;
+﻿using Propeus.Module.IL.Core.Proxy;
+using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Geradores
 {
@@ -57,7 +56,7 @@ namespace Propeus.Module.IL.Geradores
                 nomeAssembly = Constantes.GerarNome(Constantes.CONSTNMEASSEMBLY);
             }
 
-           var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new System.Reflection.AssemblyName(nomeAssembly), AssemblyBuilderAccess.RunAndCollect);
+            AssemblyBuilder assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new System.Reflection.AssemblyName(nomeAssembly), AssemblyBuilderAccess.RunAndCollect);
 
             if (nomeModulo == Constantes.CONSTNMEMODULO)
             {

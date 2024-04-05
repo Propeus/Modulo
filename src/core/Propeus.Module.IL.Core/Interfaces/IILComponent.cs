@@ -2,7 +2,7 @@
 
 namespace Propeus.Module.IL.Core.Interfaces
 {
-    interface IILComponent
+    internal interface IILComponent
     {
         /// <summary>
         /// Nome do componente IL

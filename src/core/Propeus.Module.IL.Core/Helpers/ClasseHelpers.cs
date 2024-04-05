@@ -1,10 +1,9 @@
-﻿using System.Reflection;
-using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.API;
+﻿using Propeus.Module.IL.Core.API;
 using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Geradores;
 using Propeus.Module.IL.Geradores;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Core.Helpers
 {
@@ -121,13 +120,19 @@ namespace Propeus.Module.IL.Core.Helpers
                     _ = _acessadoresL.Remove(Token.VtableLayoutMask);
 
                     if (!_acessadoresL.Contains(Token.Final))
+                    {
                         _acessadoresL.Add(Token.Final);
+                    }
 
                     if (!_acessadoresL.Contains(Token.NovoSlot))
+                    {
                         _acessadoresL.Add(Token.NovoSlot);
+                    }
 
                     if (!_acessadoresL.Contains(Token.Virtual))
+                    {
                         _acessadoresL.Add(Token.Virtual);
+                    }
 
                     _acessadores = _acessadoresL.ToArray();
                 }
@@ -166,13 +171,20 @@ namespace Propeus.Module.IL.Core.Helpers
                         _ = _acessadoresL.Remove(Token.ReusoSlot);
                         _ = _acessadoresL.Remove(Token.VtableLayoutMask);
                         if (!_acessadoresL.Contains(Token.Final))
+                        {
                             _acessadoresL.Add(Token.Final);
+                        }
 
                         if (!_acessadoresL.Contains(Token.NovoSlot))
+                        {
                             _acessadoresL.Add(Token.NovoSlot);
+                        }
 
                         if (!_acessadoresL.Contains(Token.Virtual))
+                        {
                             _acessadoresL.Add(Token.Virtual);
+                        }
+
                         _acessadores = _acessadoresL.ToArray();
                     }
                     else
@@ -186,9 +198,9 @@ namespace Propeus.Module.IL.Core.Helpers
                         _acessadores = _acessadoresL.ToArray();
                     }
 
-                    var mth_info_set_params = mth_info_set.GetParameters();
+                    ParameterInfo[] mth_info_set_params = mth_info_set.GetParameters();
                     List<ILParametro> iLParametros = new List<ILParametro>();
-                    foreach (var param in mth_info_set_params)
+                    foreach (ParameterInfo param in mth_info_set_params)
                     {
                         iLParametros.Add(new ILParametro(Constantes.CONST_NME_PROPRIEDADE_METODO_SET + prop.Name, param.ParameterType, param.IsOptional, param.DefaultValue, param.Name));
                     }

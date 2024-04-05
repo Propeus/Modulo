@@ -1,11 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using Propeus.Module.IL.Core.Helpers;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Geradores;
 
 namespace Propeus.Module.IL.Core.Proxy
 {
@@ -68,16 +64,20 @@ namespace Propeus.Module.IL.Core.Proxy
             public TBuilder? GetBuilder<TBuilder>()
             {
                 if (disposedValue)
+                {
                     throw new ObjectDisposedException(GetType().Name);
+                }
 
                 Type currentTipeBuilder = typeof(TBuilder);
 
                 if (_parent == null)
+                {
                     throw new InvalidOperationException("O ILBuilderProxy não foi encontrado");
+                }
 
                 string parentId = _key.Split("::")[0];
 
-                if (_parent.Builders.TryGetValue(parentId + currentTipeBuilder.Name, out var builder))
+                if (_parent.Builders.TryGetValue(parentId + currentTipeBuilder.Name, out object? builder))
                 {
                     return (TBuilder)builder;
                 }
@@ -104,10 +104,14 @@ namespace Propeus.Module.IL.Core.Proxy
             public void RegisterBuilders(params object?[] builders)
             {
                 if (disposedValue)
+                {
                     throw new ObjectDisposedException(GetType().Name);
+                }
 
                 if (_parent == null)
+                {
                     throw new InvalidOperationException("O ILBuilderProxy não foi encontrado");
+                }
 
                 foreach (object? builder in builders)
                 {
@@ -134,11 +138,9 @@ namespace Propeus.Module.IL.Core.Proxy
                         for (int i = 0; i < _parent.Builders.Count; i++)
                         {
                             string currentKey = _parent.Builders.ElementAt(i).Key;
-                            string realKey = "";
-
                             if (currentKey.Length > _key.Length)
                             {
-                                realKey = currentKey.Remove(0, _key.Length);
+                                string realKey = currentKey.Remove(0, _key.Length);
                                 if (_parent.Builders.ContainsKey(_key + realKey))
                                 {
                                     if (realKey == typeof(MethodBuilder).Name)
@@ -170,12 +172,11 @@ namespace Propeus.Module.IL.Core.Proxy
 
             public IILBuilderProxyScope CreateScope()
             {
-                if (disposedValue)
-                    throw new ObjectDisposedException(GetType().Name);
-                if (_parent == null)
-                    throw new InvalidOperationException("O ILBuilderProxy não foi encontrado");
-
-                return new ILBuilderProxyScope(_key, _parent);
+                return disposedValue
+                    ? throw new ObjectDisposedException(GetType().Name)
+                    : _parent == null
+                    ? throw new InvalidOperationException("O ILBuilderProxy não foi encontrado")
+                    : (IILBuilderProxyScope)new ILBuilderProxyScope(_key, _parent);
             }
         }
 
@@ -239,12 +240,8 @@ namespace Propeus.Module.IL.Core.Proxy
         /// <returns>Retorna o builder quando encontrado caso contrário <see langword="default"/></returns>
         public TBuilder? GetBuilder<TBuilder>()
         {
-            string nameBuider = typeof(TBuilder).Name;
-            if (Builders.TryGetValue(typeof(TBuilder).Name, out object? builder))
-            {
-                return (TBuilder?)builder;
-            }
-            return default;
+            _ = typeof(TBuilder).Name;
+            return Builders.TryGetValue(typeof(TBuilder).Name, out object? builder) ? (TBuilder?)builder : default;
         }
 
         /// <summary>
@@ -285,7 +282,9 @@ namespace Propeus.Module.IL.Core.Proxy
         internal void Emit(OpCode code)
         {
             if (ILGenerator == null)
+            {
                 throw new InvalidOperationException("Forneça um gerador para executar comandos emit");
+            }
 
             ILGenerator.Emit(code);
             Stack.Add(ILGenerator.ILOffset.ToString(new CultureInfo("pt-BR")), code.ToString());
@@ -302,7 +301,9 @@ namespace Propeus.Module.IL.Core.Proxy
         internal void Emit(OpCode code, int value)
         {
             if (ILGenerator == null)
+            {
                 throw new InvalidOperationException("Forneça um gerador para executar comandos emit");
+            }
 
             ILGenerator.Emit(code, value);
             Stack.Add(ILGenerator.ILOffset.ToString(new CultureInfo("pt-BR")), $"{code} {value}");
@@ -331,7 +332,9 @@ namespace Propeus.Module.IL.Core.Proxy
             }
 
             if (ILGenerator == null)
+            {
                 throw new InvalidOperationException("Forneça um gerador para executar comandos emit");
+            }
 
             ILGenerator.Emit(code, constructorInfo);
 
@@ -370,8 +373,9 @@ namespace Propeus.Module.IL.Core.Proxy
             }
 
             if (ILGenerator == null)
+            {
                 throw new InvalidOperationException("Forneça um gerador para executar comandos emit");
-
+            }
 
             ILGenerator.Emit(code, methodInfo);
 
@@ -402,9 +406,9 @@ namespace Propeus.Module.IL.Core.Proxy
             }
 
             if (ILGenerator == null)
+            {
                 throw new InvalidOperationException("Forneça um gerador para executar comandos emit");
-
-
+            }
 
             ILGenerator.Emit(code, fieldBuilder);
             Stack.Add(ILGenerator.ILOffset.ToString(new CultureInfo("pt-BR")), $"{code} {fieldBuilder.FieldType.Name.ToLower(CultureInfo.CurrentCulture)} {fieldBuilder.DeclaringType.FullName}::{fieldBuilder.Name}");
@@ -418,7 +422,7 @@ namespace Propeus.Module.IL.Core.Proxy
         public IILBuilderProxyScope CreateScope()
         {
             IILBuilderProxyScope proxy = new ILBuilderProxyScope(this);
-            _proxyList.AddLast(proxy);
+            _ = _proxyList.AddLast(proxy);
             return proxy;
         }
 
@@ -447,7 +451,7 @@ namespace Propeus.Module.IL.Core.Proxy
             {
                 if (disposing)
                 {
-                    foreach (var proxy in _proxyList)
+                    foreach (IILBuilderProxyScope proxy in _proxyList)
                     {
                         proxy.Dispose();
                     }

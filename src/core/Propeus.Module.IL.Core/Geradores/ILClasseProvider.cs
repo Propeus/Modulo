@@ -1,13 +1,9 @@
-﻿using System.Net.Security;
-using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Enums;
+﻿using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
 using Propeus.Module.IL.Geradores;
-
-using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
+using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Core.Geradores
 {
@@ -136,10 +132,7 @@ namespace Propeus.Module.IL.Core.Geradores
             }
             if (interfaces is not null)
             {
-                if (Interfaces is not null)
-                    Interfaces = Interfaces.FullJoin(interfaces).ToArray();
-                else
-                    Interfaces = interfaces;
+                Interfaces = Interfaces is not null ? Interfaces.FullJoin(interfaces).ToArray() : interfaces;
             }
             if (modificadorAcesso is not null)
             {
@@ -185,14 +178,16 @@ namespace Propeus.Module.IL.Core.Geradores
         /// <param name="versao">Versão atual da classe</param>
         private void InserirNovaVersaoArray(ILClasse iLClasse, int versao)
         {
-            if(disposedValue)
-                throw new ObjectDisposedException (GetType().FullName);
+            if (disposedValue)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
 
             if (versao - 1 >= _versoes.Length)
             {
                 string nome = _versoes[0].Namespace + "." + _versoes[0].ClassName;
                 Proxy.GetBuilder<ModuleBuilder>()?.DisposeModuleBuilder(nome);
-                
+
                 _versoes[0].Dispose();
 
                 for (int i = 0; i < _versoes.Length - 1; i++)
@@ -215,12 +210,7 @@ namespace Propeus.Module.IL.Core.Geradores
         ///<inheritdoc/>
         public override string ToString()
         {
-            if (_atual is null)
-                return string.Empty;
-            if (disposedValue)
-                return string.Empty;
-
-            return _atual.ToString();
+            return _atual is null ? string.Empty : disposedValue ? string.Empty : _atual.ToString();
         }
 
         private bool disposedValue;
@@ -240,7 +230,7 @@ namespace Propeus.Module.IL.Core.Geradores
                         ILClasse item = _versoes[i];
                         item?.Dispose();
                     }
-                  
+
 
                     TypeBase = null;
                     Interfaces = null;
@@ -249,7 +239,7 @@ namespace Propeus.Module.IL.Core.Geradores
 
                     Proxy.Dispose();
                 }
-                
+
                 _versoes = Array.Empty<ILClasse>();
 
                 disposedValue = true;
@@ -265,7 +255,7 @@ namespace Propeus.Module.IL.Core.Geradores
             GC.SuppressFinalize(this);
         }
 
-      
+
 
     }
 }

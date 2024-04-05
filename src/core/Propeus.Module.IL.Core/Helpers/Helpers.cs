@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.Utils.Objetos;
+using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.Utils.Objetos;
 
 namespace Propeus.Module.IL.Core.Helpers
 {
@@ -352,7 +351,6 @@ namespace Propeus.Module.IL.Core.Helpers
             FieldInfo mbContType = mbType.GetField("m_containingType", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo mbLocSigHelp = mbType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
             FieldInfo mbSigHelp = mbType.GetField("m_signature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
-#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             if (mbILGen is not null)
             {
                 ILGenerator tempIlGen = mbILGen.GetValue(mb) as ILGenerator;
@@ -409,7 +407,6 @@ namespace Propeus.Module.IL.Core.Helpers
             Type ilGenType = typeof(ILGenerator);
 #pragma warning disable S3011,CS8600,CS8602,CS8604 // Reflection should not be used to increase accessibility of classes, methods, or fields
             FieldInfo ilSigHelp = ilGenType.GetField("m_localSignature", BindingFlags.Instance | BindingFlags.NonPublic);//SignatureHelper
-#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
             SignatureHelper sigTemp = ilSigHelp.GetValue(ilGen) as SignatureHelper;
 #pragma warning restore CS8600,CS8602 // Reflection should not be used to increase accessibility of classes, methods, or fields
             sigTemp.DisposeSignature();

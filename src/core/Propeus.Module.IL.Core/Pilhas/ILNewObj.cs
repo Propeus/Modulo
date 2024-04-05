@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Helpers;
+﻿using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Proxy;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Core.Pilhas
 {
@@ -51,17 +50,13 @@ namespace Propeus.Module.IL.Core.Pilhas
 
         public override string ToString()
         {
-            if (MemberInfo is not null && MemberInfo.DeclaringType is not null)
-            {
-                return MemberInfo switch
+            return MemberInfo is not null && MemberInfo.DeclaringType is not null
+                ? MemberInfo switch
                 {
                     ConstructorInfo => $"\t\t{_offset} {Code} {MemberInfo.DeclaringType.FullName}::{MemberInfo.Name}({string.Join(",", ((ConstructorInfo)MemberInfo).GetTypeParams().Select(x => x.Name))})",
                     _ => string.Empty,
-                };
-            }
-
-            return string.Empty;
-
+                }
+                : string.Empty;
         }
     }
 }

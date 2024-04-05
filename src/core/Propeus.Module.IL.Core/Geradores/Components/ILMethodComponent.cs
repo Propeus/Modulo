@@ -1,15 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores.Components;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-
-using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Geradores
@@ -29,7 +26,7 @@ namespace Propeus.Module.IL.Geradores
         /// <summary>
         /// Proxy builder do componente
         /// </summary>
-        internal MethodBuilder? Builder => this.BuilderProxy.GetBuilder<MethodBuilder>();
+        internal MethodBuilder? Builder => BuilderProxy.GetBuilder<MethodBuilder>();
 
 
         /// <summary>
@@ -53,9 +50,9 @@ namespace Propeus.Module.IL.Geradores
                 typeAttributes.Add((MethodAttributes)Enum.Parse(typeof(MethodAttributes), item.GetEnumDescription()));
             }
 
-            TypeBuilder typeBuilder = this.BuilderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
+            TypeBuilder typeBuilder = BuilderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
             MethodBuilder methodBuilder = typeBuilder.DefineMethod(name, typeAttributes.ToArray().JoinEnums(), type, Helpers.Cast<Type>(Parameters).ToArray());
-            this.BuilderProxy.RegisterBuilders(methodBuilder);
+            BuilderProxy.RegisterBuilders(methodBuilder);
 
             for (int i = 0; i < Parameters.Length; i++)
             {
@@ -91,7 +88,7 @@ namespace Propeus.Module.IL.Geradores
         /// </summary>
         internal List<IILPilha> StackExecution { get; private set; }
 
-        bool _executado;
+        private bool _executado;
 
 
         ///<inheritdoc/>
@@ -122,7 +119,7 @@ namespace Propeus.Module.IL.Geradores
             _ = sb.Append('\t')
                 .Append($".method ");
 
-            foreach (Token item in this.ModifyAccess)
+            foreach (Token item in ModifyAccess)
             {
                 _ = sb.Append(item.GetEnumDescription().ToLower(CultureInfo.CurrentCulture)).Append(' ');
             }

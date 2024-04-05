@@ -1,7 +1,5 @@
-﻿using System.Reflection;
+﻿using Propeus.Module.IL.Core.Proxy;
 using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas
 {

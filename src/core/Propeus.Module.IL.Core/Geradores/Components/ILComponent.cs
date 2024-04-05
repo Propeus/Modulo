@@ -1,17 +1,18 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Propeus.Module.IL.Core.Enums;
+﻿using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-
+using System.Diagnostics.CodeAnalysis;
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Core.Geradores.Components
 {
-    abstract class ILComponent : IILComponent
+    internal abstract class ILComponent : IILComponent
     {
 
         [SetsRequiredMembers]
-        protected ILComponent(IILBuilderProxyScope iLBuilderProxy, Token[] modifyAccess, Type type, string name) => (BuilderProxy, ModifyAccess, Name, Type) = (iLBuilderProxy, modifyAccess, name, type);
+        protected ILComponent(IILBuilderProxyScope iLBuilderProxy, Token[] modifyAccess, Type type, string name)
+        {
+            (BuilderProxy, ModifyAccess, Name, Type) = (iLBuilderProxy, modifyAccess, name, type);
+        }
 
 
         /// <summary>

@@ -1,7 +1,6 @@
-﻿using System.Reflection.Emit;
-
-using Propeus.Module.IL.Core.Interfaces;
+﻿using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
+using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Core.Pilhas
 {

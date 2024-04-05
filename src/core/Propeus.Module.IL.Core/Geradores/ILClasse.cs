@@ -1,14 +1,11 @@
-﻿using System.Globalization;
+﻿using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Geradores;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-
-using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-using Propeus.Module.IL.Geradores;
-
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Core.Geradores
@@ -140,7 +137,7 @@ namespace Propeus.Module.IL.Core.Geradores
                 propriedade.Apply();
             }
 
-            var _builder = Proxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
+            TypeBuilder _builder = Proxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
             DynamicTypeClass = _builder.CreateType();
         }
 

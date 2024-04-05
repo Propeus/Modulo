@@ -1,16 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores.Components;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-
-using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Geradores
@@ -50,7 +46,7 @@ namespace Propeus.Module.IL.Geradores
             }
 
             base.BuilderProxy = builderProxy;
-            var _builder = builderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
+            TypeBuilder _builder = builderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
             builderProxy.RegisterBuilders(_builder.DefineField(fieldName, fieldType, typeAttributes.ToArray().JoinEnums()));
         }
 
@@ -72,7 +68,7 @@ namespace Propeus.Module.IL.Geradores
             _ = sb.Append('\t')
                 .Append($".field ");
 
-            foreach (Token item in this.ModifyAccess)
+            foreach (Token item in ModifyAccess)
             {
                 _ = sb.Append(item.GetEnumDescription().ToLower(CultureInfo.CurrentCulture)).Append(' ');
             }

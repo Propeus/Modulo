@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-
-using Propeus.Module.IL.Core.Pilhas;
+﻿using Propeus.Module.IL.Core.Pilhas;
 using Propeus.Module.IL.Core.Pilhas.Campos;
 using Propeus.Module.IL.Geradores;
+using System.Reflection;
 
 namespace Propeus.Module.IL.Core.API
 {
@@ -28,7 +27,7 @@ namespace Propeus.Module.IL.Core.API
         /// Carrega o valor do parâmetro de índice 0 na pilha de execução do método informado
         /// </summary>
         /// <param name="iLMetodo">Método a ser obtido o valor de parâmetro</param>
-        internal static void LoadMethodArgument(ILMethodComponent iLMetodo) 
+        internal static void LoadMethodArgument(ILMethodComponent iLMetodo)
         {
             iLMetodo.StackExecution.Add(new ILLdarg(iLMetodo.Builder));
         }
