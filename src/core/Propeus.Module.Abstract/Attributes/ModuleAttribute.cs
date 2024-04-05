@@ -38,13 +38,13 @@
         /// <value>Por padrão é <see langword="false"/></value>
         public bool KeepAlive { get; set; } = false;
         /// <summary>
-        /// Indica se o modulo e auto inicializava
+        /// Indica se o modulo é auto inicializavel
         /// </summary>
         /// <remarks>
         /// Por padrão o valor é <see langword="false"/>
         /// </remarks>
         /// <value>
-        /// <see langword="true"/> para caso seja auto inicializava, caso contrario <see langword="false"/>
+        /// <see langword="true"/> para caso seja auto inicializavel, caso contrario <see langword="false"/>
         /// </value>
         public bool AutoStartable { get; set; } = false;
         /// <summary>
