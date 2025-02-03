@@ -1,24 +1,18 @@
-﻿using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Interfaces;
+
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
-namespace Propeus.Module.IL.Geradores
+namespace Propeus.Module.IL.Core.Geradores.Components
 {
-    internal static partial class Constantes
-    {
-        public const string CONST_NME_PROPRIEDADE = "IL_Gerador_{0}_Propriedade_";
 
-        public const string CONST_NME_PROPRIEDADE_METODO_GET = "get_";
-        public const string CONST_NME_PROPRIEDADE_METODO_SET = "set_";
-
-    }
     /// <summary>
-    /// Gerador de propriedade
+    /// Componente para gerar propriedades
     /// </summary>
     internal class ILPropertyComponent : ILComponent, IILExecutor, IDisposable
     {

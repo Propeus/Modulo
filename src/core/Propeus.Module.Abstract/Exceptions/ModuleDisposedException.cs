@@ -12,13 +12,13 @@ namespace Propeus.Module.Abstract.Exceptions
     public class ModuleDisposedException : ModuleException
     {
         /// <summary>
-        /// Construtor padrão
+        /// Exceção para quando é requsitado um modulo descartado
         /// </summary>
         /// <param name="module">Instancia do modulo</param>
         public ModuleDisposedException(IModule module) : base(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, module.Id)) { }
 
         /// <summary>
-        /// Construtor padrão
+        /// Exceção para quando é requsitado um modulo descartado
         /// </summary>
         /// <param name="idModule">Id do modulo</param>
         public ModuleDisposedException(string idModule) : base(string.Format(Constantes.ERRO_MODULO_ID_DESCARTADO, idModule)) { }

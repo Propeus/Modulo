@@ -1,6 +1,7 @@
-﻿using Propeus.Module.IL.Core.Proxy;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas.Campos
 {

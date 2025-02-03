@@ -1,14 +1,9 @@
-﻿namespace Propeus.Module.IL.Geradores
+﻿namespace Propeus.Module.IL.Core.Geradores
 {
-    internal static partial class Constantes
-    {
-        public const string CONST_NME_PARAMETRO = "IL_Gerador_{0}_Parametro_";
-        public static string GerarNomeParametro(string nomeMetodo)
-        {
-            return Constantes.GerarNome(string.Format(CONST_NME_PARAMETRO, nomeMetodo));
-        }
-    }
 
+    /// <summary>
+    /// Componente para adicionar parametros em metodos, propriedades e outros
+    /// </summary>
     internal class ILParametro
     {
         /// <summary>

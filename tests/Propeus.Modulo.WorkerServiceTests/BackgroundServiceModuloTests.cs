@@ -7,8 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.Manager;
-using Propeus.Module.Manager.Dynamic;
 using Propeus.Module.WorkerService;
 
 namespace Propeus.Module.WorkerServiceTests
@@ -53,7 +51,7 @@ namespace Propeus.Module.WorkerServiceTests
         {
             _ = gerenciador.CreateModule<ModuloTesteWorker>();
             ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
-            Assert.AreEqual(State.Initialized, worker.State);
+            Assert.AreEqual(State.Running, worker.State);
         }
 
         [TestMethod()]
@@ -69,7 +67,7 @@ namespace Propeus.Module.WorkerServiceTests
         {
             _ = gerenciador.CreateModule<ModuloTesteWorker>();
             ModuloTesteWorker worker = gerenciador.GetModule<ModuloTesteWorker>();
-            Assert.AreEqual(State.Initialized, worker.State);
+            Assert.AreEqual(State.Running, worker.State);
             gerenciador.RemoveModule(worker);
             Assert.AreEqual(State.Off, worker.State);
         }

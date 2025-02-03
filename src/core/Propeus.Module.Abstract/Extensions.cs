@@ -16,25 +16,25 @@ namespace Propeus.Module.Abstract
         /// <exception cref="ArgumentNullException">Quando modulo for nulo</exception>
         public static void WaitModuleState(this IModule module, State state, CancellationToken? cancellationToken = null)
         {
-            if (module is null)
+            ArgumentNullException.ThrowIfNull(module);
+
+            if (cancellationToken is null)
             {
-                throw new ArgumentNullException(nameof(module));
+                var cts = new CancellationTokenSource();
+                cancellationToken = cts.Token;
+#if DEBUG
+                cts.CancelAfter(TimeSpan.FromMilliseconds(10));
+#elif RELEASE
+                cts.CancelAfter(TimeSpan.FromSeconds(10));
+#endif
             }
 
-            if (cancellationToken != null)
+            while (module.State != state && !cancellationToken.Value.IsCancellationRequested)
             {
-                do
-                {
-                    Task.Delay(TimeSpan.FromSeconds(1)).Wait();
-                } while (module.State != state || !cancellationToken.Value.IsCancellationRequested);
+                Task.Delay(TimeSpan.FromMilliseconds(1)).Wait();
             }
-            else
-            {
-                do
-                {
-                    Task.Delay(TimeSpan.FromSeconds(1)).Wait();
-                } while (module.State != state);
-            }
+
+
         }
     }
 }

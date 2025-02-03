@@ -8,23 +8,30 @@ using Propeus.Module.Registry.Models;
 
 namespace Propeus.Module.Registry.Modules
 {
-
-    [Module(Description ="Modulo paa armazenar e gerenciar informações de outros módulos", KeepAlive = false, Singleton = false, AutoStartable = false, AutoUpdate = false)]
+    /// <summary>
+    /// Modulo paa armazenar e gerenciar informações de outros módulos
+    /// </summary>
+    /// <remarks>
+    /// Inclusive o dele mesmo
+    /// </remarks>
+    [Module(Description = "Modulo para armazenar instancia e gerenciar informações de outros módulos", KeepAlive = false, Singleton = false, AutoStartable = false, AutoUpdate = false)]
     public class RegistryModule : BaseModule, IRegistryContract
     {
         //TODO: Criar uma funcao de sincronismo para evitar duplicidade de objetos entre modulos
 
         public RegistryModule()
         {
-            modules = new ConcurrentDictionary<string, IModuleInfo>();
+            modules = new ConcurrentDictionary<string, IModuleInformation>();
         }
 
         //K:Id | V:moduleInstance
-        private readonly ConcurrentDictionary<string, IModuleInfo> modules;
+        private readonly ConcurrentDictionary<string, IModuleInformation> modules;
 
+        /// <inheritdoc/>
         public int InitializedModules { get; private set; }
 
-        public IModuleInfo RegisterModule(IModule module)
+        /// <inheritdoc/>
+        public IModuleInformation RegisterModule(IModule module)
         {
             if (!ExistsModule(module.Id))
             {
@@ -37,23 +44,33 @@ namespace Propeus.Module.Registry.Modules
             }
             else
             {
-                return GetModuleInformation(module.Id);
+                //TODO: Analisar melhor uma forma de sobrepor um modulo singleton onde é adicionado mais um contrato
+                var moduleRoot = GetModuleInformation(module.Id);
+                if (module.GetType().Name.Contains("TEMP"))
+                {
+                    var moduleInfo = new ModuleInformation(module);
+                    moduleRoot.ModulesTemporary.Add(moduleInfo);
+                    return moduleInfo;
+                }
+                return moduleRoot;
             }
 
         }
 
+        /// <inheritdoc/>
         public void UnregisterModule(string idModule)
         {
-            if (modules.TryRemove(idModule, out var moduleInfo))
+            if (modules.TryRemove(idModule, out IModuleInformation? moduleInfo))
             {
                 moduleInfo.Dispose();
                 InitializedModules--;
             }
         }
 
-        public IModuleInfo GetModuleInformation(string IdModule)
+        /// <inheritdoc/>
+        public IModuleInformation? GetModuleInformation(string IdModule)
         {
-            if (modules.TryGetValue(IdModule, out IModuleInfo moduleInformation))
+            if (modules.TryGetValue(IdModule, out IModuleInformation? moduleInformation))
             {
                 return moduleInformation;
             }
@@ -63,14 +80,16 @@ namespace Propeus.Module.Registry.Modules
             }
         }
 
-        public IEnumerable<IModuleInfo> GetAllModulesInformation()
+        /// <inheritdoc/>
+        public IEnumerable<IModuleInformation> GetAllModulesInformation()
         {
-            foreach (var item in modules)
+            foreach (KeyValuePair<string, IModuleInformation> item in modules)
             {
                 yield return item.Value;
             }
         }
 
+        /// <inheritdoc/>
         public bool ExistsModule(string IdModule)
         {
             return modules.ContainsKey(IdModule);

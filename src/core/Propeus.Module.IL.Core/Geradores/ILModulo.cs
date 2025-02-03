@@ -1,28 +1,13 @@
-﻿using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
-using System.Reflection.Emit;
+﻿using System.Reflection.Emit;
 using System.Text;
 
-namespace Propeus.Module.IL.Geradores
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Core.Proxy;
+
+namespace Propeus.Module.IL.Core.Geradores
 {
 
-    internal static partial class Constantes
-    {
-        public const string CONST_NME_CLASSE = "IL_Gerador_Classe_";
-        public const string CONST_NME_CLASSE_PROXY = CONST_NME_CLASSE + "Proxy_";
-
-        public const string CONST_NME_NAMESPACE_CLASSE = "Propeus.IL.Classes";
-        public const string CONST_NME_NAMESPACE_CLASSE_PROXY = CONST_NME_NAMESPACE_CLASSE + ".ScopeBuilder";
-
-        public const string CONST_NME_DELEGATE = "IL_Gerador_Delegate_";
-        public const string CONST_NME_DELEGATE_PROXY = CONST_NME_DELEGATE + "Proxy_";
-
-        public const string CONST_NME_NAMESPACE_DELEGATE = "Propeus.IL.Delegates";
-        public const string CONST_NME_NAMESPACE_DELEGATE_PROXY = CONST_NME_NAMESPACE_DELEGATE + ".ScopeBuilder";
-
-    }
 
 
     /// <summary>

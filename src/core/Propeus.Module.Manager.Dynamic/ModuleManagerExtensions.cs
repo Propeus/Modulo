@@ -1,5 +1,5 @@
 ﻿using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.Watcher.Modules;
+using Propeus.Module.WatcherDynamicModule.Contracts;
 
 namespace Propeus.Module.Manager.Dynamic
 {
@@ -16,8 +16,7 @@ namespace Propeus.Module.Manager.Dynamic
         public static IModuleManager CreateModuleManager(this IModuleManager moduleManagerCore)
         {
             ModuleManager gen = moduleManagerCore.CreateModule<ModuleManager>();
-            Action<Type>? arg1 = gen.ModuleManager_OnLoadModule, arg2 = gen.ModuleManager_OnReloadModule;
-            var module = gen.CreateModule<ModuleWatcherModule>(new object[] { arg1, arg2 });
+            var module = moduleManagerCore.CreateModule<IModuleWatcherContract>();
             gen.KeepAliveModule(module);
             return gen;
         }

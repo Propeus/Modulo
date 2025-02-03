@@ -52,7 +52,7 @@ namespace Propeus.Module.Hosting.ViewEngine
                 if (item.Name.Contains(controllerName))
                 {
                     result = item;
-                    return new ModuloChangeToken(result, gerenciador.GetModule<IModuleProviderModuleContract>());
+                    return new ModuloChangeToken(result, gerenciador.GetModule<IMessageQueueManagerContract>());
                 }
             }
             return null;

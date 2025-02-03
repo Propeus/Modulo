@@ -26,24 +26,24 @@
 
 
         /// <summary>
-        /// Cria uma nova instancia do moduleType <typeparamref name="T"/>
+        /// Cria uma nova instancia do modulo <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">Qualquer tipo herdado de <see cref="IModule"/></typeparam>
-        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
         /// <returns></returns>
         T CreateModule<T>(object[]? args = null) where T : IModule;
         /// <summary>
-        /// Cria uma nova instancia do moduleType usando o tipo do parametro <paramref name="moduleType"/>
+        /// Cria uma nova instancia do modulo usando o tipo do parametro <paramref name="moduleType"/>
         /// </summary>
-        /// <param name="moduleType">ModuleType do moduleType</param>
-        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <param name="moduleType">Tipo do modulo</param>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
         /// <returns><see cref="IModule"/></returns>
         IModule CreateModule(Type moduleType, object[]? args = null);
         /// <summary>
-        /// Cria uma nova instancia do moduleType buscando o tipo pelo nome
+        /// Cria uma nova instancia do modulo buscando o tipo pelo nome
         /// </summary>
-        /// <param name="moduleName">ModuleName do moduleType</param>
-        /// <param name="args">Qualquer argumento necessário para o moduleType </param>
+        /// <param name="moduleName">Nome do modulo</param>
+        /// <param name="args">Qualquer argumento necessário para o modulo </param>
         /// <returns><see cref="IModule"/></returns>
         IModule CreateModule(string moduleName, object[]? args = null);
 
@@ -131,62 +131,6 @@
         /// <returns>Retorna uma tarefa</returns>
         void KeepAliveModule(IModule moduleInstance);
 
-
-
-    }
-
-    /// <summary>
-    /// Modelo para monitorar chamadas de um gerenciador
-    /// </summary>
-    public interface IModuleManagerHealthCheck : IBaseModel
-    {
-        /// <summary>
-        /// Eventos para monitoramento do Gerenciador
-        /// </summary>
-        event Action<ModuleManagerHealthCheckEvent>? ModuleManagerEvent;
-        /// <summary>
-        /// Eventos para monitoramento de modulos
-        /// </summary>
-        event Action? ModuleRemoved;
-        /// <summary>
-        /// Eventos para monitoramento de modulos
-        /// </summary>
-        event Action<IModule>? ModuleCreated, ModuleRecycled;
-    }
-
-    /// <summary>
-    /// Tipos de eventos do Gerenciador
-    /// </summary>
-    public enum ModuleManagerHealthCheckEvent
-    {
-        /// <summary>
-        /// Qualquer outro evento nao listado
-        /// </summary>
-        Any = 0,
-        /// <summary>
-        /// Modulo criado
-        /// </summary>
-        Created,
-        /// <summary>
-        /// Modulo removido
-        /// </summary>
-        Removed,
-        /// <summary>
-        /// Modulo reciclado
-        /// </summary>
-        Recycled,
-        /// <summary>
-        /// Modulo listado
-        /// </summary>
-        Listed,
-        /// <summary>
-        /// Modulo obtido
-        /// </summary>
-        Obtained,
-        /// <summary>
-        /// Modulo existente
-        /// </summary>
-        Existed
 
 
     }

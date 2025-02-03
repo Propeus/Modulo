@@ -1,7 +1,10 @@
-﻿using Propeus.Module.IL.Core.Helpers;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Helpers;
+
+using static Propeus.Module.IL.Core.Helpers.Helpers;
 
 namespace Propeus.Module.IL.Core.Proxy
 {
@@ -10,26 +13,7 @@ namespace Propeus.Module.IL.Core.Proxy
     /// </summary>
     internal class ILBuilderProxy : IDisposable
     {
-        private static string GetNameFromPogNet(object instanceBuilder)
-        {
-            //:Bug 001
-            return instanceBuilder.GetType().FullName switch
-            {
-                "System.Reflection.Emit.RuntimeAssemblyBuilder" => "AssemblyBuilder",
-                "System.Reflection.Emit.RuntimeModuleBuilder" => "ModuleBuilder",
-                "System.Reflection.Emit.RuntimeTypeBuilder" => "TypeBuilder",
-                "System.Reflection.Emit.RuntimeLocalBuilder" => "LocalBuilder",
-                "System.Reflection.Emit.RuntimeMethodBuilder" => "MethodBuilder",
-                "System.Reflection.Emit.RuntimeParameterBuilder" => "ParameterBuilder",
-                "System.Reflection.Emit.RuntimePropertyBuilder" => "PropertyBuilder",
-                "System.Reflection.Emit.RuntimeFieldBuilder" => "FieldBuilder",
-                "System.Reflection.Emit.RuntimeEventBuilder" => "EventBuilder",
-                "System.Reflection.Emit.RuntimeEnumBuilder" => "EnumBuilder",
-                "System.Reflection.Emit.RuntimeCustomAttributeBuilder" => "CustomAttributeBuilder",
-                "System.Reflection.Emit.RuntimeConstructorBuilder" => "ConstructorBuilder",
-                _ => instanceBuilder.GetType().Name,
-            };
-        }
+
 
         /// <summary>
         /// Define o tamanho inicial do dicionário.

@@ -1,7 +1,9 @@
-﻿using Propeus.Module.IL.Core.Pilhas;
-using Propeus.Module.IL.Core.Pilhas.Campos;
-using Propeus.Module.IL.Geradores;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+
+using Propeus.Module.IL.Core.Geradores.Components;
+using Propeus.Module.IL.Core.Pilhas;
+using Propeus.Module.IL.Core.Pilhas.Campos;
 
 namespace Propeus.Module.IL.Core.API
 {
@@ -18,7 +20,10 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="iLcampo">Campo a ser armazenado o valor em pilha</param>
         internal static void StoreValueToField(ILMethodComponent iLMetodo, ILFieldComponent iLcampo)
         {
-            iLMetodo.StackExecution.Add(new ILStfld(iLMetodo.Builder, iLcampo.Builder));
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+            ArgumentNullException.ThrowIfNull(iLcampo.Builder, nameof(iLcampo));
+
+            iLMetodo.StackExecution.Add(new ILStfld(iLMetodo.Builder,iLcampo.Builder));
         }
         #endregion
 
@@ -27,17 +32,21 @@ namespace Propeus.Module.IL.Core.API
         /// Carrega o valor do parâmetro de índice 0 na pilha de execução do método informado
         /// </summary>
         /// <param name="iLMetodo">Método a ser obtido o valor de parâmetro</param>
-        internal static void LoadMethodArgument(ILMethodComponent iLMetodo)
+        internal static void LoadMethodArgument([NotNull] ILMethodComponent iLMetodo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder);
+
             iLMetodo.StackExecution.Add(new ILLdarg(iLMetodo.Builder));
         }
         /// <summary>
         /// Carrega o valor do parâmetro de índice informado na pilha de execução do método
         /// </summary>
         /// <param name="iLMetodo">Método a ser obtido o valor de parâmetro</param>
-        /// <param name="indice">ParamIndex de parâmetro para obter</param>
+        /// <param name="indice">Indice de parâmetro para obter o valor</param>
         internal static void LoadMethodArgument(ILMethodComponent iLMetodo, int indice)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+
             iLMetodo.StackExecution.Add(new ILLdarg(iLMetodo.Builder, indice));
         }
 
@@ -51,6 +60,9 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="iLCampo">Campo a ser obtido o valor</param>
         internal static void LoadField(ILMethodComponent iLMetodo, ILFieldComponent iLCampo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+            ArgumentNullException.ThrowIfNull(iLCampo.Builder, nameof(iLCampo));
+
             iLMetodo.StackExecution.Add(new ILLdfld(iLMetodo.Builder, iLCampo.Builder));
         }
 
@@ -63,6 +75,8 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="iLMetodo">Método a ser inserido a instrução</param>
         internal static void CreateReturn(ILMethodComponent iLMetodo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+
             iLMetodo.StackExecution.Add(new ILRet(iLMetodo.Builder));
         }
         /// <summary>
@@ -72,6 +86,8 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="constructorInfo">Informação do construtor do objeto a ser instanciado</param>
         internal static void CreateNewInstanceObject(ILMethodComponent iLMetodo, ConstructorInfo constructorInfo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+
             iLMetodo.StackExecution.Add(new ILNewObj(iLMetodo.Builder, constructorInfo));
         }
         #endregion
@@ -84,6 +100,8 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="constructorInfo">Informação do construtor do objeto a ser chamado</param>
         internal static void CallMethod(ILMethodComponent iLMetodo, ConstructorInfo constructorInfo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+
             iLMetodo.StackExecution.Add(new ILCall(iLMetodo.Builder, constructorInfo));
         }
         /// <summary>
@@ -93,6 +111,8 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="methodInfo">Informação do método do objeto a ser chamado</param>
         internal static void CallMethod(ILMethodComponent iLMetodo, MethodInfo methodInfo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+
             iLMetodo.StackExecution.Add(new ILCall(iLMetodo.Builder, methodInfo));
         }
         /// <summary>
@@ -102,6 +122,8 @@ namespace Propeus.Module.IL.Core.API
         /// <param name="methodInfo">Informação do método virtual do objeto a ser chamado</param>
         internal static void CallVirtualMethod(ILMethodComponent iLMetodo, MethodInfo methodInfo)
         {
+            ArgumentNullException.ThrowIfNull(iLMetodo.Builder, nameof(iLMetodo));
+            
             iLMetodo.StackExecution.Add(new ILCallVirt(iLMetodo.Builder, methodInfo));
         }
         #endregion

@@ -9,6 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
     <ProjectReference Include="..\..\core\Propeus.Module.Utils\Propeus.Module.Utils.csproj" />
+    <ProjectReference Include="..\Propeus.Module.TaskJob\Propeus.Module.TaskJob.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

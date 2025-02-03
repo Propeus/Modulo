@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Reflection.Emit;
 using System.Text;
 
 using Propeus.Module.Abstract;
@@ -9,9 +8,9 @@ using Propeus.Module.Abstract.Helpers;
 using Propeus.Module.Abstract.Interfaces;
 using Propeus.Module.IL.Core.Geradores;
 using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Geradores;
+using Propeus.Module.MessageQueue.Contracts;
 using Propeus.Module.Utils.Atributos;
-using Propeus.Module.Watcher.Contracts;
+using Propeus.Module.WatcherDynamicModule.Contracts;
 
 namespace Propeus.Module.Manager.Dynamic
 {
@@ -29,6 +28,7 @@ namespace Propeus.Module.Manager.Dynamic
         /// Inicializa o gerenciador
         /// </summary>
         /// <param name="moduleManager">Gerenciador que irá controlar o modulo</param>
+        /// <param name="messageQueueManagerContract"></param>
         ///<example>
         ///Criar uma instancia do gerenciador dinamico
         ///<code>
@@ -50,17 +50,22 @@ namespace Propeus.Module.Manager.Dynamic
         ///}
         ///</code>
         ///</example>
-        public ModuleManager(IModuleManager moduleManager) : base()
+        public ModuleManager(IModuleManager moduleManager, IMessageQueueManagerContract messageQueueManagerContract) : base()
         {
             ModuloProvider = new Dictionary<string, ILClasseProvider>();
             StartDate = DateTime.Now;
 
+            messageQueueManagerContract.RegisterOnQueue(Constantes.MENSAGERIA_LOAD_MODULE, (object args) => { ModuleManager_OnLoadModule(args as Type); });
+            messageQueueManagerContract.RegisterOnQueue(Constantes.MENSAGERIA_RELOAD_MODULE, (object args) => { ModuleManager_OnReloadModule(args as Type); });
+            messageQueueManagerContract.RegisterOnQueue(Constantes.MENSAGERIA_UNLOAD_MODULE, (object args) => { ModuleManager_OnUnloadModule(args as Type); });
+
             _gerenciador = moduleManager;
+            _messageQueueManagerContract = messageQueueManagerContract;
         }
 
 
-
         private readonly IModuleManager _gerenciador;
+        private readonly IMessageQueueManagerContract _messageQueueManagerContract;
 
         /// <summary>
         /// Diretório atual do modulo
@@ -250,6 +255,7 @@ namespace Propeus.Module.Manager.Dynamic
         ///</example>
         public IModule CreateModule(Type moduleType, object[]? args = null)
         {
+            Type? contract = null;
             if (moduleType is null)
             {
                 throw new ArgumentNullException(nameof(moduleType));
@@ -257,6 +263,7 @@ namespace Propeus.Module.Manager.Dynamic
 
             if (moduleType.IsInterface)
             {
+                contract = moduleType;
                 moduleType = ResolveContract(moduleType);
             }
 
@@ -266,42 +273,101 @@ namespace Propeus.Module.Manager.Dynamic
                 .MaxBy(cto => cto.GetParameters().Length) ?? throw new ModuleBuilderAbsentException(moduleType);
 
             ParameterInfo[] @params = ctor.GetParameters();
-            foreach (ParameterInfo @param in @params)
+            for (int i = 0; i < @params.Length; i++)
             {
+                ParameterInfo @param = @params[i];
+                //Esta validação é para casos de contrato, caso o parametro seja um modulo em si, o gerenciador base irá resolver
                 if (param.ParameterType.IsInterface && param.ParameterType.PossuiAtributo<ModuleContractAttribute>())
                 {
-                    if (param.IsOptional)
+                    try
                     {
-                        try
-                        {
-                            _ = CreateModule(param.ParameterType);
-                        }
-                        catch (ModuleNotFoundException)
-                        {
-                            //Ignora erro neste caso
-                        }
-                        catch (ModuleContractInvalidException)
-                        {
-                            //Ignora erro neste caso
-                        }
+                        _ = CreateModule(param.ParameterType);
                     }
-                    else
+                    catch (ModuleNotFoundException)
                     {
-                        if (!ExistsModule(param.ParameterType))
-                            _ = CreateModule(param.ParameterType);
+                        if (!param.IsOptional)
+                        {
+                            throw;
+                        }
+                        //Ignora erro neste caso
                     }
+                    catch (ModuleContractInvalidException)
+                    {
+                        /**
+                         * Se o parametro for opcional, retorna valor default se houver, senao null
+                         * So é obrigatorio valor padrão se o tipo for obrigatorio mas com valor padrão determinado
+                         * Regras:
+                         * 1 - Se for opcional, permitir nulo
+                         * 2 - Se for obrigatório, deve possuir valor padrão (caso nao tenha sido preenchido)
+                         * 
+                         * Obs.: Dado o escopo do comando if, o tipo do parametro sempre sera interface
+                         **/
+
+                        if (!param.IsOptional)
+                        {
+                            throw;
+                        }
+
+                        if (!param.HasDefaultValue)
+                        {
+                            throw;
+                        }
+                        //Ignora erro neste caso
+                    }
+                    catch (ModuleSingleInstanceException)
+                    {
+                        //Caso já exista um modulo de instancia unica em execução E a interface de contrato nao estiver injetado nele,cria um modulo proxy
+                        var moduleInstance = GetModule(param.ParameterType);
+                        var typeModuleProxy = CreateProxyModuleSingleton(moduleInstance.GetType(), new Type[] { param.ParameterType });
+                        var auxModule = CreateModule(typeModuleProxy);
+                        if (args != null)
+                        {
+                            if (@params.Length > args.Length)
+                            {
+                                args = Utils.Objetos.Helper.JoinParameterValue(ctor, args);
+                            }
+
+                            args[i] = auxModule;
+                        }
+                        else
+                        {
+                            args = new object[] { auxModule };
+                        }
+
+                    }
+
                 }
 
             }
+
             IModule? module = null;
-            if (args != null && @params.Length >= args.Length)
+            try
             {
-                module = _gerenciador.CreateModule(moduleType, Utils.Objetos.Helper.JoinParameterValue(@params, args));
+                if (args != null && @params.Length >= args.Length)
+                {
+                    module = _gerenciador.CreateModule(moduleType, Utils.Objetos.Helper.JoinParameterValue(ctor, args));
+                }
+                else
+                {
+                    module = _gerenciador.CreateModule(moduleType);
+                }
             }
-            else
+            catch (ModuleSingleInstanceException)
             {
-                module = _gerenciador.CreateModule(moduleType);
+                if (contract is not null)
+                {
+                    // Se o usuario informar uma interface proxy, será realizado um proxy temporario
+                    var moduleInstance = GetModule(moduleType);
+                    var typeModuleProxy = CreateProxyModuleSingleton(moduleInstance.GetType(), new Type[] { contract });
+                    module = _gerenciador.CreateModule(typeModuleProxy, args);
+                }
+                else
+                {
+                    throw;
+                }
+
             }
+
 
             return module;
         }
@@ -879,7 +945,6 @@ namespace Propeus.Module.Manager.Dynamic
         ///</example>
         public IModule GetModule(Type moduleType)
         {
-
             return _gerenciador.GetModule(ResolveContract(moduleType));
         }
         ///<inheritdoc/>
@@ -1386,6 +1451,10 @@ namespace Propeus.Module.Manager.Dynamic
                     item.Value.Dispose();
                 }
                 ModuloProvider.Clear();
+                _messageQueueManagerContract.UnregisterOnQueue(Constantes.MENSAGERIA_LOAD_MODULE, (object args) => { ModuleManager_OnLoadModule(args as Type); });
+                _messageQueueManagerContract.UnregisterOnQueue(Constantes.MENSAGERIA_RELOAD_MODULE, (object args) => { ModuleManager_OnReloadModule(args as Type); });
+                _messageQueueManagerContract.UnregisterOnQueue(Constantes.MENSAGERIA_UNLOAD_MODULE, (object args) => { ModuleManager_OnUnloadModule(args as Type); });
+
                 //ModuloProvider = null;
                 GeradorHelper.DisposeGerador();
 
@@ -1425,7 +1494,15 @@ namespace Propeus.Module.Manager.Dynamic
             }
             else
             {
-                return _gerenciador.GetModule<IModuleWatcherContract>().GetModuleFromContract(contractType);
+                var moduleWatcher = _gerenciador.GetModule<IModuleWatcherContract>();
+                if (moduleWatcher.HasModuleTypeFromContract(contractType))
+                {
+                    return moduleWatcher.GetModuleTypeFromContract(contractType);
+                }
+                else
+                {
+                    return moduleWatcher.BuildModuleTypeFromContract(contractType);
+                }
             }
 
         }
@@ -1480,7 +1557,7 @@ namespace Propeus.Module.Manager.Dynamic
         internal void ModuleManager_OnLoadModule(Type obj)
         {
             ModuleAttribute? attr = obj.GetModuleAttribute();
-            if (attr.AutoStartable && (!ExistsModule(obj) || !attr.Singleton && ExistsModule(obj)))
+            if (attr.AutoStartable && (!ExistsModule(obj) || (!attr.Singleton && ExistsModule(obj))))
             {
                 IModule? module = CreateModule(obj);
                 if (attr.KeepAlive)
@@ -1489,6 +1566,77 @@ namespace Propeus.Module.Manager.Dynamic
                 }
 
             }
+        }
+
+        internal void ModuleManager_OnUnloadModule(Type type)
+        {
+            ModuleAttribute? attr = type.GetModuleAttribute();
+            if (attr.Singleton)
+            {
+                if (ExistsModule(type))
+                {
+                    RemoveModule(GetModule(type));
+                }
+            }
+            else
+            {
+                var modules = ListAllModules().Where(x => x.GetType() == type).ToList();
+                foreach (var item in modules)
+                {
+                    RemoveModule(item);
+                }
+            }
+        }
+
+        private Type CreateProxyModuleSingleton(Type type, Type[]? contracts = null)
+        {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            if (type.PossuiAtributo<ModuleContractAttribute>() && type.IsInterface && type.IsAssignableTo(typeof(IModule)))
+            {
+                var moduleType = ResolveContract(type);
+                //Existe intancia de um modulo de instancia unica
+                if (ExistsModule(moduleType))
+                {
+                    var moduleInstance = GetModule(moduleType);
+                    //Ja possui a assinatura do contrato
+                    if (moduleInstance.GetType().IsAssignableTo(type))
+                    {
+                        return moduleType;
+                    }
+                    //Vai ter que ser feito a busca de forma manual, pois os modulos deixam essa parte sem acesso
+                    //Neste caso aqui é contruido um novo proxy e no construtor dele é passado o proxy original.
+                    Propeus.Module.IL.Core.Helpers.GeradorHelper.GetCurrentInstanceOrNew(out IL.Core.Geradores.ILGerador iLGerador);
+                    var IlModule = iLGerador.Modulo;
+                    var IlModuleProvider = IlModule.CriarClasseTemporaria(moduleType, new Type[] { type });
+                    IlModuleProvider.Apply();
+                    //Verificar se o gerenciador consegue obter o proxy original e injetar no novo, caso contrario tera que criar a instancia aqui
+                    return IlModuleProvider.ObterTipoGerado();
+
+                }
+                else
+                {
+                    return moduleType;
+                }
+
+            }
+            else if (type.PossuiAtributo<ModuleAttribute>() && contracts is not null && contracts.All(c => c.IsInterface && c.PossuiAtributo<ModuleContractAttribute>() && c.IsAssignableTo(typeof(IModule))))
+            {
+                Propeus.Module.IL.Core.Helpers.GeradorHelper.GetCurrentInstanceOrNew(out IL.Core.Geradores.ILGerador iLGerador);
+                var IlModule = iLGerador.Modulo;
+                var IlModuleProvider = IlModule.CriarClasseTemporaria(type, contracts);
+                IlModuleProvider.Apply();
+                //Verificar se o gerenciador consegue obter o proxy original e injetar no novo, caso contrario tera que criar a instancia aqui
+                return IlModuleProvider.ObterTipoGerado();
+
+            }
+
+            //Tipo invalido, nao pode passar o modulo implementado, ainda nao constuir uma classe para obter os mesmos resultados de uma bola de cristal.
+            //Ou seja, não da para saber que contrato ele quer realziar o proxy se nao me informar.
+            throw new NotImplementedException();
         }
     }
 }

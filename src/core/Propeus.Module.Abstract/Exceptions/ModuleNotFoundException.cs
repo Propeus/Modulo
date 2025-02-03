@@ -4,14 +4,14 @@ using System.Runtime.Serialization;
 namespace Propeus.Module.Abstract.Exceptions
 {
     /// <summary>
-    /// Exceção para quando o modulo informado nao foi encontrado
+    /// Exceção para quando a instancia do modulo informado nao foi encontrado
     /// </summary>
     [Serializable]
     public class ModuleNotFoundException : ModuleException
     {
 
         /// <summary>
-        /// Construtor padrão
+        /// Exceção quando a instancia do modulo não é encontrado pelo tipo
         /// </summary>
         /// <param name="type">Tipo do modulo</param>
         public ModuleNotFoundException(Type type) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, type.FullName))
@@ -19,10 +19,10 @@ namespace Propeus.Module.Abstract.Exceptions
 
         }
         /// <summary>
-        /// Construtor padrão
+        /// Exceção quando a instancia do modulo não é encontrado pelo ID
         /// </summary>
         /// <param name="idModule">Id do modulo</param>
-        public ModuleNotFoundException(string idModule) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, idModule))
+        public ModuleNotFoundException(string idModule) : base(string.Format(Constantes.ERRO_MODULO_ID_NAO_ENCONTRADO, idModule))
         {
 
         }

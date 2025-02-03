@@ -10,8 +10,9 @@ using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Package.Contracts
 {
+    //Contrato para carregar e descarregar qualquer assembly que for necessário
     [ModuleContract("AssemblyLoadContextModule")]
-  public interface IAssemblyLoadContextContract : IModule
+    public interface IAssemblyLoadContextContract : IModule
     {
         bool ExistsAssemblyLoadContext(string FullPathAssembly);
         AssemblyLoadContext GetAssemblyLoadContext(string FullPathAssembly);

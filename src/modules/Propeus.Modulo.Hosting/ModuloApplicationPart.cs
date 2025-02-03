@@ -43,7 +43,10 @@ namespace Propeus.Module.Hosting
         public void LoadModuleCompiledViews(Assembly moduleAssembly)
         {
             if (moduleAssembly == null)
+            {
                 throw new ArgumentNullException(nameof(moduleAssembly));
+            }
+
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationTokenSources.Add(moduleAssembly.FullName, cancellationTokenSource);
             ViewsFeature feature = new ViewsFeature();
@@ -62,7 +65,10 @@ namespace Propeus.Module.Hosting
         public void UnloadModuleCompiledViews(Assembly moduleAssembly)
         {
             if (moduleAssembly == null)
+            {
                 throw new ArgumentNullException(nameof(moduleAssembly));
+            }
+
             foreach (KeyValuePair<string, CompiledViewDescriptor> entry in CompiledViews
                 .Where(kvp => kvp.Value.Type.Assembly.ManifestModule.ScopeName == moduleAssembly.ManifestModule.ScopeName))
             {
@@ -83,7 +89,10 @@ namespace Propeus.Module.Hosting
             foreach (CompiledViewDescriptor compiledView in feature.ViewDescriptors)
             {
                 if (CompiledViews.ContainsKey(compiledView.RelativePath))
+                {
                     continue;
+                }
+
                 CompiledViews.Add(compiledView.RelativePath, compiledView);
             };
         }
@@ -91,12 +100,21 @@ namespace Propeus.Module.Hosting
         public async Task<CompiledViewDescriptor> CompileAsync(string relativePath)
         {
             if (relativePath == null)
+            {
                 throw new ArgumentNullException(nameof(relativePath));
+            }
+
             if (CompiledViews.TryGetValue(relativePath, out CompiledViewDescriptor cachedResult))
+            {
                 return cachedResult;
+            }
+
             string normalizedPath = GetNormalizedPath(relativePath);
             if (CompiledViews.TryGetValue(normalizedPath, out cachedResult))
+            {
                 return cachedResult;
+            }
+
             return await Task.FromResult(new CompiledViewDescriptor()
             {
                 RelativePath = normalizedPath,
@@ -107,7 +125,10 @@ namespace Propeus.Module.Hosting
         protected string GetNormalizedPath(string relativePath)
         {
             if (relativePath.Length == 0)
+            {
                 return relativePath;
+            }
+
             if (!NormalizedPathCache.TryGetValue(relativePath, out var normalizedPath))
             {
                 normalizedPath = NormalizePath(relativePath);
@@ -121,16 +142,25 @@ namespace Propeus.Module.Hosting
             bool addLeadingSlash = path[0] != '\\' && path[0] != '/';
             bool transformSlashes = path.IndexOf('\\') != -1;
             if (!addLeadingSlash && !transformSlashes)
+            {
                 return path;
+            }
+
             int length = path.Length;
             if (addLeadingSlash)
+            {
                 length++;
+            }
+
             return string.Create(length, (path, addLeadingSlash), (span, tuple) =>
             {
                 var (pathValue, addLeadingSlashValue) = tuple;
                 int spanIndex = 0;
                 if (addLeadingSlashValue)
+                {
                     span[spanIndex++] = '/';
+                }
+
                 foreach (var ch in pathValue)
                 {
                     span[spanIndex++] = ch == '\\' ? '/' : ch;
@@ -175,6 +205,19 @@ namespace Propeus.Module.Hosting
     [Module(Singleton = true)]
     internal class ModuloApplicationPart : BaseModule
     {
+        /// <summary>
+        /// Fila para carregamento de modulo
+        /// </summary>
+        public const string MENSAGERIA_LOAD_MODULE_CONTROLLER = "GLOBAL::LOAD_MODULE_CONTROLLER";
+        /// <summary>
+        /// Fila para recarregamento de modulo
+        /// </summary>
+        public const string MENSAGERIA_RELOAD_MODULE_CONTROLLER = "GLOBAL::RELOAD_MODULE_CONTROLLER";
+        /// <summary>
+        /// Fila para descarregamento de modulo
+        /// </summary>
+        public const string MENSAGERIA_UNLOAD_MODULE_CONTROLLER = "GLOBAL::UNLOAD_MODULE_CONTROLLER";
+
         private IViewCompiler ViewCompiler { get; set; }
         public ApplicationPartManager ApplicationPartManager { get; }
 
@@ -184,37 +227,32 @@ namespace Propeus.Module.Hosting
         {
             this.ViewCompiler = ViewCompiler;
             ApplicationPartManager = applicationPartManager;
-            IModuleProviderModuleContract moduleProviderModuleContract;
-            if (!moduleManager.ExistsModule(typeof(IModuleProviderModuleContract)))
+            IMessageQueueManagerContract moduleProviderModuleContract;
+            if (!moduleManager.ExistsModule(typeof(IMessageQueueManagerContract)))
             {
-                moduleProviderModuleContract = moduleManager.CreateModule<IModuleProviderModuleContract>();
+                moduleProviderModuleContract = moduleManager.CreateModule<IMessageQueueManagerContract>();
             }
             else
             {
-                moduleProviderModuleContract = moduleManager.GetModule<IModuleProviderModuleContract>();
+                moduleProviderModuleContract = moduleManager.GetModule<IMessageQueueManagerContract>();
             }
 
-            IEnumerable<Type> modules = moduleProviderModuleContract.GetAllModules();
+            IEnumerable<IModule> modules = moduleManager.ListAllModules();
 
-            foreach (Type moduleType in modules)
+            foreach (IModule module in modules)
             {
-                OnLoadModuleController(moduleType);
+                OnLoadModuleController(module);
             }
             CommitChange();
 
 
-            moduleProviderModuleContract.SetOnLoadModule(OnLoadModuleController);
-            moduleProviderModuleContract.SetOnUnloadModule(OnUnloadModuleController);
-            moduleProviderModuleContract.SetOnRebuildModule(OnRebuildModuleController);
+            moduleProviderModuleContract.RegisterOnQueue(Propeus.Module.Abstract.Constantes.MENSAGERIA_LOAD_MODULE, OnLoadModuleController);
+            moduleProviderModuleContract.RegisterOnQueue(Propeus.Module.Abstract.Constantes.MENSAGERIA_RELOAD_MODULE, OnRebuildModuleController);
+            moduleProviderModuleContract.RegisterOnQueue(Propeus.Module.Abstract.Constantes.MENSAGERIA_UNLOAD_MODULE, OnUnloadModuleController);
 
         }
 
-        private void OnRebuildModuleController(Type type)
-        {
-            UnloadModuleController(type.Assembly);
-            LoadModuleController(type.Assembly);
-            CommitChange();
-        }
+
 
         private void CommitChange()
         {
@@ -256,23 +294,37 @@ namespace Propeus.Module.Hosting
 
         }
 
-        private void OnUnloadModuleController(Type moduleType)
+        private void OnRebuildModuleController(object moduleType)
         {
-            if (moduleType.Name.Contains("Controller"))
+            Type type = moduleType as Type;
+            UnloadModuleController(type.Assembly);
+            LoadModuleController(type.Assembly);
+            CommitChange();
+        }
+        private void OnUnloadModuleController(object moduleType)
+        {
+            Type type = moduleType as Type;
+            if (type.Name.Contains("Controller"))
             {
-
-                UnloadModuleController(moduleType.Assembly);
+                UnloadModuleController(type.Assembly);
                 CommitChange();
-
             }
         }
-
-        private void OnLoadModuleController(Type moduleType)
+        private void OnLoadModuleController(object args)
         {
+            Type moduleType;
+            if (args is Type)
+            {
+                moduleType = (Type)args;
+            }
+            else
+            {
+                moduleType = args.GetType();
+            }
+
             if (moduleType.Name.Contains("Controller"))
             {
                 LoadModuleController(moduleType.Assembly);
-
                 CommitChange();
             }
         }

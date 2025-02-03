@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Propeus.Module.Manager.ModuleManager">
+    <Position X="3.5" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAwAgCAAIAAEAAMEQAIQAAAAAQAAAAQAAEAEAAA=</HashCode>
+      <FileName>ModuleManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Propeus.Module.Abstract.BaseModel">
+    <Position X="1" Y="1" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

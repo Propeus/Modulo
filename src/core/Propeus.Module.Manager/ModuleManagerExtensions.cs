@@ -11,7 +11,7 @@ namespace Propeus.Module.Manager
         /// Cria uma nova instancia do gereciador 
         /// </summary>
         /// <returns></returns>
-        public static IModuleManager CreateModuleManager()
+        public static ModuleManager CreateModuleManager()
         {
             ModuleManager gen = new ModuleManager();
             return gen;

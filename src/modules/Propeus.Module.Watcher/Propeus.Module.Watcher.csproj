@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net7.0</TargetFrameworks>
@@ -35,7 +35,6 @@
 	  <ProjectReference Include="..\..\core\Propeus.Module.Abstract\Propeus.Module.Abstract.csproj" />
 	  <ProjectReference Include="..\..\core\Propeus.Module.IL.Core\Propeus.Module.IL.Core.csproj" />
 	  <ProjectReference Include="..\..\core\Propeus.Module.Utils\Propeus.Module.Utils.csproj" />
-	  <ProjectReference Include="..\Propeus.Module.AssmblyLoadContext\Propeus.Module.AssmblyLoadContext.csproj" />
 	</ItemGroup>
 
   <ItemGroup>

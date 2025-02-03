@@ -10,7 +10,7 @@ namespace Propeus.Module.Registry.Models
     /// <summary>
     /// Informa detalhes sobre o modulo instanciado
     /// </summary>
-    internal class ModuleInformation : BaseModel, IModuleInfo
+    internal class ModuleInformation : BaseModel, IModuleInformation
     {
 
         /// <summary>
@@ -25,6 +25,7 @@ namespace Propeus.Module.Registry.Models
             IdModule = modulo.Id;
             Version = modulo.Version;
             Name = modulo.Name;
+            ModulesTemporary = new List<IModuleInformation>();
         }
 
         /// <summary>
@@ -34,21 +35,22 @@ namespace Propeus.Module.Registry.Models
         ///<inheritdoc/>
         public bool IsCollected => WeakReference is null || !WeakReference.IsAlive;
         ///<inheritdoc/>
-        public bool IsDeleted => IsCollected || (WeakReference.Target as IModule)?.State == State.Off;
+        public bool IsDeleted => IsCollected || (WeakReference?.Target as IModule)?.State == State.Off;
         ///<inheritdoc/>
         public bool IsKeepAlive => _moduleKeepAlive is not null;
         ///<inheritdoc/>
         public WeakReference WeakReference { get; protected set; }
         ///<inheritdoc/>
-        public IModule Module => WeakReference.Target as IModule;
+        public IModule? Module => WeakReference?.Target as IModule;
         ///<inheritdoc/>
-        public Type ModuleType => WeakReference?.Target?.GetType();
+        public Type? ModuleType => WeakReference?.Target?.GetType();
 
         ///<inheritdoc/>
         public bool IsSingleInstance { get; }
         ///<inheritdoc/>
         public string IdModule { get; }
 
+        public IList<IModuleInformation> ModulesTemporary { get; }
 
         public IModule _moduleKeepAlive;
         ///<inheritdoc/>
@@ -81,7 +83,7 @@ namespace Propeus.Module.Registry.Models
             {
                 _ = sb.Append(Module).AppendLine();
             }
-            _ = sb.Append("IsCollected pelo G.C.: ").Append(IsCollected).AppendLine();
+            _ = sb.Append("Coletado pelo G.C.: ").Append(IsCollected).AppendLine();
             _ = sb.Append("Objeto eliminado: ").Append(IsDeleted).AppendLine();
 
 
@@ -93,6 +95,14 @@ namespace Propeus.Module.Registry.Models
         {
             if (!IsDeleted)
             {
+                if (ModulesTemporary != null)
+                {
+                    foreach (var item in ModulesTemporary)
+                    {
+                        item.Dispose();
+                    }
+                    ModulesTemporary.Clear();
+                }
                 KeepAliveModule(false);
                 Module.Dispose();
             }

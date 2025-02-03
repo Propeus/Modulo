@@ -1,26 +1,22 @@
-﻿using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Core.Proxy;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Interfaces;
+using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas
 {
     /// <summary>
     /// Pilha base para a construção das demais pilhas de instrução IL
     /// </summary>
-    internal class ILStack : IILPilha
+    /// <remarks>
+    /// Construtor para criar instrução IL 
+    /// </remarks>
+    /// <param name="scopeBuilder">Escopo onde será aplicado a instrução IL</param>
+    /// <param name="opCode">Instrução IL a ser aplicado no escopo</param>
+    /// <exception cref="ArgumentNullException">Caso o escopo seja nulo</exception>
+    internal class ILStack([NotNull] ILBuilderProxy scopeBuilder, OpCode opCode) : IILPilha
     {
-        /// <summary>
-        /// Construtor para criar instrução IL 
-        /// </summary>
-        /// <param name="scopeBuilder">Escopo onde será aplicado a instrução IL</param>
-        /// <param name="opCode">Instrução IL a ser aplicado no escopo</param>
-        /// <exception cref="ArgumentNullException">Caso o escopo seja nulo</exception>
-        public ILStack(ILBuilderProxy scopeBuilder, OpCode opCode)
-        {
-            ScopeBuilder = scopeBuilder ?? throw new ArgumentNullException(nameof(scopeBuilder));
-            Code = opCode;
-
-        }
 
         /// <summary>
         /// Construtor para criar instrução IL 
@@ -49,11 +45,11 @@ namespace Propeus.Module.IL.Core.Pilhas
         /// <summary>
         /// Instancia do builder que será aplicado o IL
         /// </summary>
-        public ILBuilderProxy ScopeBuilder { get; private set; }
+        public ILBuilderProxy ScopeBuilder { get; private set; } = scopeBuilder ?? throw new ArgumentNullException(nameof(scopeBuilder));
         /// <summary>
         /// Instrução IL
         /// </summary>
-        public OpCode Code { get; }
+        public OpCode Code { get; } = opCode;
 
         /// <summary>
         /// Indicador de execução da instrução

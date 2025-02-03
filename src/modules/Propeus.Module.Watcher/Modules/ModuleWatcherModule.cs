@@ -5,8 +5,6 @@ using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Exceptions;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.AssmblyLoadContext.Contracts;
-using Propeus.Module.AssmblyLoadContext.Modules;
 using Propeus.Module.Utils.Atributos;
 using Propeus.Module.Watcher.Contracts;
 using Propeus.Module.Watcher.Models;
@@ -16,7 +14,7 @@ namespace Propeus.Module.Watcher.Modules
     /// <summary>
     /// Module para mapear e atualizar outros modulos em tempo de execucao
     /// </summary>
-    [Module(Description ="Monitora a alteração de estado dos modulos em arquivo", Singleton = true, AutoUpdate = false, AutoStartable = false, KeepAlive = true)]
+    [Module(Description = "Monitora a alteração de estado dos modulos em arquivo", Singleton = true, AutoUpdate = false, AutoStartable = false, KeepAlive = true)]
     public class ModuleWatcherModule : BaseModule, IModuleWatcherContract
     {
         const string DISABLE_MODULE_EXTENSION = ".disable";
@@ -51,7 +49,7 @@ namespace Propeus.Module.Watcher.Modules
         /// <param name="onReloadModule">Callback para recarregamento de modulo</param>
         /// <param name="onUnloadModule">Callback para descarregamento de modulo</param>
         /// <param name="folderModules">Nome da pasta a ser observado</param>
-        public ModuleWatcherModule(IModuleManager moduleManager, Action<Type>? onLoadModule, Action<Type>? onReloadModule, Action<Type>? onUnloadModule, string folderModules = "modules") : base()
+        public ModuleWatcherModule(IModuleManager moduleManager, IAssemblyLoadContextContract assemblyLoadContextContract, Action<Type>? onLoadModule, Action<Type>? onReloadModule, Action<Type>? onUnloadModule, string folderModules = "modules") : base()
         {
             _semaphoreSlimChangeFile = new SemaphoreSlim(1);
             _moduleManager = moduleManager;
@@ -95,24 +93,18 @@ namespace Propeus.Module.Watcher.Modules
             _fileSystemWatcher.Filter = "*.dll";
             _fileSystemWatcher.IncludeSubdirectories = false; //Desabilitado pois o fine coverage copia as dll, duplicando e causando erros inesperados
             _fileSystemWatcher.Path = Path.Combine(_currentDirectory, folderModules);
+
+            _assemblyLoadContextContract = assemblyLoadContextContract;
         }
 
         ///<inheritdoc/>
         public override void ConfigureModule()
         {
-            if (_moduleManager.ExistsModule(typeof(IAssemblyLoadContextContract)))
-            {
-                _assemblyLoadContextContract = _moduleManager.GetModule<AssemblyLoadContextModule>();
-            }
-            else
-            {
-                _assemblyLoadContextContract = _moduleManager.CreateModule<AssemblyLoadContextModule>();
-            }
             var files = Directory.GetFiles(_currentDirectory, searchPattern: "*.dll", SearchOption.TopDirectoryOnly);
             foreach (string? modulePath in files)
             {
                 FileInfo fi = new FileInfo(modulePath);
-                ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, _assmLibsPath.Contains(modulePath), _assemblyLoadContextContract, _listNameIgnoreModules);
+                ModuleProviderInfo mp = new ModuleProviderInfo(modulePath, _assmLibsPath.Contains(modulePath), this._assemblyLoadContextContract, _listNameIgnoreModules);
                 _fileSystemWatcher_OnEvent(mp, new FileSystemEventArgs(WatcherChangeTypes.Created, fi.Directory.FullName, fi.Name));
             }
 
@@ -333,8 +325,6 @@ namespace Propeus.Module.Watcher.Modules
 
 
         }
-
-
         /// <summary>
         /// Obtem todos tipos de modulos validos
         /// </summary>

@@ -70,7 +70,7 @@ namespace Propeus.Module.WorkerService
                 return _executeTask;
             }
 
-            State = State.Initialized;
+            State = State.Running;
             return Task.CompletedTask;
         }
 

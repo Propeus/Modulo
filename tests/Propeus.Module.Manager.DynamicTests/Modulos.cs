@@ -1,7 +1,7 @@
 ﻿using Propeus.Module.Abstract;
 using Propeus.Module.Abstract.Attributes;
 
-namespace Propeus.Module.DinamicoTests
+namespace Propeus.Module.Manager.DynamicTests
 {
 
     [Module]

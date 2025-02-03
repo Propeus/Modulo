@@ -111,60 +111,149 @@ namespace Propeus.Module.Utils.Objetos
         /// <param name="parameterUser">Valores do usuario</param>
         /// <returns>Um array com os parametros do construtor</returns>
         /// <exception cref="ArgumentException">Quando os valores do usaurio são incompativeis com os parametros do metodo</exception>
-        public static object[] JoinParameterValue(ParameterInfo[] parameterConstructor, object[] parameterUser, Func<ParameterInfo, object> resolveParamter = null)
+        public static object[] JoinParameterValue(ConstructorInfo constructorInfo, object[] parameterUser, Func<ParameterInfo, object> resolveParamter = null)
         {
-            if (parameterUser == null || parameterUser.Length == Array.Empty<object>().Length)
+            if (constructorInfo is null)
             {
-                parameterUser = new object[parameterConstructor.Length];
+                throw new ArgumentNullException(nameof(constructorInfo));
             }
 
-            if (parameterConstructor.Length < parameterUser.Length)
-            {
-                throw new ArgumentException("The number of constructor parameters cannot be less than the number of user parameters.");
-            }
-
+            //Obtem os parametros do construtor
+            ParameterInfo[] parameterConstructor = constructorInfo.GetParameters();
+            //Inicializa array de parametros do construtor
             object[] result = new object[parameterConstructor.Length];
-            int userIndex = 0;
-            int paramIndex = 0;
+            Array.Fill(result, DBNull.Value);
 
-            foreach (ParameterInfo constructorParam in parameterConstructor)
+            //Se os parametros do usuario forem nulos ou vazio, será reenchido com o tamanho dos parametros do construtor correspondente
+            if (parameterUser is not null && parameterUser.Length != Array.Empty<object>().Length) //!= 0 ?
             {
-                Type constructorParamType = constructorParam.ParameterType;
-
-                bool foundMatch = false;
-
-                for (int i = userIndex; i < parameterUser.Length; i++)
+                //Se a quantidade de parametros do usuario for maior que a quantidade de paramentros do construtor, lança exceção
+                if (parameterConstructor.Length < parameterUser.Length)
                 {
-                    Type userParamType = parameterUser[userIndex]?.GetType();
+                    throw new ArgumentException("The number of constructor parameters cannot be less than the number of user parameters.");
+                }
 
-                    if (constructorParamType.IsAssignableFrom(userParamType))
+                int indexParamterUser = 0;
+
+                //Preenche os dados com os valores do usuario
+                for (int indexParamterConstructor = 0; indexParamterConstructor < parameterConstructor.Length; indexParamterConstructor++)
+                {
+                    //Caso o indice do usuario for maior do que o array, para o loop atual
+                    if (indexParamterUser >= parameterUser.Length)
                     {
-                        result[paramIndex] = parameterUser[userIndex];
-                        userIndex++;
-                        paramIndex++;
-                        foundMatch = true;
                         break;
                     }
-                }
 
+                    //Obtem o tipo do parametro...
+                    Type constructorParamType = parameterConstructor[indexParamterConstructor].ParameterType;
+                    //Depois o tipo do parametro do usuario
+                    Type userParamType = parameterUser[indexParamterUser]?.GetType();
 
-                // Se não houver correspondência, defina o valor padrão
-                if (!foundMatch)
-                {
-                    result[userIndex] = resolveParamter?.Invoke(constructorParam);
-
-                    if (parameterUser.Length > userIndex && parameterUser[userIndex] == null)
+                    //Assume que o valor do parametro esta nulo, logo pula o valor do indice do usuario
+                    if (userParamType is null)
                     {
-                        userIndex++;
+                        indexParamterUser++;
+                        continue;
                     }
-                    paramIndex++;
+
+                    //Verifica se ambos são compativeis
+                    if (constructorParamType.IsAssignableFrom(userParamType))
+                    {
+                        //Se sim, atribui o valor do usuario na posição do resultado
+                        result[indexParamterConstructor] = parameterUser[indexParamterUser];
+                        //Incrementa o indice do usuario para começar a busca do proximo
+                        indexParamterUser++;
+                    }
+
+                }
+
+                //Verifica se todos os parametros do usuario foram injetados com sucesso
+                if (parameterUser.Length > indexParamterUser)
+                {
+                    throw new ArgumentException("A ordem dos argumentos não é compativel com o construtor atual");
+                    //Adicionar no dicionariod a exception os parametros excedentes
                 }
             }
 
-            if (userIndex < parameterUser.Length)
+            //Preenche os dados com os valores do gerenciador de modulo
+            for (int indexParamterConstructor = 0; indexParamterConstructor < parameterConstructor.Length; indexParamterConstructor++)
             {
-                throw new ArgumentException("A ordem dos argumentos não é compativel com o construtor atual");
+                if (result[indexParamterConstructor] is DBNull)
+                {
+                    result[indexParamterConstructor] = resolveParamter?.Invoke(parameterConstructor[indexParamterConstructor]);
+                }
             }
+
+
+            //Preenche os dados com os valores do parametro se houver
+            for (int indexParamterConstructor = 0; indexParamterConstructor < parameterConstructor.Length; indexParamterConstructor++)
+            {
+                if (result[indexParamterConstructor] is null)
+                {
+                    //Em .NET 8 parameterConstructor[indexParamterConstructor].DefaultValue passou a ter o resultado 'System.Reflection.Missing' ao inves de null
+                    var defaultValue = parameterConstructor[indexParamterConstructor].DefaultValue;
+                    if (defaultValue is System.Reflection.Missing)
+                    {
+                        defaultValue = null;
+                    }
+                    result[indexParamterConstructor] = defaultValue;
+                }
+            }
+
+            //Limpa os parametros com DBNull
+            for (int indexParamterConstructor = 0; indexParamterConstructor < parameterConstructor.Length; indexParamterConstructor++)
+            {
+                if (result[indexParamterConstructor] is DBNull)
+                {
+                    result[indexParamterConstructor] = null;
+                }
+            }
+
+            ///*
+            // * Objetivo: Concatenar os valores padrão do construtor com os valores do usuario
+            // *  
+            // */
+            ////Para cada parametro do construtor...
+            //foreach (ParameterInfo constructorParam in parameterConstructor)
+            //{
+            //    Type constructorParamType = constructorParam.ParameterType;
+
+            //    bool foundMatch = false;
+
+            //    //Verifica se o IAPU possui um parametro compativel
+            //    for (int i = userIndex; i < parameterUser.Length; i++)
+            //    {
+            //        Type userParamType = parameterUser[userIndex]?.GetType();
+
+            //        if (constructorParamType.IsAssignableFrom(userParamType))
+            //        {
+            //            result[paramIndex] = parameterUser[userIndex];
+            //            userIndex++;
+            //            paramIndex++;
+            //            foundMatch = true;
+            //            break;
+            //        }
+            //    }
+
+
+            //    // Se o IAPU não possuir correspondencia para o parametro do construtor...
+            //    if (!foundMatch)
+            //    {
+            //        //É chamado o gerenciador de modulo para tentar identificar se é um modulo
+            //        result[userIndex] = resolveParamter?.Invoke(constructorParam);
+
+            //        if (parameterUser[userIndex] != null || (parameterUser.Length > userIndex && parameterUser[userIndex] == null))
+            //        {
+            //            userIndex++;
+            //        }
+            //        paramIndex++;
+            //    }
+            //}
+
+            //if (userIndex < parameterUser.Length)
+            //{
+            //    throw new ArgumentException("A ordem dos argumentos não é compativel com o construtor atual");
+            //}
 
             return result;
         }

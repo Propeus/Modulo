@@ -1,11 +1,13 @@
-﻿using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using Propeus.Module.IL.Geradores;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Geradores.Components;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Core.Geradores

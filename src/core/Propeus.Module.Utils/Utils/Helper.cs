@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
+using System.Runtime.Versioning;
 
 namespace Propeus.Module.Utils.Utils
 {
@@ -12,6 +8,10 @@ namespace Propeus.Module.Utils.Utils
     /// </summary>
     public static partial class Helper
     {
+        /// <summary>
+        /// Obtem o diretorio do %userprofile% atual
+        /// </summary>
+        public static readonly string USER_PROFILE_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         /// <summary>
         /// Obtém o caminho do diretório do programa em execução
         /// </summary>
@@ -28,5 +28,18 @@ namespace Propeus.Module.Utils.Utils
         /// Obtém o caminho da pasta "dependences"
         /// </summary>
         public static readonly string CURRENT_FOLDER_DEPENDENCES = Path.Combine(CURRENT_DIRECTORY, "dependences");
+
+        /// <summary>
+        /// Obtem o nome da framework atual
+        /// </summary>
+        /// <returns></returns>
+        public static string? GetCurrentTargetFramework()
+        {
+            return Assembly
+            .GetEntryAssembly()?
+            .GetCustomAttribute<TargetFrameworkAttribute>()?
+            .FrameworkDisplayName?.Replace(" ", string.Empty).Remove(0, 1).ToLower();
+        }
     }
+
 }

@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Propeus.Module.Abstract.BaseModel">
+    <Position X="5" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAACAAAAAEAAAAAAQAAAAAAAAAAAAAFgAAAAA=</HashCode>
+      <FileName>BaseModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Propeus.Module.Abstract.BaseModule">
+    <Position X="5" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseModule.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Extensions" Collapsed="true">
+    <Position X="42" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleAmbiguousException" Collapsed="true">
+    <Position X="6.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleAmbiguousException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleBuilderAbsentException" Collapsed="true">
+    <Position X="16" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleBuilderAbsentException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleContractInvalidException" Collapsed="true">
+    <Position X="25.25" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleContractInvalidException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleContractNotMapedException" Collapsed="true">
+    <Position X="31.5" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleContractInvalidException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleContractNotFoundException" Collapsed="true">
+    <Position X="9.5" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleContractNotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleDisposedException" Collapsed="true">
+    <Position X="19.25" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleDisposedException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleException" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleManagerDisposedException" Collapsed="true">
+    <Position X="35" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleManagerDisposedException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleNotFoundException" Collapsed="true">
+    <Position X="13" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleNotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleSingleInstanceException" Collapsed="true">
+    <Position X="22" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleSingleInstanceException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleTypeInvalidException" Collapsed="true">
+    <Position X="28.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleTypeInvalidException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Exceptions.ModuleTypeNotFoundException" Collapsed="true">
+    <Position X="38.5" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\ModuleTypeNotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Attributes.ModuleAttribute" Collapsed="true">
+    <Position X="42" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAABAAAAAAAAAAAAAAAEAAAQIAAAAAAA=</HashCode>
+      <FileName>Attributes\ModuleAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Attributes.ModuleContractAttribute" Collapsed="true">
+    <Position X="43.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\ModuleContractAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Propeus.Module.Abstract.Helpers.Helper" Collapsed="true">
+    <Position X="43.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Helpers\ModuleAttributeHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Propeus.Module.Abstract.Interfaces.IBaseModel" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAFAAAAAA=</HashCode>
+      <FileName>Interfaces\IBaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Propeus.Module.Abstract.Interfaces.IModule" Collapsed="true">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IModule.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Propeus.Module.Abstract.Interfaces.IModuleInformation" Collapsed="true">
+    <Position X="5.25" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAQAAAAAAAAIAAAAAAAIAAAAAIAAIIAAQAACQAAAAA=</HashCode>
+      <FileName>Interfaces\IModuleInformation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Propeus.Module.Abstract.Interfaces.IModuleManager" Collapsed="true">
+    <Position X="10" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAgAgAAAIAAAAAMEAAIQAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Interfaces\IModuleManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

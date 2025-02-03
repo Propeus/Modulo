@@ -26,21 +26,23 @@ namespace Propeus.Module.Abstract
         ///<inheritdoc/>
         public virtual void Launch()
         {
-            State = State.Initialized;
+            State = State.Running;
         }
 
         /// <summary>
         /// Exibe informações básicas sobre o modulo
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Informações basicas do modulo atual</returns>
         public override string ToString()
         {
             StringBuilder sb = new(base.ToString());
 
-            _ = sb.AppendLine($"Nome: {Name}");
-            if (GetType().GetModuleAttribute() != null)
+            var attr = GetType().GetModuleAttribute();
+            string? moduleDescription = attr is not null ? attr.Description : string.Empty;
+
+            if (moduleDescription is not null)
             {
-                _ = sb.AppendLine($"Descrição: {GetType().GetModuleAttribute()?.Description}");
+                _ = sb.AppendLine($"Descrição: {moduleDescription}");
             }
 
             return sb.ToString();

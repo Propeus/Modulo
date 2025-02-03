@@ -1,5 +1,7 @@
-﻿using Propeus.Module.IL.Core.Proxy;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas
 {
@@ -16,7 +18,7 @@ namespace Propeus.Module.IL.Core.Pilhas
         /// </summary>
         /// <param name="scopeBuilder">Escopo onde será aplicado a instrução IL</param>
         /// <param name="index">TODO: preencher este campo</param>
-        public ILLdarg(ILBuilderProxy scopeBuilder, int index = 0) : base(scopeBuilder, OpCodes.Ldarg, index)
+        public ILLdarg([NotNull] ILBuilderProxy scopeBuilder, int index = 0) : base(scopeBuilder, OpCodes.Ldarg, index)
         {
             ParamIndex = index;
         }

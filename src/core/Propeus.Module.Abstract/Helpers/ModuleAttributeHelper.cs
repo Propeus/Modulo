@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 
 using Propeus.Module.Abstract.Attributes;
+using Propeus.Module.Abstract.Interfaces;
 
 namespace Propeus.Module.Abstract.Helpers
 {
@@ -11,12 +12,12 @@ namespace Propeus.Module.Abstract.Helpers
     {
 
         /// <summary>
-        /// Obtem o atributo <see cref="ModuleAttribute"/> de um typeModule
+        /// Obtem o atributo <see cref="ModuleAttribute"/> de um tipo de modulo
         /// </summary>
-        /// <param name="typeModule">Qualquer typeModule do tipo <see cref="Type"/></param>
+        /// <param name="typeModule">Qualquer modulo do tipo <see cref="IModule"/></param>
         /// <returns>Retorna o atributo ou <see langword="null"/></returns>
-        /// <exception cref="ArgumentException">Argumeto typeModule vazio ou nulo</exception>
-        /// <exception cref="InvalidOperationException"><see cref="ModuleAttribute"/> não encontrado</exception>
+        /// <exception cref="ArgumentException">Argumeto <paramref name="typeModule"/> vazio ou nulo</exception>
+
         public static ModuleAttribute? GetModuleAttribute(this Type typeModule)
         {
             return typeModule.GetCustomAttribute<ModuleAttribute>();
@@ -25,12 +26,11 @@ namespace Propeus.Module.Abstract.Helpers
 
 
         /// <summary>
-        /// Obtem o atributo <see cref="ModuleContractAttribute"/> de um typeModule
+        /// Obtem o atributo <see cref="ModuleContractAttribute"/> de um tipo de modulo
         /// </summary>
-        /// <param name="typeModule">Qualquer typeModule do tipo <see cref="Type"/></param>
-        /// <returns></returns>
+        /// <param name="typeModule">Qualquer modulo do tipo <see cref="IModule"/></param>
+        /// <returns>Retorna o atributo ou <see langword="null"/></returns>
         /// <exception cref="ArgumentException">Argumeto typeModule vazio ou nulo</exception>
-        /// <exception cref="InvalidOperationException"><see cref="ModuleContractAttribute"/> não encontrado</exception>
         public static ModuleContractAttribute? GetAttributeContractModule(this Type typeModule)
         {
             return typeModule.GetCustomAttribute<ModuleContractAttribute>();

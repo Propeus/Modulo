@@ -26,7 +26,12 @@ namespace Propeus.Module.Abstract
         {
             get
             {
-                Version ver = GetType().Assembly.GetName().Version;
+                var assemblyInformation = GetType().Assembly.GetName();
+                Version? ver = assemblyInformation.Version;
+                if (ver == null)
+                {
+                    return "??.??.??";
+                }
                 return $"{ver.Major}.{ver.Minor}.{ver.Build}";
             }
         }
@@ -49,10 +54,10 @@ namespace Propeus.Module.Abstract
         {
             StringBuilder sb = new();
 
-            _ = sb.Append("ModuleName: ").Append(Name).AppendLine();
-            _ = sb.Append("State: ").Append(State).AppendLine();
+            _ = sb.Append("Nome: ").Append(Name).AppendLine();
+            _ = sb.Append("Estado: ").Append(State).AppendLine();
             _ = sb.Append("Id: ").Append(Id).AppendLine();
-            _ = sb.Append("Version: ").Append(Version).AppendLine();
+            _ = sb.Append("Versao: ").Append(Version).AppendLine();
 
             return sb.ToString();
         }

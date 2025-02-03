@@ -1,24 +1,20 @@
-﻿using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
-namespace Propeus.Module.IL.Geradores
+namespace Propeus.Module.IL.Core.Geradores.Components
 {
-    internal static partial class Constantes
-    {
-        public const string CONST_NME_CAMPO = "IL_Gerador_{0}_Campo_";
-        public const string CONST_NME_CAMPO_PROXY = CONST_NME_CAMPO + "Proxy_";
-    }
 
     /// <summary>
-    /// Cria um campo
+    /// Componente para criar campo
     /// </summary>
     internal class ILFieldComponent : ILComponent, IILExecutor, IDisposable
     {
@@ -45,7 +41,7 @@ namespace Propeus.Module.IL.Geradores
                 typeAttributes.Add((FieldAttributes)Enum.Parse(typeof(FieldAttributes), item.GetEnumDescription()));
             }
 
-            base.BuilderProxy = builderProxy;
+            BuilderProxy = builderProxy;
             TypeBuilder _builder = builderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
             builderProxy.RegisterBuilders(_builder.DefineField(fieldName, fieldType, typeAttributes.ToArray().JoinEnums()));
         }

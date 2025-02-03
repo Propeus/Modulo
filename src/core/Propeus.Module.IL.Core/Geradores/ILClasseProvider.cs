@@ -1,9 +1,9 @@
-﻿using Propeus.Module.IL.Core.Enums;
+﻿using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Helpers;
 using Propeus.Module.IL.Core.Interfaces;
 using Propeus.Module.IL.Core.Proxy;
-using Propeus.Module.IL.Geradores;
-using System.Reflection.Emit;
 
 namespace Propeus.Module.IL.Core.Geradores
 {
@@ -83,7 +83,7 @@ namespace Propeus.Module.IL.Core.Geradores
         /// Cria uma nova instancia de provedor de classe
         /// </summary>
         /// <param name="IlProxy">Gerador de IL atual</param>
-        /// <param name="nomeClasse">ClassName da classe</param>
+        /// <param name="nomeClasse">Nome da classe</param>
         /// <param name="namespace">Namespace da classe</param>
         /// <param name="tipoBase">Objeto a ser estendido para classe</param>
         /// <param name="interfaces">Interface a ser implementado na classe</param>

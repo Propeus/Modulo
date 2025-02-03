@@ -7,7 +7,6 @@ using System.Runtime.Loader;
 
 using Propeus.Module.Abstract.Attributes;
 using Propeus.Module.Abstract.Interfaces;
-using Propeus.Module.AssmblyLoadContext.Contracts;
 using Propeus.Module.Utils.Tests;
 using Propeus.Module.Watcher.Contracts;
 

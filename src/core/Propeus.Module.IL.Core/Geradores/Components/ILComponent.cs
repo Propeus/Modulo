@@ -1,10 +1,15 @@
-﻿using Propeus.Module.IL.Core.Enums;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using Propeus.Module.IL.Core.Enums;
 using Propeus.Module.IL.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
 namespace Propeus.Module.IL.Core.Geradores.Components
 {
+    /// <summary>
+    /// Clase base para componentizar construtores IL
+    /// </summary>
     internal abstract class ILComponent : IILComponent
     {
 

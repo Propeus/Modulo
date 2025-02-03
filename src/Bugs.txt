@@ -1,0 +1,20 @@
+Bugs
+
+[001] - typeof(AssemblyBuilder).Name != obj.GetType().Name
+
+Descrição: Foi descoberto que ao usar o keyword typeof no tipo System.Reflection.Emit.AssemblyBuilder e obter o valor da propriedade 'Name' ele retorna "AssemblyBuilder" corretamente, 
+entretanto caso o mesmo objeto seja instanciado e utilizar a função ".GetType()" em seguida obter a propriedade 'Name' ele retornará o valor "RuntimeAssemblyBuilder".
+
+Quando: No .Net 8
+
+Solução: Quando houver o nome "System.Reflection.Emit.RuntimeAssemblyBuilder" deve ser registrado como "System.Reflection.Emit.AssemblyBuilder", para nao afetar o restante do sistema
+que esta atrelado a este nome
+
+Obs: O "System.Reflection.Emit.RuntimeAssemblyBuilder" aparentemente é uma classe privada herdado de "System.Reflection.Emit.AssemblyBuilder", depois falam que .NET nao tem pog
+
+[002] - Atualização de contrato em modulos de instancia unica
+
+Descrição: Foi detectado um problema ao realizar testes em um novo modulo que depende de um modulo em execução em instancia unica, ao inicializar o novo modulo, o gerenciador 
+bloqueou a criação informando que o modulo ja existia.
+
+Solução: Foi criado uma nova função que cria um proxy temporario injetando o modulo em execução, este proxy não fica registrado, pois seu ID é igual ao modulo original.

@@ -1,26 +1,11 @@
-﻿using Propeus.Module.IL.Core.Proxy;
-using System.Reflection.Emit;
+﻿using System.Reflection.Emit;
 
-namespace Propeus.Module.IL.Geradores
+using Propeus.Module.IL.Core.Proxy;
+
+namespace Propeus.Module.IL.Core.Geradores
 {
 
-    internal static partial class Constantes
-    {
 
-
-        public const string CONSTNMEASSEMBLY = "IL_Gerador_Assembly_";
-        public const string CONSTNMEMODULO = "IL_Gerador_Modulo_";
-
-        public static string GerarNomeModulo()
-        {
-            return GerarNome(CONSTNMEMODULO);
-        }
-
-        public static string GerarNome(string @const)
-        {
-            return @const + Guid.NewGuid().ToString().Replace('-', '_');
-        }
-    }
 
     /// <summary>
     /// Classe para montagem inicial do Assembly

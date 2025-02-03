@@ -1,6 +1,8 @@
-﻿using Propeus.Module.IL.Core.Proxy;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection.Emit;
+
+using Propeus.Module.IL.Core.Proxy;
 
 namespace Propeus.Module.IL.Core.Pilhas.Campos
 {
@@ -13,7 +15,7 @@ namespace Propeus.Module.IL.Core.Pilhas.Campos
     internal class ILStfld : ILStack
     {
         ///<inheritdoc/>
-        public ILStfld(ILBuilderProxy proxy, FieldBuilder valor) : base(proxy, OpCodes.Stfld)
+        public ILStfld([NotNull] ILBuilderProxy proxy, [NotNull] FieldBuilder valor) : base(proxy, OpCodes.Stfld)
         {
             ObjectBuilder = valor;
         }

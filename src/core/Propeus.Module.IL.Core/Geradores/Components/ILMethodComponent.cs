@@ -1,25 +1,20 @@
-﻿using Propeus.Module.IL.Core.Enums;
-using Propeus.Module.IL.Core.Geradores.Components;
-using Propeus.Module.IL.Core.Helpers;
-using Propeus.Module.IL.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+
+using Propeus.Module.IL.Core.Enums;
+using Propeus.Module.IL.Core.Helpers;
+using Propeus.Module.IL.Core.Interfaces;
+
 using static Propeus.Module.IL.Core.Proxy.ILBuilderProxy;
 
-namespace Propeus.Module.IL.Geradores
+namespace Propeus.Module.IL.Core.Geradores.Components
 {
 
-
-    internal static partial class Constantes
-    {
-        public const string CONST_NME_METODO = "IL_Gerador_{0}_Metodo_";
-    }
-
     /// <summary>
-    /// Gerador de método
+    /// Componente para criar metodos
     /// </summary>
     internal sealed class ILMethodComponent : ILComponent, IILExecutor, IDisposable
     {
@@ -42,16 +37,18 @@ namespace Propeus.Module.IL.Geradores
         {
 
             Parameters = parameters ?? Array.Empty<ILParametro>();
+
             _executado = false;
 
-            List<MethodAttributes> typeAttributes = new();
+            List<MethodAttributes> typeAttributes = new List<MethodAttributes>();
+
             foreach (Token item in modifyAccess)
             {
                 typeAttributes.Add((MethodAttributes)Enum.Parse(typeof(MethodAttributes), item.GetEnumDescription()));
             }
 
             TypeBuilder typeBuilder = BuilderProxy.GetBuilder<TypeBuilder>() ?? throw new InvalidOperationException($"O tipo {nameof(TypeBuilder)} não foi encontrado no proxy");
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(name, typeAttributes.ToArray().JoinEnums(), type, Helpers.Cast<Type>(Parameters).ToArray());
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(name, typeAttributes.ToArray().JoinEnums(), type, Propeus.Module.IL.Core.Helpers.Helpers.Cast<Type>(Parameters).ToArray());
             BuilderProxy.RegisterBuilders(methodBuilder);
 
             for (int i = 0; i < Parameters.Length; i++)
@@ -88,6 +85,9 @@ namespace Propeus.Module.IL.Geradores
         /// </summary>
         internal List<IILPilha> StackExecution { get; private set; }
 
+        /// <summary>
+        /// Indica se o componente ja foi aplicado na classe
+        /// </summary>
         private bool _executado;
 
 
@@ -173,6 +173,10 @@ namespace Propeus.Module.IL.Geradores
 
         private bool disposedValue;
 
+        /// <summary>
+        /// Libera este componente da memora
+        /// </summary>
+        /// <param name="disposing">Libera a pilha de execução da memoria</param>
         private void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -193,7 +197,7 @@ namespace Propeus.Module.IL.Geradores
         }
 
 
-
+        /// <inheritdoc/>
         public void Dispose()
         {
             // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'

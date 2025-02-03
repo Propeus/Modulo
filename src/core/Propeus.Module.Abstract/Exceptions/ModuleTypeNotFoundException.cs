@@ -10,7 +10,7 @@ namespace Propeus.Module.Abstract.Exceptions
     public class ModuleTypeNotFoundException : ModuleException
     {
         /// <summary>
-        /// Construtor padrão
+        /// Exceção para quando o tipo do modulo informado nao for encontrado no Assembly
         /// </summary>
         /// <param name="moduleName">Nome do modulo</param>
         public ModuleTypeNotFoundException(string moduleName) : base(string.Format(Constantes.ERRO_MODULO_NAO_ENCONTRADO, moduleName)) { }

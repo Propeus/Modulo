@@ -18,9 +18,9 @@ namespace Propeus.Module.Abstract.Attributes
     {
 
         /// <summary>
-        /// Indica a qual moduleType o contrato pertence
+        /// Inicializa o atributo informando o nome do modulo alvo
         /// </summary>
-        /// <param name="moduleName">ModuleName do moduleType</param>
+        /// <param name="moduleName">Nome do modulo</param>
         public ModuleContractAttribute(string moduleName)
         {
 
@@ -34,9 +34,9 @@ namespace Propeus.Module.Abstract.Attributes
         }
 
         /// <summary>
-        /// Indica a qual moduleType o contrato pertence
+        /// Inicializa o atributo informando o tipo do modulo alvo
         /// </summary>
-        /// <param name="moduleType">ModuleType do moduleType</param>
+        /// <param name="moduleType">Tipo do modulo</param>
         public ModuleContractAttribute(Type moduleType)
         {
 
@@ -52,11 +52,11 @@ namespace Propeus.Module.Abstract.Attributes
         }
 
         /// <summary>
-        /// ModuleName do moduleType
+        /// Nome do modulo
         /// </summary>
         public string ModuleName { get; }
         /// <summary>
-        /// ModuleType do moduleType
+        /// Tipo do modulo
         /// </summary>
         /// <remarks>
         /// Esta propriedade e opcional e sera preenchida somente quando o tipo for informado no construtor do atributo

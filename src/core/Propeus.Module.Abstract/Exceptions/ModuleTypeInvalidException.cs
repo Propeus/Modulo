@@ -6,17 +6,16 @@ namespace Propeus.Module.Abstract.Exceptions
     /// <summary>
     /// Excecao para quando o modulo nao seguir os padroes de implementacao
     /// </summary>
+    /// <remarks>
+    /// Se o objeto nao for uma classe ou uma interface, esta exceção será acionado
+    /// </remarks>
     [Serializable]
     public class ModuleTypeInvalidException : ModuleException
     {
         ///<inheritdoc/>
         public ModuleTypeInvalidException(string message) : base(message) { }
 
-        ///<inheritdoc/>
-        [ExcludeFromCodeCoverage(Justification = "Impelementacao do Serializable Pattern")]
-        protected ModuleTypeInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+
 
         /// <summary>
         /// Excecao para quando o modulo nao seguir os padroes de implementacao
@@ -51,6 +50,12 @@ namespace Propeus.Module.Abstract.Exceptions
             protected TypeModuleUnmarkedException(SerializationInfo info, StreamingContext context) : base(info, context)
             {
             }
+        }
+
+        ///<inheritdoc/>
+        [ExcludeFromCodeCoverage(Justification = Constantes.EXECEPTION_CODE_COVERAGE_JUSTIFICATION)]
+        protected ModuleTypeInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }

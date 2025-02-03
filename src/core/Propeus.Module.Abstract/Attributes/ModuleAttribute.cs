@@ -23,6 +23,7 @@
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class ModuleAttribute : Attribute
     {
+
         /// <summary>
         /// Define uma descrição sobre o modulo
         /// </summary>
@@ -35,6 +36,25 @@
         /// <summary>
         /// Indica se o modulo deve ser mantido vivo ou não em caso de ausência de referencia
         /// </summary>
+        /// <remarks>
+        /// Caso o modulo não seja uma job escalavel, evite utilizar esta funcionalidade sem atribuir o valor <see langword="true"/> na propriedade <see cref="Singleton"/>
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// [ModuleAttribute(Description="Um modulo executando como uma tarefa em segundo plano",Keepalive=true,Singleton=true)]
+        /// public interface IModuleWorkerServiceSingleton : IModule
+        /// {
+        /// 
+        /// }
+        /// </code>
+        /// <code>
+        /// [ModuleAttribute(Description="Um modulo executando como uma tarefa em segundo plano",Keepalive=true,Singleton=true)]
+        /// public interface IModuleWorkerService : IModule
+        /// {
+        /// 
+        /// }
+        /// </code>
+        /// </example>
         /// <value>Por padrão é <see langword="false"/></value>
         public bool KeepAlive { get; set; } = false;
         /// <summary>

@@ -47,7 +47,7 @@ internal readonly struct ServiceCacheKey : IEquatable<ServiceCacheKey>
     {
         unchecked
         {
-            return (Type?.GetHashCode() ?? 23) * 397 ^ Slot;
+            return ((Type?.GetHashCode() ?? 23) * 397) ^ Slot;
         }
     }
 }
